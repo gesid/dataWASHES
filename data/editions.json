@@ -1,0 +1,46 @@
+[
+    {
+        "Edition_id": 8,
+        "Year": 2023,
+        "Title": "Anais do VIII Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
+        "Location": "João Pessoa - PB",
+        "Date": "07/11/2023",
+        "Chairs": [
+            {
+                "Name": "Emanuel Coutinho",
+                "Instituition": "Universidade Federal do Ceará (Campus de Quixadá)",
+                "State": "CE"
+            },
+            {
+                "Name": "Anna Beatriz dos Santos Marques ",
+                "Instituition": "niversidade Federal do Ceará (Campus de Russas)",
+                "State": "CE"
+            }
+        ],
+        "Papers": [1, 2],
+        "Proceedings": "https://example.com/paper2"
+    },
+    {
+        "Edition_id": 7,
+        "Year": 2023,
+        "Title": "Anais do VII Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
+        "Location": "Niterói - RJ",
+        "Date": "07/11/2023",
+        "Chairs": [
+            {
+                "Name": "Flávio Horita",
+                "Instituition": "Universidade Federal do ABC (UFABC)",
+                "State": "CE"
+            },
+            {
+                "Name": "Anna Beatriz dos Santos Marques ",
+                "Instituition": "Universidade Federal do Ceará (Campus de Quixadá)",
+                "State": "CE"
+            }
+        ],
+        "Papers": [3, 4],
+        "Proceedings": "https://example.com/paper2"
+
+    }
+]
+

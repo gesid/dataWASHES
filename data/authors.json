@@ -1,0 +1,16 @@
+[
+    {
+        "Author_id": 1,
+        "Name": "Anna Beatriz Marques",
+        "Institution": "Universidade Federal do Ceará (Campus de Russas)",
+        "State": "CE",
+        "Papers": [1, 2]
+    },
+    {
+        "Author_id": 2,
+        "Name": "John Doe",
+        "Institution": "University XYZ",
+        "State": "CA",
+        "Papers": [2, 3, 4]
+    }
+]

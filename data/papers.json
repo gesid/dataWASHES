@@ -1,0 +1,62 @@
+[
+    {
+        "Paper_id": 1,
+        "Title": "Uso das abordagens...",
+        "Year": 2020,
+        "Authors":[
+            {
+                "Name": "Allysson",
+                "Institution": "Universidade Federal do Cariri",
+                "State": "CE",
+                "Author_id": 1
+            },
+            {
+                "Name": "Allex",
+                "Institution": "Universidade Federal do Cariri",
+                "State": "CE",
+                "Author_id": 2
+            }
+        ],
+        "Abstract": "The early stages of software development require...",
+        "Resumo": "The early stages of software development require...",
+        "Keywords": "#",
+        "Type": "Completo",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/11192"
+    },
+    {
+        "Paper_id": 2,
+        "Title": "Another Example Paper",
+        "Year": 2010,
+        "Authors": [
+            {
+                "Name": "Maria",
+                "Institution": "University XYZ",
+                "State": "CA",
+                "Author_id": 3
+            }
+        ],
+        "Abstract": "The early stages of software development require...",
+        "Resumo": "The early stages of software development require...",
+        "Keywords": "#",
+        "Type": "Curto",
+        "Download_link": "https://example.com/paper2"
+    },
+    {
+        "Paper_id": 3,
+        "Title": "Another Example Paper from Allysson",
+        "Year": 2010,
+        "Authors": [
+            {
+                "Name": "Allysson",
+                "Institution": "University XYZ",
+                "State": "CA",
+                "Author_id": 1
+            }
+        ],
+        "Abstract": "The early stages of software development practice...",
+        "Resumo": "The early stages of software development require requirements...",
+        "Keywords": "#",
+        "Type": "Curto",
+        "Download_link": "https://example.com/paper3"
+    }
+]
