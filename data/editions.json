@@ -5,6 +5,7 @@
         "Title":"Anais do I Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
         "Location": "Maceió - AL",
          "Date": "25/10/2016",
+         "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/369",
          "Chairs": [
              {
                  "Name": "Davi Viana",
@@ -51,6 +52,7 @@
        "Title":"Anais do II Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
         "Location": "Salvador - BA",
          "Date": "29/05/2017",
+         "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/370",
          "Chairs": [
              {
                  "Name": "Eldânae Teixeira",
@@ -86,6 +88,7 @@
        "Title":"Anais do III Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
         "Location": "Natal - RN",
          "Date": "23/07/2018",
+         "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/218",
          "Chairs": [
              {
                 "Name": "Davi Viana",
@@ -117,6 +120,7 @@
        "Title":"Anais do IV Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
         "Location": "Belém - PA",
          "Date": "14/07/2019",
+         "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/387",
          "Chairs": [
              {
                  "Name": "Davi Viana",
@@ -158,6 +162,7 @@
        "Title":"Anais do V Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
         "Location": "Cuiabá - MT",
          "Date": "20/11/2020",
+         "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/583",
          "Chairs": [
              {
                  "Name": "Igor Steinmacher",
@@ -193,6 +198,7 @@
        "Title":"Anais do VI Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
         "Location": "Florianópolis - SC",
          "Date": "19/07/2021",
+         "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/762",
          "Chairs": [
              {
                  "Name": "Dr. Awdren Fontão",
@@ -221,6 +227,7 @@
        "Title":"Anais do VII Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
         "Location": "Niterói - RJ",
          "Date": "05/08/2021",
+         "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/932",
          "Chairs": [
              {
                  "Name": "Flávio Horita",
@@ -249,6 +256,7 @@
        "Title":"Anais do VIII Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
         "Location": "Cabo Branco - PB",
          "Date": "06/08/2023",
+         "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/1116",
          "Chairs": [
              {
                  "Name": "Emanuel Ferreira Coutinho",
