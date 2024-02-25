@@ -1,13 +1,13 @@
 from flask import Flask, jsonify, request
 import json
 
-with open('data/editions.json', 'r') as editions_file:
+with open('data/editions.json', 'r', encoding='utf8') as editions_file:
     editions = json.load(editions_file)
 
-with open('data/papers.json', 'r') as papers_file:
+with open('data/papers.json', 'r', encoding='utf8') as papers_file:
     papers = json.load(papers_file)
 
-with open('data/authors.json', 'r') as authors_file:
+with open('data/authors.json', 'r', encoding='utf8') as authors_file:
     authors = json.load(authors_file)
 
 app = Flask(__name__)
