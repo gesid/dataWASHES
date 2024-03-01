@@ -1,13 +1,13 @@
-from flask import jsonify
-from flask_restx import Resource, Namespace, Api, fields
+from flask_restx import Resource, Namespace, fields
 from src.server.instance import server
 import json
 
-author = server.api.model('Author', {
+author = server.getApi().model('Author', {
     'Author_id': fields.Integer(description='The author unique identifier'),
     'Name': fields.String(description='Author\'s name', ),
     'State': fields.String(description='Author\'s state'),
-    'Papers': fields.List(fields.Integer, description='Author\'s published paper\'s IDs')
+    'Institution': fields.String(description='Author\' institution'),
+    'Papers': fields.List(fields.Integer, description='IDs of the author\'s published papers')
 })
 
 ns = Namespace('Authors')
@@ -20,4 +20,4 @@ class AuthorsList(Resource):
     @ns.doc('list_authors')
     @ns.marshal_list_with(author)
     def get(self):
-        return jsonify(authors_db)
+        return authors_db

@@ -1,8 +1,28 @@
-from flask import jsonify, request
-from flask_restx import Resource, Namespace
+from flask import request
+from flask_restx import Resource, Namespace, fields
+from src.server.instance import server
 import json
 
 ns = Namespace('Papers')
+
+author = server.getApi().model('Paper Author', {
+    'Name': fields.String(description='Author\'s name'),
+    'Institution': fields.String(description='Author\' institution'),
+    'State': fields.String(description='Author\'s state', exmple='CE'),
+    'Author_id': fields.Integer(description='The author unique identifier'),
+})
+
+paper = server.getApi().model('Paper', {
+    'Authors': fields.List(fields.Nested(author), description='A list of the paper authors IDs'),
+    'Paper_id': fields.Integer(description='The paper unique identifier'),
+    'Title': fields.String(description='Paper title', ),
+    'Year': fields.Integer(description='Publication year of the paper'),
+    'Abstract': fields.String(description='Abstract of the paper'),
+    'Resumo': fields.String(description='Resumo do artigo'),
+    'Keywords': fields.String(description='Paper keywords', ),
+    'Type': fields.String(description='The type of publication', enum=['Curto', 'Poster', 'Completo']),
+    'Download_link': fields.String(description='A link to download the paper'),
+})
 
 with open('data/papers.json', 'r', encoding='utf8') as papers_file:
     papers_db = json.load(papers_file)
@@ -10,6 +30,17 @@ with open('data/papers.json', 'r', encoding='utf8') as papers_file:
 @ns.route('/')
 class PapersList(Resource):
 
+    @ns.doc('list_papers', params={
+        'year': 'An year',
+        'id': 'A paper ID',
+        'type': 'A type of paper',
+        'name': 'A author name',
+        'institution': 'An institution',
+        'state': 'A state',
+        'abstract': 'A abstract',
+        'resumo': 'Um resumo',
+    })
+    @ns.marshal_list_with(paper)
     def get(self):
         year = request.args.get('year')
         paper_id = request.args.get('id')
@@ -46,5 +77,5 @@ class PapersList(Resource):
 
         if resumo_query:
             filtered_papers = [paper for paper in filtered_papers if resumo_query.lower() in paper['Resumo'].lower()]
-
-        return jsonify(filtered_papers)
+        print(filtered_papers)
+        return filtered_papers
