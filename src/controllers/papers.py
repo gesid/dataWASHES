@@ -6,22 +6,22 @@ import json
 ns = Namespace('Papers')
 
 author = server.getApi().model('Paper Author', {
-    'Name': fields.String(description='Author\'s name'),
-    'Institution': fields.String(description='Author\' institution'),
-    'State': fields.String(description='Author\'s state', exmple='CE'),
-    'Author_id': fields.Integer(description='The author unique identifier'),
+    'Name': fields.String(description='Author\'s name', example='Maria'),
+    'Institution': fields.String(description='Author\' institution', example='Universidade Federal do Cariri'),
+    'State': fields.String(description='Author\'s state', exmple='CE', example='CE'),
+    'Author_id': fields.Integer(description='The author unique identifier', example='34'),
 })
 
 paper = server.getApi().model('Paper', {
     'Authors': fields.List(fields.Nested(author), description='A list of the paper authors IDs'),
-    'Paper_id': fields.Integer(description='The paper unique identifier'),
-    'Title': fields.String(description='Paper title', ),
-    'Year': fields.Integer(description='Publication year of the paper'),
-    'Abstract': fields.String(description='Abstract of the paper'),
-    'Resumo': fields.String(description='Resumo do artigo'),
-    'Keywords': fields.String(description='Paper keywords', ),
+    'Paper_id': fields.Integer(description='The paper unique identifier', example='3'),
+    'Title': fields.String(description='Paper title', example='Um Modelo para o Gerenciamento de Padrões de Projeto em Java'),
+    'Year': fields.Integer(description='Publication year of the paper', example='2022'),
+    'Abstract': fields.String(description='Abstract of the paper', example='Design  patterns  are  defined  as  reusable  solutions  to  recurring problems. These solutions...'),
+    'Resumo': fields.String(description='Resumo do artigo', example='Os padrões de projeto são definidos como soluções reusáveis para problemas  recorrentes.  Essas...'),
+    'Keywords': fields.String(description='Paper keywords', example='Java, Modelo, Gerenciamento'),
     'Type': fields.String(description='The type of publication', enum=['Curto', 'Poster', 'Completo']),
-    'Download_link': fields.String(description='A link to download the paper'),
+    'Download_link': fields.String(description='A link to download the paper', example='https://example.com'),
 })
 
 with open('data/papers.json', 'r', encoding='utf8') as papers_file:
