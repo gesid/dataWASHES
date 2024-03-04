@@ -1,5 +1,7 @@
-from flask import Flask, jsonify, request
-import json
+from src.server.instance import server
+from src.controllers.authors import ns as authorsNs
+from src.controllers.edtions import ns as editionsNs
+from src.controllers.papers import ns as papersNs
 
 with open("data/editions.json", "r") as editions_file:
     editions = json.load(editions_file)
@@ -223,3 +225,9 @@ def get_paper_abstracts():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
+server.api.add_namespace(editionsNs)
+server.api.add_namespace(papersNs)
+server.api.add_namespace(authorsNs)
+
+server.run()

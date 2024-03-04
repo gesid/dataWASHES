@@ -1,62 +1,2702 @@
 [
-    {
-        "Paper_id": 1,
-        "Title": "Uso das abordagens...",
-        "Year": 2020,
-        "Authors":[
-            {
-                "Name": "Allysson",
-                "Institution": "Universidade Federal do Cariri",
-                "State": "CE",
-                "Author_id": 1
-            },
-            {
-                "Name": "Allex",
-                "Institution": "Universidade Federal do Cariri",
-                "State": "CE",
-                "Author_id": 2
-            }
-        ],
-        "Abstract": "The early stages of software development require...",
-        "Resumo": "The early stages of software development require...",
-        "Keywords": "#",
-        "Type": "Completo",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/11192"
-    },
-    {
-        "Paper_id": 2,
-        "Title": "Another Example Paper",
-        "Year": 2010,
-        "Authors": [
-            {
-                "Name": "Maria",
-                "Institution": "University XYZ",
-                "State": "CA",
-                "Author_id": 3
-            }
-        ],
-        "Abstract": "The early stages of software development require...",
-        "Resumo": "The early stages of software development require...",
-        "Keywords": "#",
-        "Type": "Curto",
-        "Download_link": "https://example.com/paper2"
-    },
-    {
-        "Paper_id": 3,
-        "Title": "Another Example Paper from Allysson",
-        "Year": 2010,
-        "Authors": [
-            {
-                "Name": "Allysson",
-                "Institution": "University XYZ",
-                "State": "CA",
-                "Author_id": 1
-            }
-        ],
-        "Abstract": "The early stages of software development practice...",
-        "Resumo": "The early stages of software development require requirements...",
-        "Keywords": "#",
-        "Type": "Curto",
-        "Download_link": "https://example.com/paper3"
-    }
+   {
+      "Authors":[
+         {
+            "Name":"José Jorge Lima Dias Júnior",
+            "Institution":"Departamento de Ciências Exatas – Universidade Federal da Paraíba (UFPB)",
+            "State":"PB",
+            "Author_id":0
+         }
+      ],
+      "Paper_id":0,
+      "Title":"Uma Reflexão sobre as Dimensões do Ambiente de Aprendizagem em Organizações de Software",
+      "Year":2016,
+      "Abstract":"Continuous  learning  of  software  development  professionals  is  a requirement for organizations that want to remain competitive. In this way, we can perceive a  software  organization  as  a  environment to  foster  learning processes.  Thus,  this  paper  presents  a  multi-dimensional  theoretical  model about learning environment in software organizations in order to facilitate the understanding of the subject and generate reflections for future research.",
+      "Resumo":"O  aprendizado  contínuo  dos  profissionais  de  desenvolvimento  de software é   uma   exigência   para   organizações   que pretendem se   manter competitivas. Desta  forma,  podemos  perceber  uma  organização  de  software como  um  ambiente que  deve  fomentar  os  processos  de  aprendizagem.  Assim, este  artigo  apresenta  um  modelo  teórico  multidimensional  sobre  o  ambiente de   aprendizagem   em   organizações   de   software a   fim   de   facilitar   a compreensão do tema e gerar reflexões para futuras pesquisas.",
+      "Keywords":"treinamento, organização de software",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6224"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Danne da Silva Oliveira",
+            "Institution":"Instituto de Ciências Exatas - Universidade Federal de Goiás",
+            "State":"GO",
+            "Author_id":1
+         },
+         {
+            "Name":"Heitor Costa",
+            "Institution":"Departamento de Ciência da Computação - Universidade Federal de Lavras",
+            "State":"MG",
+            "Author_id":2
+         },
+         {
+            "Name":"Paulo Afonso Pereira Junior",
+            "Institution":"Departamento de Ciência da Computação - Universidade Federal de Lavras",
+            "State":"MG",
+            "Author_id":3
+         }
+      ],
+      "Paper_id":1,
+      "Title":"Análise de Ferramentas para Controle de Versões de Software no Contexto do MPS.BR.",
+      "Year":2016,
+      "Abstract":"Configuration  Management  (CM)  is  one  of  MPS.BR  processes, which deals with the management software versions. Software version control along its development cycle is not a simple task and the use of computational tools  can  impact  positively  or  negatively  on  this  control.  Therefore,  it  is necessary  to  undertake  an  analysis  of  support  tools  for  software  version control  in  the  literature  to  find  out  whether they are appropriate or not. This work   consisted   in   the   analysis   of   the   software   version   control   tools “Subversion”, “Git”, “Bazaar”  and “Mercurial”,  in  order  to  check  if  they include the requirements specified by the CM process in MPS.BR model",
+      "Resumo":"#",
+      "Keywords":"gerenciamento de configuração, sistema de controle de versão, MPS.BR",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6225"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Elisiane Monteiro Soares",
+            "Institution":"Instituto de Ciências Exatas e Naturais (ICEN) – Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":4
+         },
+         {
+            "Name":"Sandro Ronaldo Bezerra Oliveira",
+            "Institution":"Instituto de Ciências Exatas e Naturais (ICEN) – Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":5
+         },
+         {
+            "Name":"Melquizedeque Cabral dos Santos",
+            "Institution":"Centro de Informática – Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":6
+         },
+         {
+            "Name":"Alexandre Marcos Lins de Vasconcelos",
+            "Institution":"Centro de Informática – Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":7
+         }
+      ],
+      "Paper_id":2,
+      "Title":"Uma Abordagem para a Implementação da Gerência do Fornecedor usando Metodologias Ágeis",
+      "Year":2016,
+      "Abstract":"This  paper  proposes  an  approach  about  best  practices  using  agile methods to  manage  the  software  acquisition  process  in  the  context  of  software development companies, based on the Supplier Agreeement Management process area in CMMI-DEV and the Acquisition process in MR-MPS-SW. ",
+      "Resumo":"Esse artigo   propõe   uma abordagem de   boas práticas   utilizando métodos ágeis para  gerenciar  o  procedimento  de  aquisição no  contexto  de empresas de desenvolvimento de software, baseado na área de processo Supplier Agreeement  Management  do  CMMI-DEV e  no  processo  de  Aquisição  do  MR-MPS-SW.",
+      "Keywords":"métodos ageis, gestão de forenecedores, CMMI, MPS.BR",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6226"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Rebeca Teodoro da Silva",
+            "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":8
+         },
+         {
+            "Name":"Luiz Gustavo Ferreira Aguiar",
+            "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":9
+         },
+         {
+            "Name":"Rodrigo Pereira dos Santos",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":10
+         },
+         {
+            "Name":"Elias Canhadas Genvigir",
+            "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":11
+         }
+      ],
+      "Paper_id":3,
+      "Title":"Levantamento de Papéis e Atores em um Ecossistema de Software no Domínio Público",
+      "Year":2016,
+      "Abstract":"Software  Ecosystem  (SECO)  is  an  interaction  of  a group of players on a common technology platform, resulting in a number of software solutions or  services.  The  analysis  of  the  roles  of  the  actors  involved  in  a  SECO  is  an approach  that  can  be  used  for  understanding  their  relationships.  In  this context, this paper presents a preliminary process that aids the analysis of the roles  of  the  actors  involved  in  the  SECO  based  on  their  relationships  and interactions  with  the  central  organization  (keystone),  more  specifically  in  the public  domain.  We  investigate  a  real  SECO,  Projudi  System  of  the  Court  of Justice, and conducted some interviews as our first steps.",
+      "Resumo":"Ecossistema de Software (ECOS) é uma interação de um conjunto de atores  sobre  uma  plataforma  tecnológica  comum,  que  resulta  em  um  número de soluções ou serviços de software. A análise de papéis dos atores envolvidos em  um  ECOS  é  uma  abordagem  que  pode  ser  utilizada  para  a  compreensão das  relações  envolvidas.  Neste  contexto,  este  artigo  apresenta  um  processo preliminar  para  análise  de  papéis  dos  atores  envolvidos  em  ECOSs  baseado em seus relacionamentos e interações com a organização central, no domínio público.  Uma  investigação  foi  feita  em  um  ECOS  real,  o  Sistema  Projudi  do Tribunal de Justiça, e entrevistas foram conduzidas como um passo inicial.",
+      "Keywords":"Ecosistemas de Sofware, domínio público, papeis, responsabilidades",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6227"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Olavo Barbosa",
+            "Institution":"State Agency for Information Technology of Pernambuco",
+            "State":"PE",
+            "Author_id":12
+         },
+         {
+            "Name":"Rodrigo Pereira dos Santos",
+            "Institution":"DIA/CCET – Federal University of the State of Rio de Janeiro (UNIRIO) ",
+            "State":"RJ",
+            "Author_id":10
+         },
+         {
+            "Name":"Davi Viana",
+            "Institution":"Computer Engineering/CCET– Federal University of Maranhão (UFMA)",
+            "State":"MA",
+            "Author_id":13
+         }
+      ],
+      "Paper_id":4,
+      "Title":"Preliminary Findings of Expert and Systematic Reviews on the Software Ecosystems Research.",
+      "Year":2016,
+      "Abstract":"Software Ecosystems (SECO) are a set of organizations and actors, as  well  as  their  relations  that  cover  technical,  social  and  business  aspects  of software  development.  As  a  research  field,  several  studies  and  reviews  were conducted towards a body of knowledge for the SECO field. In this paper, we preliminarily  analyze  these  studies  in  order  to  provide  an  initial  overview  of the SECO literature. Our intention is to aid researchers to know some relevant opportunities to foster the field’s evolution, such as collaborative governance.",
+      "Resumo":"#",
+      "Keywords":"Software ecosystem, literature review",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6228"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Jerônimo C. Pellegrini",
+            "Institution":"LabLivre – Universidade Federal do ABC (UFABC)",
+            "State":"SP",
+            "Author_id":14
+         },
+         {
+            "Name":"Sérgio Amadeu da Silveira",
+            "Institution":"LabLivre – Universidade Federal do ABC (UFABC)",
+            "State":"SP",
+            "Author_id":15
+         },
+         {
+            "Name":"Claudio Penteado",
+            "Institution":"LabLivre – Universidade Federal do ABC (UFABC)",
+            "State":"SP",
+            "Author_id":16
+         },
+         {
+            "Name":"Daniel P. Astone",
+            "Institution":"LabLivre – Universidade Federal do ABC (UFABC)",
+            "State":"SP",
+            "Author_id":17
+         },
+         {
+            "Name":"Murilo B. Machado",
+            "Institution":"LabLivre – Universidade Federal do ABC (UFABC)",
+            "State":"SP",
+            "Author_id":18
+         },
+         {
+            "Name":"Paulo R. de Sousa",
+            "Institution":"LabLivre – Universidade Federal do ABC (UFABC)",
+            "State":"SP",
+            "Author_id":19
+         },
+         {
+            "Name":"Rodolfo S. Avelino",
+            "Institution":"LabLivre – Universidade Federal do ABC (UFABC)",
+            "State":"SP",
+            "Author_id":20
+         }
+      ],
+      "Paper_id":5,
+      "Title":"Softwares e Produção Cultural no Brasil",
+      "Year":2016,
+      "Abstract":"We present a project developed by a university in partnership withBrazil’s Ministery of Culture. The goal is to find innovative solutions to the de-velopment of free technologies by public administarion in order to contribute topolicy manegement and cultural democratization, encouraging the developmentand improvement of free cultural software.  The project has 4 axes of action:(1) uses and software appropriation by cultural operators; (2) studies of func-tioning of free software developers communities; (3) testing of relevant culturalsoftware; and (4) proposal of a new management model for the encouragementof integrated development of free cultural software.",
+      "Resumo":"Apresentamos resumidamente o projeto desenvolvido por uma Universidade, em parceria com o Ministério da Cultura. O objetivo é encontrar soluções inovadoras para o desenvolvimento de tecnologias livres pelo poder público que contribuam para a gestão de políticas públicas e para a democratização cultural, incentivando o desenvolvimento e a melhoria dos softwares culturais livres. O projeto articula-se em 4 eixos de atuação: (1) usos e apropriação de software pelos agentes culturais; (2) dinâmicas de funcionamento das comunidades de desenvolvedores de softwares livres; (3) testes dos principais softwares culturais; e (4) apresentação de um novo modelo de gestão para o incentivo de desenvolvimento integrado de softwares culturais livres.",
+      "Keywords":"software livre, políticas públicas, produção cultural, Brasil",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6229"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Emanuel F. Coutinho",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":21
+         },
+         {
+            "Name":"Italo de Oliveira",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":22
+         },
+         {
+            "Name":"Carla I. M Bezerra",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":23
+         }
+      ],
+      "Paper_id":6,
+      "Title":"Oportunidades de Pesquisa em um Ecossistema de SoftwaredeE-learning: ECOS SOLAR",
+      "Year":2016,
+      "Abstract":"A software ecosystem (ECOS) refers to a set of software with a cer-tain degree of symbiotic relationship, and may consist of actors interacting witha market supported by a technological platform or common market. Virtual Le-arning Environments (VLE) aim to create environments based on the Internet toenable the process of building knowledge and autonomy from their interactors.The SOLAR AVA is a virtual space for classroom courses and semipresentialcourses. The aim of this paper is to present some research opportunities in thee-learning SOLAR ECOS development and in software quality.",
+      "Resumo":"Um Ecossistema de Software (ECOS) refere-se a um conjunto de pro-dutos de software com determinado grau de relacionamento simbi ́otico, po-dendo consistir de atores interagindo com um mercado, apoiados por umaplataforma tecnol ́ogica. Ambientes Virtuais de Aprendizagem (AVA) visam acriac ̧ ̃ao de ambientes na Internet que possibilitem a construc ̧ ̃ao de conheci-mento e autonomia de seus interagentes. O AVA SOLAR ́e um espac ̧o virtualpara cursos presenciais ou semi-presenciais. O objetivo deste trabalho ́e apre-sentar algumas oportunidades de pesquisa no desenvolvimento e qualidade desoftware do ECOS de e-learning SOLAR.",
+      "Keywords":"ecossistema de software, ambiente virtul de aprendizagem, e-learning",
+      "Type":"Poster",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6230"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Cinthya Cavalcanti",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":24
+         },
+         {
+            "Name":"Maria Lencastre",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":25
+         },
+         {
+            "Name":"José Junior",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":26
+         },
+         {
+            "Name":"João Pimentel",
+            "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
+            "State":"PE",
+            "Author_id":27
+         },
+         {
+            "Name":"Tainã Santos",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":28
+         },
+         {
+            "Name":"Timóteo Silva",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":29
+         }
+      ],
+      "Paper_id":7,
+      "Title":"Uma Análise de Abordagens que Fornecem Suporte à  Priorização de requisitos: reqT/CSP e G-4REPrioritization",
+      "Year":2016,
+      "Abstract":"#",
+      "Resumo":"Este  artigo  analisa  duas  abordagens  de  apoio  ao  processo  de priorização  de  requisitos:  a  Linguagem  de  Domínio  Específico  reqT/CSP e o Guia G-4Reprioritization, com o objetivo de identificar se as duas abordagens se sobrepõem ou se são complementares com relação ao suporte à priorização de requisitos.",
+      "Keywords":"priorização de requisitos, linguagem de domínio específico, comparação",
+      "Type":"Poster",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6231"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Edneuci D. Audacio",
+            "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":30
+         },
+         {
+            "Name":"Anna Paula de A. Lande",
+            "Institution":"Universidade Norte do Paraná (UNOPAR)",
+            "State":"PR",
+            "Author_id":31
+         },
+         {
+            "Name":"Rebeca Teodoro da Silva",
+            "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":8
+         },
+         {
+            "Name":"Elias Canhadas Genvigir",
+            "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":11
+         }
+      ],
+      "Paper_id":8,
+      "Title":"Avaliação da Aplicação do Modelo Iterativo Incremental na Segmentação de Solicitações de Desenvolvimento de Software",
+      "Year":2016,
+      "Abstract":"This article aims to present the use of Iterative Incremental model as a support tool in the software development process in order to collaborate with the error reduction. For this study, samples of records of a Study Company were taken  and  analyzed  in  two  phases:  the  first  based  on  the  traditional  model, previously used, and the second after adoption of Iterative incremental model.",
+      "Resumo":"Este artigo tem como propósito apresentar o uso do modelo Iterativo Incremental  como  ferramenta  de  apoio  no  processo  do  desenvolvimento  de software de forma a colaborar com a redução de erros. Para realização deste estudo, foram realizadas coletas e análise dos registros de uma Empresa Estudo em  duas  fases,  a  primeira  baseada  no  modelo  tradicional,  previamente utilizado, e a segunda após adoção do modelo Iterativo Incremental.",
+      "Keywords":"Modelo interativo e incremental, segmentação de solicitações",
+      "Type":"Poster",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6232"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"William Simão de Deus",
+            "Institution":"Universidade Tecnologica Federal do Parana (UTFPR)",
+            "State":"PR",
+            "Author_id":32
+         },
+         {
+            "Name":"Renata Marques Barros",
+            "Institution":"Universidade Tecnologica Federal do Parana (UTFPR)",
+            "State":"PR",
+            "Author_id":33
+         },
+         {
+            "Name":"Alexandre L'erario",
+            "Institution":"Universidade Tecnologica Federal do Parana (UTFPR)",
+            "State":"PR",
+            "Author_id":34
+         }
+      ],
+      "Paper_id":9,
+      "Title":"Um Modelo para o Gerenciamento do Crowdsourcing emProjetos de Software",
+      "Year":2016,
+      "Abstract":"Crowdsourcing is an emerging business model applied to software de-velopment projects due to the cost reduction and involvement of experts. Howe-ver, there are challenges on how to manage it in such projects due to the dis-persion of participants and the activities of parallelization.   In this study,  weconducted a literature review and verified practices applied to the managementof  crowdsourcing  in  software  projects.   We  have  compiled  the  results  of  ouranalysis on a management model that has been validated in a quasi-experimentcrowdsourcing.  The application of the model demonstrated capacity and effi-ciency to realize the management of dispersed participants and activities.",
+      "Resumo":"O crowdsourcing é um emergente modelo de negócios aplicado ao desenvolvimento de projetos de software em virtude da redução de custos e envolvimento de especialistas. Entretanto, existem desafios sobre como gerenciá-lo em tais projetos devido à dispersão de participantes e a paralelização de atividades. Neste estudo, nós realizamos uma análise da literatura e verificamos práticas aplicadas para o gerenciamento do crowdsourcing em projetos de software. Nós compilamos o resultado da nossa análise em um modelo de gerenciamento que foi validado em um quase-experimento crowdsourcing. A aplicação do modelo demonstrou capacidade e eficiência para realizar o gerenciamento entre os participantes dispersos e as atividades.",
+      "Keywords":"crowdsourcing, gestão de projetos",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6218"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Percival Lucena",
+            "Institution":"IBM Research",
+            "State":"SP",
+            "Author_id":35
+         },
+         {
+            "Name":"Leonardo P. Tizzei",
+            "Institution":"IBM Research",
+            "State":"SP",
+            "Author_id":36
+         }
+      ],
+      "Paper_id":10,
+      "Title":"Applying Software Craftsmanship Practices to a ScrumProject: an Experience Report",
+      "Year":2016,
+      "Abstract":"The   Software   Craftsmanship   manifesto   has   defined   values   andprinciples  that  software  development  teams  should  follow  to  deliver  qualitysoftware   that   fulfills   functional   and   non-functional   requirements   withoutdealing with high amounts of technical debt. Software craftsmanship approachto  software  development  prioritizes  technical  practices  in  order  to  provide  aclean code base.  This work analyzes a set of practices that can be applied toa Scrum project that aims to incorporate Software Craftsmanship values.  Theprocess  implementation  described  may  be  a  useful  contribution  for  softwaredevelopment teams who also intend to implement Software Craftsmanship ontheir projects.",
+      "Resumo":"#",
+      "Keywords":"Sofwtare craftmanship, scrum, software engineering",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6219"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Giuseppe Portolese",
+            "Institution":"Universidade Estadual de Maringá (UEM)",
+            "State":"PR",
+            "Author_id":37
+         },
+         {
+            "Name":"Guilherme A. M. da Cruz",
+            "Institution":"Universidade Estadual de Maringá (UEM)",
+            "State":"PR",
+            "Author_id":38
+         },
+         {
+            "Name":"Elisa H. M. Huzita",
+            "Institution":"Universidade Estadual de Maringá (UEM)",
+            "State":"PR",
+            "Author_id":39
+         },
+         {
+            "Name":"Valéria D. Feltrim",
+            "Institution":"Universidade Estadual de Maringá (UEM)",
+            "State":"PR",
+            "Author_id":40
+         }
+      ],
+      "Paper_id":11,
+      "Title":"Uma avaliação de ferramentas de análise de sentimentos aplicadas a comentários da plataforma GitHub",
+      "Year":2016,
+      "Abstract":"Distributed software development has become frequent and the inte-raction between those involved, which is often influenced by social and culturalaspects, reflects in the performance of the teams.  Sentiment analysis has beenused to capture subjective information and get a better understanding of theinteractions of these teams.  Therefore, it is interesting to evaluate the perfor-mance of available tools when applied to that domain.  In this work nine senti-ment analysis tools were evaluated using GitHub comments manually annotatedaccording to their polarity.  Results showed that SentiStrength performed bestamong the evaluated tools, but with average performance below 50%.",
+      "Resumo":"O desenvolvimento distribu ́ıdo de software tem se tornado frequentee a interac ̧ ̃ao entre os envolvidos, muitas vezes influenciada por aspectos soci-ais e culturais, reflete no desempenho das equipes.  A an ́alise de sentimentosvem sendo empregada para capturar informac ̧ ̃oes subjetivas e obter um maiorentendimento das interac ̧ ̃oes dessas equipes.  Portanto, ́e interessante avaliaro desempenho das ferramentas dispon ́ıveis quando aplicadas a esse dom ́ınio.Neste  trabalho  nove  ferramentas  de  an ́alise  de  sentimentos  foram  avaliadasusando coment ́arios extra ́ıdos da plataforma GitHub e que foram manualmenteanotados quanto`a polaridade. Os resultados mostraram que a ferramenta Sen-tiStrength se saiu melhor, por ́em com desempenho m ́edio abaixo de 50%.",
+      "Keywords":"GitHub, mineração de repositórios, análise de sentimentos",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6220"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Marina Gabriela do Amaral Santos,",
+            "Institution":"Universidade Federal de Minas Gerais (UFMG)",
+            "State":"MG",
+            "Author_id":41
+         },
+         {
+            "Name":"Maurício R. de A. Souza",
+            "Institution":"Universidade Federal de Minas Gerais (UFMG)",
+            "State":"MG",
+            "Author_id":42
+         },
+         {
+            "Name":"Eduardo Figueiredo",
+            "Institution":"Universidade Federal de Minas Gerais (UFMG)",
+            "State":"MG",
+            "Author_id":43
+         }
+      ],
+      "Paper_id":12,
+      "Title":"Padrões de Projeto em Java: Um Estudo Prático sobre a Utilização e Benefícios",
+      "Year":2016,
+      "Abstract":"Design  patterns  are  defined  as  reusable  solutions  to  recurring problems. These solutions have many expected benefits for the project, such as ease  of  communication,  maintainability,  and  organization.  Design  patterns also  bring  a  common  vocabulary  to  the  development  team.  However,  it  is necessary for the project to be designed for the correct application of design patterns and organizations do not always provide time for such. This paper presents the results of a survey conducted with Java software developers in order  to  investigate  their  knowledge,  incentives,  and  difficulties  in  the adoption of design patterns. As a result, we observed great influence of the company's culture and adopted process practices.",
+      "Resumo":"Os padrões de projeto são definidos como soluções reusáveis para problemas  recorrentes.  Essas  soluções  visam  diversos  benefícios  para  o projeto, tais como: facilidade de comunicação, uma vez que os padrões de projeto  trazem  um  vocabulário  comum;  facilidade  de  manutenção  e organização do projeto. No entanto, é necessário que o projeto seja modelado para  a  aplicação  correta  dos  padrões  de  projeto  e  nem  sempre  as organizações disponibilizam tempo para tal modelagem. Este artigo apresenta os  resultados  de  um  questionário  aplicado  à  desenvolvedores  de  software Java  com  o  objetivo  de  investigar  seus  conhecimentos,  incentivos  e dificuldades  no  uso  de  padrões  de  projeto.  Como  resultado,  observou-se grande influência da cultura da empresa e seus processos adotados. ",
+      "Keywords":"padrões de projeto, survey",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6221"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Monica Anastassiu",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":44
+         },
+         {
+            "Name":"Flavia Maria Santoro",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":45
+         },
+         {
+            "Name":"Gleison Santos",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":46
+         }
+      ],
+      "Paper_id":13,
+      "Title":"Meta-modelo para Mudança Organizacional em Melhoria de Processo de Software",
+      "Year":2016,
+      "Abstract":"Change  involves  process,  people,  skills,  organizational  culture  and leadership, among other topics that include the critical factors to be observed for  a  successful  change. This  paper presents  a  conceptual meta  model  for organizational  change,  which  is  able  to  represent  the  important  concepts involved with organizational change in a software process improvement (SPI) initiativesuch  as stakeholders,resistance  and  competence.  A  case  study  was applied  in  a  software  process  improvement  initiative  in an  organization to assess the meta model applicability.",
+      "Resumo":"Mudança    envolve    processo,    pessoas,    competências,    cultura organizacional  e  liderança,  dentre  outros  tópicos  que  englobam  os  fatores críticos  a  serem  observados  para  uma  mudança  bem-sucedida. Esse  artigo apresenta um meta-modelo conceitual de mudança organizacional, que é capaz de    representar    os    conceitos    importantes    envolvidos    com    mudança organizacional emuma  iniciativa  de  melhoria  de  processo  de  software,  tais como stakeholders, resistência e competência. Um estudo de caso foi aplicado em uma iniciativade melhoria de processo desoftware de uma empresa para avaliar a aplicabilidade do meta-modelo.",
+      "Keywords":"meta-modelo, melhoria de processo, mudança organizacional",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6222"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Bruno Pedraça de Souza",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":47
+         },
+         {
+            "Name":"Bruno Araujo Bonifácio",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":48
+         },
+         {
+            "Name":"Priscila Silva Fernandes",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":49
+         },
+         {
+            "Name":"Andrew L. Fontão",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":50
+         },
+         {
+            "Name":"Arilo Claudio Dias-Neto",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":51
+         }
+      ],
+      "Paper_id":14,
+      "Title":"Explorando a Personalidade do Desenvolvedor em Ecossistemas de Software Móvel",
+      "Year":2016,
+      "Abstract":"In a mobile software ecosystem (MSECO), the external developer is essential  element  and  the  central  organizations  (e.g.  Google,  Apple  and Microsoft) have been investing in actions for the engagement of the developer so  that  MSECO  expands in contributions with quality (e.g. download and the users'  evaluations).  Inside  of  this  scenery,  the  human  factors  compose  the developer’s experience  (DX)  and,  among  them,  the  personality  can  have impact  in  the  execution  of  processes  for  the  developer.  In  that  context,  the present paper presents a study of exploratory case for analysis of the influence of  the  personality  type  in  DX  in  MSECO.  The  results  indicate  a  correlation between  the  psychological  profile and the developers’  productivity  in  a  new platform of mobile software.",
+      "Resumo":"Em  um  ecossistema  de  software  móvel  (MSECO),  o  desenvolvedor externo é elemento essencial e as organizações centrais (e.g.  Google, Apple e Microsoft) tem investido em ações para o engajamento do desenvolvedor para que o MSECO se expanda em contribuições com qualidade (e.g. downloads e avaliações dos usuários). Dentro deste cenário, os fatores humanos compõem a experiência do desenvolvedor (DX) e, dentre eles, a personalidade pode ter impacto  na  execução  de  processos  pelo  desenvolvedor.  Nesse  contexto,  o presente  artigo  apresenta  um  estudo de  caso  exploratóriopara  análise  da influência do tipo de personalidade na DX em MSECO. Os resultados indicam indícios  de  uma  correlação  entre  o  perfil  psicológico  e  a  produtividade  de desenvolvedores em uma nova plataforma de software móvel.",
+      "Keywords":"ecossistema, software móvel, personalidade",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6223"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Awdren Fontão",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":52
+         },
+         {
+            "Name":"Oswald M. Ekwoge",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":53
+         },
+         {
+            "Name":"Rodrigo Santos",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":54
+         },
+         {
+            "Name":"Arilo Claudio Dias-Neto",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":51
+         }
+      ],
+      "Paper_id":15,
+      "Title":"Facing up the primary emotions in Mobile Software Ecosystems from Developer Experience",
+      "Year":2017,
+      "Abstract":"Mobile application 1developers use Questions and Answers (Q&A) repositories, such as Stack Overflow, to solve technical issues when developing their mobile applications. In this formed ecosystem, Q&A repositories can serve as a mechanism to analyze the experiences during mobile application development. Regarding developers' feelings about work, we can analyze the emotions involved in developer experience by mining developers' questions. We used 1,568,377 body of posts from Stack Overflow related to Android, iOS and Windows to perform comparisons among the three ecosystems regarding the emotions: Joy, Fear, Sadness, Anger, and Disgust. Our results indicate that Sadness, Anger and Joy are the most common emotions. We also identified which technical elements are involved in these emotions.",
+      "Resumo":"#",
+      "Keywords":"Software ecosystems, mobile application development, mining software repository, developer experience",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6233"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Nelson G. de Sá Leitão Junior",
+            "Institution":"Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":55
+         },
+         {
+            "Name":"Ivaldir H. de Farias Junior",
+            "Institution":"Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":56
+         },
+         {
+            "Name":"Sabrina Marczak",
+            "Institution":"Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)",
+            "State":"RS",
+            "Author_id":57
+         },
+         {
+            "Name":"Rodrigo Santos",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":54
+         },
+         {
+            "Name":"Felipe Furtado",
+            "Institution":"CESAR School",
+            "State":"PE",
+            "Author_id":58
+         },
+         {
+            "Name":"Hermano P. de Moura",
+            "Institution":"Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":59
+         }
+      ],
+      "Paper_id":16,
+      "Title":"Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
+      "Year":2017,
+      "Abstract":"Communication is still one of the main challenges of distributed software development and it is important for distributed teams to be able to maintain effective communication, i.e., to communicate properly and in a timely manner to facilitate the management of project activities and then to contribute to the process quality. Communication is also a critical aspect for Software Reuse in global development since it affects trust and can foster the not-invented-here syndrome. In order to handle such challenge, this paper presents an evaluation of a preliminary version of an assessment method for identifying communication maturity, based on the Communication Maturity Model (C2M), a model that supports the improvement of communication processes and practices in distributed organizations. We present the preliminary assessment method definition and its evaluation results obtained during two focal group sessions with IT professionals. Findings include a positive and promising perception on the benefits of adopting this method, and a demand for further work towards its maturation.",
+      "Resumo":"#",
+      "Keywords":"Communication, Maturity Models, Distributed Software Development",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6234"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Ethan T. McGee",
+            "Institution":"Universidade Clemson",
+            "State":"EUA",
+            "Author_id":60
+         },
+         {
+            "Name":"Matthew Krugh",
+            "Institution":"Universidade Clemson",
+            "State":"EUA",
+            "Author_id":61
+         },
+         {
+            "Name":"John D. McGregor",
+            "Institution":"Universidade Clemson",
+            "State":"EUA",
+            "Author_id":62
+         },
+         {
+            "Name":"Laine Mears",
+            "Institution":"Universidade Clemson",
+            "State":"EUA",
+            "Author_id":63
+         }
+      ],
+      "Paper_id":17,
+      "Title":"Designing for Reuse in an Industrial Internet of Things Monitoring Application",
+      "Year":2017,
+      "Abstract":"The Internet of Things (IoT) continues to experience rapid growth, and its influence is extending into previously unreached domains. However, some of these new domains impose specific limitations that complicate the design and implementation of IoT systems. Examples of such limitations are the exclusion of specific protocols, restrictions on the types of data that can be collected, requirements about what information can be transmitted to the public and controls around how that communication occurs. Capturing, representing and designing for these limitations as well as reuse is essential for the quick and successful deployment of such projects. In this paper, we present a case study of an IoT human in the loop monitoring system built for use within an industrial setting. We report our experiences with both designing the first deployment of the system as well as designing variation points into the software architecture to account for future iterations and deployment into other environments.",
+      "Resumo":"#",
+      "Keywords":"Architecture Analysis & Design Language, Human Issues, Intellectual Property",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6235"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Simone da Silva Amorin",
+            "Institution":"Instituto Federal da Bahia (IFBA)",
+            "State":"BA",
+            "Author_id":64
+         },
+         {
+            "Name":"John D. McGregor",
+            "Institution":"Universidade Clemson",
+            "State":"EUA",
+            "Author_id":62
+         },
+         {
+            "Name":"Eduardo Santana de Almeida",
+            "Institution":"Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":65
+         },
+         {
+            "Name":"Christina von Flach Chavez",
+            "Institution":"Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":66
+         }
+      ],
+      "Paper_id":18,
+      "Title":"The Architect's Role in Software Ecosystems Health",
+      "Year":2017,
+      "Abstract":"Software ecosystems have adopted many different strategies to achieve success and good health. The role of software architect is one of the main contributors to that success. Their activities are crucial for realizing the business strategy of their organization. Software ecosystems define multi-sided markets that require different strategies from a traditional two-sided market. The architectural practices in the multi-sided market must support the need for flexibility and rapid reaction. These new demands broaden our understanding of the software architect's role and the impact of their action on ecosystem structure. In particular the need to understand how to operate in a collaborative, cooperative environment to exploit competition. In this position paper, we discuss how software architect's actions influence the ecosystem health through their indicators: productivity, niche creation, and robustness.",
+      "Resumo":"#",
+      "Keywords":"Software Ecosystems, Software Architecture, Ecosystems Health",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6236"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Tiago Nogueira",
+            "Institution":"Instituto Federal do Tocantins (IFTO)",
+            "State":"TO",
+            "Author_id":67
+         },
+         {
+            "Name":"Letycia Duarte",
+            "Institution":"Instituto Federal de Mato Grosso (IFMT)",
+            "State":"MT",
+            "Author_id":68
+         },
+         {
+            "Name":"Simone Los",
+            "Institution":"Instituto Federal de Mato Grosso (IFMT)",
+            "State":"MT",
+            "Author_id":69
+         },
+         {
+            "Name":"Júllian Luz",
+            "Institution":"Instituto Federal de Mato Grosso (IFMT)",
+            "State":"MT",
+            "Author_id":70
+         },
+         {
+            "Name":"Deller Ferreira",
+            "Institution":"Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":71
+         }
+      ],
+      "Paper_id":19,
+      "Title":"Abordagens Metodológicas da Experiência dos Usuários Cegos Aplicadas nas Interações Web em Dispositivos Móveis: Uma Revisão Sistemática da Literatura",
+      "Year":2018,
+      "Abstract":"With the exponential growth in the scientific interest on assessing theblind users experience in the web environment,  it is essential to develop stu-dies that correlate usability features lined up to the accessibility features.  Atthe same time, with technological resources advances and access to informa-tion through different devices, there is a gap in the UX investigation in mobiledevices, specifically, in the blind users experience.  Therefore, this work propo-ses a systematic literature revision, identifying the main blind users experiencemethods applied in the mobile devices interaction.  Thus, 805 scientific articleswere identified through the literature, which approached subjects like usability,blind users experience and mobile devices.  Through result extraction, sixteendifferent applied methods were identified in the blind users experience on mo-bile devices interaction. It is pointed out the applicability of methods supportedby  expert  reviewers,  the  observation  techniques,  trial  studies,  validation  andconformity verification with the Web Content Accessibility Guidelines.",
+      "Resumo":"Com o crescimento exponencial no interesse cient ́ıfico em avaliar aexperiˆencia do usu ́ario cego em ambientes na Web, torna-se imperativo traba-lhos que correlacionam atributos de usabilidade alinhados`as caracter ́ısticasde acessibilidade.  Ao mesmo tempo, com o avanc ̧o dos recursos tecnol ́ogicose  o  acesso`as  informac ̧ ̃oes  por  diferentes  dispositivos,  h ́a  uma  lacuna  nasinvestigac ̧ ̃oes sobre Experiˆencia do Usu ́ario (UX) em dispositivos m ́oveis, es-pecificamente,  na  experiˆencia  do  usu ́ario  cego.   Assim,  este  trabalho  prop ̃oeuma revis ̃ao sistem ́atica da literatura, identificando os principais m ́etodos daexperiˆencia do usu ́ario cego aplicados nas interac ̧ ̃oes com dispositivos m ́oveis.Dessa forma, foram identificados por meio da literatura, 805 artigos cient ́ıficos,os quais enderec ̧avam assuntos sobre usabilidade, experiˆencia do usu ́ario cegoe  dispositivos  m ́oveis.    Por  meio  da  extrac ̧ ̃ao  dos  resultados,  identificou-sedezesseis  diferentes  m ́etodos  aplicados  na  experiˆencia  do  usu ́ario  cego,  nasinterac ̧ ̃oes com dispositivos m ́oveis.  Destaca-se a aplicabilidade dos m ́etodosapoiados por revisores especialistas, as t ́ecnicas de observac ̧ ̃oes, estudos expe-rimentais, validac ̧ ̃ao e verificac ̧ ̃ao de conformidade com as Diretrizes de Aces-sibilidade do Conte ́udo na Web.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3470"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Emanuel F. Coutinho",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":21
+         },
+         {
+            "Name":"Italo Santos",
+            "Institution":"Instituto de Ciências Matemáticas e de Computação - Universidade de São Paulo (ICMC/USP)",
+            "State":"SP",
+            "Author_id":72
+         },
+         {
+            "Name":"Ernesto Trajano",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":73
+         }
+      ],
+      "Paper_id":20,
+      "Title":"Modelagem de Ecossistemas de Software para Tecnologias Aplicadas a Cursos de Graduação EAD",
+      "Year":2018,
+      "Abstract":"#",
+      "Resumo":"A UAB é um sistema que oferece cursos de nível superior para a população com dificuldade de acesso à formação universitária, por meio da EAD. Diversos cursos de graduação semi-presenciais da UAB utilizam o AVA SOLAR, possuindo cada um diversas disciplinas em cidades distintas, com infraestruturas e tecnologias variadas. O SOLAR ECOS foi modelado para possibilitar uma visão geral de todo o ambiente que circunda o AVA SOLAR. O objetivo deste trabalho é mapear as tecnologias e tipos de recursos multimídia envolvidos nas disciplinas EAD oferecidas no AVA SOLAR.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3479"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Frederico Severo Miranda",
+            "Institution":"Universidade Tecnologica Federal do Parana (UTFPR)",
+            "State":"PR",
+            "Author_id":74
+         },
+         {
+            "Name":"Paulo Cezar Stadzisz",
+            "Institution":"Universidade Tecnologica Federal do Parana (UTFPR)",
+            "State":"PR",
+            "Author_id":75
+         }
+      ],
+      "Paper_id":21,
+      "Title":"Uma proposta de jogo digital para ajudar no combate a fome no Brasil",
+      "Year":2018,
+      "Abstract":"Hunger is currently a global problem,  reaching 805 million peoplearound the world and 3.4 million brazilians. This is a complex problem that willbe eradicated with a better distribution of food and actions of governments andsociety.  The FreeRice web game aims to combat hunger by converting virtualfoods into real ones. This article proposes to implement the idea of FreeRice ina 3D virtual platform to help reduce hunger in Brazil.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3478"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Emanuel F. Coutinho",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":21
+         },
+         {
+            "Name":"Leonardo O. Moreira",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":76
+         },
+         {
+            "Name":"Gabriel Paillard",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":77
+         }
+      ],
+      "Paper_id":22,
+      "Title":"Uma Proposta para o Desenvolvimento de Aplicações Orientada a Equipes Interdisciplinares",
+      "Year":2018,
+      "Abstract":"#",
+      "Resumo":"Em geral, cursos mais técnicos tendem a ter uma grade curricular orientada a produção e tecnologias. Entretanto, devido à globalização e tratamento de fatores técnicos e humanos ao mesmo tempo, adequar essa realidade aos cursos técnicos se torna uma tarefa difícil. Atualmente, a interdisciplinaridade está ganhando espaço, juntando diferentes áreas para um propósito maior. O objetivo deste trabalho é apresentar uma proposta de pesquisa para a integração de equipes com diferentes perfis, focando no desenvolvimento de sistemas diversificados e no desenvolvimento de times interdisciplinares.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3477"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"José Jorge Lima Dias Jr.",
+            "Institution":"Universidade Federal da Paraíba(UFPB)",
+            "State":"PR",
+            "Author_id":78
+         },
+         {
+            "Name":"José Adson Oliveira Guedes da Cunha",
+            "Institution":"Universidade Federal da Paraíba(UFPB)",
+            "State":"PR",
+            "Author_id":79
+         }
+      ],
+      "Paper_id":23,
+      "Title":"As competências para atuação na fronteira do conhecimento entre a engenharia de software e as ciências sociais: um ensaio teórico preliminar",
+      "Year":2018,
+      "Abstract":"This paper presents an initial theoretical essay aiming to generate reflections on the challenges related to the studies on social and human aspects in Software Engineering (SE). The focus of the discussion is based on the limitations that the SE community has in working on the frontier of knowledge with other areas and how it affects the generation of scientific knowledge. Hence, an epistemological, methodological and theoretical competency model was proposed as a possible solution.",
+      "Resumo":"Este  artigo  apresenta  um  ensaio  teóricoinicialcom  o  objetivo  de  gerar reflexões acerca dos desafios relacionados aos estudos sobre aspectos sociais e  humanos  na  Engenharia  de  Software(ES).  O  foco  da  discussão  baseia-se nas  limitações  que  a  comunidade  de ESpossui  em  trabalhar  na  fronteira  do conhecimento com outras áreas e como isso afeta a geração do conhecimento científico.Desse   modo,um   modelo   de   competências   epistemológicas, metodológicas e teóricas é proposto como um possível encaminhamento.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3476"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Arison Heltami Rodrigues Uchoa",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":80
+         },
+         {
+            "Name":"Emanuel F. Coutinho",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":21
+         }
+      ],
+      "Paper_id":24,
+      "Title":"De que Forma a Cultura do Compartilhamento e Modificação pode Colaborar no Processo de Desenvolvimento de Jogos?",
+      "Year":2018,
+      "Abstract":"#",
+      "Resumo":"O processo de desenvolvimento de um jogo digital passa por diversas etapas, das mais variadas formas, com o objetivo da criação de um produto final mais eficiente. Em geral, essas etapas são: Conceito, Pré-Produção, Produção e Pós-Produção. Crowdsourcing é um paradigma que está gradualmente sendo usado com mais regularidade e com uma ampla gama de propósitos, tais como reunir muitas fontes de conhecimento, cada uma com diferentes níveis de experiência e especialização, para servir a muitos propósitos. O objetivo deste trabalho é avaliar o impacto do uso de estratégias de crowdsourcing no desenvolvimento e manutenção de engajamento em jogos digitais, delimitando como a construção coletiva enriqueceu o produto.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3475"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Henrique J. A. Holanda",
+            "Institution":"Universidade Estadual de Rio Grande do Norte (UERN)",
+            "State":"RN",
+            "Author_id":81
+         },
+         {
+            "Name":"Carla K. de M. Marques",
+            "Institution":"Instituto Federal do Rio Grande do Norte (IFRN)",
+            "State":"RN",
+            "Author_id":82
+         },
+         {
+            "Name":"Francisca Aparecida P. Pinto",
+            "Institution":"Universidade Federal Rural do Semi-Árido (UFERSA)",
+            "State":"RN",
+            "Author_id":83
+         },
+         {
+            "Name":"Yann-Gae¨l Guéhéneuc",
+            "Institution":"Universidade de Montreal",
+            "State":"CA",
+            "Author_id":84
+         }
+      ],
+      "Paper_id":25,
+      "Title":"BPEL4PEOPLE Anti-Patterns: Discovering Authorization Constraint Anti-Patterns in Web Services",
+      "Year":2018,
+      "Abstract":"Despite the abundance of analysis techniques to discover antipatterns in BPEL, there is hardly any support for authorization constraint errors in web services orchestrated by BPEL4People. Most techniques simply abstract from people (human user interactions), while people dependencies can be the source of all kinds of errors. This paper focuses on the discovery authorization constraint anti-patterns in web services orchestrated by BPEL4People. We present an analysis approach that is expressed in terms of rule card, the wellknown, stable, adaptable, and effective model-checking techniques can be used to discover authorization constraint errors. Moreover, our approach enables a seamless integration of control-flow and authorization constraint verification.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3474"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Valdemar V. Graciano Neto",
+            "Institution":"Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":85
+         },
+         {
+            "Name":"Flávio E. A. Horita",
+            "Institution":"Universidade Federal do ABC (UFABC)",
+            "State":"SP",
+            "Author_id":86
+         },
+         {
+            "Name":"Rodrigo P. dos Santos",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":87
+         },
+         {
+            "Name":"Davi Viana",
+            "Institution":"Universidade Federal do Maranhão (UFMA)",
+            "State":"MA",
+            "Author_id":13
+         },
+         {
+            "Name":"Mohamad Kassab",
+            "Institution":"Universidade Estadual da Pennsylvania",
+            "State":"EUA",
+            "Author_id":88
+         }
+      ],
+      "Paper_id":26,
+      "Title":"How Much Does It Cost? A Simulation-Based Method for Cost Prediction in Systems-of-Systems Acquisition Processes",
+      "Year":2018,
+      "Abstract":"Software economics, acquisition, and pricing are important concerns,in  particular  for  Systems-of-Systems  (SoS).  SoS  are  alliances  of  independentsoftware-intensive systems combined to offer holistic functionalities as a resultof the constituents interoperability. SoS engineering involves separately acquir-ing constituents and combining them to form the SoS. Despite the existence ofcost prediction techniques at Systems Engineering practice, predicting SoS ac-quisition costs at design-time should include:  1) an analysis of the minimumset of constituents that offer a ‘good enough’ result, and 2) an analysis of thecompatibility between the constituents to deliver the expected result.  The maincontribution of this paper is proposing a novel simulation-based method for costprediction in constituents acquisition process, while considering the effective-ness of constituents combination to offer the intended functionalities, and pre-dicting the lowest configuration, at design-time.  We adopt a simulation modelto predict, at design-time, the results that shall be yielded by the constituentsduring SoS operation.  Preliminary results point out the success of our methodto predict such costs while still supporting a selection of the best architecturalconfigurations.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3473"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Críssia Marcelino",
+            "Institution":"Universidade Federal de Pernambuco(UFPE)",
+            "State":"PE",
+            "Author_id":89
+         },
+         {
+            "Name":"Francisco Nascimento",
+            "Institution":"Instituto Federal de Pernambuco(IFPE)",
+            "State":"PE",
+            "Author_id":90
+         }
+      ],
+      "Paper_id":27,
+      "Title":"Análise da Percepção de Importância de Requisitos de Usabilidade no Desenvolvimento de um Sistema Web com Scrum",
+      "Year":2018,
+      "Abstract":"The agile methodologies are used in software development projects, for their dynamic and efficient profile, to promote attending the customer satisfaction. However, in many cases, these methodologies seem to be used solely, without analyzing important aspects in the user-system relationship. Thus, this paper describes a case study about the perceived importance of usability in a Scrum team from a retail software company, and as a significant outcome of this work, it worths emphasizing that the team in question do not take into consideration the user study as essential practical task in order to address the usability requirements.",
+      "Resumo":"As metodologias ágeis são utilizadas nos projetos de desenvolvimento de softwares, por seu perfil dinâmico e eficiente, visando atender a satisfação dos clientes. Porém, em muitos casos, essas metodologias são utilizadas isoladamente, sem considerar aspectos importantes na relação usuário sistema. Dessa forma, o artigo descreve um caso de estudo sobre a importância percebida da usabilidade em um time Scrum de uma empresa de softwares para o varejo e, como significante resultado deste trabalho, vale ressaltar que o time em questão não leva em consideração o estudo do usuário como prática essencial para atender requisitos de usabilidade do sistema.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3472"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Marco Almada",
+            "Institution":"Universidade Estadual de Campinas (Unicamp)",
+            "State":"SP",
+            "Author_id":91
+         },
+         {
+            "Name":"Romis Attux",
+            "Institution":"Universidade Estadual de Campinas (Unicamp)",
+            "State":"SP",
+            "Author_id":92
+         }
+      ],
+      "Paper_id":28,
+      "Title":"Ethical design of social simulations",
+      "Year":2018,
+      "Abstract":"Computer simulations of social phenomena are used in academic and non-academic contexts as tools for decision-aiding. By combining social scientific knowledge, computational power, and large datasets, those systems may be involved in decisions that affect people who are not even aware of the existence of a simulation. This paper reviews topics from the philosophy of technology and computer ethics literatures in order to identify salient ethical issues related to computer simulations and the steps on the software design cycle on which they can be addressed, offering a checklist that can guide how the ethical concerns of stakeholders are listened to and incorporated into the proposed simulation system.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/3471"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Emanuel Coutinho",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":93
+         },
+         {
+            "Name":"Leonardo Moreira",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":94
+         },
+         {
+            "Name":"Maurício Neto",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":95
+         }
+      ],
+      "Paper_id":29,
+      "Title":"Uma Análise das Respostas Abertas da Avaliação Docente em Disciplinas de Ensino de Lógica e Fundamentos de Programação",
+      "Year":2019,
+      "Abstract":"A beginner programming discipline usually includes logic conceptsand programming fundamentals, challenging both learners and teachers.  Tea-ching, learning and evaluation processes in programming have been the subjectof several discussions in the literature.  In addition to the technical aspects re-quired for programming learning, there are also social and human aspects thatimpact on learning, such as communication, motivation and profile. This articleaims to analyze open answers obtained from the evaluation of teaching by stu-dents for programming classes in an undergraduate course.  As a consequenceof this analysis, a conceptual map was generated identifying large categories ofstudent feedback.",
+      "Resumo":"Uma disciplina de programação para iniciantes normalmente inclui conceitos de lógica e fundamentos de programação, sendo um desafio tanto para discentes quanto para docentes. Processos de ensino, aprendizagem e avaliação em programação têm sido motivo de diversas discussões na literatura. Além dos aspectos técnicos necessários ao aprendizado de programação, há também aspectos sociais e humanos que impactam no aprendizado, como comunicação, motivação e perfil. Este artigo visa analisar respostas abertas obtidas da avaliação docente realizada pelos alunos para turmas de programação em um curso de graduação. Como consequência dessa análise, um mapa conceitual foi gerado, identificando grandes categorias de comentários dos alunos.",
+      "Keywords":"Programação, lógica de programação, avaliação docente, didática",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6404"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"André Pinheiro",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":96
+         },
+         {
+            "Name":"Caio Rabello",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":97
+         },
+         {
+            "Name":"Leonardo Furtado",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":98
+         },
+         {
+            "Name":"Gustavo Pinto",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":99
+         },
+         {
+            "Name":"Cleidson Souza",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":100
+         }
+      ],
+      "Paper_id":30,
+      "Title":"How Do Bot Developers Perceive Bot Development? A Survey",
+      "Year":2019,
+      "Abstract":"Software bots are becoming more and more popular,  this is due tothe fact that they are a tool that can be used in different contexts.  With this,software developer has more interest in developing bots, however they may haveto face challenges intrinsic to the development of bot software.  With this, weseek to understand the profile of bot developers, what motivates them, or whatchallenges  they  face  when  dealing  with  bot  development.   To  shed  an  initiallight on this direction,we conducted a survey with 43 Github users who havebeen involved (showingtheir interest or actively contributing to) in bot softwareprojects.",
+      "Resumo":"#",
+      "Keywords":"Software bots",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6405"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Juliana Saraiva",
+            "Institution":"Universidade Federal da Paraíba (UFPB)",
+            "State":"PB",
+            "Author_id":101
+         },
+         {
+            "Name":"Vanessa Dantas",
+            "Institution":"Universidade Federal da Paraíba (UFPB)",
+            "State":"PB",
+            "Author_id":102
+         },
+         {
+            "Name":"Amanda Rodrigues",
+            "Institution":"Universidade Federal da Paraíba (UFPB)",
+            "State":"PB",
+            "Author_id":103
+         }
+      ],
+      "Paper_id":31,
+      "Title":"Compreendendo a Evasão em uma Década no Curso Sistemas de Informação à luz de fatores humanos e sociais",
+      "Year":2019,
+      "Abstract":"The high evasion rates demanded researches for understanding andmitigating the problems that lead to this phenomenon.  Despite of the govern-ment programs trying to make education accessibility easier, such as REUNI,the enrollment cancellation rates are still growing, even in courses with highjob opportunities, such as Information Systems (IS). Thus, this work investiga-ted the evasion on human and social perspectives of a IS course at a federaluniversity, implanted outside of the metropolitan context. A survey was appliedwith ex-students, obtaining 54 answers, which indicates that the lack of publicand internal policies related to education fund support is one of the major eva-sion causes.",
+      "Resumo":"Os altos ı́ndices de evasão na graduação vêm demandando pesquisas para tentar entender e mitigar os problemas que acarretam este fenômeno. Mesmo com programas de facilitação ao acesso à educação, como REUNI, a taxa de cancelamentos de matrı́culas ainda é crescente, inclusive em cursos que oferecem alta empregabilidade, a citar o curso de Sistemas de Informação (SI). Assim, este trabalho investigou a evasão sob a perspectiva de fatores humanos e sociais, no curso de SI de uma universidade federal, implantado fora do contexto metropolitano. Um survey foi aplicado com evadidos, obtendo-se 54 respostas, que indica a falta de polı́ticas públicas e internas referentes a auxı́lios financeiros aos estudantes como uma das maiores causas de evasão.",
+      "Keywords":"Evasão, Curso de Sistemas de Informação, Aspectos Humanos e Sociais",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6406"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Tiago de Lima",
+            "Institution":"Universidade do Vale dos Sinos(UNISINOS)",
+            "State":"RS",
+            "Author_id":104
+         },
+         {
+            "Name":"Josiane Brietzke Porto",
+            "Institution":"Universidade do Vale dos Sinos(UNISINOS)",
+            "State":"RS",
+            "Author_id":105
+         }
+      ],
+      "Paper_id":32,
+      "Title":"Análise de Soft Skills na Visão de Profissionais da Engenharia de Software",
+      "Year":2019,
+      "Abstract":"A  career  in  Software  Engineering  demands  the  development  of several  technical  skills.  However,  these  professionals  also  need  to  develop non-technical  skills  related  to  soft  skills.  Through  an  electronic  survey,  thisresearch  raised  the  importance  of  soft  skills  and  which  have  the greatest impact on career development and daily activities, based on the perception of professionals   in   this   area.   The   results   showed   that   these   professionals understand  that  soft  skills have  a  high  impact  on  the  development  of  their careers  and  daily  activities. However,  there  is  no  greater  concern  with  their development when considering the sample of this research.",
+      "Resumo":"A carreira na Engenharia de Software demanda desenvolvimento de diversas competências técnicas. Entretanto, esses profissionais também precisam desenvolver competências não técnicas, relacionadas às soft skills. Por meio de survey eletrônico, essa pesquisa levantou a importância de soft skills e quais possuem maior impacto no desenvolvimento de carreira e em atividades diárias, a partir da percepção de profissionais dessa área. Os resultados mostraram que esses profissionais entendem que as soft skills possuem alto impacto no desenvolvimento de suas carreiras e em suas atividades diárias. Porém, não existe uma preocupação maior com o desenvolvimento delas, quando se considera a amostra dessa pesquisa.",
+      "Keywords":"Soft skills, carreira de engenharia de software",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6407"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Ana KatarineF. S. Santos",
+            "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
+            "State":"PE",
+            "Author_id":106
+         },
+         {
+            "Name":"Ricardo A. C. Souza",
+            "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
+            "State":"PE",
+            "Author_id":107
+         }
+      ],
+      "Paper_id":33,
+      "Title":"Estratégia de Produto de Software a partir da perspectiva da Gestão do Conhecimento: um Mapeamento Sistemático",
+      "Year":2019,
+      "Abstract":"The Software Product Strategy is concerned with the constraints and internal (business) and external (market) perspectives to the organization that should  be  considered  in  software  product  planning.  Knowledge  Management can be used in the design of a software product through socialization in which the  tacit  knowledge  of  the  different  stakeholders  (partners,  clients,  sponsors, etc.)  is  accumulated  and  shared  so  that  this  knowledge  is  articulated  in  a product  concept  through  externalization.  This  paper  presents  an  overview about   software   product   development   strategies supportedby   knowledge management   mechanisms   resulting from   a   systematic   mapping   of   the literature.",
+      "Resumo":"A Estratégia do Produto de Software se preocupa com as restrições e perspectivas internas (do negócio) e externas (do mercado) à organização que devem ser consideradas no planejamento de um produto de software. Já a Gestão do Conhecimento pode ser usada na concepção de um produto de software através da socialização no qual o conhecimento tácito dos diferentes stakeholders (parceiros, clientes, patrocinadores, etc.) é acumulado e compartilhado para, então, este conhecimento ser articulado em um conceito de produto por meio da externalização. Este trabalho apresenta um panorama sobre estratégias de desenvolvimento de produtos de software apoiadas por mecanismos de gestão do conhecimento, resultante de um mapeamento sistemático da literatura.",
+      "Keywords":"Estratégia de Produto de Software, Gestão do Conhecimento, Mapeamento Sistemático, Fatores Humanos.",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6408"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Alexandre R. Aragão",
+            "Institution":"Universidade Federal do Maranhão (UFMA)  ",
+            "State":"MA",
+            "Author_id":108
+         },
+         {
+            "Name":"Nathyane J. P. Moreno",
+            "Institution":"Universidade Federal do Maranhão (UFMA)  ",
+            "State":"MA",
+            "Author_id":109
+         },
+         {
+            "Name":"Davi Viana",
+            "Institution":"Universidade Federal do Maranhão (UFMA)  ",
+            "State":"MA",
+            "Author_id":13
+         },
+         {
+            "Name":"Francisco Silva",
+            "Institution":"Universidade Federal do Maranhão (UFMA)  ",
+            "State":"MA",
+            "Author_id":110
+         },
+         {
+            "Name":"Tercio Sousa",
+            "Institution":"Universidade Federal do Maranhão (UFMA)  ",
+            "State":"MA",
+            "Author_id":111
+         },
+         {
+            "Name":"Luis Rivero",
+            "Institution":"Universidade Federal do Maranhão (UFMA)  ",
+            "State":"MA",
+            "Author_id":112
+         },
+         {
+            "Name":"Ariel Teles",
+            "Institution":"Instituto Federal do Maranhão (IFMA) ",
+            "State":"MA",
+            "Author_id":113
+         },
+         {
+            "Name":"Arlindo da Conceição",
+            "Institution":"Universidade Federal de São Paulo (UNIFESP)",
+            "State":"SP",
+            "Author_id":114
+         },
+         {
+            "Name":"Inaldo Costa",
+            "Institution":"Instituto Tecnológico de Aeronáutica (ITA) ",
+            "State":"SP",
+            "Author_id":115
+         }
+      ],
+      "Paper_id":34,
+      "Title":"Utilizando Métricas de Qualidade na Avaliação de uma Aplicação para Cidades Inteligentes",
+      "Year":2019,
+      "Abstract":"Several software applications have been modifying the human’s wayof life in the technological and social aspects. A certain set of applications sup-ports the creation of Smart Cities (SM). Like any other type of application, theyneed an assessment in order to guarantee an adequate software quality leveland to provide the best experience to users. However, applications in the smartcities context can include more technological characteristics than a traditionalapplication, such as interoperability and context-changing according to the mo-dification of the user environment.  This paper presents a study with regard totwo software quality characteristics for SM (context-awareness and calmness).Moreover, we present a discussion of such characteristics and their metrics inrelation to human aspects of software application interaction.",
+      "Resumo":"Diversas aplicações de software vêm modificando o estilo de vida das pessoas em aspectos tecnológicos e sociais. Um conjunto dessas aplicações possibilitam a criação das chamadas Cidades Inteligentes (CIs). Assim como qualquer outro tipo de aplicação, estas aplicações precisam ser avaliadas para garantir uma qualidade adequada e fornecer uma melhor experiência aos usuários. Contudo, aplicações no contexto de CIs podem conter caracterı́sticas tecnológicas especı́ficas que não são avaliadas em aplicações tradicionais, tais como aspectos de interoperabilidade e mudança de contexto da aplicação de acordo com a alteração do ambiente do usuário. Desta forma, este artigo apresenta um estudo sobre a avaliação de duas caracterı́sticas de qualidade relevantes para CIs (sensibilidade ao contexto e calmness). Adicionalmente, apresentamos uma discussão sobre essas caracterı́sticas e suas métricas em relação aos aspectos humanos da interação com a aplicação.",
+      "Keywords":"Garantia de Qualidade, Cidades Inteligentes, Métricas de Software",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6409"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Patrícia Cristina Moser",
+            "Institution":"Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":116
+         },
+         {
+            "Name":"Joelson Isidro da Silva Araujo",
+            "Institution":"Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":117
+         },
+         {
+            "Name":"Everton Renne Barros de Oliveira",
+            "Institution":"Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":118
+         },
+         {
+            "Name":"Henrique Santos Ferreira",
+            "Institution":"Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":119
+         },
+         {
+            "Name":"Christiane Pereira",
+            "Institution":"Universidade Federal de Pernambuco (UFPE)",
+            "State":"PE",
+            "Author_id":120
+         }
+      ],
+      "Paper_id":35,
+      "Title":"Internalização de novos membros em equipes de desenvolvimento de software: benefícios e limitações",
+      "Year":2019,
+      "Abstract":"Context:   The   internalization   of   new   members   into   software development teams causes changes in organizations. Objective: To investigate the  benefits  and  limitations  of  internalization  in  software  development  teams. Method: A qualitative study was carried out in a software development startup where internalization was observed recently. Results: The data collected were analyzed using qualitative coding techniques and the results were verified and validated   with   the   participants   through   the   verification   of   members. Conclusion: It was noticed that the internalization is strongly influenced by the company's culture and the reception and integration of the team.",
+      "Resumo":"Contexto: A internalização de novos membros em equipes de desenvolvimento de software ocasiona mudanças nas organizações. Objetivo: Investigar os benefícios e limitações da internalização em equipes de desenvolvimento de software. Método: Foi realizado um estudo qualitativo em uma startup de desenvolvimento de software onde a internalização foi observada recentemente. Resultados: Os dados coletados foram analisados utilizando técnicas de codificação qualitativa e os resultados foram verificados e validados com os participantes por meio da verificação de membros. Conclusão: Percebeu-se que a internalização sofre forte influência da cultura da empresa e do acolhimento e integração do time.",
+      "Keywords":"Internalização, Cultura Organizacional, integração, host, engenharia de software, equipes de desenvolvimento.",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6410"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Cleidiane Normando Nunes",
+            "Institution":"Softex Recife",
+            "State":"PE",
+            "Author_id":121
+         },
+         {
+            "Name":"Ivaldir de Farias Junior",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":122
+         }
+      ],
+      "Paper_id":36,
+      "Title":"Um Estudo sobre Turnover em Empresas de TI Embarcadas no Porto Digital de Recife",
+      "Year":2019,
+      "Abstract":"#",
+      "Resumo":"A gestão de pessoas no mundo contemporâneo vem passando por diversas mudanças, desde o avanço tecnológico que modifica a forma de trabalho de diversos cargos, bem como o acesso rápido as informações. Além disso, existe a competitividade global proporcionada pela internet em busca de novos talentos ou especialistas em determinadas áreas de conhecimento. Ou seja, globalização pode ser entendida como um processo econômico e social que estabeleceu uma integração entre os países e as pessoas do mundo. Neste sentido, o objetivo geral desta pesquisa é reunir boas práticas que auxiliem na redução do turnover dos colaboradores nas organizações. Para alcançar este objetivo, a metodologia utilizada nesta pesquisa foi uma revisão de literatura em conjunto com uma pesquisa qualitativa com 46 gestores pertencentes a 43 empresas embarcadas no Porto Digital. O instrumento de coleta utilizado foi um questionário online semiestruturado com perguntas abertas e fechadas. Com base nos resultados obtidos dos participantes, espera-se contribuir para uma melhor gestão de pessoas dentro das organizações através da explicitação das boas práticas sobre turnover recomendadas pela pesquisa em voga.",
+      "Keywords":"Turnover, Empresas de TI",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6411"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Leonardo Gargano",
+            "Institution":"Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":123
+         },
+         {
+            "Name":"Barbara Ramos",
+            "Institution":"Universidade Federal Fluminense (UFF)",
+            "State":"RJ",
+            "Author_id":124
+         },
+         {
+            "Name":"Marcelo Fornazin",
+            "Institution":"Universidade Federal Fluminense (UFF)",
+            "State":"RJ",
+            "Author_id":125
+         }
+      ],
+      "Paper_id":37,
+      "Title":"Desenvolvimento de Software para Organizações Sociais",
+      "Year":2019,
+      "Abstract":"The software development process is a complex activity that involves uncertainties and challenges. These uncertainties and challenges become more potent  as  we  seek  to  build  systems  and  technologies  for  the  third  sector,  an areathat   have   different   practices   and   values   of   business   management. Currently,  Information  Technology  (IT)  field  does  not  hold  debates  about  the characteristics of the organization frequently. This article presents reflections on a construction in progress of a software used by social organizations.",
+      "Resumo":"O processo de desenvolvimento de software é uma atividade complexa que envolve incertezas e desafios. Essas incertezas e desafios potencializam-se quando buscamos construir sistemas e tecnologias para o terceiro setor que possuem práticas e valores diferentes da gestão empresarial. Atualmente, a área de Tecnologia da Informação (TI) não realiza debates relativos às características das organizações sociais com frequência. Este artigo apresenta reflexões sobre a construção em andamento de softwares utilizado por movimentos sociais.",
+      "Keywords":"#",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6412"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Edson M. Neto",
+            "Institution":"Universidade Federal do Amapá (UNIFAP)",
+            "State":"AP",
+            "Author_id":126
+         },
+         {
+            "Name":"Julio C. Furtado",
+            "Institution":"Universidade Federal do Amapá (UNIFAP)",
+            "State":"AP",
+            "Author_id":127
+         }
+      ],
+      "Paper_id":38,
+      "Title":"Um Estudo sobre as Principais Dificuldades na Empregabilidade de um Engenheiro de Software",
+      "Year":2019,
+      "Abstract":"This  research  seeks  to  make  a  study  about  the  main  aspects  that influence the employability of a software engineer. After this stage a survey is carried out with the professionals of the area to ascertain the relevance of the difficulties raised. Knowledge gaps were in certain subjects regarding time of service and degree of schooling and optimism regarding the employable degreeof obsolescence of professionals with a high degree of schooling.",
+      "Resumo":"Esta pesquisa busca fazer um estudo sobre os principais aspectos que influenciam na empregabilidade de um engenheiro de software. Realizou-se um survey com os profissionais da área para averiguar relevâncias das dificuldades levantadas. Foram encontradas lacunas de conhecimento em determinadas matérias com relação ao tempo de serviço e grau de formação e o otimismo em relação ao grau empregável dos profissionais com alto grau de formação.",
+      "Keywords":"Engenheiro de Software, Empregabilidade, Hard skills, soft skills, Survey.",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/6413"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Anna Beatriz Marques",
+            "Institution":"Universidade Federal do Ceará (Campus de Russas)",
+            "State":"CE",
+            "Author_id":128
+         },
+         {
+            "Name":"Gabriel Aires",
+            "Institution":"Universidade Federal do Ceará (Campus de Russas)",
+            "State":"CE",
+            "Author_id":129
+         }
+      ],
+      "Paper_id":39,
+      "Title":"Uso da Netnografia para a Geração de Personas e Requisitos para Sistemas com foco em pessoas com Transtorno do Espectro Autista: Um Relato de Experiência",
+      "Year":2020,
+      "Abstract":"The   early   stages   of   software   development   require   a   good understanding  of the target  audience  and  their  needs.  Conventional  methods used  to  achieve  these  goals  are  costly  and  researchers  are  subject  to  the interest   of   the   target   audience.   This   article   reports   the   application   of netnography,  an  ethnography  performed  online,  which  has  a  reduced  cost when compared to conventional ethnography and makes it possible to reach a dispersed  target  audience,  such  as  people  with  Autism  Spectrum  Disorder (ASD). Netnography was applied in the Instagram social network to delineate personas  of  users  affected  by  the  TEA  and  elicit  requirements  from these personas. Weexpected to encourage the adoption of netnography in software development due to the reach of the target audience and the variety of possible data to be obtained.",
+      "Resumo":"As  fases  iniciais  do  desenvolvimento  de  software requerem um  bom entendimento do público-alvoe suas necessidades.Os métodosconvencionais utilizados  para alcançar tais  objetivos têm  um  alto  custo  e  os  pesquisadores estãosujeitos ao interesse de participaçãodo público-alvo. Este artigorelata a aplicaçãoda netnografia,  uma  etnografia  realizada  online,  que  tem  um custo  reduzido  quando  comparada àetnografia  convencional  e  possibilita  o alcance  de  um público-alvodisperso,  como éo  caso  das pessoas  com Transtorno  do  Espectro  Autista  (TEA). Anetnografiafoi  aplicada na  rede social  Instagram para  delinear personas de usuáriosafetados  pelo TEAe elicitar  requisitos  a  partir  destas personas. Espera-se  encorajar  a  adoção  de netnografia no  desenvolvimento  de software tendo  em  vistao  alcance do público-alvo e variedade de dados possíveis de serem obtidos.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11192"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Deógenes Silva Junior",
+            "Institution":"Federal University of Paran ́a (UFPR)",
+            "State":"PR",
+            "Author_id":130
+         },
+         {
+            "Name":"Roberto Pereira",
+            "Institution":"Federal University of Paran ́a (UFPR)",
+            "State":"PR",
+            "Author_id":131
+         }
+      ],
+      "Paper_id":40,
+      "Title":"Consolidation in Collaborative Design: An Exploratory Case Study",
+      "Year":2020,
+      "Abstract":"In  collaborative  software  design  scenarios,  Consolidation  is  a  keyprocess for contributions from diverse participants to be understood, reviewed,and integrated into a coherent set of design objects.  However, this process iscomplex because it acts at different times and objects throughout a design pro-cess, and few works in literature are devoted to addressing this process and itsinherent complexity.  This paper presents an exploratory case study to investi-gate Consolidation in a Design Thinking-inspired process.  As results, remarksabout dimensions of Consolidation, activities where Consolidation occurred andstrategies used to consolidate were identified, which can be a source for design-ing technical features for supporting Consolidation practices.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11193"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Aline Sousa",
+            "Institution":"Departamento de Informática –Universidade Federal do Paraná(UFPR)",
+            "State":"PR",
+            "Author_id":132
+         },
+         {
+            "Name":"Natasha Valentim",
+            "Institution":"Departamento de Informática –Universidade Federal do Paraná(UFPR)",
+            "State":"PR",
+            "Author_id":133
+         }
+      ],
+      "Paper_id":41,
+      "Title":"Projetando a Usabilidade e a Experiência do Usuário com a Técnica UXUG-AP: um Estudo Exploratório",
+      "Year":2020,
+      "Abstract":"Be different and distinguish itself among the technologies is intrinsic to the current agile software development. However, we still found usability and user  experience  (UX)  defects  generated  by  the  process,  making  of  the  quality and user satisfaction unsatisfactory. Thu, this article presents a technique which support the usability and UX design in agile projects, calling User Experience and  Usability  Guidelines  for  Agile  Project  (UXUG-AP).  Besides,  this  article presents a qualitative analysis and user perception analysis obtained through an exploratory study about the UXUG-AP technique. The results show that the technique is considered easy to use and useful.",
+      "Resumo":"Ser  diferente  e  se  destacar  em  meio  as  opções  tecnológicas  é intrínseco ao desenvolvimento de software ágil atual. No entanto, ainda são encontrados defeitos de usabilidade e experiência do usuário (UX) gerado pelo processo, fazendo com que a qualidade e satisfação do usuário continuem insatisfatórios. Portanto, este artigo apresenta uma técnica que visa auxiliar no projeto da usabilidade e UX em projetos ágeis, chamada User Experience and Usability Guidelines for Agile Project (UXUG-AP). Além disso, este artigo apresenta  uma  análise  qualitativa  e  uma  análise  da  percepção  do  usuário obtidas  através  de  um  estudo  exploratório  sobre  a  técnica  UXUG-AP. Resultados mostram que a técnica é considerada fácil de usar e útil.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11194"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Marcio Imamura",
+            "Institution":"Programa de Pós-Graduação em Informática - Universidade Federal do Estado do Rio de Janeiro",
+            "State":"RJ",
+            "Author_id":134
+         },
+         {
+            "Name":"Luiz Alexandre Costa",
+            "Institution":"Programa de Pós-Graduação em Informática - Universidade Federal do Estado do Rio de Janeiro",
+            "State":"RJ",
+            "Author_id":135
+         },
+         {
+            "Name":"Bruno Pereira",
+            "Institution":"Programa de Pós-Graduação em Informática - Universidade Federal do Estado do Rio de Janeiro",
+            "State":"RJ",
+            "Author_id":136
+         },
+         {
+            "Name":"Francisco Henrique Ferreira",
+            "Institution":"Programa de Pós-Graduação em Informática - Universidade Federal do Estado do Rio de Janeiro",
+            "State":"RJ",
+            "Author_id":137
+         },
+         {
+            "Name":"Awdren Fontão",
+            "Institution":"Programa de Pós-graduacão em Ciência da Computação - Universidade Federal do Mato Grosso do Sul",
+            "State":"MS",
+            "Author_id":52
+         },
+         {
+            "Name":"Rodrigo Pereira dos Santos",
+            "Institution":"Programa de Pós-Graduação em Informática - Universidade Federal do Estado do Rio de Janeiro",
+            "State":"RJ",
+            "Author_id":10
+         }
+      ],
+      "Paper_id":42,
+      "Title":"Fatores de Governança em Sistemas-de-Sistemas: Análise de uma Instituição Pública Brasileira",
+      "Year":2020,
+      "Abstract":"Systems-of-systems (SoS) are sets of independent systems that colla-borate and achieve an objective that cannot be achieved in isolation. SoS can beobserved in several domains such as military, logistics, transportation, health-care etc. Despite the great interest in this field in the last years, many problemsare still open. Since the systems that compose an SoS are independent and haveindividual objectives, one of the most critical challenges is enabling the gover-nance of SoS. Therefore, this paper presents an investigation of the factors thatshould be taken into consideration when implementing SoS governance.  To doso, we conduct a survey with professionals of a Brazilian public organization.",
+      "Resumo":"Sistemas-de-sistemas (SoS) são conjuntos de sistemas independentes que colaboram entre si para atingir um objetivo que não pode ser alcançado isoladamente. SoS podem ser observados em diversos domínios como: militar, logística, transporte, saúde etc. Uma vez que os sistemas que compõem um SoS são independentes e possuem objetivos próprios, um dos desafios mais críticos é viabilizar a governança para esse tipo de sistemas. Dessa forma, esse trabalho apresenta uma investigação acerca de fatores que devem ser considerados na implementação da governança em SoS. Para isso, foi realizada uma pesquisa de opinião com profissionais de uma instituição pública brasileira.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11195"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"José Adson Cunha",
+            "Institution":"Departamentode Ciências Exatas -Universidade Federal da Paraíba (UFPB)",
+            "State":"PB",
+            "Author_id":138
+         },
+         {
+            "Name":"Yuska Paola Costa Aguiar",
+            "Institution":"Departamentode Ciências Exatas -Universidade Federal da Paraíba (UFPB)",
+            "State":"PB",
+            "Author_id":139
+         },
+         {
+            "Name":"Josinaldo Pontes",
+            "Institution":"Departamentode Ciências Exatas -Universidade Federal da Paraíba (UFPB)",
+            "State":"PB",
+            "Author_id":140
+         },
+         {
+            "Name":"Mirelly da Silva",
+            "Institution":"Departamentode Ciências Exatas -Universidade Federal da Paraíba (UFPB)",
+            "State":"PB",
+            "Author_id":141
+         }
+      ],
+      "Paper_id":43,
+      "Title":"Como influenciar decisões em ambientes digitais através de nudges? Um mapeamento sistemático da literatura",
+      "Year":2020,
+      "Abstract":"The  choice  architecture  consists  of  interventions  which  aims  to influence people's behavior. The nudges represent changes in the environment in  which  decisions  are  made.  With  the  advancement  of  technology  and  its increasing  influence  on  the  daily  life  of  the  population,  it  is  important  to understand the behavioral effects applicable to the design of a system. Based onsystematic  literature  mapping,  this  article  presents  an  overview  of  researches about  the  use  of  nudges  in  digital  environments,  covering  151  publications (2006-2020) from 54 countries, with most of them using experiments as research method.  The  most  researched  principle  of  nudge  was  incentive  and  the predominant application field was privacity.",
+      "Resumo":"A arquitetura de escolha consiste em intervenções com o objetivo de influenciar  o  comportamento  das  pessoas.  Os  nudges  representam  mudanças no ambiente no qual decisões são tomadas. Com o avanço da tecnologia e sua influência no cotidiano da população, é importante entender quais os potenciais efeitos  comportamentais  decorrentes  do  design  do  sistema.  Através  de  um mapeamento sistemático da literatura, este artigo apresenta um panorama das pesquisas sobre o uso de nudges digitais, contemplando 151 publicações (2006-2020)   oriundas   de   54   países,   sendo   a   maioria   realizada   através   de experimentos. O princípio de nudge maispesquisado foi incentivo e o campo de atuação predominante foi privacidade.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11196"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Alex Calado",
+            "Institution":"Programa de Pós-Graduação em Informática Aplicada (PPGIA) - Departamento de Computação (DC) - Universidade Federal Rural de Pernambuco (UFRPE)",
+            "State":"PE",
+            "Author_id":142
+         },
+         {
+            "Name":"Ricardo de Souza",
+            "Institution":"Programa de Pós-Graduação em Informática Aplicada (PPGIA) - Departamento de Computação (DC) - Universidade Federal Rural de Pernambuco (UFRPE)",
+            "State":"PE",
+            "Author_id":143
+         }
+      ],
+      "Paper_id":44,
+      "Title":"Levantamento de indicadores de maturidade digital a partir de um mapeamento sistemático da literatura",
+      "Year":2020,
+      "Abstract":"Developing  a  digital  transformation  strategy  is  one  of  the  main priorities  of  organizations  that  operate  in  the  most  diverse  markets.  Digital transformation is about delivering value and providing a better experience to customers  through  digital  technologies.  The  digital  transformation involves  a profound change in organizational processes, business models and also in the behavior   of   the   people involved,   such   as   leaders,   employees   and   even customers.  The  first  step  in  drawing  up  a  good  strategy  is  to  diagnose  the organization's  current  situation,  in  this  context,  in  terms  of  digital  maturity. This work then presents a survey of the dimensions andindicators used in the diagnosis  of  the  digital  maturity  level  of  organizations,  resulting  from  a systematic literature mapping.",
+      "Resumo":"Desenvolver  uma  estratégia  de  transformação  digital  é  uma  das principais  prioridades  de  organizações  que  atuam  nos  mais  diversificados mercados.  A transformação  digital  consiste  na  entrega  de  valor  e  de  uma melhor   experiência   aos   clientes   por   meio   de   tecnologias   digitais.   A transformação   digital   envolve   uma   mudança   profunda   nos   processos organizacionais,  modelos  de  negócio  e,  também,  no  comportamento  das pessoas  envolvidas,  como  líderes,  funcionários  e  até  mesmo  clientes.  O primeiro  passo  para  se  traçar  uma  boa  estratégia  é  diagnosticar  a  situação atual  da  organização,  neste  contexto,  em  termos  de  maturidade  digital.  Este trabalho  apresenta  então  um  levantamento  das  dimensões  e  indicadores utilizados  no  diagnóstico  do  nível  de  maturidade  digital  das  organizações, resultante de um mapeamento sistemático da literatura.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11197"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Luiz Paulo Carvalho",
+            "Institution":"Programa de Pós-Graduação em Informática –Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":144
+         },
+         {
+            "Name":"Jonice Oliveira",
+            "Institution":"Programa de Pós-Graduação em Informática –Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":145
+         }
+      ],
+      "Paper_id":45,
+      "Title":"Subjectivities in Software Development from an STS and Social Institution Perspective, a Riot Games Case Study",
+      "Year":2020,
+      "Abstract":"We are influenced and influence Social Institutions, which shape our subjectivities and, consequently, our actions, such as software engineering. In this  work,  we  use  a  socio-technical  perspective  to  study  and  analyze  the interrelation   between   the   dimensions   of   an   Information   System,   Social Institutions, and subjectivities, applied in the software company Riot Games. We develop   a   perception   of   co-conducting   culture   and   values   between   the requirements  of  an  artifact  and  its  other  dimensions,  for  example,  through organizational culture, habits, codes of conduct, among others.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11198"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Edgard Valderramas",
+            "Institution":"Pontifícia Universidade Católica de São Paulo –PUC -SP",
+            "State":"SP",
+            "Author_id":146
+         }
+      ],
+      "Paper_id":46,
+      "Title":"A ética como um dos desafios da Inteligência Artificial",
+      "Year":2020,
+      "Abstract":"This study deals with issues of ethics and challenges related to its application in the field of Artificial Intelligence. In an analysis of AI in its social context, the impacts that this emerging branch of science can bring and its consequences are examined. From a methodological point of view, the paper deals with ethical assumptions, the cybernetic challenges related to society for its implementation, and its adherence with AI, citing examples and carrying out some evaluations. In view of the rapid development of this area, the paper emphasizes the growing importance of the debate among the agents involved.",
+      "Resumo":"Este trabalho trata as questões da ética e dos desafios relacionados à sua aplicação no campo da Inteligência Artificial. Por meio de uma análise da IA no contexto social em que se insere, serão enfatizados os impactos que este emergente ramo da ciência pode trazer e as suas consequências. Do ponto de vista metodológico, realizou-se uma discussão teórica a partir dos pressupostos da ética, dos desafios cibernéticos relacionados à sociedade para a sua implementação e, por fim, a sua aderência com a IA, citando-se exemplos e realizando algumas avaliações. Entre as conclusões, verificou-se a importância de se alargar o debate entre os agentes envolvidos, tendo em vista o rápido e importante desenvolvimento desta área.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11199"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Luciana Chueri",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":147
+         },
+         {
+            "Name":"Anderson Afonso",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":148
+         },
+         {
+            "Name":"Mariana Pinheiro",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":149
+         },
+         {
+            "Name":"Mateus Lambranho Ramos",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":150
+         },
+         {
+            "Name":"Rodrigo Pereira dos Santos",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":10
+         }
+      ],
+      "Paper_id":47,
+      "Title":"Um Estudo Exploratório sobre Plataformas Digitais para Ecossistemas de Inovação Social no Brasil",
+      "Year":2020,
+      "Abstract":"Due to the growing need for allowing different social innovation project actors to work in a coordinated and collaborative manner, the use of digital  platforms  has  been  considered  as  a  great  opportunity  for  social innovation ecosystems. However, in addition to technical issues, the existing challenges in the design and management of such platforms are combined with economic and social issues. This paper presents an exploratory study on real social  innovation  platforms  to  investigate  functionalities  that  support  these ecosystems. Transparency, process adaptability and coordination mechanisms were not observed. This study calls researchers/professionals to better design and manage such platforms in the context of social innovation.",
+      "Resumo":"Devido à crescente necessidade de possibilitar que diferentes atores trabalhem de modo coordenado e colaborativo, o uso de plataformas digitais tem  sido  considerado  uma  oportunidade  para  ecossistemas  de  inovação social. Porém, além de questões técnicas, os desafios existentes no projeto e gestão  dessas  plataformas  envolvem  questões  econômicas  e  sociais.  Este artigo apresenta um estudo exploratório sobre plataformas reais de inovação social  a  fim  de  investigar  funcionalidades  que  apoiam  tais  ecossistemas. Transparência, adaptabilidade de processos e mecanismos de coordenação não  foram  observados.  Este  estudo  convida  pesquisadores/profissionais  a projetarem e gerenciarem melhor plataformas no contexto de inovação social",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11200"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Ariádna Miranda",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":151
+         },
+         {
+            "Name":"Allysson Allex Araújo",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":152
+         },
+         {
+            "Name":"Emanuel Coutinho",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":93
+         },
+         {
+            "Name":"Jerffeson Souza",
+            "Institution":"Universidade Estadual do Ceará(UECE)",
+            "State":"CE",
+            "Author_id":153
+         }
+      ],
+      "Paper_id":48,
+      "Title":"O Organizar de Práticas Cooperativas no Contexto de um Ambiente de Estágio em Desenvolvimento de Software",
+      "Year":2020,
+      "Abstract":"Soft skills are not trivial to be taught, although they are preponderant to be improved during the academic experience of future software engineers. Understanding how such skills are perceived and practiced during the supervised internship poses to be relevant, given the opportunity for students to enhance their skills. Grounded on the Practice Theory, we investigate how the organization of soft skills occurs as a bundle of cooperative practices in the context of the Federal University of Ceará (Campus de Crateús) internship environment. We highlight as contributions i) the proposition of a conceptual model for investigating cooperative practices; ii) the analytical contrast between doings and sayings and iii) the empirical reflection for students on the role of soft skills.",
+      "Resumo":"As soft skills não são triviais de serem ensinadas, embora sejam preponderantes de serem aprimoradas durante a formação acadêmica de futuros engenheiros de software. Compreender como tais habilidades são percebidas e exercidas durante o estágio supervisionado demonstra-se salutar, tendo em vista a oportunidade de lapidação formativa dos discentes. Sob a lente da Teoria das Práticas, esta pesquisa investiga como ocorre o organizar de soft skills enquanto feixe de práticas cooperativas no ambiente de estágio da Universidade Federal do Ceará (Campus de Crateús). Dentre as contribuições, destaca-se i) a proposição de um modelo conceitual para investigação das práticas cooperativas; ii) contraste analítico entre feitos e ditos e iii) viabilização de reflexão empírica aos alunos sobre o papel das soft skills.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11201"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Jonas Boechat",
+            "Institution":"Faculdade de Engenharia de Várzea Grande – Universidade Federal de Mato Grosso(UFMT) ",
+            "State":"MT",
+            "Author_id":154
+         },
+         {
+            "Name":"Fernando Magalhães",
+            "Institution":"Departamento de Engenharia Elétrica - Universidade Federal de Mato Grosso (UFMT)",
+            "State":"MT",
+            "Author_id":155
+         },
+         {
+            "Name":"Otávio Dantas",
+            "Institution":"Faculdade de Engenharia de Várzea Grande – Universidade Federal de Mato Grosso(UFMT) ",
+            "State":"MT",
+            "Author_id":156
+         },
+         {
+            "Name":"Luciana Borges",
+            "Institution":"Instituto de Computação - Universidade Federal de Mato Grosso (UFMT)",
+            "State":"MT",
+            "Author_id":157
+         },
+         {
+            "Name":"Elmo de Faria",
+            "Institution":"Instituto de Computação - Universidade Federal de Mato Grosso (UFMT)",
+            "State":"MT",
+            "Author_id":158
+         },
+         {
+            "Name":"Eunice Nunes",
+            "Institution":"Instituto de Computação - Universidade Federal de Mato Grosso (UFMT)",
+            "State":"MT",
+            "Author_id":159
+         }
+      ],
+      "Paper_id":49,
+      "Title":"Guidelines para Engenharia de um Brinquedo Robô Personalizado para Reabilitação de Pessoa com Deficiência",
+      "Year":2020,
+      "Abstract":"This article presents recommendations on the principles of software development and design for an inclusive robot toy, using engineering tools and practices that assist in the development of a robot, focusing on the rehabilitation of children with disabilities. Such recommendations come from the experience acquired during three years of research in the FATA project. The robot was custom-built to meet the needs of three children with cerebral palsy and was designed in participatory design sessions.",
+      "Resumo":"Este artigo apresenta recomendações sobre os princípios de desenvolvimento e projeto de software de um brinquedo robô inclusivo, utilizando ferramentas e práticas de engenharia que auxiliam o desenvolvimento de um robô, com foco na reabilitação da criança com deficiência. Tais recomendações são provenientes da experiência adquirida no projeto FATA durante três anos de pesquisa. O robô foi construído de forma personalizada para atender às necessidades de três crianças com paralisia cerebral e foi projetado em sessões de design participativo.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11202"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Lucas Couto",
+            "Institution":"Instituto de Comutação –Universidade Federal Fluminense (UFF)",
+            "State":"RJ",
+            "Author_id":160
+         },
+         {
+            "Name":"Marcelo Fornazin",
+            "Institution":"Instituto de Comutação –Universidade Federal Fluminense (UFF)",
+            "State":"RJ",
+            "Author_id":125
+         },
+         {
+            "Name":"Leonardo Gargano",
+            "Institution":"Programa de Pós-Graduação em Informática da Universidade Federal do Rio de Janeiro (PPGI/UFRJ)",
+            "State":"RJ",
+            "Author_id":123
+         }
+      ],
+      "Paper_id":50,
+      "Title":"Bots para Organizações Sociais",
+      "Year":2020,
+      "Abstract":"#",
+      "Resumo":"O processo de desenvolvimento de software é uma atividade complexa que envolve incertezas e desafios. Essas incertezas e desafios potencializam-se quando buscamos construir sistemas e tecnologias para o terceiro setor que possuem práticas e valores diferentes da gestão empresarial. Atualmente, a área de Tecnologia da Informação (TI) não realiza debates relativos às características das organizações sociais com frequência. Este artigo apresenta reflexões sobre a construção em andamento de robôs para movimentos sociais.",
+      "Keywords":"#",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11203"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Valéria Silva",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":161
+         },
+         {
+            "Name":"Ivaldir de Farias Junior",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":122
+         },
+         {
+            "Name":"Jeferson Vieira",
+            "Institution":"Universidade Federal do Ceará (UFC) Campus Quixadá",
+            "State":"CE",
+            "Author_id":162
+         }
+      ],
+      "Paper_id":51,
+      "Title":"Importância do Planejamento Financeiro para as Startups de Tecnologia da Informação da Região Metropolitana do Recife - PE",
+      "Year":2020,
+      "Abstract":"The  objective  of  this  research  was  to  analyze  the  importance  of financial  planning  for  IT  startups  installed  or  associatedin  Comunidade Manguez.AL,  Assespro  PE/PB  and  Softex  Recife  located  in  the  Metropolitan Region  of  Recife/PE.  To  achieve  this  objective,  the  research  adopted  as methodology an informal literature review together with a field research using the  qualitative  approach  through  an  online  questionnaire.  As  a  result,  we obtained  the  characteristics  of  the  profile  of  this  type  of  entrepreneur,  the characteristics  of  the  financial  planning  that  is  being  adopted  by  these startups  and  the  difficulties  encountered  by  them  for  the  sustainability  of  the business.  From  this  study,  we  developed  a  set  of  effective  practices  to  assist startups in organizing their financial planning.",
+      "Resumo":"O   objetivo   destapesquisa foi analisar   a   importância   do planejamento  financeiro  para  as  startups  de TI,  que  encontram-se  instaladas ou  associadas na  Comunidade  Manguez.AL,  Assespro  PE/PB  e  Softex  Recifelocalizados   na   Região   Metropolitana   do   Recife/PE.   Para   alcançar   este objetivo,  a  pesquisa  adotou  como  metodologia  uma  revisão informal  da literaturajuntamente  com  uma  pesquisa  de  campo  utilizando  a  abordagem qualitativaatravés de um questionário online. Comoresultados,obtivemosas características  do  perfil  deste  tipo  de  empreendedor,  as  características  do planejamento  financeiro  que  está  sendo  adotado  por  estas startupse  as dificuldades  encontradas  pelas  para  a  sustentabilidade  do  negócio.  A  partir deste  estudo,  elaboramos  um  conjunto  de  práticas  eficazes  para  auxiliar os startupsna organização do seu planejamento financeiro.",
+      "Keywords":"#",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11204"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Emanuel Coutinho",
+            "Institution":"Programa de Pós-Graduação em Computação (PCOMP) - Universidade Federal do Ceará (UFC).",
+            "State":"CE",
+            "Author_id":93
+         },
+         {
+            "Name":"Wagner Braga Bezerra",
+            "Institution":"Programa de Pós-Graduação em Computação (PCOMP) - Universidade Federal do Ceará (UFC).",
+            "State":"CE",
+            "Author_id":163
+         },
+         {
+            "Name":"Delano Maia",
+            "Institution":"Programa de Pós-Graduação em Computação (PCOMP) - Universidade Federal do Ceará (UFC).",
+            "State":"CE",
+            "Author_id":164
+         }
+      ],
+      "Paper_id":52,
+      "Title":"Um Estudo Preliminar das Relações entre Características de Blockchain e a Aplicação na Sociedade",
+      "Year":2020,
+      "Abstract":"Blockchain is currently being widely discussed in academia and industry. Several areas are experiencing improvements in their processes and greater security in data management, such as health, education, and finance. In this context, the objective of this work is to report initial studies of the relationships and impacts of blockchain on society, mainly due to applications in the most diverse areas. For this, an online questionnaire on blockchain aspects in society was applied, followed by a qualitative analysis to better understand the results. As preliminary results, health and finance are the areas that most use blockchain, and the questionnaire revealed that it is important to study the impacts of blockchain on society.",
+      "Resumo":"Blockchain atualmente está sendo muito discutida na academia e indústria. Diversas áreas estão experimentando melhorias em seus processos e maior segurança na gestão dos dados, como saúde, educação e finanças. Nesse contexto, o objetivo deste trabalho é relatar estudos iniciais das relações e impactos da blockchain na sociedade, principalmente devido às aplicações nas mais diversas áreas. Para isso, um questionário online sobre aspectos de blockchain na sociedade foi aplicado, seguido de uma análise qualitativa para melhor compreender os resultados. Como resultados preliminares, saúde e finanças são as áreas que mais utilizam blockchain, e o questionário revelou que é importante estudar os impactos da blockchain na sociedade.",
+      "Keywords":"#",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/11205"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Sarasuaty Yelisetty",
+            "Institution":"Divisão de Ciência da Computação – Instituto Tecnológico de Aeronáutica (ITA)",
+            "State":"SP",
+            "Author_id":165
+         },
+         {
+            "Name":"Lilian Barros",
+            "Institution":"Divisão de Ciência da Computação – Instituto Tecnológico de Aeronáutica (ITA)",
+            "State":"SP",
+            "Author_id":166
+         },
+         {
+            "Name":"Talita Slavov",
+            "Institution":"Instituto de Ciência e Tecnologia – Universidade Federal de São Paulo (UNIFESP)",
+            "State":"SP",
+            "Author_id":167
+         },
+         {
+            "Name":"Johnny Marques",
+            "Institution":"Divisão de Ciência da Computação – Instituto Tecnológico de Aeronáutica (ITA)",
+            "State":"SP",
+            "Author_id":168
+         }
+      ],
+      "Paper_id":53,
+      "Title":"Um Levantamento de Fatores Humanos e Técnicos em Garantia de Qualidade de Projeto de Software Embarcado Aeronáutico no Brasil",
+      "Year":2021,
+      "Abstract":"Recent aeronautical products have a strong use of Embedded Aeronautical Software, where quality assurance is essential. Objective: To present the main human and technical factors involved in the Quality Assurance of Embedded Aviation Software. Justification and motivation: In regulated environments, such as aviation, human and technological factors are essential for quality assurance. However, the authors have not found any similar work that addresses this theme. Conclusion: this work identified the factors and deficiencies raised by the community involved in aviation software quality assurance.",
+      "Resumo":"Os produtos aeronáuticos recentes possuem forte uso de Software Embarcado Aeronáutico, onde naturalmente a garantia da qualidade é essencial. Objetivo: apresentar os principais fatores humanos e técnicos envolvidos na Garantia de Qualidade de Software Embarcado Aeronáutico. Justificativa e motivação: em ambientes regulados, como a aviação, os fatores humanos e técnicos são essenciais para a garantia da qualidade, no entanto, os autores não encontraram nenhum trabalho similar que aborde essa temática. Conclusão: este trabalho identificou os fatores assim como as carências levantadas pela comunidade envolvida na garantia de qualidade de software aeronáutico.",
+      "Keywords":"software, qualidade, aviação, normatização, processo",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/15884"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Mariana Pinheiro",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":149
+         },
+         {
+            "Name":"Luciana Chueri",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":147
+         },
+         {
+            "Name":"Rodrigo Pereira dos Santos",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":10
+         }
+      ],
+      "Paper_id":54,
+      "Title":"Investigando Colaboração em Ecossistemas",
+      "Year":2021,
+      "Abstract":"In the current scenario, we live in an open world where businesses and organizations will only remain competitive if they learn to develop strategies for interaction and collaboration. Although collaboration has its benefits recognized within organizations, its dynamics in ecosystems bring many challenges. This paper presents an investigation on collaboration in digital, software, business, and innovation ecosystems. Challenges such as the lack of supporting platforms, the need to adapt processes, and social issues (e.g., lack of trust and leadership) were observed. This study calls researchers and practitioners to better design and develop solutions for these contexts.",
+      "Resumo":"No cenário atual, vive-se em um mundo aberto onde negócios e organizações só permanecerão competitivos se aprenderem a desenvolver estratégias para interação e colaboração. Apesar da colaboração ter seus benefícios reconhecidos nas organizações, a sua dinâmica em ecossistemas encontra uma série de desafios. Este artigo apresenta uma investigação sobre a colaboração em diferentes ecossistemas (digitais, de software, de negócios e de inovação). Desafios como a ausência de plataformas de apoio, necessidade de adaptação de processos e questões sociais (e.g., ausência de confiança e liderança) foram identificados. Este estudo convida ainda pesquisadores e profissionais a desenvolverem soluções para esses contextos.",
+      "Keywords":"Colaboração, Ecossistemas Digitais, Ecossistemas de Software, Ecossistemas de Negócio, Ecossistemas de Inovação",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/15885"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Francisco Luciano Quirino da Silva",
+            "Institution":"Universidade Federal do Ceará (Campus Russas)",
+            "State":"CE",
+            "Author_id":169
+         },
+         {
+            "Name":"Anna Beatriz Marques",
+            "Institution":"Universidade Federal do Ceará (Campus Russas)",
+            "State":"CE",
+            "Author_id":128
+         },
+         {
+            "Name":"Tatiane F. Figueiredo",
+            "Institution":"Universidade Federal do Ceará (Campus Russas)",
+            "State":"CE",
+            "Author_id":170
+         }
+      ],
+      "Paper_id":55,
+      "Title":"Um estudo comparativo na geração de personas de crianças autistas com base em dados reais",
+      "Year":2021,
+      "Abstract":"Studies have been proposing the automatic generation of personas; however, without exploring possible differences in the quality of the generated personas in relation to manual methods. This article reports a comparative study between the semi-automatic and manual generation of personas in relation to the quality of the personas obtained, using real data from autistic children. The obtained personas were evaluated for completeness, usability, clarity, and empathy. The results indicate that the semi-automatically generated personas showed similar quality to manually generated personas but at a lower cost. This is expected to provide evidence of the potential benefits of this technique for software development.",
+      "Resumo":"Estudos vêm propondo a geração de personas de forma automática, porém, sem explorar possíveis diferenças na qualidade das personas geradas em relação a métodos manuais. Este artigo relata um estudo comparativo entre a geração semiautomática e manual de personas em relação à qualidade das personas obtidas, utilizando dados reais de crianças autistas. As personas obtidas foram avaliadas em relação à completude, disposição de uso, clareza e empatia. Os resultados indicam que as personas geradas de forma semiautomática apresentaram qualidade similar às personas geradas manualmente, porém a um custo menor. Com isso, espera-se fornecer indícios dos potenciais benefícios desta técnica para o desenvolvimento de software.",
+      "Keywords":"Persona, Geração de personas, Avaliação de personas, Transtorno do Espectro Autista, Clusterização",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/15886"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Matheus F. de Oliveira",
+            "Institution":"Instituto Federal de Educação, Ciência e Tecnologia do Ceará, campus Aracati",
+            "State":"CE",
+            "Author_id":171
+         },
+         {
+            "Name":"Renato A. C. Freitas",
+            "Institution":"Instituto Federal de Educação, Ciência e Tecnologia do Ceará, campus Aracati",
+            "State":"CE",
+            "Author_id":172
+         },
+         {
+            "Name":"Silvio R. Evangelista",
+            "Institution":"Instituto Federal de Educação, Ciência e Tecnologia do Ceará, campus Aracati",
+            "State":"CE",
+            "Author_id":173
+         },
+         {
+            "Name":"Henrique V. Oliveira",
+            "Institution":"Instituto Federal de Educação, Ciência e Tecnologia do Ceará, campus Aracati",
+            "State":"CE",
+            "Author_id":174
+         },
+         {
+            "Name":"Cairamir Arruda",
+            "Institution":"Secretaria do Desenvolvimento Econômico e Trabalho",
+            "State":"CE",
+            "Author_id":175
+         },
+         {
+            "Name":"Francisco S. Júnior",
+            "Institution":"Instituto Federal de Educação, Ciência e Tecnologia do Ceará, campus Fortaleza",
+            "State":"CE",
+            "Author_id":176
+         },
+         {
+            "Name":"Antônio Mauro B. Oliveira",
+            "Institution":"Instituto Federal de Educação, Ciência e Tecnologia do Ceará, campus Aracati",
+            "State":"CE",
+            "Author_id":177
+         }
+      ],
+      "Paper_id":56,
+      "Title":"Revive Negócio, uma plataforma para impulsionar ideias e startups no ecossistema de inovação do Ceará",
+      "Year":2021,
+      "Abstract":"This work presents Revive Negócios, a platform associated with a methodology for registering and boosting ideas and startups, with a focus on economic recovery. The platform's implementation and the specification of the seven-level methodology are described. At Revive Negócios, the registered idea and startup are carefully analyzed, receive the appropriate technical and management advice, support in the business model and market share, etc., for the composition of the ecosystem of innovation and socioeconomic improvement in the State. Revive Negócios is already operational, the result of a partnership between Iracema Digital, the Federal Institute of Ceará (IFCE), Aracati Digital, APSV Advogados, and the Government of Ceará.",
+      "Resumo":"Este trabalho apresenta o Revive Negócio, uma plataforma associada a uma metodologia para o cadastro e impulsionamento de ideias e de startups, com foco na retomada da economia. São descritas a implementação da plataforma e a especificação de uma metodologia de sete níveis. No Revive Negócio a ideia e a startup cadastradas são criteriosamente analisadas, recebem os devidos aconselhamentos técnicos e de gestão, apoio no modelo de negócio e participação no mercado, etc., para composição do ecossistema de inovação e melhoria socioeconômica do Estado. O Revive Negócio já se encontra operacional, resultado de uma parceria entre o Iracema Digital, o Instituto Federal do Ceará (IFCE), o Aracati Digital, a APSV Advogados e o Governo do Ceará.",
+      "Keywords":"COVID-19, Ideias, Retomada, Economia",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/15887"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Aloísio Alkmim de Oliveira Filho",
+            "Institution":"Escola de Medicina Veterinária e Zootecnia –Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":178
+         },
+         {
+            "Name":"Vanessa Michalsky Barbosa",
+            "Institution":"Escola de Medicina Veterinária e Zootecnia –Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":179
+         },
+         {
+            "Name":"Gustavo Bittencourt Machado",
+            "Institution":"Escola de Medicina Veterinária e Zootecnia –Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":180
+         },
+         {
+            "Name":"Taís Pinheiro Borges Silva",
+            "Institution":"Escola de Medicina Veterinária e Zootecnia –Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":181
+         },
+         {
+            "Name":"Tayana Nery Franca",
+            "Institution":"Escola de Medicina Veterinária e Zootecnia –Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":182
+         },
+         {
+            "Name":"Nayana Borges das Mercês",
+            "Institution":"Escola de Medicina Veterinária e Zootecnia –Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":183
+         },
+         {
+            "Name":"Larissa Kiana Santos Azevedo Martins",
+            "Institution":"Escola de Medicina Veterinária e Zootecnia –Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":184
+         },
+         {
+            "Name":"Izabela Lorena Azevedo",
+            "Institution":"Escola de Medicina Veterinária e Zootecnia –Universidade Federal da Bahia (UFBA)",
+            "State":"BA",
+            "Author_id":185
+         }
+      ],
+      "Paper_id":57,
+      "Title":"Poulbot – O Chatbot Extensionista Rural na Área de Incubação Artificial de Frangos de Corte",
+      "Year":2021,
+      "Abstract":"Brazilian  poultry  is  one  of  the  main  agribusiness  sectors  in  the country, producing more than 13 million tonnes/year. It is a sector that has developed in the south and southeast regions with expressiveness, while other regions, such as North and Northeast, face a shortage of rural extension activity to serve small producers, although they have development potential. Thus, this work presents a proposal of a chatbot capable of offering support to the small producer in the artificial incubation area to produce broiler chicken chicks. Practical tests carried out showed that Poulbot successfully fulfills its role as an extension worker.",
+      "Resumo":"A avicultura brasileira é um dos principais setores do agronegócio no país, que produz mais de 13 milhões de toneladas de carne de frango ao ano. É um setor que se desenvolveu na região Sul e Sudeste com mais expressividade, enquanto outras regiões, como o Norte e Nordeste, apesar de terem potencial de desenvolvimento, enfrentam carência nas atividades de extensão rural para auxiliar os pequenos produtores. Desta forma, este trabalho é uma proposta de chatbot capaz de oferecer suporte ao pequeno produtor na atividade de incubação artificial de ovos, com o objetivo de produzir pintinhos de frango de corte. Os testes práticos realizados demonstraram que o Poulbot cumpre com êxito seu papel como extensionista.",
+      "Keywords":"Avicultura, Extensão rural, Inteligência artificial, Zootecnia",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/15888"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Franciney O. Lima",
+            "Institution":"Instituto de Ciência e Tecnologia(SIDIA)",
+            "State":"AM",
+            "Author_id":186
+         },
+         {
+            "Name":"Bruno A. Bonifácio",
+            "Institution":"Instituto de Ciência e Tecnologia(SIDIA)",
+            "State":"AM",
+            "Author_id":187
+         },
+         {
+            "Name":"César França",
+            "Institution":"Departamento de Computação–Universidade Federal Rural de Pernambuco",
+            "State":"PE",
+            "Author_id":188
+         }
+      ],
+      "Paper_id":58,
+      "Title":"Onboarding Models for Software Projects: An Ad-hoc Literature Review",
+      "Year":2021,
+      "Abstract":"New hires usually should learn about the working process, organization structure, and company corporate culture and to be acquaintance with a very new environment. It requires company to organize throughout a well-planned onboarding process, but many companies are not aware of onboarding models and how to support onboard process to become more efficient. We aimed to characterize the main methods through an ad-hoc literature review. We provide practitioners and researchers with the rationale to identify onboarding models and characteristic of the main methods relate to onboarding Software Engineering.",
+      "Resumo":"#",
+      "Keywords":"onboard, newcomer, socialization",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/15889"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Fabian de Oliveira Lopes",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":189
+         },
+         {
+            "Name":"Bruno Gadelha",
+            "Institution":"Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":190
+         }
+      ],
+      "Paper_id":59,
+      "Title":"Mudanças da Gestão nas Instituições Públicas: Impacto nas Equipes de Desenvolvimento de Software",
+      "Year":2021,
+      "Abstract":"The management and governance of IT in the public area differs from the private area by the business object and the expected return. Added to this difference are the elective and non-elective seasonal management changes, which can impact the IT management processes at various levels of its structure. The objective of this research is to analyze the impact on the software development teams caused by these changes as well as their influence on the services available to their users, answering questions of great relevance, such as why the changes and what is the process in which they occur.",
+      "Resumo":"A gestão e a governança de TI na área pública divergem da área privada pelo objeto do negócio e o retorno por ele esperado. Acrescentado a essa diferença encontram-se as mudanças de gestão sazonais eletivas e não eletivas, que podem causar impactos nos processos de gestão da TI em vários níveis de sua estrutura. O objetivo desta pesquisa é analisar o impacto nas equipes de desenvolvimento de software causado por essas mudanças bem como sua influência nos serviços disponibilizados a seus usuários, respondendo à questões de grande relevância como o porque das mudanças e o processo no qual elas ocorrem.",
+      "Keywords":"governança de TI, equipes de desenvolvimento, mudança de gestão",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/15890"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Felipe Lúcio do Nascimento",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":191
+         },
+         {
+            "Name":"Pedro Luis Saraiva Barbosa",
+            "Institution":"Instituto Federal do Ceará (IFCE)",
+            "State":"CE",
+            "Author_id":192
+         },
+         {
+            "Name":"Windson Viana",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":193
+         }
+      ],
+      "Paper_id":60,
+      "Title":"Programando às cegas: investigando a acessibilidade de ambientes de desenvolvimento de software",
+      "Year":2022,
+      "Abstract":"This work investigates the problems faced by Brazilian developers who are blind (DWB). We adopted two perspectives in the research: the accessibility assessment through checking tools and a survey with 10 DWB. We evaluated four development tools with accessibility checkers. The results still indicate the strong presence of barriers in the software development context. We also pointed out which good usage and configuration practices can strongly contribute to DWB's daily work.",
+      "Resumo":"Este trabalho investiga os problemas enfrentados por desenvolvedores brasileiros com deficiência visual. Duas perspectivas foram adotadas na pesquisa: a avaliação de acessibilidade por meio de ferramentas de checagem e um survey com desenvolvedores brasileiros. Um questionário foi aplicado a 10 desenvolvedores com deficiência visual e quatro ferramentas comuns do ambiente de desenvolvimento foram avaliadas com checadores de acessibilidade. Os primeiros resultados indicam ainda a forte presença de barreiras no contexto de desenvolvimento. Também foi possível apontar quais boas práticas de uso e configuração podem contribuir fortemente com o trabalho diário de desenvolvedores que possuem deficiência visual.",
+      "Keywords":"acessibilidade, ambientes de desenvolvimento, pessoas cegas",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/20457"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Sofia M. B. Machado",
+            "Institution":"Programa de Pós Graduação em Informática (PPGI) - Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":194
+         },
+         {
+            "Name":"Juliana C. S. do Outão",
+            "Institution":"Programa de Pós Graduação em Informática (PPGI) - Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":195
+         },
+         {
+            "Name":"Victor M. G. Chaves",
+            "Institution":"Programa de Pós Graduação em Informática (PPGI) - Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":196
+         },
+         {
+            "Name":"Bruna Diirr",
+            "Institution":"Programa de Pós Graduação em Informática (PPGI) - Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":197
+         },
+         {
+            "Name":"Rodrigo Pereira dos Santos",
+            "Institution":"Programa de Pós Graduação em Informática (PPGI) - Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":10
+         }
+      ],
+      "Paper_id":61,
+      "Title":"Caracterização da Colaboração Apoiada por Sistemas de Informação em Cidades Inteligentes",
+      "Year":2022,
+      "Abstract":"The population concentration in urban areas increases economic, social, and environmental issues, demanding coordination between governments, universities, companies, and society through smart cities initiatives. This study looks to systematize what has been discussed about collaboration in smart city initiatives supported by information systems through a systematic literature mapping. The results indicate that initiatives related to improving citizens' quality of life are the most frequent. As a contribution, this work identifies challenges and opportunities on the theme and can support theories formulation in future work.",
+      "Resumo":"A concentração da população em áreas urbanas aumenta as questões econômicas, sociais e ambientais, que podem ser resolvidas por meio da articulação entre governos, universidades, empresas e sociedade, em iniciativas de cidades inteligentes. Este estudo busca sistematizar o que tem sido abordado sobre colaboração em iniciativas de cidades inteligentes apoiadas por sistemas de informação, por meio de um mapeamento sistemático da literatura. Os resultados indicam que as iniciativas relacionadas à melhoria da qualidade de vida dos cidadãos são as mais frequentes. Como contribuição, o trabalho identifica desafios e oportunidades no tema e pode subsidiar formulações de teorias em trabalhos futuros.",
+      "Keywords":"cidades inteligentes, mapeamento sistemático da literatura, colaboração",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/20458"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Débora Maria Barroso Paiva",
+            "Institution":"Faculdade de Computação – Universidade Federal de Mato Grosso do Sul (UFMS)",
+            "State":"MS",
+            "Author_id":198
+         },
+         {
+            "Name":"Michele dos Santos Soares",
+            "Institution":"Faculdade de Computação – Universidade Federal de Mato Grosso do Sul (UFMS)",
+            "State":"MS",
+            "Author_id":199
+         },
+         {
+            "Name":"Gênesis Medeiros do Carmo",
+            "Institution":"Faculdade de Computação – Universidade Federal de Mato Grosso do Sul (UFMS)",
+            "State":"MS",
+            "Author_id":200
+         },
+         {
+            "Name":"Maria Istela Cagnin",
+            "Institution":"Faculdade de Computação – Universidade Federal de Mato Grosso do Sul (UFMS)",
+            "State":"MS",
+            "Author_id":201
+         }
+      ],
+      "Paper_id":62,
+      "Title":"Towards Inclusive Software: Accessible Questionnaires for Deaf People",
+      "Year":2022,
+      "Abstract":"Despite several initiatives to integrate accessibility to the Software Engineering (SE), in practice, little is known about both the participation of people with disabilities in the phases of the software development process and the methods used. Inclusive SE is a challenge and many research opportunities may be identified. In this scenario, our objective was to identify accessibility guidelines for questionnaires, an extensively used technique, aiming at the inclusion of deaf people in many activities of the software development process. We believe initiatives like these guidelines are a step towards the inclusion of deaf people during the whole software development process and could further contribute to the accessibility of software systems.",
+      "Resumo":"#",
+      "Keywords":"software accessibility, deaf, questionnaires",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/20459"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Taianne Valerie Alves Motta",
+            "Institution":"Instituto de Ciências Exatas e Tecnológicas - Universidade Federal de Viçosa (UFV)",
+            "State":"MG",
+            "Author_id":202
+         },
+         {
+            "Name":"Gláucia Braga e Silva",
+            "Institution":"Instituto de Ciências Exatas e Tecnológicas - Universidade Federal de Viçosa (UFV)",
+            "State":"MG",
+            "Author_id":203
+         }
+      ],
+      "Paper_id":63,
+      "Title":"Análise quali-quantitativa sobre a influência da diversidade na produtividade de equipes ágeis: um estudo na indústria",
+      "Year":2022,
+      "Abstract":"This paper investigates the influence of diversity on the productivity of teams that use agile methodologies and also on their artifacts' quality. A quali-quantitative research was applied with four teams from a software company with different diversity profiles. Data was collected from two methods: a questionnaire organized in three dimensions and some metrics applied to data from a software development tool. The results showed that the most diverse teams presented better productivity and quality indicators in their products.",
+      "Resumo":"Este artigo investiga a influência da diversidade na produtividade de equipes que utilizam metodologias ágeis e também na qualidade dos artefatos produzidos. Para isso, foi realizada uma pesquisa quali-quantitativa, no contexto da indústria, envolvendo quatro times com diferentes perfis de diversidade. O estudo utilizou dois métodos de coleta de dados: um questionário organizado em três dimensões e métricas aplicadas a dados de uma ferramenta de apoio ao desenvolvimento. Os resultados mostraram que os times mais diversos apresentaram melhores indicadores de produtividade e qualidade em seus produtos.",
+      "Keywords":"Diversidade, Metodologias Ágeis, Produtividade, Qualidade",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/20460"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Gislainy Crisostomo Velasco",
+            "Institution":"Instituto de Informática – Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":204
+         },
+         {
+            "Name":"Sergio T. Carvalho",
+            "Institution":"Instituto de Informática – Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":205
+         }
+      ],
+      "Paper_id":64,
+      "Title":"Domínios, aplicações, desafios e oportunidades sobre Non-Fungible Tokens (NFT): Um mapeamento sistemático da literatura",
+      "Year":2022,
+      "Abstract":"Non-Fungible Tokens (NFTs) have recently gained visibility for their use in the digital arts and gaming world. The ERC-721 standard allows unique tokens, i.e., non-interchangeable in the Blockchain ecosystem. This paper presents results of a systematic mapping aiming to bring research horizons and potential paths that can be explored with blockchain and NFT technologies, listing the main domains, applications, challenges, and opportunities involving both technologies. The main contributions of this work are: (1) identification of the main domains and applications in which NFT is being employed; (2) challenges and research opportunities related to blockchain and NFT. The main challenges are in issues such as the difficulty of managing private keys, data ownership, intellectual property, and legislation with little guidance regarding copyright and the use of NFTs. There are also challenges and opportunities in the development of software solutions, especially regarding the definition of a development life cycle of tokens.",
+      "Resumo":"Non-Fungible Tokens (NFTs) têm ganhado visibilidade pelo seu uso no mundo das artes digitais e jogos. O padrão ERC-721 permite ter tokens únicos, ou seja, não intercambiáveis no ecossistema Blockchain. Este artigo apresenta resultados de um mapeamento sistemático visando trazer horizontes de pesquisa e potenciais caminhos que podem ser explorados com as tecnologias blockchain e NFT, elencando os principais domínios, aplicações, desafios e oportunidades envolvendo ambas as tecnologias. As principais contribuições deste trabalho são: (1) identificação dos principais domínios e aplicações em que o NFT está sendo empregado; (2) desafios e oportunidades de pesquisa relacionadas a blockchain e NFT. Os principais desafios estão em pontos como a dificuldade de se gerenciar chaves privadas, a propriedade dos dados, propriedade intelectual e legislação com pouca orientação em relação a direitos autorais e ao uso de NFTs. Há ainda desafios e oportunidades no desenvolvimento das soluções de software, em especial quanto à definição de um ciclo de vida de desenvolvimento dos tokens.",
+      "Keywords":"contratos inteligentes, blockchain, tokens não fungíveis (NFT), ERC-721, ERC-1155",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/20461"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Domingos Sávio Ferreira de Melo",
+            "Institution":"Programa de Pós-Graduação em Tecnologia Educacional (PPGTE) - Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":206
+         },
+         {
+            "Name":"Emanuel Ferreira Coutinho",
+            "Institution":"Programa de Pós-Graduação em Tecnologia Educacional (PPGTE) - Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":207
+         }
+      ],
+      "Paper_id":65,
+      "Title":"Um Estudo Inicial para Avaliação de Competências Digitais de Docentes de Programação e Modelagem com o DigCompEdu",
+      "Year":2022,
+      "Abstract":"Digital competence is a set of knowledge, skills, and attitudes to ensure the critical and creative use of ICT and digital media. DigCompEdu describes a set of digital competencies for teachers, aiming to structure existing perceptions and evidence into a comprehensive model, applicable to all educational contexts. The teaching of programming and systems modeling is common to several undergraduate courses related to computing, requiring students to practice, update, and use digital technologies. The objective of this research is to study DigCompEdu and analyze the digital competences of computing professors with a focus on programming and systems modeling. As preliminary results, a consultation with computing professors was conducted, and it was noticed there is interest in the assessment of digital competences.",
+      "Resumo":"Competência digital é um conjunto de conhecimentos, habilidades e atitudes para garantir o uso crítico e criativo das TIC e das mídias digitais. O DigCompEdu descreve um conjunto de competências digitais para docentes, visando estruturar percepções e evidências existentes em um modelo abrangente, aplicável a todos os contextos educacionais. O ensino de programação e modelagem de sistemas é comum a diversos cursos de graduação relacionados à computação, sendo necessário aos alunos a prática, atualização e uso de tecnologias digitais. O objetivo desta pesquisa é estudar o DigCompEdu e analisar as competências digitais de docentes de computação com foco em programação e modelagem de sistemas. Como resultados preliminares, uma consulta a docentes de computação foi conduzida e percebeu-se que há interesse na avaliação das competências digitais.",
+      "Keywords":"Avaliação, Competências Digitais, DigCompEdu, Programação, Modelagem",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/20462"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Alan Rodrigues",
+            "Institution":"Grupo de Estudos em Sistemas de Informação e Inovação Digital (GESID) - Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":208
+         },
+         {
+            "Name":"Allysson Allex Araújo",
+            "Institution":"Grupo de Estudos em Sistemas de Informação e Inovação Digital (GESID) - Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":152
+         },
+         {
+            "Name":"Matheus Paixão",
+            "Institution":"Programa de Pós-Graduação em Ciência da Computação (PPGCC) - Universidade Estadual do Ceará (UECE)",
+            "State":"CE",
+            "Author_id":209
+         },
+         {
+            "Name":"Pamella Soares",
+            "Institution":"Programa de Pós-Graduação em Ciência da Computação (PPGCC) - Universidade Estadual do Ceará (UECE)",
+            "State":"CE",
+            "Author_id":210
+         }
+      ],
+      "Paper_id":66,
+      "Title":"Aspectos Colaborativos no Desenvolvimento de Contratos Inteligentes da Plataforma Ethereum: Um Estudo Exploratório-descritivo Preliminar",
+      "Year":2022,
+      "Abstract":"Smart Contracts (SCs) projects are joining the open-source development. However, the development of SCs has to deal with new constraints which motivate questions about the dynamics of collaboration between developers and the community. Based on an exploratory-descriptive scope, this paper aims to discuss preliminary results on collaborative elements regarding the open-source development of SCs, in particular: i) the relationship between commits and collaborators, and ii) the report and resolution of issues.",
+      "Resumo":"Presencia-se uma adesão de projetos de Contratos Inteligentes (CIs) ao desenvolvimento open source. Ademais, reconhece-se que o desenvolvimento de CIs lida com novas restrições as quais motivam novos questionamentos sobre a dinâmica de colaboração entre desenvolvedores e para com a comunidade. Enquadrando-se a partir de uma pesquisa exploratória-descritiva, o presente artigo objetiva discutir resultados preliminares sobre elementos colaborativos quanto ao desenvolvimento open source de CIs, em específico: i) a relação entre commits e colaboradores, e ii) quanto ao report e resolução de issues.",
+      "Keywords":"Aspectos Colaborativos, Contratos Inteligentes, Mineração de Repositórios de Software, Ethereum",
+      "Type":"Curto",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/20463"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Marcela Valença",
+            "Institution":"Cesar School",
+            "State":"PE",
+            "Author_id":211
+         },
+         {
+            "Name":"Wellynton Diniz",
+            "Institution":"Cesar School",
+            "State":"PE",
+            "Author_id":212
+         },
+         {
+            "Name":"Mariana Pincovsky",
+            "Institution":"Cesar School",
+            "State":"PE",
+            "Author_id":213
+         },
+         {
+            "Name":"César França",
+            "Institution":"Universidade Federal Rural de Pernambuco - UFRPE",
+            "State":"PE",
+            "Author_id":188
+         },
+         {
+            "Name":"Giordano Cabral",
+            "Institution":"Universidade Federal de Pernambuco - UFPE",
+            "State":"PE",
+            "Author_id":214
+         }
+      ],
+      "Paper_id":67,
+      "Title":"Mercado de trabalho em Tecnologia da Comunicação e Informação (TI): análise de um experimento de aproximação entre academia e indústria no Porto Digital",
+      "Year":2023,
+      "Abstract":"The information technology (IT) sector has seen an increase in demand for professional software developers in recent years. On the other hand, the supply of current and future professionals, that is, graduates in IT courses, has not accompanied the growth in demand. Still, another factor that has been shown to be relevant is the misalignment between the skills present in IT professionals and the skills expected by the sector, causing professionals in the area to be unable to fill certain vacancies. With that in mind, Porto Digital has developed an experience in which its Management Center (NGPD) intervenes directly to induce an increase in the number of vacancies in higher IT courses in Recife, thus promoting closer ties between Higher Education Institutions and contracting companies. Therefore, the objective of the present work was to share, through an experience report, how the implementation and monitoring of this project took place. This work has practical and theoretical applications; in the field of theory, it contributes to the Skill Gap literature, and in the practical field, it can serve as a reference for future projects to bring industry and academia closer together.",
+      "Resumo":"O setor de tecnologia da informação (TI) apresentou no últimos anos aumento da demanda por profissionais desenvolvedores de software. Por outro lado, a oferta de profissionais atual e futura, ou seja, formandos em cursos de TI, não tem acompanhado o crescimento da demanda. Ainda, outro fator que tem se mostrado relevante é o desalinhamento entre as habilidades presentes em profissionais de TI e as habilidades esperadas pelo setor, fazendo com que profissionais da área não consigam preencher determinadas vagas. Pensando nisso, o Porto Digital desenvolveu uma experiência na qual o seu Núcleo de Gestão (NGPD) intervém diretamente para induzir o aumento no número de vagas nos cursos superiores de TI de Recife, desta forma, promovendo a aproximação entre Instituições de Ensino Superior (IES) e empresas contratantes. Diante disso, o objetivo do presente trabalho foi compartilhar, por meio de um relato de experiência, como se deu a implantação e acompanhamento desse projeto. Este trabalho tem aplicações práticas e teóricas, no campo da teoria contribui para a literatura de Skill Gap e no campo prático, pode servir de referência para futuros projetos de aproximação entre a indústria e academia.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24770"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Daniel Y. Hosomi",
+            "Institution":"Computer Institute / University of Campinas (UNICAMP)",
+            "State":"SP",
+            "Author_id":215
+         },
+         {
+            "Name":"Larissa B. Mota",
+            "Institution":"Faculty of Psychology / PUC-Campinas (PUCC)",
+            "State":"SP",
+            "Author_id":216
+         },
+         {
+            "Name":"Solange M. Wechsler",
+            "Institution":"Faculty of Psychology / PUC-Campinas (PUCC)",
+            "State":"SP",
+            "Author_id":217
+         },
+         {
+            "Name":"Helio Azevedo",
+            "Institution":"Center for Information Technology Renato Archer (CTI)",
+            "State":"SP",
+            "Author_id":218
+         }
+      ],
+      "Paper_id":68,
+      "Title":"Is computer field mature enough to be used as a tool in psychology?",
+      "Year":2023,
+      "Abstract":"The last two decades have shown an increasing number of studies involving “virtual psychotherapists” and robot caregivers of humans with cognitive, social, behavioral deficits or some other type of disorder. A characteristic of these studies is the need to combine actors of the computer, psychology and psychiatry areas. To establish the needs and contributions of these actors we conducted searches in two different databases: PsycoInfo of the American Psychological Association (APA) and Web of Science of the Clarivate Analytics. If, on the one hand, this analysis reveals the fundamental contribution of psychology in the development of applications to meet the demand for virtual agents and social robots, on the other hand, the analysis also identified the contributions and factors that still need to be addressed to enable the widespread use of these agents as a support tool in psychology and psychiatry clinics.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24771"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Bárbara Beato Ribeiro",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":219
+         },
+         {
+            "Name":"Josué de Almeida Resende",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":220
+         },
+         {
+            "Name":"Thiago M. R. Ribeiro",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":221
+         },
+         {
+            "Name":"Rodrigo Pereira dos Santos",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":10
+         },
+         {
+            "Name":"Sean W. M. Siqueira",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":222
+         }
+      ],
+      "Paper_id":69,
+      "Title":"Mapeamento Sistemático sobre Vieses Cognitivos no Desenvolvimento de Software",
+      "Year":2023,
+      "Abstract":"This systematic mapping study examines the effects of cognitive biases, pointing out which are the main types, in which circumstances they occur, the issues they cause, and their potential mitigation methods in an effort to understand how cognitive biases can occur in software development. Throughout all stages of software development, more than 40 cognitive biases, some issues, and potential solutions were found.",
+      "Resumo":"Visando entender de quais formas os vieses cognitivos podem ocorrer no desenvolvimento de software, este mapeamento sistemático da literatura trata de investigar os impactos desses vieses cognitivos, apontando quais são os principais tipos, em quais situações eles ocorrem, os problemas que eles causam e seus possíveis métodos de mitigação. Foram identificados mais de 40 vieses cognitivos, alguns problemas e possíveis mitigações no desenvolvimento de software ao longo de suas fases.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24772"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Ivanilse Calderon",
+            "Institution":"Instituto de Computação (IComp) – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":223
+         },
+         {
+            "Name":"Pedro Valle",
+            "Institution":"Universidade Federal de Juiz de Fora – UFJF",
+            "State":"MG",
+            "Author_id":224
+         },
+         {
+            "Name":"Ana Oran",
+            "Institution":"Universidade Federal do Amazonas – UFAM",
+            "State":"AM",
+            "Author_id":225
+         },
+         {
+            "Name":"Ricardo Vilela",
+            "Institution":"Universidade Federal do Cariri – UFCA",
+            "State":"CE",
+            "Author_id":226
+         },
+         {
+            "Name":"Rayfran Lima",
+            "Institution":"Cesar School",
+            "State":"PE",
+            "Author_id":227
+         },
+         {
+            "Name":"Renato Garcia",
+            "Institution":"PPGES (Campus Alegrete) – Universidade Federal do Pampa (UNIPAMPA)",
+            "State":"RS",
+            "Author_id":228
+         },
+         {
+            "Name":"Williamson Silva",
+            "Institution":"PPGES (Campus Alegrete) – Universidade Federal do Pampa (UNIPAMPA)",
+            "State":"RS",
+            "Author_id":229
+         },
+         {
+            "Name":"Eduardo Feitosa",
+            "Institution":"Instituto de Computação (IComp) – Universidade Federal do Amazonas (UFAM)",
+            "State":"AM",
+            "Author_id":230
+         }
+      ],
+      "Paper_id":70,
+      "Title":"Percepção docente sobre o uso do WhatsApp como ferramenta de comunicação no ensino remoto emergencial",
+      "Year":2023,
+      "Abstract":"Education had to adapt during the pandemic caused by the new coronavirus (Sars-CoV-2), and learning locations became exclusively remote. As a result, teachers began to adopt interactive tools to facilitate interaction and communication before, during, and after classes. Among them, WhatsApp was an adopted tool. This paper presents the results of a survey conducted with 363 teachers from different regions of the country. The survey characterized positive and negative aspects from the teachers' point of view regarding using WhatsApp during emergency remote teaching. As a result, we observed ease and agility in communication. However, there was a loss of privacy for the teachers.",
+      "Resumo":"Durante a pandemia causada pelo novo coronavírus (Sars-CoV-2), a educação precisou se adaptar e os espaços de aprendizagem passaram a ser exclusivamente remotos. Com isso, docentes começaram a adotar ferramentas interativas para facilitar a interação e a comunicação antes, durante e após as aulas. Uma das ferramentas adotadas foi o WhatsApp. Este artigo apresenta os resultados de um survey conduzido com 363 docentes de diferentes regiões do país. O survey caracterizou aspectos positivos e negativos do ponto de vista dos docentes sobre o uso do WhatsApp durante o ensino remoto emergencial. Como resultados, observou-se uma facilidade e agilidade da comunicação. Como consequência, houve uma perda de privacidade por parte dos docentes.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24773"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Jullia Saad",
+            "Institution":"Federal University of São Carlos",
+            "State":"SP",
+            "Author_id":231
+         },
+         {
+            "Name":"Joelma Choma",
+            "Institution":"Federal University of São Carlos",
+            "State":"SP",
+            "Author_id":232
+         },
+         {
+            "Name":"Alexandre Alvaro",
+            "Institution":"Federal University of São Carlos",
+            "State":"SP",
+            "Author_id":233
+         },
+         {
+            "Name":"Luciana Zaina",
+            "Institution":"Federal University of São Carlos",
+            "State":"SP",
+            "Author_id":234
+         }
+      ],
+      "Paper_id":71,
+      "Title":"The impact of UX work on communication and collaboration in software startups",
+      "Year":2023,
+      "Abstract":"Software startups are companies that operate under constant time and business pressures and often teams have problems on communication and collaboration. However, little has been discussed about these problems in the literature. Startup professionals have recognized user experience as an important software quality. This paper presents an investigation about the impact of UX work on team communication and collaboration in startups. We conducted a qualitative study with two startups in Brazil and found out six categories of UX work issues. Our work contributes by discussing the impact of these issues on team communication and collaboration which are related to team composition, tools adopted and organization culture.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24774"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"André Menolli",
+            "Institution":"Centro de Ciências Tecnológicas – Universidade Estadual do Norte do Paraná (UENP)",
+            "State":"PR",
+            "Author_id":235
+         },
+         {
+            "Name":"Thiago A. Coleti",
+            "Institution":"Programa de Pós-Graduação em Ciência da Computação - Universidade Estadual de Londrina (UEL)",
+            "State":"PR",
+            "Author_id":236
+         },
+         {
+            "Name":"Marcelo Morandini",
+            "Institution":"Universidade de São Paulo (USP)",
+            "State":"SP",
+            "Author_id":237
+         }
+      ],
+      "Paper_id":72,
+      "Title":"Impact of Remote Work on Software Teams: A Qualitative Study",
+      "Year":2023,
+      "Abstract":"The COVID-19 pandemic introduced a new scenario to several software companies, which were forced to adopt home office work. The new situation imposed by the COVID-19 pandemic presents several challenges for companies, particularly in how they manage development teams and the knowledge produced. This work focuses on understanding the main modifications in software development teams when changing their work mechanisms from face-to-face to remote. A study through interviews was performed and qualitative data analysis was carried out. The results show that remote work brought both advantages and disadvantages compared to face-to-face work. Furthermore, companies with well-defined processes had less difficulty adapting to remote work.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24775"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Clemer dos S. Silva",
+            "Institution":"Gestão da Tecnologia da Informação – Instituto Federal de Educação, Ciência e Tecnologia Baiano (IFBAIANO)",
+            "State":"BA",
+            "Author_id":238
+         },
+         {
+            "Name":"Lucas L. de Oliveira",
+            "Institution":"Gestão da Tecnologia da Informação – Instituto Federal de Educação, Ciência e Tecnologia Baiano (IFBAIANO)",
+            "State":"BA",
+            "Author_id":239
+         },
+         {
+            "Name":"Matheus dos S. Silva",
+            "Institution":"Gestão da Tecnologia da Informação – Instituto Federal de Educação, Ciência e Tecnologia Baiano (IFBAIANO)",
+            "State":"BA",
+            "Author_id":240
+         },
+         {
+            "Name":"Tiago do C. Nogueira",
+            "Institution":"Gestão da Tecnologia da Informação – Instituto Federal de Educação, Ciência e Tecnologia Baiano (IFBAIANO)",
+            "State":"BA",
+            "Author_id":241
+         }
+      ],
+      "Paper_id":73,
+      "Title":"Acessibilidade para Pessoas Cegas: Avaliação de Compatibilidade do TalkBack com a ABNT NBR 17060",
+      "Year":2023,
+      "Abstract":"The frequent release of updates and accessibility features is a hallmark of the Android Operating System (OS). Google TalkBack is a feature that offers blind people autonomous navigation through audible responses. Compliance with accessibility guidelines is important. For this research, a checklist was created with four criteria based on ABNT NBR 17060 to evaluate TalkBack compared to the requirements and recommendations provided for in the Brazilian standard. The methodological approach considered the survey carried out in a questionnaire directed at blind respondents and the experience of using a Smartphone Motorola Moto G22, Android 12. The resource was compatible with only two of the criteria addressed. The results of this work should serve as an indicator of improvements for the analyzed resource to ensure greater accessibility for blind people using Android Smartphones.",
+      "Resumo":"O frequente lançamento de atualizações e recursos de acessibilidade é uma característica marcante do Sistema Operacional (SO) Android. O Google TalkBack é um recurso que oferece navegação autônoma a pessoas cegas por meio de respostas audíveis. É importante a compatibilidade com diretrizes de acessibilidade. Para esta pesquisa, foi elaborado um checklist com quatro critérios baseados na ABNT NBR 17060 para avaliação do TalkBack comparativamente aos requisitos e recomendações previstos na norma brasileira. A abordagem metodológica considerou o levantamento feito em questionário direcionado a respondentes cegos e a experiência de uso em um Smartphone Motorola Moto G22, Android 12. O recurso apresentou compatibilidade com apenas dois dos critérios abordados. Os resultados deste trabalho devem servir de indicador de melhorias para o recurso analisado para garantir maior acessibilidade a pessoas cegas no uso de Smartphones Android.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24776"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Otávio Santos Gomes",
+            "Institution":"Instituto de Ciências Exatas e Tecnológicas - Universidade Federal de Viçosa (UFV)",
+            "State":"MG",
+            "Author_id":242
+         },
+         {
+            "Name":"Gláucia Braga e Silva",
+            "Institution":"Instituto de Ciências Exatas e Tecnológicas - Universidade Federal de Viçosa (UFV)",
+            "State":"MG",
+            "Author_id":203
+         },
+         {
+            "Name":"Érica Ferreira de Souza",
+            "Institution":"Departamento Acadêmico de Computação - Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":243
+         }
+      ],
+      "Paper_id":74,
+      "Title":"Ethics in the Software Development Process: a Tertiary Literature Review",
+      "Year":2023,
+      "Abstract":"The study of ethics in computer science has gained significant attention in the past decade, particularly with the emergence of new artificial intelligence (AI) systems. Issues such as Privacy, Fairness, and Transparency are receiving greater attention from researchers and the debate surrounding them is gaining momentum. Despite this attention, practical applications of ethical issues within the software development process are lacking. Our purpose is to present a literature overview, identify gaps and suggest areas for future research. For this, we present a tertiary mapping of the literature summarizing the main advances in dealing with ethics in the software development process. We collected and analyzed 8 secondary studies to gain an understanding of this research domain. Among our conclusions, we found that more research efforts are needed to address ethics beyond the software requirements activities.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24777"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Bruno Fernando da Costa",
+            "Institution":"Centro de Ciências Exatas e Tecnológicas - Universidade Federal do Acre",
+            "State":"AC",
+            "Author_id":244
+         },
+         {
+            "Name":"Amarildo Melo",
+            "Institution":"Núcleo de Apoio à Inclusão - Universidade Federal do Acre",
+            "State":"AC",
+            "Author_id":245
+         },
+         {
+            "Name":"Tamila Nascimento",
+            "Institution":"Núcleo de Apoio à Inclusão - Universidade Federal do Acre",
+            "State":"AC",
+            "Author_id":246
+         },
+         {
+            "Name":"Sônia França",
+            "Institution":"Núcleo de Apoio à Inclusão - Universidade Federal do Acre",
+            "State":"AC",
+            "Author_id":247
+         },
+         {
+            "Name":"Catarina Costa",
+            "Institution":"Centro de Ciências Exatas e Tecnológicas - Universidade Federal do Acre",
+            "State":"AC",
+            "Author_id":248
+         }
+      ],
+      "Paper_id":75,
+      "Title":"Avaliação de aplicativos de apoio a comunicação das pessoas surdas na perspectiva de um surdo",
+      "Year":2023,
+      "Abstract":"Deaf people are accompanying the transformations and evolutions of the digital world through assistive technologies, tools that support accessibility and contribute to the social inclusion of these subjects. Assistive technologies aimed at the deaf community must take into account the unique form of communication, worldview, and needs. Thus, we performed research with the aim of evaluating two applications that help deaf people communicate, HandTalk and Central Libras, from the point of view of a deaf person. The checklist used consists of 52 questions that consider Usability, User Experience (UX), and Accessibility factors together. The results show that the evaluated applications, for the most part, respond positively to the verified items.",
+      "Resumo":"Os surdos estão acompanhando as transformações e evoluções do mundo digital por meio das tecnologias assistivas, ferramentas que oferecem suporte em acessibilidade e colaboram para a inclusão social desses sujeitos. As tecnologias assistivas voltadas para a comunidade surda devem levar em conta a forma única de comunicação, de visão de mundo e de necessidades. Assim, foi realizada uma pesquisa com o objetivo de avaliar, na visão de uma pessoa surda, os aplicativos Hand Talk e Central de Libras que auxiliam sujeitos surdos a se comunicarem. O checklist utilizado é formado por 52 questões que consideram os fatores de Usabilidade, Experiência do Usuário (UX) e Acessibilidade em conjunto. Os resultados mostram que os aplicativos avaliados, em sua maior parte, atendem positivamente aos itens verificados.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24778"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Adriano de Souza",
+            "Institution":"Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":249
+         },
+         {
+            "Name":"Fernanda dos Santos",
+            "Institution":"Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":250
+         },
+         {
+            "Name":"Lidvaldo dos Santos",
+            "Institution":"Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":251
+         },
+         {
+            "Name":"Patrick Belém",
+            "Institution":"Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":252
+         },
+         {
+            "Name":"Sírius da Silva",
+            "Institution":"Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":253
+         },
+         {
+            "Name":"Adriana Vivacqua",
+            "Institution":"Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":254
+         },
+         {
+            "Name":"Rafael de Mello",
+            "Institution":"Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State":"RJ",
+            "Author_id":255
+         }
+      ],
+      "Paper_id":76,
+      "Title":"Investigando a Percepção de Feedback em Times de Desenvolvimento de Software: Um Estudo Inicial",
+      "Year":2023,
+      "Abstract":"The need for interaction between developers has increased over the decades, requiring efforts to promote effective communication. Feedback is an important tool that can be applied at different occasions, including informal conversations and planning meetings. However, an environment conducive to this practice is needed. We report a study on developers' perception regarding the feedback practice and how it is related to the developers' social identification with their teams. The results suggest that the perception of the feedback practice varies according to the occasion. We found evidence that feedback perception is correlated with participants' identification with their teams.",
+      "Resumo":"A necessidade de interação entre os desenvolvedores tem aumentado ao longo das décadas, exigindo esforços para promover uma comunicação efetiva. O feedback é uma ferramenta importante que pode ser aplicada em diferentes ocasiões, incluindo conversas informais e reuniões de planejamento. No entanto, é preciso um ambiente propício para essa prática. Relatamos um estudo sobre percepção dos desenvolvedores quanto à prática de feedback e como ela está relacionada à identificação social dos desenvolvedores com seus times. Os resultados sugerem que a percepção da prática de feedback varia de acordo com a ocasião. Encontramos evidências que a percepção do feedback está correlacionada com a identificação dos participantes com suas equipes.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24779"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Maria D. B. Araújo",
+            "Institution":"Campus Cedro – Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE)",
+            "State":"CE",
+            "Author_id":256
+         },
+         {
+            "Name":"Amanda C. Nascimento",
+            "Institution":"Campus Cedro – Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE)",
+            "State":"CE",
+            "Author_id":257
+         },
+         {
+            "Name":"Jose Olinda da Silva",
+            "Institution":"Campus Cedro – Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE)",
+            "State":"CE",
+            "Author_id":258
+         },
+         {
+            "Name":"Francisca Jamires da Costa",
+            "Institution":"Campus Cedro – Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE)",
+            "State":"CE",
+            "Author_id":259
+         }
+      ],
+      "Paper_id":77,
+      "Title":"O uso de chatbots humanizados na saúde: melhorando o atendimento ao cliente",
+      "Year":2023,
+      "Abstract":"Humanized chatbots in health aim to provide quality information, in addition to providing a welcoming environment for the user. In this sense, a Systematic Literature Mapping (SLM) was conducted, presenting an overview of research on the use of humanized chatbots in customer service, covering 14 publications (2019-2023). The results indicate that virtual assistants are increasingly present in the health area, with an emphasis on functions such as scheduling exams, monitoring and follow-up, and autonomy. However, the greatest predominance happens in offering guidance on symptoms and treatments, representing about 64.2% of the functions.",
+      "Resumo":"Os chatbots humanizados na saúde têm por objetivo prover uma informação de qualidade, além de proporcionar um meio acolhedor para o usuário. Nesse sentido, conduziu-se um Mapeamento Sistemático da Literatura (MSL) apresentando um panorama das pesquisas sobre a utilização dos chatbots humanizados no atendimento ao cliente, contemplando 14 publicações (2019-2023). Os resultados apontam que os assistentes virtuais estão cada vez mais presentes na área da saúde, com destaque para funções como marcação de exames, monitorização e acompanhamento e autonomia. No entanto, a maior predominância acontece na oferta de orientações sobre sintomas e tratamentos, representando cerca de 64,2% das funções.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24780"
+   },
+   {
+      "Authors":[
+         {
+            "Name":"Francisco Luciano Quirino da Silva",
+            "Institution":"Programa de Pós-Graduação em Computação (PCOMP) – Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":169
+         },
+         {
+            "Name":"Andréia Libório Sampaio",
+            "Institution":"Programa de Pós-Graduação em Computação (PCOMP) – Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":260
+         },
+         {
+            "Name":"Carla Ilane Moreira Bezerra",
+            "Institution":"Programa de Pós-Graduação em Computação (PCOMP) – Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":261
+         },
+         {
+            "Name":"Ingrid Teixeira Monteiro",
+            "Institution":"Programa de Pós-Graduação em Computação (PCOMP) – Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":262
+         }
+      ],
+      "Paper_id":78,
+      "Title":"Brainwriting na elicitação de requisitos para IA confiável",
+      "Year":2023,
+      "Abstract":"Failures identified in Machine Learning (ML) systems have affected users' trust, making it essential to address the issue. This study investigates the use of the Brainwriting technique in eliciting requirements for trustworthy Artificial Intelligence (AI), focusing on ML, through multidisciplinary collaboration among the involved roles. The study was conducted with a group of women with different professional profiles, facilitated by a moderator. At the end of the study, a set of open-ended questions was applied to understand the participants' perspectives regarding trustworthy AI. Through the study, it was possible to create requirements for trustworthy AI, with emphasis on ML, as well as facilitate multidisciplinary participation using Brainwriting.",
+      "Resumo":"Falhas apontadas em sistemas de Aprendizado de Máquina (AM) têm afetado a confiança dos usuários, tornando-se essencial abordar o tema. Este estudo investiga o uso da técnica Brainwriting na elicitação de requisitos para Inteligência Artificial (IA) confiável, com foco em AM, por meio da colaboração multidisciplinar dos papéis envolvidos. O estudo foi conduzido com um grupo de mulheres com perfis de atuação diferentes, facilitado por um mediador. Ao final do estudo, um conjunto de perguntas abertas foi aplicado para compreender a perspectiva das participantes em relação à IA confiável. Com o estudo foi possível criar requisitos para a IA confiável, com ênfase em AM, além de proporcionar a participação multidisciplinar, utilizando Brainwriting.",
+      "Keywords":"#",
+      "Type":"Completo",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/24781"
+   }
 ]
