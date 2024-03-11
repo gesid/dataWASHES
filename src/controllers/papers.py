@@ -196,5 +196,5 @@ class GetPapersByYear(Resource):
 class GetPaperAbstracts(Resource):
     @ns.doc("get_paper_abstracts")
     def get(self):
-        abstracts = [p["Abstract"] for p in papers_db]
+        abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
         return abstracts
