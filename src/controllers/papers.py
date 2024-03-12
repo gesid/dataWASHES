@@ -1,81 +1,33 @@
 from flask import request, jsonify
-from flask_restx import Resource, Namespace, fields
-from src.server.instance import server
-import json
+from flask_restx import Resource, Namespace
+from src.resouces.database import papers_db
+from src.models.models import paper, abstracts
 
-ns = Namespace("papers")
-
-author = server.getApi().model(
-    "Paper Author",
-    {
-        "Name": fields.String(description="Author's name", example="Maria"),
-        "Institution": fields.String(
-            description="Author' institution", example="Universidade Federal do Cariri"
-        ),
-        "State": fields.String(description="Author's state", exmple="CE", example="CE"),
-        "Author_id": fields.Integer(
-            description="The author unique identifier", example="34"
-        ),
-    },
-)
-
-paper = server.getApi().model(
-    "Paper",
-    {
-        "Authors": fields.List(
-            fields.Nested(author), description="A list of the paper authors IDs"
-        ),
-        "Paper_id": fields.Integer(
-            description="The paper unique identifier", example="3"
-        ),
-        "Title": fields.String(
-            description="Paper title",
-            example="Um Modelo para o Gerenciamento de Padrões de Projeto em Java",
-        ),
-        "Year": fields.Integer(
-            description="Publication year of the paper", example="2022"
-        ),
-        "Abstract": fields.String(
-            description="Abstract of the paper",
-            example="Design  patterns  are  defined  as  reusable  solutions  to  recurring problems. These solutions...",
-        ),
-        "Resumo": fields.String(
-            description="Resumo do artigo",
-            example="Os padrões de projeto são definidos como soluções reusáveis para problemas  recorrentes.  Essas...",
-        ),
-        "Keywords": fields.String(
-            description="Paper keywords", example="Java, Modelo, Gerenciamento"
-        ),
-        "Type": fields.String(
-            description="The type of publication", enum=["Curto", "Poster", "Completo"]
-        ),
-        "Download_link": fields.String(
-            description="A link to download the paper", example="https://example.com"
-        ),
-    },
-)
-
-with open("data/papers.json", "r", encoding="utf8") as papers_file:
-    papers_db = json.load(papers_file)
-
+ns = Namespace(name="Papers", path="/papers")
 
 @ns.route("/")
 class PapersList(Resource):
 
+    @ns.marshal_list_with(paper, mask=None)
     @ns.doc(
         "list_papers",
         params={
-            "year": "An year",
-            "id": "A paper ID",
-            "type": "A type of paper",
-            "name": "A author name",
-            "institution": "An institution",
-            "state": "A state",
-            "abstract": "A abstract",
-            "resumo": "Um resumo",
-        },
+            "year": "The paper year of publishment",
+            "id": "The paper ID",
+            "type": "The type of the paper",
+            "name": "The name of at list one of the authors",
+            "institution": "The institution name of at least one of the authors",
+            "state": "The state acronym of at least one of the authors",
+            "abstract": "The abstract of the paper",
+            "resumo": "O resumo do artigo",
+            "keyword": "Papers keyword",
+            "search": "Generic word present in title or abstract of papers",
+        }, 
+        description='''
+            Returns all the paper in the dataset.
+            The list of paper can be filtered using the header arguments especified bellow.
+        '''
     )
-    @ns.marshal_list_with(paper)
     def get(self):
         year = request.args.get("year")
         paper_id = request.args.get("id")
@@ -86,7 +38,7 @@ class PapersList(Resource):
         abstract_query = request.args.get("abstract")
         resumo_query = request.args.get("resumo")
         keyword = request.args.get("keyword")
-        generic_query = request.args.get("pesquisa")
+        generic_query = request.args.get("search")
 
         filtered_papers = papers_db
 
@@ -164,20 +116,29 @@ class PapersList(Resource):
 @ns.route("/<int:id>")
 @ns.response(404, "Paper not found")
 class PaperById(Resource):
-    @ns.doc("get_paper_by_id")
-    @ns.marshal_with(paper)
+    @ns.marshal_with(paper, mask=None)
+    @ns.doc("get_paper_by_id", 
+            description='''
+            Returns the paper identified by the ``id`` especified in the path.
+            '''
+    )
     def get(self, id):
-        for p in papers_db:
-            if p["Paper_id"] == id:
-                return p
-        ns.abort(404, message="Paper {} not found".format(id))
+        for paper in papers_db:
+            if paper["Paper_id"] == id:
+                return paper
+        ns.abort(404, message=f"Paper {id} not found")
 
 
-@ns.route("/search")
+@ns.route("/by-title/<string:seach>")
 class SearchPapersByTitle(Resource):
-    @ns.doc("search_papers_by_title")
-    def get(self):
-        keyword = request.args.get("title")
+    @ns.marshal_list_with(paper, mask=None)
+    @ns.doc("search_papers_by_title", 
+            description='''
+            Returns all the papers where the string ``seach`` is included in the title.
+            '''
+    )
+    def get(self, seach):
+        keyword = seach
         if not keyword:
             return jsonify({"error": "Missing 'title' parameter"}), 400
         matched_papers = [p for p in papers_db if keyword.lower() in p["Title"].lower()]
@@ -186,7 +147,12 @@ class SearchPapersByTitle(Resource):
 
 @ns.route("/by-year/<int:year>")
 class GetPapersByYear(Resource):
-    @ns.doc("get_papers_by_year")
+    @ns.marshal_list_with(paper, mask=None)
+    @ns.doc("get_papers_by_year", 
+            description='''
+            Returns all the papers published in the ``year`` especified in the path.
+            '''
+    )
     def get(self, year):
         matched_papers = [p for p in papers_db if p["Year"] == year]
         return matched_papers
@@ -194,7 +160,12 @@ class GetPapersByYear(Resource):
 
 @ns.route("/abstracts")
 class GetPaperAbstracts(Resource):
-    @ns.doc("get_paper_abstracts")
+    @ns.marshal_list_with(abstracts, mask=None)
+    @ns.doc("get_paper_abstracts", 
+            description='''
+            Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
+            '''
+    )
     def get(self):
         abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
         return abstracts

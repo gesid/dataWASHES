@@ -1,37 +1,13 @@
-from flask_restx import Resource, Namespace, fields
-from flask import request
-from src.server.instance import server
-import json
+from flask_restx import Resource, Namespace
+from src.resouces.database import papers_db, authors_db
+from src.models.models import author, paper
 
-author = server.getApi().model(
-    "Author",
-    {
-        "Author_id": fields.Integer(
-            description="The author unique identifier", example="10"
-        ),
-        "Name": fields.String(description="Author's name", example="João"),
-        "State": fields.String(description="Author's state", example="CE"),
-        "Institution": fields.String(description="Author' institution", example="UFCA"),
-        "Papers": fields.List(
-            fields.Integer,
-            description="IDs of the author's published papers",
-            example="[0, 3, 12]",
-        ),
-    },
-)
-
-ns = Namespace("authors")
-
-with open("data/authors.json", "r", encoding="utf8") as authors_file:
-    authors_db = json.load(authors_file)
-
-with open("data/papers.json", "r", encoding="utf8") as papers_file:
-    papers_db = json.load(papers_file)
+ns = Namespace(name="Authors", path="/authors")
 
 @ns.route("/")
 class AuthorsList(Resource):
+    @ns.marshal_list_with(author, mask=None)
     @ns.doc("list_authors")
-    @ns.marshal_list_with(author)
     def get(self):
         return authors_db
 
@@ -39,28 +15,36 @@ class AuthorsList(Resource):
 @ns.route("/<int:id>")
 @ns.response(404, "Author not found")
 class Author(Resource):
+    @ns.marshal_with(author, mask=None)
     @ns.doc("get_author")
-    @ns.marshal_with(author)
     def get(self, id):
-        for a in authors_db:
-            if a["Author_id"] == id:
-                return a
-        ns.abort(404, message="Author {} doesn't exist".format(id))
+        for author in authors_db:
+            if author["Author_id"] == id:
+                return author
+        ns.abort(404, message=f"Author with id {id} doesn't exist")
 
 
-@ns.route("/search")
+@ns.route("/by-name/<string:name>")
+@ns.response(404, "Author not found")
 class SearchAuthor(Resource):
-    @ns.doc("search_author")
-    def get(self):
-        name = request.args.get("name")
+    @ns.marshal_list_with(author, mask=None)
+    @ns.doc("search_author", 
+            params={
+                "name": "An author name"
+            }
+    )
+    def get(self, name):
         queried_authors = [
             author for author in authors_db if name.lower() in author["Name"].lower()
         ]
-        return queried_authors
+        if queried_authors:
+            return queried_authors
+        ns.abort(404, message=f"Author {name} doesn't exist")
 
 
 @ns.route("/<int:id>/papers")
 class PapersByAuthor(Resource):
+    @ns.marshal_list_with(paper, mask=None)
     @ns.doc("get_papers_by_author")
     def get(self, id):
         author_papers = [
