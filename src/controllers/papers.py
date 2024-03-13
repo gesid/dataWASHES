@@ -119,7 +119,7 @@ class PaperById(Resource):
     @ns.marshal_with(paper, mask=None)
     @ns.doc("get_paper_by_id", 
             description='''
-            Returns the paper identified by the ``id``.
+                Returns the paper identified by the ``id``.
             '''
     )
     def get(self, id):
@@ -134,7 +134,7 @@ class SearchPapersByTitle(Resource):
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc("search_papers_by_title", 
             description='''
-            Returns all the papers where the string ``seach`` is included in the title.
+                Returns all the papers where the string ``seach`` is included in the title.
             '''
     )
     def get(self, seach):
@@ -150,7 +150,7 @@ class GetPapersByYear(Resource):
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc("get_papers_by_year", 
             description='''
-            Returns all the papers published in the ``year`` specified.
+                Returns all the papers published in the ``year`` specified.
             '''
     )
     def get(self, year):
@@ -163,7 +163,7 @@ class GetPaperAbstracts(Resource):
     @ns.marshal_list_with(abstracts, mask=None)
     @ns.doc("get_paper_abstracts", 
             description='''
-            Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
+                Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
             '''
     )
     def get(self):

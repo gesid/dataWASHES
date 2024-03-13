@@ -7,7 +7,12 @@ ns = Namespace(name="Authors", path="/authors")
 @ns.route("/")
 class AuthorsList(Resource):
     @ns.marshal_list_with(author, mask=None)
-    @ns.doc("list_authors")
+    @ns.doc(
+        "list_authors", 
+        description='''
+            Returns all the authors in the dataset. 
+        '''
+    )
     def get(self):
         return authors_db
 
@@ -16,7 +21,12 @@ class AuthorsList(Resource):
 @ns.response(404, "Author not found")
 class Author(Resource):
     @ns.marshal_with(author, mask=None)
-    @ns.doc("get_author")
+    @ns.doc(
+        "get_author", 
+        description='''
+            Returns the author identified by the ``id``. 
+        '''
+    )
     def get(self, id):
         for author in authors_db:
             if author["Author_id"] == id:
@@ -28,10 +38,14 @@ class Author(Resource):
 @ns.response(404, "Author not found")
 class SearchAuthor(Resource):
     @ns.marshal_list_with(author, mask=None)
-    @ns.doc("search_author", 
-            params={
-                "name": "An author name"
-            }
+    @ns.doc(
+        "search_author", 
+        params={
+            "name": "An author name"
+        }, 
+        description='''
+            Returns the authors whose names match the ``name`` specified. 
+        '''
     )
     def get(self, name):
         queried_authors = [
@@ -45,7 +59,12 @@ class SearchAuthor(Resource):
 @ns.route("/<int:id>/papers")
 class PapersByAuthor(Resource):
     @ns.marshal_list_with(paper, mask=None)
-    @ns.doc("get_papers_by_author")
+    @ns.doc(
+        "get_papers_by_author", 
+        description='''
+            Returns all the paper which the author specified by ``id`` is an author. 
+        '''
+    )
     def get(self, id):
         author_papers = [
             paper
