@@ -150,7 +150,7 @@ class GetPapersByYear(Resource):
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc("get_papers_by_year", 
             description='''
-            Returns all the papers published in the ``year`` especified.
+            Returns all the papers published in the ``year`` specified.
             '''
     )
     def get(self, year):

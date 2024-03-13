@@ -6,7 +6,7 @@ class Server():
         self.app = Flask(__name__)
         self.api = Api(self.app,
             title='dataWashes API',
-            description='An API to request data on what WASHES community discussed about software engineering economics in the last years.',
+            description='An API to request data on what the WASHES community discussed about software engineering economics in the last few years.',
             doc='/'
         )
 
