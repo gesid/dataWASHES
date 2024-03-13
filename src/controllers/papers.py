@@ -13,7 +13,7 @@ class PapersList(Resource):
         "list_papers",
         params={
             "year": "The paper year of publishment",
-            "id": "The paper ID",
+            "id": "The paper identifier",
             "type": "The type of the paper",
             "name": "The name of at list one of the authors",
             "institution": "The institution name of at least one of the authors",
@@ -25,7 +25,7 @@ class PapersList(Resource):
         }, 
         description='''
             Returns all the paper in the dataset.
-            The list of paper can be filtered using the header arguments especified bellow.
+            The list of paper can be filtered using the header arguments specified below.
         '''
     )
     def get(self):
@@ -119,7 +119,7 @@ class PaperById(Resource):
     @ns.marshal_with(paper, mask=None)
     @ns.doc("get_paper_by_id", 
             description='''
-            Returns the paper identified by the ``id`` especified in the path.
+            Returns the paper identified by the ``id``.
             '''
     )
     def get(self, id):
@@ -150,7 +150,7 @@ class GetPapersByYear(Resource):
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc("get_papers_by_year", 
             description='''
-            Returns all the papers published in the ``year`` especified in the path.
+            Returns all the papers published in the ``year`` especified.
             '''
     )
     def get(self, year):
