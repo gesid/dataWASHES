@@ -1,7 +1,5 @@
-from server.instance import server
-from controllers.authors import ns as authorsNs
-from controllers.editions import ns as editionsNs
-from controllers.papers import ns as papersNs
+from server import server
+from controllers import authorsNs, editionsNs, papersNs
     
 server.api.add_namespace(editionsNs)
 server.api.add_namespace(papersNs)
