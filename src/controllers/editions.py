@@ -1,7 +1,7 @@
 from flask_restx import Resource, Namespace
 from flask import jsonify
-from src.resouces.database import editions_db, papers_db
-from src.models.models import edition, paper
+from resouces.database import editions_db, papers_db
+from models.models import edition, paper
 
 ns = Namespace(name='Editions', path='/editions')
 
@@ -15,7 +15,6 @@ class EditionsList(Resource):
     )
     def get(self):
         return editions_db
-
 
 @ns.route("/<int:id>")
 @ns.response(404, "Edition not found")
@@ -32,7 +31,6 @@ class EditionById(Resource):
             return jsonify({"error": "Edition not found"}), 404
         return edition
 
-
 @ns.route("/by-year/<int:year>")
 @ns.response(404, "Edition not found")
 class SearchEditions(Resource):
@@ -47,7 +45,6 @@ class SearchEditions(Resource):
             return jsonify({"error": "Missing 'year' parameter"}), 404
         matched_editions = [e for e in editions_db if e["Year"] == int(year)]
         return matched_editions
-
 
 @ns.route("/<int:edition_id>/papers")
 @ns.response(404, "Edition not found")

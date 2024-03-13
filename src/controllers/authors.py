@@ -1,6 +1,6 @@
 from flask_restx import Resource, Namespace
-from src.resouces.database import papers_db, authors_db
-from src.models.models import author, paper
+from resouces.database import papers_db, authors_db
+from models.models import author, paper
 
 ns = Namespace(name="Authors", path="/authors")
 
