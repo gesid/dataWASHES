@@ -23,7 +23,10 @@ class EditionById(Resource):
     @ns.doc("get_edition_by_id", 
         description='''
             Returns the edition identified by the ``id``.
-        '''
+        ''',
+        params={
+            "id": "The edition unique identifier"
+        }
     )
     def get(self, id):
         edition = next((e for e in editions_db if e["Edition_id"] == id), None)
@@ -38,7 +41,10 @@ class SearchEditions(Resource):
     @ns.doc("search_editions_by_year", 
         description='''
             Returns the edition that occurred in the ``year`` specified.
-        '''
+        ''',
+        params={
+            "year": "The year of the edition"
+        }
     )
     def get(self, year):
         if year is None:
@@ -46,17 +52,20 @@ class SearchEditions(Resource):
         matched_editions = [e for e in editions_db if e["Year"] == int(year)]
         return matched_editions
 
-@ns.route("/<int:edition_id>/papers")
+@ns.route("/<int:id>/papers")
 @ns.response(404, "Edition not found")
 class PapersByEdition(Resource):
     @ns.marshal_list_with(paper, mask=None)
-    @ns.doc("get_papers_by_edition_id", 
+    @ns.doc("get_papers_by_id", 
         description='''
-            Returns all the papers that were published in the edition specified by the ``edition_id``.
-        '''
+            Returns all the papers that were published in the edition specified by the ``id``.
+        ''',
+        params={
+            "id": "The edition unique identifier"
+        }
     )
-    def get(self, edition_id):
-        edition = next((e for e in editions_db if e["Edition_id"] == edition_id), None)
+    def get(self, id):
+        edition = next((e for e in editions_db if e["Edition_id"] == id), None)
         if edition is None:
             return jsonify({"error": "Edition not found"}), 404
         papers_in_edition = [

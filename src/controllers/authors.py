@@ -25,7 +25,10 @@ class Author(Resource):
         "get_author", 
         description='''
             Returns the author identified by the ``id``. 
-        '''
+        ''',
+        params={
+            "id": "The author unique identifier"
+        }
     )
     def get(self, id):
         for author in authors_db:
@@ -40,12 +43,12 @@ class SearchAuthor(Resource):
     @ns.marshal_list_with(author, mask=None)
     @ns.doc(
         "search_author", 
-        params={
-            "name": "An author name"
-        }, 
         description='''
             Returns the authors whose names match the ``name`` specified. 
-        '''
+        ''',
+        params={
+            "name": "The author name"
+        }
     )
     def get(self, name):
         queried_authors = [
@@ -64,6 +67,10 @@ class PapersByAuthor(Resource):
         description='''
             Returns all the paper which the author specified by ``id`` is an author. 
         '''
+        ,
+        params={
+            "id": "The author unique identifier"
+        }
     )
     def get(self, id):
         author_papers = [

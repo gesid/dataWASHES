@@ -117,10 +117,14 @@ class PapersList(Resource):
 @ns.response(404, "Paper not found")
 class PaperById(Resource):
     @ns.marshal_with(paper, mask=None)
-    @ns.doc("get_paper_by_id", 
-            description='''
-                Returns the paper identified by the ``id``.
-            '''
+    @ns.doc(
+        "get_paper_by_id", 
+        description='''
+            Returns the paper identified by the ``id``.
+        ''',
+        params={
+            "id": "The paper unique identifier",
+        }
     )
     def get(self, id):
         for paper in papers_db:
@@ -129,16 +133,20 @@ class PaperById(Resource):
         ns.abort(404, message=f"Paper {id} not found")
 
 
-@ns.route("/by-title/<string:seach>")
+@ns.route("/by-title/<string:search>")
 class SearchPapersByTitle(Resource):
     @ns.marshal_list_with(paper, mask=None)
-    @ns.doc("search_papers_by_title", 
-            description='''
-                Returns all the papers where the string ``seach`` is included in the title.
-            '''
+    @ns.doc(
+        "search_papers_by_title", 
+        description='''
+            Returns all the papers where the string ``search`` is included in the title.
+        ''',
+        params={
+            "search": "Generic word present in title",
+        }
     )
-    def get(self, seach):
-        keyword = seach
+    def get(self, search):
+        keyword = search
         if not keyword:
             return jsonify({"error": "Missing 'title' parameter"}), 400
         matched_papers = [p for p in papers_db if keyword.lower() in p["Title"].lower()]
@@ -148,10 +156,14 @@ class SearchPapersByTitle(Resource):
 @ns.route("/by-year/<int:year>")
 class GetPapersByYear(Resource):
     @ns.marshal_list_with(paper, mask=None)
-    @ns.doc("get_papers_by_year", 
-            description='''
-                Returns all the papers published in the ``year`` specified.
-            '''
+    @ns.doc(
+        "get_papers_by_year", 
+        description='''
+            Returns all the papers published in the ``year`` specified.
+        ''',
+        params={
+            "year": "The year of publishment",
+        }
     )
     def get(self, year):
         matched_papers = [p for p in papers_db if p["Year"] == year]
@@ -161,10 +173,11 @@ class GetPapersByYear(Resource):
 @ns.route("/abstracts")
 class GetPaperAbstracts(Resource):
     @ns.marshal_list_with(abstracts, mask=None)
-    @ns.doc("get_paper_abstracts", 
-            description='''
-                Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
-            '''
+    @ns.doc(
+        "get_paper_abstracts", 
+        description='''
+            Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
+        '''
     )
     def get(self):
         abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
