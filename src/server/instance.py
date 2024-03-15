@@ -12,7 +12,7 @@ class Server():
         )
 
     def run(self):
-        self.app.run( debug=True )
+        self.app.run()
 
     def getApi(self):
         return self.api
