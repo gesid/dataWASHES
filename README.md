@@ -23,7 +23,8 @@ pip install -r requirements.txt
 ## Uso
 1. Inicie o servidor:
 ```shell
-python app.py
+python src\app.py # Windows
+python src/app.py # Linux/Mac
 ```
 
 2. Acesse a documentação da API em http://localhost:5000/ para obter detalhes sobre os endpoints disponíveis e como utilizá-los.
