@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from flask_restx import Resource, Namespace
-from resouces import papers_db
-from models import paper, abstracts
+from ..resources import papers_db
+from ..models import paper, abstracts
 
 ns = Namespace(name="Papers", path="/papers")
 

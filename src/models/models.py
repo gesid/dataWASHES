@@ -1,5 +1,5 @@
 from flask_restx import fields
-from server.instance import server
+from ..server.instance import server
 
 chairs = server.getApi().model(
     "Chair",
