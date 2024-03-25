@@ -1,4 +1,4 @@
 Flask
 flask-restx
 flask-swagger-ui
-Werkzeug
+Werkzeug==2.0.3
