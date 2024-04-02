@@ -7,7 +7,7 @@ class Server():
         self.api = Api(
             self.app,
             title='dataWASHES API',
-            description='An API to request data on what the WASHES community discussed about software engineering economics in the last few years.',
+            description='dataWASHES is an open source Application Programming Interface (API) that aims to facilitate streamlined programmatic access to the Workshop on Social, Human, and Economic Aspects of Software (WASHES) proceedings.',
             doc='/'
         )
 
