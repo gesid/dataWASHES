@@ -63,7 +63,8 @@ paper = server.getApi().model(
     "Paper",
     {
         "Authors": fields.List(
-            fields.Nested(paperAuthor), description="A list of the paper authors IDs"
+            fields.Nested(paperAuthor),
+            description="A list of the paper authors IDs"
         ),
         "Paper_id": fields.Integer(
             description="The paper unique identifier", example="3"
@@ -84,13 +85,28 @@ paper = server.getApi().model(
             example="Os padrões de projeto são definidos como soluções reusáveis para problemas  recorrentes.  Essas...",
         ),
         "Keywords": fields.String(
-            description="Paper keywords", example="Java, Modelo, Gerenciamento"
+            description="Paper keywords",
+            example="Java, Modelo, Gerenciamento"
         ),
         "Type": fields.String(
-            description="The type of publication", enum=["Curto", "Poster", "Completo"]
+            description="The type of publication",
+            enum=["Short paper", "Poster", "Full paper"]
         ),
         "Download_link": fields.String(
-            description="A link to download the paper", example="https://example.com"
+            description="A link to download the paper",
+            example="https://example.com"
+        ),
+        "References": fields.List(
+            fields.String,
+            description="List of references used in the paper",
+        ),
+        "Cited_by": fields.List(
+            fields.String,
+            description="List of articles that cite this article",
+        ),
+        "Updated_in": fields.String(
+            description="Date of last update of the ``Cited_by`` field",
+            example="2024-04-10"
         ),
     },
 )
