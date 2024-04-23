@@ -1,7 +1,8 @@
 from flask import request, jsonify
 from flask_restx import Resource, Namespace
 from resouces import papers_db
-from models import paper, abstracts
+from models import paper, abstracts, reference, citation
+# Adicionadas importações dos modelos de referências e citações
 
 ns = Namespace(name="Papers", path="/papers")
 
@@ -22,6 +23,8 @@ class PapersList(Resource):
             "resumo": "O resumo do artigo",
             "keyword": "Papers keyword",
             "search": "Generic word present in title or abstract of papers",
+            "reference": "A specific reference used in the paper",
+            "citations": "A specific article that cites this article",
         }, 
         description='''
             Returns all the paper in the dataset.
@@ -110,7 +113,19 @@ class PapersList(Resource):
                 or generic_query.lower() in paper["Abstract"].lower()
             ]
 
-        return filtered_papers
+        if reference:
+            filtered_papers = [
+                paper
+                for paper in filtered_papers
+                if any(reference in paper_ref for paper_ref in paper.get("References", []))
+            ]
+
+        if citation:
+            filtered_papers = [
+                paper
+                for paper in filtered_papers
+                if any(citation in cited_by for cited_by in paper.get("Cited_by", []))
+            ]
 
 
 @ns.route("/<int:id>")
@@ -182,3 +197,53 @@ class GetPaperAbstracts(Resource):
     def get(self):
         abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
         return abstracts
+
+# Adicionando rota para obter as referências de um artigo identificado pelo `id`.
+@ns.route("/<int:id>/references")
+class GetPaperReferences(Resource):
+    @ns.response(404, "Paper not found")
+    @ns.marshal_list_with(reference, mask=None)
+    @ns.doc(
+        "get_paper_references",
+        description='''
+            Returns the ``references`` of the paper identified by the ``id``
+        ''',
+        params={
+            "id": "The paper unique identifier",
+        }
+    )
+    def get(self, id):
+        references = []
+        for paper in papers_db:
+            if paper["Paper_id"] == id:
+                references = paper.get("References", [])
+                break
+        if not references:
+            ns.abort(404, message=f"No references found for paper {id}")
+
+        return [{"Paper_id": id, "References": references}]
+    
+# Adicionando rota para obter as citações de um artigo identificado pelo `id`.
+@ns.route("/<int:id>/citations")
+class GetPaperCitations(Resource):
+    @ns.response(404, "Paper not found")
+    @ns.marshal_list_with(citation, mask=None)
+    @ns.doc(
+        "get_paper_citations",
+        description='''
+            Returns the citations of the paper identified by the ``id``.
+        ''',
+        params={
+            "id": "The paper unique identifier",
+        }
+    )
+    def get(self, id):
+        citations = []
+        for paper in papers_db:
+            if paper["Paper_id"] == id:
+                citations = paper.get("Cited_by", [])
+                break
+        if not citations:
+            ns.abort(404, message=f"No citations found for paper {id}")
+
+        return [{"Paper_id": id, "Cited_by": citations}]

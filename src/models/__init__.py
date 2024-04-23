@@ -1,1 +1,1 @@
-from .models import abstracts, author, chairs, edition, paper, paperAuthor
+from .models import abstracts, author, chairs, edition, paper, paperAuthor, reference, citation

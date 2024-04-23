@@ -135,3 +135,31 @@ author = server.getApi().model(
         ),
     },
 )
+
+# Adicionando modelo para representar as referências de um artigo
+reference = server.getApi().model(
+    "Reference",
+    {
+        "Paper_id": fields.Integer(
+            description="The paper unique identifier", example="3"
+        ),
+        "References": fields.List(
+            fields.String,
+            description="List of references used in the paper",
+        ),
+    },
+)
+
+# Adicionado modelo para representar as citações de um artigo
+citation = server.getApi().model(
+    "Citation",
+    {
+        "Paper_id": fields.Integer(
+            description="The paper unique identifier", example="3"
+        ),
+        "Cited_by": fields.List(
+            fields.String,
+            description="List of articles that cite this article",
+        ),
+    },
+)
