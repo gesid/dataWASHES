@@ -24,7 +24,7 @@ class PapersList(Resource):
             "keyword": "Papers keyword",
             "search": "Generic word present in title or abstract of papers",
             "reference": "A specific reference used in the paper",
-            "citations": "A specific article that cites this article",
+            "citation": "A specific article that cites this article",
         }, 
         description='''
             Returns all the paper in the dataset.
@@ -42,8 +42,8 @@ class PapersList(Resource):
         resumo_query = request.args.get("resumo")
         keyword = request.args.get("keyword")
         generic_query = request.args.get("search")
-        citation_query = request.args.get("search")
-        reference_query = request.args.get("search")
+        citation_query = request.args.get("citation")
+        reference_query = request.args.get("reference")
 
         filtered_papers = papers_db
 
@@ -119,14 +119,14 @@ class PapersList(Resource):
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if reference in paper.get("References", [])
+                if reference_query in paper.get("References", [])
             ]
 
         if citation_query:
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if citation in paper.get("Cited_by", [])
+                if any(citation_query == citation_paper for citation_paper in paper.get("Cited_by", []))
             ]
 
         return filtered_papers
