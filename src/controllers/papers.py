@@ -42,6 +42,8 @@ class PapersList(Resource):
         resumo_query = request.args.get("resumo")
         keyword = request.args.get("keyword")
         generic_query = request.args.get("search")
+        citation_query = request.args.get("search")
+        reference_query = request.args.get("search")
 
         filtered_papers = papers_db
 
@@ -113,19 +115,21 @@ class PapersList(Resource):
                 or generic_query.lower() in paper["Abstract"].lower()
             ]
 
-        if reference:
+        if reference_query:
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if any(reference in paper_ref for paper_ref in paper.get("References", []))
+                if reference in paper.get("References", [])
             ]
 
-        if citation:
+        if citation_query:
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if any(citation in cited_by for cited_by in paper.get("Cited_by", []))
+                if citation in paper.get("Cited_by", [])
             ]
+
+        return filtered_papers
 
 
 @ns.route("/<int:id>")
