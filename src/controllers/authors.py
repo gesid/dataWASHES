@@ -65,7 +65,7 @@ class PapersByAuthor(Resource):
     @ns.doc(
         "get_papers_by_author", 
         description='''
-            Returns all the paper which the author specified by ``id`` is an author. 
+            Returns the papers of the author specified by ``id``. 
         '''
         ,
         params={
