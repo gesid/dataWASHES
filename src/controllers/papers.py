@@ -16,7 +16,7 @@ class PapersList(Resource):
             "year": "The paper year of publishment",
             "id": "The paper identifier",
             "type": "The type of the paper",
-            "name": "The name of at list one of the authors",
+            "author name": "The name of at least one of the authors",
             "institution": "The institution name of at least one of the authors",
             "state": "The state acronym of at least one of the authors",
             "abstract": "The abstract of the paper",
@@ -58,6 +58,7 @@ class PapersList(Resource):
             ]
 
         if paper_type:
+            paper_type = paper_type.lower().capitalize()
             filtered_papers = [
                 paper for paper in filtered_papers if paper["Type"] == paper_type
             ]
@@ -126,7 +127,7 @@ class PapersList(Resource):
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if any(citation_query == citation_paper for citation_paper in paper.get("Cited_by", []))
+                if citation_query in paper.get("Cited_by", [])
             ]
 
         return filtered_papers
