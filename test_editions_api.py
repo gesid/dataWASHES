@@ -19,11 +19,11 @@ def test_get_editions_by_years():
         response = requests.get(url)
         assert response.status_code == 200
 
-    # Anos inválidos
+    # Anos inválidos // endpoint CORRIGIDO
     for year in invalid_years:
         url = f"{ENDPOINT}/editions/by-year/{year}"
         response = requests.get(url)
-        assert response.status_code == 404
+        assert response.status_code == 400
 
 
 # Teste para edições com IDs válidas
