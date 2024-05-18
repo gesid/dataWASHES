@@ -1,6 +1,7 @@
 <p align="center">
     <img src="src/img/logo.png" height="100px" alt="Logo dataWASHES">
 </p>
+
 # dataWASHES
 Esta API permite consultar dados sobre autores, edições e artigos do Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software - WASHES. Ela foi desenvolvida utilizando Flask e Flask-RESTx, e os dados são armazenados em arquivos JSON.
 
