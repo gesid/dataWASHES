@@ -51,7 +51,7 @@ class SearchEditions(Resource):
 
         # Adicionando condicional somente para os anos com editions existentes
         if not (2016 <= year <= 2023):
-            return jsonify({"error": "Year not within range (2016-2023)"}), 400
+            return jsonify({"error": "Year not within range (2016-2023)"}), 404
 
         matched_editions = [e for e in editions_db if e["Year"] == int(year)]
         if matched_editions:

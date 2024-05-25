@@ -13,18 +13,17 @@ def test_get_editions_by_years():
     valid_years = range(2016, 2023)
     invalid_years = [2000, 2040]
 
-    # Anos válidos
     for year in valid_years:
         url = f"{ENDPOINT}/editions/by-year/{year}"
         response = requests.get(url)
+
         assert response.status_code == 200
 
-    # Anos inválidos // endpoint CORRIGIDO
     for year in invalid_years:
         url = f"{ENDPOINT}/editions/by-year/{year}"
         response = requests.get(url)
-        assert response.status_code == 400
 
+        assert response.status_code == 404
 
 # Teste para edições com IDs válidas
 def test_get_edition_valid_ids():

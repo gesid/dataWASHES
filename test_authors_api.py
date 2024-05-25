@@ -43,7 +43,7 @@ def test_get_authors_invalid_ids():
         response = requests.get(url)
         assert response.status_code == 404
 
-# Teste para authors válidas e seus respectivos artigos
+# Teste para authors válidos e seus respectivos artigos
 def test_get_papers_for_valid_author_ids():
     author_ids = range(0, 263)
 
@@ -53,7 +53,7 @@ def test_get_papers_for_valid_author_ids():
 
 # Teste para authors inválidos e seus respectivos artigos
 def test_get_papers_for_invalid_author_ids():
-    invalid_author_ids = [-1, -15, -20]
+    invalid_author_ids = [-1, -15, 3333]
 
     for author_id in invalid_author_ids:
         response = requests.get(f"{ENDPOINT}/authors/{author_id}/papers")

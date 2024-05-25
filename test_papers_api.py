@@ -3,78 +3,31 @@ import requests
 
 ENDPOINT = "http://127.0.0.1:5000/"
 
-# Teste para validação dos papers
-def test_get_papers():
-    test_cases = [
-        # Teste de caso 1: Filtro por ano
-        {
-            "year": 2023,
-            "expected_status_code": 200
-        },
-        # Teste de caso 2: Filtro por ID
-        {
-            "id": 1,
-            "expected_status_code": 200
-        },
-        # Teste de caso 3: Filtro por tipo
-        {
-            "type": "",
-            "expected_status_code": 200
-        },
-        # Teste de caso 4: Filtro por nome
-        {
-            "name": "",
-            "expected_status_code": 200
-        },
-        # Teste de caso 5: Filtro por instituição
-        {
-            "institution": "",
-            "expected_status_code": 200
-        },
-        # Teste de caso 6: Filtro por estado (published, accepted, etc.)
-        {
-            "state": "",
-            "expected_status_code": 200
-        },
-        # Teste de caso 7: Filtro por abstract
-        {
-            "abstract": "",
-            "expected_status_code": 200
-        },
-        # Teste de caso 8: Filtro por resumo
-        {
-            "resumo": "",
-            "expected_status_code": 200
-        },
-        # Teste de caso 9: Filtro por palavras-chave
-        {
-            "keyword": "",
-            "expected_status_code": 200
-        },
-        # Teste de caso 10: Filtro por busca
-        {
-            "search": "",
-            "expected_status_code": 200
-        },
-        # Teste de caso 11: Filtro por referências
-        {
-            "reference": "",
-            "expected_status_code": 200
-        },
-        # Teste de caso 12: Filtro por citações
-        {
-            "citation": "",
-            "expected_status_code": 200
-        }
-    ]
+# Teste para validação do parâmetro 'Year' no endpoint papers
+def test_get_papers_with_valid_year_parameter():
+    year = 2022
+    response = requests.get(f"{ENDPOINT}/papers/?year={year}")
+    assert response.status_code == 200
 
-    for test_case in test_cases:
-        url = f"{ENDPOINT}/papers?"
-        for param, value in test_case.items():
-            url += f"{param}={value}&"
+def test_get_papers_with_invalid_year_parameter():
+    invalid_year = "invalido" 
+    response = requests.get(f"{ENDPOINT}/papers/?year={invalid_year}")
+    assert response.status_code == 400 
 
-        response = requests.get(url)
-        assert response.status_code == test_case["expected_status_code"]
+def test_get_papers_without_year_parameter():
+    response = requests.get(f"{ENDPOINT}/papers/")
+    assert response.status_code == 200
+
+# Teste para validação do parâmetro 'ID' no endpoint papers
+def test_get_papers_with_valid_id_parameter():
+    id = 1
+    response = requests.get(f"{ENDPOINT}/papers/?id={id}")
+    assert response.status_code == 200
+
+def test_get_papers_with_invalid_id_returns_404():
+    invalid_id = 999999
+    response = requests.get(f"{ENDPOINT}/papers/{invalid_id}")
+    assert response.status_code == 404
 
 # Teste para validar abstracts
 def test_get_abstracts():
@@ -88,11 +41,10 @@ def test_get_papers_by_title():
     response = requests.get(f"{ENDPOINT}/papers/by-title/{search_term}")
     assert response.status_code == 200
 
-# Teste para search by title inválidos
-def test_get_papers_by_title_with_empty_search():
-    empty_search = ""
+def test_get_papers_by_title_invalid_search():
+    invalid_search = "magic"
 
-    response = requests.get(f"{ENDPOINT}/papers/by-title/{empty_search}")
+    response = requests.get(f"{ENDPOINT}/papers/by-title/{invalid_search}")
     assert response.status_code == 404
 
 # Teste para validação do search by year
@@ -103,13 +55,11 @@ def test_get_papers_by_year():
         response = requests.get(f"{ENDPOINT}/papers/by-year/{year}")
         assert response.status_code == 200
 
-# Teste para search by year inválidos
 def test_get_papers_by_invalid_year():
-    years = []
+    invalid_year = 3333
 
-    for year in years:
-        response = requests.get(f"{ENDPOINT}/papers/by-year/{year}")
-        assert response.status_code == 404
+    response = requests.get(f"{ENDPOINT}/papers/by-year/{invalid_year}")
+    assert response.status_code == 404
 
 # Teste para validação das IDs
 def test_get_valid_paper_ids():
@@ -119,7 +69,6 @@ def test_get_valid_paper_ids():
         response = requests.get(f"{ENDPOINT}/papers/{paper_id}")
         assert response.status_code == 200
 
-# Teste para IDs inválidas
 def test_get_invalid_paper_ids():
     paper_ids = [1000, 1001, 1002]
 
@@ -135,7 +84,6 @@ def test_get_references_for_valid_paper_ids():
         response = requests.get(f"{ENDPOINT}/papers/{paper_id}/references")
         assert response.status_code == 200
 
-# Teste para referências inválidas
 def test_get_references_for_invalid_paper_ids():
     paper_ids = [1000, 1001, 1002]
 
@@ -143,7 +91,7 @@ def test_get_references_for_invalid_paper_ids():
         response = requests.get(f"{ENDPOINT}/papers/{paper_id}/references")
         assert response.status_code == 404
 
-# Teste para citações válidas
+# Teste para citações
 def test_get_citations_for_valid_paper_ids():
     paper_ids = range(0, 79)
 
@@ -151,7 +99,6 @@ def test_get_citations_for_valid_paper_ids():
         response = requests.get(f"{ENDPOINT}/papers/{paper_id}/citations")
         assert response.status_code == 200
 
-# Teste para citações inválidas
 def test_get_citations_for_invalid_paper_ids():
     paper_ids = [1000, 1001, 1002]
 

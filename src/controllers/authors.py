@@ -78,4 +78,6 @@ class PapersByAuthor(Resource):
             for paper in papers_db
             if any(author["Author_id"] == id for author in paper["Authors"])
         ]
+        if not author_papers:
+            return {"message": f"Author with ID {id} not found."}, 404
         return author_papers
