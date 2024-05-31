@@ -35,8 +35,11 @@ class PapersList(Resource):
     )
     def get(self):
         # Pagination parameters
-        page = request.args.get("page", default=1, type=int)
-        per_page = request.args.get("per_page", default=10, type=int)
+        try:
+            page = request.args.get("page", default=1, type=int)
+            per_page = request.args.get("per_page", default=10, type=int)
+        except ValueError:
+            ns.abort(400, message="Page number and items per page must be integers")
 
         if page < 1:
             ns.abort(400, message="Page number must be a positive integer")
