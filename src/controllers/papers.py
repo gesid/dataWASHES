@@ -35,7 +35,7 @@ class PapersList(Resource):
         year = request.args.get("year")
         paper_id = request.args.get("id")
         paper_type = request.args.get("type")
-        author_name = request.args.get("name")
+        author_name = request.args.get("author")
         institution_name = request.args.get("institution")
         author_state = request.args.get("state")
         abstract_query = request.args.get("abstract")
@@ -67,24 +67,21 @@ class PapersList(Resource):
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if any(author["Name"] == author_name for author in paper["Authors"])
+                if any(author_name in author["Name"] for author in paper["Authors"])
             ]
 
         if institution_name:
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if any(
-                    author["Institution"] == institution_name
-                    for author in paper["Authors"]
-                )
+                if any(institution_name in author["Institution"] for author in paper["Authors"])
             ]
 
         if author_state:
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if any(author["State"] == author_state for author in paper["Authors"])
+                if any(author_state in author["State"] for author in paper["Authors"])
             ]
 
         if abstract_query:
