@@ -171,6 +171,8 @@ class SearchPapersByTitle(Resource):
         ''',
         params={
             "search": "Generic word present in title",
+            "page": "The page number to retrieve",
+            "per_page": "The number of papers to display per page"
         }
     )
     def get(self, search):
@@ -178,6 +180,12 @@ class SearchPapersByTitle(Resource):
         if not keyword:
             return jsonify({"error": "Missing 'title' parameter"}), 400
         matched_papers = [p for p in papers_db if keyword.lower() in p["Title"].lower()]
+
+        try:
+            matched_papers = paginate(matched_papers)[0]
+        except ValueError as e:
+            ns.abort(400, message=str(e))
+
         return matched_papers
 
 
@@ -191,10 +199,18 @@ class GetPapersByYear(Resource):
         ''',
         params={
             "year": "The year of publishment",
+            "page": "The page number to retrieve",
+            "per_page": "The number of papers to display per page"
         }
     )
     def get(self, year):
         matched_papers = [p for p in papers_db if p["Year"] == year]
+
+        try:
+            matched_papers = paginate(matched_papers)[0]
+        except ValueError as e:
+            ns.abort(400, message=str(e))
+
         return matched_papers
 
 
@@ -205,10 +221,20 @@ class GetPaperAbstracts(Resource):
         "get_paper_abstracts", 
         description='''
             Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
-        '''
+        ''',
+        params={
+            "page": "The page number to retrieve",
+            "per_page": "The number of abstracts to display per page"
+        }
     )
     def get(self):
         abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
+
+        try:
+            abstracts = paginate(abstracts)[0]
+        except ValueError as e:
+            ns.abort(400, message=str(e))
+
         return abstracts
 
 # Adicionando rota para obter as referências de um artigo identificado pelo `id`.

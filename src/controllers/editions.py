@@ -2,6 +2,7 @@ from flask_restx import Resource, Namespace
 from flask import jsonify
 from resouces import editions_db, papers_db
 from models import edition, paper
+from utils.utils import paginate
 
 ns = Namespace(name='Editions', path='/editions')
 
@@ -11,10 +12,18 @@ class EditionsList(Resource):
     @ns.doc("list_editions", 
         description='''
             Returns all the editions in the dataset.
-        '''
+        ''',
+        params={
+            "page": "The page number to retrieve",
+            "per_page": "The number of editions to display per page"
+        }
     )
     def get(self):
-        return editions_db
+        try:
+            editions = paginate(editions_db)[0]
+        except ValueError as e:
+            ns.abort(400, message=str(e))
+        return editions
 
 @ns.route("/<int:id>")
 @ns.response(404, "Edition not found")
@@ -61,7 +70,9 @@ class PapersByEdition(Resource):
             Returns all the papers that were published in the edition specified by the ``id``.
         ''',
         params={
-            "id": "The edition unique identifier"
+            "id": "The edition unique identifier",
+            "page": "The page number to retrieve",
+            "per_page": "The number of papers to display per page"
         }
     )
     def get(self, id):
@@ -71,4 +82,10 @@ class PapersByEdition(Resource):
         papers_in_edition = [
             paper for paper in papers_db if paper["Paper_id"] in edition["Papers"]
         ]
+
+        try:
+            papers_in_edition = paginate(papers_in_edition)[0]
+        except ValueError as e:
+            ns.abort(400, message=str(e))
+
         return papers_in_edition

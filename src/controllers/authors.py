@@ -1,6 +1,7 @@
 from flask_restx import Resource, Namespace
 from resouces import papers_db, authors_db
 from models import author, paper
+from utils.utils import paginate
 
 ns = Namespace(name="Authors", path="/authors")
 
@@ -11,10 +12,18 @@ class AuthorsList(Resource):
         "list_authors", 
         description='''
             Returns all the authors in the dataset. 
-        '''
+        ''',
+        params={
+            "page": "The page number to retrieve",
+            "per_page": "The number of authors to display per page"
+        }
     )
     def get(self):
-        return authors_db
+        try:
+            authors = paginate(authors_db)[0]
+        except ValueError as e:
+            ns.abort(400, message=str(e))
+        return authors
 
 
 @ns.route("/<int:id>")
@@ -47,16 +56,24 @@ class SearchAuthor(Resource):
             Returns the authors whose names match the ``name`` specified. 
         ''',
         params={
-            "name": "The author name"
+            "name": "The author name",
+            "page": "The page number to retrieve",
+            "per_page": "The number of authors to display per page"
         }
     )
     def get(self, name):
         queried_authors = [
             author for author in authors_db if name.lower() in author["Name"].lower()
         ]
-        if queried_authors:
-            return queried_authors
-        ns.abort(404, message=f"Author {name} doesn't exist")
+        if not queried_authors:
+            ns.abort(404, message=f"Author {name} doesn't exist")
+
+        try:
+            queried_authors = paginate(queried_authors)[0]
+        except ValueError as e:
+            ns.abort(400, message=str(e))
+
+        return queried_authors
 
 
 @ns.route("/<int:id>/papers")
@@ -69,7 +86,9 @@ class PapersByAuthor(Resource):
         '''
         ,
         params={
-            "id": "The author unique identifier"
+            "id": "The author unique identifier",
+            "page": "The page number to retrieve",
+            "per_page": "The number of papers to display per page"
         }
     )
     def get(self, id):
@@ -78,4 +97,10 @@ class PapersByAuthor(Resource):
             for paper in papers_db
             if any(author["Author_id"] == id for author in paper["Authors"])
         ]
+
+        try:
+            author_papers = paginate(author_papers)[0]
+        except ValueError as e:
+            ns.abort(400, message=str(e))
+
         return author_papers
