@@ -35,7 +35,7 @@ class PapersList(Resource):
         year = request.args.get("year")
         paper_id = request.args.get("id")
         paper_type = request.args.get("type")
-        author_name = request.args.get("name")
+        author_name = request.args.get("author")
         institution_name = request.args.get("institution")
         author_state = request.args.get("state")
         abstract_query = request.args.get("abstract")
