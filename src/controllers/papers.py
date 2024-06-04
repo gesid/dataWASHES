@@ -2,6 +2,7 @@ from flask import request, jsonify
 from flask_restx import Resource, Namespace
 from resouces import papers_db
 from models import paper, abstracts, reference, citation
+from utils.utils import paginate
 # Adicionadas importações dos modelos de referências e citações
 
 ns = Namespace(name="Papers", path="/papers")
@@ -34,18 +35,6 @@ class PapersList(Resource):
         '''
     )
     def get(self):
-        # Pagination parameters
-        try:
-            page = request.args.get("page", default=1, type=int)
-            per_page = request.args.get("per_page", default=10, type=int)
-        except ValueError:
-            ns.abort(400, message="Page number and items per page must be integers")
-
-        if page < 1:
-            ns.abort(400, message="Page number must be a positive integer")
-        if per_page < 1:
-            ns.abort(400, message="Items per page must be a positive integer")
-
         year = request.args.get("year")
         paper_id = request.args.get("id")
         paper_type = request.args.get("type")
@@ -144,14 +133,10 @@ class PapersList(Resource):
                 if citation_query in paper.get("Cited_by", [])
             ]
 
-        total_papers = len(filtered_papers)
-        start = (page - 1) * per_page
-        end = start + per_page
-
-        if start >= total_papers:
-            ns.abort(400, message="Page number out of range")
-        
-        paginated_papers = filtered_papers[start:end]
+        try:
+            paginated_papers = paginate(filtered_papers)[0]
+        except ValueError as e:
+            ns.abort(400, message=str(e))
 
         return paginated_papers
 
