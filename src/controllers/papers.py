@@ -16,7 +16,7 @@ class PapersList(Resource):
             "year": "The paper year of publishment",
             "id": "The paper identifier",
             "type": "The type of the paper",
-            "author name": "The name of at least one of the authors",
+            "author": "The name of at least one of the authors",
             "institution": "The institution name of at least one of the authors",
             "state": "The state acronym of at least one of the authors",
             "abstract": "The abstract of the paper",
