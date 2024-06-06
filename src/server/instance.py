@@ -1,11 +1,14 @@
 from flask import Flask
 from flask_restx import Api
 import pyodbc
+from flask_cors import CORS
 
 
 class Server():
     def __init__(self):
         self.app = Flask(__name__)
+        CORS(self.app)
+        self.app.config['CORS_HEADERS'] = 'Content-Type'
         self.api = Api(
             self.app,
             title='dataWASHES API',
