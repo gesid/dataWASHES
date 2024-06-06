@@ -1,4 +1,5 @@
 from server.instance import Server
+from flask import jsonify
 
 class DatabaseConn:
     
@@ -14,4 +15,4 @@ class DatabaseConn:
 
         cursor.close()
 
-        return results
+        return jsonify(results)
