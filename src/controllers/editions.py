@@ -38,19 +38,26 @@ class EditionById(Resource):
 @ns.response(404, "Edition not found")
 class SearchEditions(Resource):
     @ns.marshal_with(edition, mask=None)
-    @ns.doc("search_editions_by_year", 
-        description='''
-            Returns the edition that occurred in the ``year`` specified.
-        ''',
-        params={
-            "year": "The year of the edition"
-        }
-    )
+    @ns.doc("search_editions_by_year",
+             description='''
+                 Returns the edition that occurred in the ``year`` specified.
+             ''',
+             params={
+                 "year": "The year of the edition"
+             })
     def get(self, year):
         if year is None:
             return jsonify({"error": "Missing 'year' parameter"}), 404
+
+        # Adicionando condicional somente para os anos com editions existentes
+        if not (2016 <= year <= 2023):
+            return jsonify({"error": "Year not within range (2016-2023)"}), 404
+
         matched_editions = [e for e in editions_db if e["Year"] == int(year)]
-        return matched_editions
+        if matched_editions:
+            return matched_editions, 200
+        else:
+            return jsonify({"error": "Edition not found for year {}".format(year)}), 404
 
 @ns.route("/<int:id>/papers")
 @ns.response(404, "Edition not found")

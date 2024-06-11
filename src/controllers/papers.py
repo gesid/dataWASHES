@@ -16,7 +16,7 @@ class PapersList(Resource):
             "year": "The paper year of publishment",
             "id": "The paper identifier",
             "type": "The type of the paper",
-            "author name": "The name of at least one of the authors",
+            "author": "The name of at least one of the authors",
             "institution": "The institution name of at least one of the authors",
             "state": "The state acronym of at least one of the authors",
             "abstract": "The abstract of the paper",
@@ -35,7 +35,7 @@ class PapersList(Resource):
         year = request.args.get("year")
         paper_id = request.args.get("id")
         paper_type = request.args.get("type")
-        author_name = request.args.get("name")
+        author_name = request.args.get("author")
         institution_name = request.args.get("institution")
         author_state = request.args.get("state")
         abstract_query = request.args.get("abstract")
@@ -48,14 +48,30 @@ class PapersList(Resource):
         filtered_papers = papers_db
 
         if year:
-            filtered_papers = [
-                paper for paper in filtered_papers if str(paper["Year"]) == year
-            ]
+            try:
+                year = int(year)
+                if year not in [paper["Year"] for paper in filtered_papers]:
+                    return jsonify({"error": "No papers found for the specified year."}), 404
+                filtered_papers = [paper for paper in filtered_papers if paper["Year"] == year] 
+            except ValueError:
+                return jsonify({"error": "Invalid year format"}), 400
 
+        if paper_id:
+            try:
+                paper_id = int(paper_id)
+            except ValueError:
+                return jsonify({'error': 'ID de artigo inválido. O ID deve ser um número inteiro.'}), 400
+
+            filtered_papers = [paper for paper in filtered_papers if paper.get("Paper_id") == paper_id]
+
+            if not filtered_papers:
+                return jsonify({'error': 'Artigo não encontrado'}), 404
+
+              
         if paper_id:
             filtered_papers = [
                 paper for paper in filtered_papers if str(paper["Paper_id"]) == paper_id
-            ]
+            ]    
 
         if paper_type:
             paper_type = paper_type.lower().capitalize()
@@ -67,24 +83,21 @@ class PapersList(Resource):
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if any(author["Name"] == author_name for author in paper["Authors"])
+                if any(author_name in author["Name"] for author in paper["Authors"])
             ]
 
         if institution_name:
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if any(
-                    author["Institution"] == institution_name
-                    for author in paper["Authors"]
-                )
+                if any(institution_name in author["Institution"] for author in paper["Authors"])
             ]
 
         if author_state:
             filtered_papers = [
                 paper
                 for paper in filtered_papers
-                if any(author["State"] == author_state for author in paper["Authors"])
+                if any(author_state in author["State"] for author in paper["Authors"])
             ]
 
         if abstract_query:
@@ -128,9 +141,65 @@ class PapersList(Resource):
                 paper
                 for paper in filtered_papers
                 if citation_query in paper.get("Cited_by", [])
+                if citation_query in paper.get("Cited_by", [])
             ]
 
         return filtered_papers
+
+@ns.route("/abstracts")
+class GetPaperAbstracts(Resource):
+    @ns.marshal_list_with(abstracts, mask=None)
+    @ns.doc(
+        "get_paper_abstracts", 
+        description='''
+            Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
+        '''
+    )
+    def get(self):
+        abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
+        return abstracts
+
+      
+@ns.route("/by-title/<string:search>")
+class SearchPapersByTitle(Resource):
+    @ns.marshal_list_with(paper, mask=None)
+    @ns.doc(
+        "search_papers_by_title", 
+        description='''
+            Returns all the papers where the string ``search`` is included in the title.
+        ''',
+        params={
+            "search": "Generic word present in title",
+        }
+    )
+    def get(self, search):
+        keyword = search
+        if not keyword:
+            return jsonify({"error": "Missing 'title' parameter"}), 400
+        matched_papers = [p for p in papers_db if keyword.lower() in p["Title"].lower()]
+        if matched_papers:
+            return matched_papers
+        else:
+            return jsonify({"error": "No papers found with the specified title"}), 404
+
+
+@ns.route("/by-year/<int:year>")
+class GetPapersByYear(Resource):
+    @ns.marshal_list_with(paper, mask=None)
+    @ns.doc(
+        "get_papers_by_year", 
+        description='''
+            Returns all the papers published in the ``year`` specified.
+        ''',
+        params={
+            "year": "The year of publishment",
+        }
+    )
+    def get(self, year):
+        matched_papers = [p for p in papers_db if p["Year"] == year]
+        if not matched_papers:
+            return {"message": "No papers found for the specified year."}, 404
+        return matched_papers
 
 
 @ns.route("/<int:id>")
@@ -151,57 +220,31 @@ class PaperById(Resource):
             if paper["Paper_id"] == id:
                 return paper
         ns.abort(404, message=f"Paper {id} not found")
-
-
-@ns.route("/by-title/<string:search>")
-class SearchPapersByTitle(Resource):
-    @ns.marshal_list_with(paper, mask=None)
+      
+# Adicionando rota para obter as citações de um artigo identificado pelo `id`.
+@ns.route("/<int:id>/citations")
+class GetPaperCitations(Resource):
+    @ns.response(404, "Paper not found")
+    @ns.marshal_list_with(citation, mask=None)
     @ns.doc(
-        "search_papers_by_title", 
+        "get_paper_citations",
         description='''
-            Returns all the papers where the string ``search`` is included in the title.
+            Returns the citations of the paper identified by the ``id``.
         ''',
         params={
-            "search": "Generic word present in title",
+            "id": "The paper unique identifier",
         }
     )
-    def get(self, search):
-        keyword = search
-        if not keyword:
-            return jsonify({"error": "Missing 'title' parameter"}), 400
-        matched_papers = [p for p in papers_db if keyword.lower() in p["Title"].lower()]
-        return matched_papers
+    def get(self, id):
+        citations = []
+        for paper in papers_db:
+            if paper["Paper_id"] == id:
+                citations = paper.get("Cited_by", [])
+                break
+        if not citations:
+            ns.abort(404, message=f"No citations found for paper {id}")
 
-
-@ns.route("/by-year/<int:year>")
-class GetPapersByYear(Resource):
-    @ns.marshal_list_with(paper, mask=None)
-    @ns.doc(
-        "get_papers_by_year", 
-        description='''
-            Returns all the papers published in the ``year`` specified.
-        ''',
-        params={
-            "year": "The year of publishment",
-        }
-    )
-    def get(self, year):
-        matched_papers = [p for p in papers_db if p["Year"] == year]
-        return matched_papers
-
-
-@ns.route("/abstracts")
-class GetPaperAbstracts(Resource):
-    @ns.marshal_list_with(abstracts, mask=None)
-    @ns.doc(
-        "get_paper_abstracts", 
-        description='''
-            Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
-        '''
-    )
-    def get(self):
-        abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
-        return abstracts
+        return [{"Paper_id": id, "Cited_by": citations}]
 
 # Adicionando rota para obter as referências de um artigo identificado pelo `id`.
 @ns.route("/<int:id>/references")
@@ -227,28 +270,3 @@ class GetPaperReferences(Resource):
             ns.abort(404, message=f"No references found for paper {id}")
 
         return [{"Paper_id": id, "References": references}]
-    
-# Adicionando rota para obter as citações de um artigo identificado pelo `id`.
-@ns.route("/<int:id>/citations")
-class GetPaperCitations(Resource):
-    @ns.response(404, "Paper not found")
-    @ns.marshal_list_with(citation, mask=None)
-    @ns.doc(
-        "get_paper_citations",
-        description='''
-            Returns the citations of the paper identified by the ``id``.
-        ''',
-        params={
-            "id": "The paper unique identifier",
-        }
-    )
-    def get(self, id):
-        citations = []
-        for paper in papers_db:
-            if paper["Paper_id"] == id:
-                citations = paper.get("Cited_by", [])
-                break
-        if not citations:
-            ns.abort(404, message=f"No citations found for paper {id}")
-
-        return [{"Paper_id": id, "Cited_by": citations}]
