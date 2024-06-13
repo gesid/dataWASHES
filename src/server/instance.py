@@ -3,7 +3,7 @@ from flask_restx import Api
 
 class Server():
     def __init__(self):
-        self.app = Flask(__name__)
+        self.app = Flask(__name__, template_folder='../templates')
         self.api = Api(
             self.app,
             title='dataWASHES API',
@@ -12,11 +12,11 @@ class Server():
         )
 
     def run(self):
-        self.app.run()
+        self.app.run(debug=True)
 
     def getApi(self):
         return self.api
-    
+
     def getApp(self):
         return self.app
 
