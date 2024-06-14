@@ -1,25 +1,75 @@
 <!DOCTYPE html>
-<html >
+<html>
   <head>
-      <meta charset="UTF-8">
-      <title>ServiceDesk Service Swagger</title>
-      <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui.css">
+        <meta charset="UTF-8">
+        <title>dataWASHES</title>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui.css">
+        <link rel="stylesheet" type="text/css" href="swagger_ui.css">
+        <style>
+            body {
+                background-color: rgb(250, 250, 250);
+                margin: 30px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #3b4151;
+                line-height: 1.5;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                margin-top: 2rem;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+                text-align: left;
+            }
+            p {
+                font-size: 1rem;
+                letter-spacing: 0.5px;
+                text-align: justify;
+                margin-bottom: 1.5rem;
+            }
+            a {
+                color: #0068d8;
+                text-decoration: none;
+            }
 
-
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
   </head>
   <body>
 
-    <div id="swagger-ui">
-      
-    </div>
-    <h1>Título</h1>
-    
+    <div id="swagger-ui"></div>
 
+    <hr>
+    <h1 id="motivation">Motivation</h1>
+    <p>Given the importance of the Workshop on Social, Human, and Economic Aspects of Software (WASHES) in the Brazilian SE research landscape, there is a compelling opportunity to work towards an open infrastructure to streamline access to its data. With the symbolic upcoming 10th edition in 2025 and a substantial archive of published papers, spanning various topics and authored by researchers from diverse backgrounds and regions across Brazil, there is immense potential for facilitating programmatic access to this valuable resource. Currently, the WASHES proceedings are openly available and well-maintained through SBC OpenLib (<a href="https://sol.sbc.org.br/index.php/washes">SOL</a>), albeit with manual access only. In this sense, this manual retrieval process can be inefficient, especially for those seeking to conduct secondary studies or robust analyses on WASHES data. To address this gap, developing an open infrastructure tailored for WASHES data would be beneficial, especially being something made <i>by</i> the community <i>for</i> the community.</p>
+    <hr>
+    <h1 id="proposal">Proposal</h1>
+    <p>Therefore, we present dataWASHES (<a href="https://gesid.github.io/dataWASHES">GitHub</a>) a public, academic, and open source Application Programming Interface (API) designed to streamline the programmatic process of gathering data from the WASHES proceedings open available at <a href="https://sol.sbc.org.br/index.php/washes">SOL</a>. Currently, all documents published in <a href="https://sol.sbc.org.br/index.php/washes">SOL</a> are made available under the Creative Commons license (CC BY 4.0), allowing for copying and redistribution of the material in any medium or format for any purpose. Hence, by introducing our API, in the form of open infrastructure, we aim to provide the community with a convenient tool for systematically and programmatically accessing data (papers, authors, and editions) from the proceedings, thereby enhancing openness, usefulness, and efficiency.</p>
+    <hr>
+    <h1 id="developing">Development</h1>
+    <p>A key decision for this task was
+        the selection of Flask, a micro web framework written in Python. Flask was chosen for its
+        simplicity and flexibility, which significantly contributed to the ease of development. The
+        development tasks encompassed coding the endpoints, managing requests and responses,
+        integrating with the data source, and ensuring the API’s robustness.</p>
+    <p>The API is designed to facilitate open access to the existing WASHES proceedings data.
+        Following the Representational State Transfer (REST) architecture, our API employed
+        the HTTP protocol for data transmission, effectively functioning as a web service. In this
+        client-server communication paradigm, clients send HTTP requests to our API server and
+        receive encoded data in HTTP responses.</p>
+    <p>We structured JSON files to efficiently organize data about papers, authors, and editions. To this end, we first manually organized a collaborative spreadsheet with all required data from WASHES proceedings. Then, we began populating the JSON files. These JSON structures facilitated users' seamless access and retrieval of information through API endpoints, ensuring ease of interaction and utilization.</p>
+    <hr>
+    <h1 id="references">References</h1>
+    <p>The WASHES proceedings are openly available and well-maintained through SBC OpenLib (<a href="https://sol.sbc.org.br/index.php/washes">SOL</a>)</p>
+    <hr>
+    
     <script src="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui-standalone-preset.js"></script>
     <script src="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui-bundle.js"></script>
 
     <script>
-
         window.onload = function() {
             // Build a system
             const ui = SwaggerUIBundle({
@@ -33,6 +83,9 @@
                 plugins: [
                     SwaggerUIBundle.plugins.DownloadUrl
                 ],
+                defaultModelsExpandDepth: 0,
+                docExpansion: ['none'],
+                displayOperationId: true,
             })
             window.ui = ui
         }
