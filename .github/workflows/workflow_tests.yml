@@ -23,7 +23,12 @@ jobs:
             run: |
               python -m pip install --upgrade pip
               pip install -r requirements.txt
-
+          
+          - name: Start API server
+            run: |
+              python src/app.py &  
+              sleep 5
+              
           - name: Run tests
             run: |
               python -m pytest -v
