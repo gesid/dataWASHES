@@ -4,3 +4,4 @@ flask-swagger-ui==4.11.1
 Werkzeug==2.2.2
 pytest
 requests
+pyodbc
