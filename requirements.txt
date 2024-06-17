@@ -5,3 +5,4 @@ Werkzeug==2.2.2
 pytest
 requests
 pyodbc
+flask_cors
