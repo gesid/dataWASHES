@@ -15,7 +15,7 @@ class Server():
             description='dataWASHES is an open source Application Programming Interface (API) that aims to facilitate streamlined programmatic access to the Workshop on Social, Human, and Economic Aspects of Software (WASHES) proceedings.',
             doc='/'
         )
-        self.conn = pyodbc.connect('DRIVER={SQL Server};SERVER=washesDb.mssql.somee.com;DATABASE=washesDb;UID=washes_SQLLogin_1;PWD=gwzzwtovvh;TrustServerCertificate=True')
+        self.conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=washesDb.mssql.somee.com;DATABASE=washesDb;UID=washes_SQLLogin_1;PWD=gwzzwtovvh;TrustServerCertificate=true')
 
     def run(self):
         self.app.run()
