@@ -48,6 +48,32 @@ a:hover {
     text-decoration: underline;
 }
 
+#link-card {
+    display: flex;
+    justify-content: center;
+}
+
+#image-link-container {
+    display: flex;
+    flex-direction: row;
+    background-color: #7a7a7a;
+    border-radius: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    gap: 15px;
+    justify-content: center;
+    width: 50vw;
+}
+
+.image-link img {
+    cursor: pointer;
+}
+
+.image-link img:hover {
+    transition-duration: 0.2s;
+    filter: invert(100%);
+}
+
 footer {
     margin-bottom: 0;
     width: 100%;
