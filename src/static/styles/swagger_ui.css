@@ -31,7 +31,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 2rem;
     margin-bottom: 1rem;
     line-height: 1.2;
-    text-align: left;
 }
 p {
     font-size: .95rem;
@@ -56,22 +55,27 @@ a:hover {
 #image-link-container {
     display: flex;
     flex-direction: row;
-    background-color: #7a7a7a;
+    flex-wrap: wrap;
+    background-color: #e6e6e6;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .7);
     border-radius: 10px;
     padding-top: 15px;
     padding-bottom: 15px;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
+    align-content: center;
     width: 50vw;
+    margin-bottom: 1.5rem;
 }
 
 .image-link img {
     cursor: pointer;
+    filter: opacity(50%);
 }
 
 .image-link img:hover {
     transition-duration: 0.2s;
-    filter: invert(100%);
+    filter: opacity(100%);
 }
 
 footer {
