@@ -28,8 +28,8 @@ jobs:
         run: |
           pylint $(find . -name "*.py") || true
 
-      - name: Annotate pylint output
-        if: failure()
+      - name: Save pylint output
+        if: always()
         run: |
-          echo "pylint found issues:"
-          pylint $(find . -name "*.py") --output-format=parseable | tee pylint.log
+          pylint $(find . -name "*.py") --output-format=parseable > validation_pylint.txt
+        continue-on-error: true
