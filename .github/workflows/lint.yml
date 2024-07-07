@@ -26,4 +26,10 @@ jobs:
 
       - name: Run pylint
         run: |
-          pylint $(find . -name "*.py")
+          pylint $(find . -name "*.py") || true
+
+      - name: Annotate pylint output
+        if: failure()
+        run: |
+          echo "pylint found issues:"
+          pylint $(find . -name "*.py") --output-format=parseable | tee pylint.log

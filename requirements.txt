@@ -6,3 +6,4 @@ pytest
 requests
 pyodbc==5.1.0
 Flask-Cors==4.0.1
+pylint
