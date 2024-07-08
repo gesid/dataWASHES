@@ -69,6 +69,7 @@ a:hover {
 .image-link img {
     cursor: pointer;
     filter: opacity(50%);
+    width: 64px;
 }
 
 .image-link img:hover {
