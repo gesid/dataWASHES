@@ -51,9 +51,7 @@ class Administration(Resource):
 
     def verify_user(self, username, password):
         results = DatabaseConn.command(f"SELECT * FROM Users WHERE username = '{username}' AND password = '{password}'")
-        if not results:
-            return False
-        return True
+        return len(results) > 0
 
 @ns.route("/authors")
 class Administration(Resource):

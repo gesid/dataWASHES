@@ -3,6 +3,7 @@ from flask_restx import Api
 import pyodbc
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from config import SQLALCHEMY_DATABASE_URI
 
 
 class Server():
@@ -19,7 +20,7 @@ class Server():
         )
         
         self.jwt = JWTManager(self.app)
-        self.conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=washesDb.mssql.somee.com;DATABASE=washesDb;UID=washes_SQLLogin_1;PWD=gwzzwtovvh')
+        self.conn = pyodbc.connect(SQLALCHEMY_DATABASE_URI)
 
     def run(self):
         self.app.run()
