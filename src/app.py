@@ -1,4 +1,4 @@
-from controllers import authorsNs, editionsNs, papersNs
+from controllers import authorsNs, editionsNs, papersNs, exemploNs
 from server import server
 
 server.api.add_namespace(editionsNs)
