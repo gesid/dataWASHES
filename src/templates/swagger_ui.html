@@ -3,7 +3,7 @@
   <head>
         <meta charset="UTF-8">
         <title>dataWASHES</title>
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui.css">
+        <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swagger_ui.css') }}">
   </head>
   <body>
@@ -63,7 +63,7 @@
     </footer>
     
     <script src="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui-standalone-preset.js"></script>
-    <script src="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" crossorigin></script>
 
     <script>
         window.onload = function() {
@@ -80,7 +80,7 @@
                     SwaggerUIBundle.plugins.DownloadUrl
                 ],
                 defaultModelsExpandDepth: 0,
-                docExpansion: ['none'],
+                docExpansion: ["none"],
             })
             window.ui = ui
         }
