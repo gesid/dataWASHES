@@ -67,82 +67,125 @@ class PapersList(Resource):
             if not filtered_papers:
                 return jsonify({'error': 'Artigo não encontrado'}), 404
 
-              
-        if paper_id:
-            filtered_papers = [
-                paper for paper in filtered_papers if str(paper["Paper_id"]) == paper_id
-            ]    
-
         if paper_type:
-            paper_type = paper_type.lower().capitalize()
-            filtered_papers = [
-                paper for paper in filtered_papers if paper["Type"] == paper_type
-            ]
+            try:
+                paper_type = paper_type.lower().capitalize()
+                if paper_type not in {paper["Type"] for paper in filtered_papers}:
+                    return jsonify({"error": "Tipo de artigo não encontrado."}), 404
+                filtered_papers = [
+                    paper for paper in filtered_papers if paper["Type"] == paper_type
+                ]
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pelo tipo de artigo: {str(e)}"}), 400
 
         if author_name:
-            filtered_papers = [
-                paper
-                for paper in filtered_papers
-                if any(author_name in author["Name"] for author in paper["Authors"])
-            ]
+            try:
+                filtered_papers = [
+                    paper
+                    for paper in filtered_papers
+                    if any(author_name.lower() in author["Name"].lower() for author in paper["Authors"])
+                ]
+                if not filtered_papers:
+                    return jsonify({"error": "Nenhum artigo encontrado para o autor especificado."}), 404
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pelo nome do autor: {str(e)}"}), 400
 
         if institution_name:
-            filtered_papers = [
-                paper
-                for paper in filtered_papers
-                if any(institution_name in author["Institution"] for author in paper["Authors"])
-            ]
+            try:
+                filtered_papers = [
+                    paper
+                    for paper in filtered_papers
+                    if any(institution_name.lower() in author["Institution"].lower() for author in paper["Authors"])
+                ]
+                if not filtered_papers:
+                    return jsonify({"error": "Nenhum artigo encontrado para a instituição especificada."}), 404
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pelo nome da instituição: {str(e)}"}), 400
 
         if author_state:
-            filtered_papers = [
-                paper
-                for paper in filtered_papers
-                if any(author_state in author["State"] for author in paper["Authors"])
-            ]
+            try:
+                filtered_papers = [
+                    paper
+                    for paper in filtered_papers
+                    if any(author_state.lower() in author["State"].lower() for author in paper["Authors"])
+                ]
+                if not filtered_papers:
+                    return jsonify({"error": "Nenhum artigo encontrado para o estado especificado."}), 404
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pelo estado do autor: {str(e)}"}), 400
 
         if abstract_query:
-            filtered_papers = [
-                paper
-                for paper in filtered_papers
-                if abstract_query.lower() in paper["Abstract"].lower()
-            ]
+            try:
+                filtered_papers = [
+                    paper
+                    for paper in filtered_papers
+                    if abstract_query.lower() in paper["Abstract"].lower()
+                ]
+                if not filtered_papers:
+                    return jsonify({"error": "Nenhum artigo encontrado para a consulta de resumo."}), 404
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pelo resumo: {str(e)}"}), 400
 
         if resumo_query:
-            filtered_papers = [
-                paper
-                for paper in filtered_papers
-                if resumo_query.lower() in paper["Resumo"].lower()
-            ]
+            try:
+                filtered_papers = [
+                    paper
+                    for paper in filtered_papers
+                    if resumo_query.lower() in paper["Resumo"].lower()
+                ]
+                if not filtered_papers:
+                    return jsonify({"error": "Nenhum artigo encontrado para a consulta de resumo."}), 404
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pelo resumo: {str(e)}"}), 400
 
         if keyword:
-            filtered_papers = [
-                paper
-                for paper in filtered_papers
-                if keyword.lower() in paper["Keywords"].lower()
-            ]
+            try:
+                filtered_papers = [
+                    paper
+                    for paper in filtered_papers
+                    if keyword.lower() in paper["Keywords"].lower()
+                ]
+                if not filtered_papers:
+                    return jsonify({"error": "Nenhum artigo encontrado para a palavra-chave especificada."}), 404
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pela palavra-chave: {str(e)}"}), 400
 
         if generic_query:
-            filtered_papers = [
-                paper
-                for paper in filtered_papers
-                if generic_query.lower() in paper["Title"].lower()
-                or generic_query.lower() in paper["Abstract"].lower()
-            ]
+            try:
+                filtered_papers = [
+                    paper
+                    for paper in filtered_papers
+                    if generic_query.lower() in paper["Title"].lower()
+                    or generic_query.lower() in paper["Abstract"].lower()
+                ]
+                if not filtered_papers:
+                    return jsonify({"error": "Nenhum artigo encontrado para a consulta genérica."}), 404
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pela consulta genérica: {str(e)}"}), 400
 
         if reference_query:
-            filtered_papers = [
-                paper
-                for paper in filtered_papers
-                if reference_query in paper.get("References", [])
-            ]
+            try:
+                filtered_papers = [
+                    paper
+                    for paper in filtered_papers
+                    if reference_query in paper.get("References", [])
+                ]
+                if not filtered_papers:
+                    return jsonify({"error": "Nenhum artigo encontrado para a referência especificada."}), 404
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pela referência: {str(e)}"}), 400
 
         if citation_query:
-            filtered_papers = [
-                paper
-                for paper in filtered_papers
-                if citation_query in paper.get("Cited_by", [])
-                if citation_query in paper.get("Cited_by", [])
-            ]
+            try:
+                filtered_papers = [
+                    paper
+                    for paper in filtered_papers
+                    if citation_query in paper.get("Cited_by", [])
+                ]
+                if not filtered_papers:
+                    return jsonify({"error": "Nenhum artigo encontrado para a citação especificada."}), 404
+            except Exception as e:
+                return jsonify({"error": f"Erro ao filtrar pela citação: {str(e)}"}), 400
 
         return filtered_papers
 
