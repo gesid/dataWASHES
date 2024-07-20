@@ -1,6 +1,8 @@
+from flask import request
 from flask_restx import Resource, Namespace
 from resouces import papers_db, authors_db
 from models import author, paper
+from utils.logging_washes import log_request
 
 ns = Namespace(name="Authors", path="/authors")
 
@@ -14,7 +16,9 @@ class AuthorsList(Resource):
         '''
     )
     def get(self):
-        return authors_db
+        response = authors_db
+        log_request(request.method, request.path, 200)
+        return response
 
 
 @ns.route("/<int:id>")
@@ -33,8 +37,11 @@ class Author(Resource):
     def get(self, id):
         for author in authors_db:
             if author["Author_id"] == id:
-                return author
-        ns.abort(404, message=f"Author with id {id} doesn't exist")
+                response = author
+                log_request(request.method, request.path, 200)
+                return response
+        log_request(request.method, request.path, 404)
+        return {"message": f"Author with id {id} doesn't exist"}, 404
 
 
 @ns.route("/by-name/<string:name>")
@@ -55,8 +62,11 @@ class SearchAuthor(Resource):
             author for author in authors_db if name.lower() in author["Name"].lower()
         ]
         if queried_authors:
-            return queried_authors
-        ns.abort(404, message=f"Author {name} doesn't exist")
+            response = queried_authors
+            log_request(request.method, request.path, 200)
+            return response
+        log_request(request.method, request.path, 404)
+        return {"message": f"Author {name} doesn't exist"}, 404
 
 
 @ns.route("/<int:id>/papers")
@@ -79,5 +89,8 @@ class PapersByAuthor(Resource):
             if any(author["Author_id"] == id for author in paper["Authors"])
         ]
         if not author_papers:
+            log_request(request.method, request.path, 404)
             return {"message": f"Author with ID {id} not found."}, 404
-        return author_papers
+        response = author_papers
+        log_request(request.method, request.path, 200)
+        return response
