@@ -1,8 +1,7 @@
 from flask_restx import Resource, Namespace
-from flask import jsonify
+from flask import request, jsonify
 from resouces import editions_db, papers_db
 from models import edition, paper
-from flask import request
 from utils.logging_washes import log_request
 
 ns = Namespace(name='Editions', path='/editions')
