@@ -59,18 +59,17 @@ a:hover {
     background-color: #e6e6e6;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, .7);
     border-radius: 10px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 20px;
     gap: 20px;
     justify-content: center;
     align-content: center;
-    width: 50vw;
     margin-bottom: 1.5rem;
 }
 
 .image-link img {
     cursor: pointer;
     filter: opacity(50%);
+    width: 64px;
 }
 
 .image-link img:hover {

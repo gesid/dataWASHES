@@ -3,7 +3,7 @@
   <head>
         <meta charset="UTF-8">
         <title>dataWASHES</title>
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui.css">
+        <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swagger_ui.css') }}">
   </head>
   <body>
@@ -23,9 +23,9 @@
         <p>Given the importance of the <b>Workshop on Social, Human, and Economic Aspects of Software (WASHES)</b> in the Brazilian SE research landscape, there is a compelling opportunity to work towards an open infrastructure to streamline access to its data. With the symbolic upcoming 10th edition in 2025 and a substantial archive of published papers, spanning various topics and authored by researchers from diverse backgrounds and regions across Brazil, there is immense potential for facilitating programmatic access to this valuable resource. Currently, the WASHES proceedings are openly available and well-maintained through SBC OpenLib (<a href="https://sol.sbc.org.br/index.php/washes">SOL</a>), albeit with manual access only. In this sense, this manual retrieval process can be inefficient, especially for those seeking to conduct secondary studies or robust analyses on WASHES data. To address this gap, developing an open infrastructure tailored for WASHES data would be beneficial, especially being something made <b><i>by</i> the community <i>for</i> the community</b>.</p>
         <hr>
         <h1 id="proposal">Proposal</h1>
-        <p>Therefore, we present dataWASHES (<a href="https://gesid.github.io/dataWASHES">GitHub</a>) a <b>public, academic, and open source</b> Application Programming Interface (API) designed to streamline the programmatic process of gathering data from the WASHES proceedings open available at <a href="https://sol.sbc.org.br/index.php/washes">SOL</a>. Hence, by introducing our API, in the form of open infrastructure, we aim to provide the community with a convenient tool for <b>systematically and programmatically accessing data (papers, authors, and editions)</b> from the proceedings, thereby enhancing openness, usefulness, and efficiency.</p>
-        <hr>
-        <h1 id="developing">Development</h1>
+        <p>Therefore, we present dataWASHES (<a href="https://gesid.github.io/dataWASHES">GitHub repository</a>) a <b>public, academic, and open source</b> Application Programming Interface (API) designed to streamline the programmatic process of gathering data from the WASHES proceedings open available at <a href="https://sol.sbc.org.br/index.php/washes">SOL</a>. Hence, by introducing our API, in the form of open infrastructure, we aim to provide the community with a convenient tool for <b>systematically and programmatically accessing data (papers, authors, and editions)</b> from the proceedings, thereby enhancing openness, usefulness, and efficiency.</p>
+        
+        <p>The development of this project is a collaborative, open-source and non-profit action, currently under <a href="https://choosealicense.com/licenses/mit/">MIT License</a>.</p>
         <!--
         <p>A key decision for this task was the selection of Flask, a micro web framework written in Python. Flask was chosen for its simplicity and flexibility, which significantly contributed to the ease of development. The development tasks encompassed coding the endpoints, managing requests and responses, integrating with the data source, and ensuring the API’s robustness.</p>
         
@@ -33,8 +33,7 @@
 
         <p>We structured JSON files to efficiently organize data about papers, authors, and editions. To this end, we first manually organized a collaborative spreadsheet with all required data from WASHES proceedings. Then, we began populating the JSON files. These JSON structures facilitated users' seamless access and retrieval of information through API endpoints, ensuring ease of interaction and utilization.</p>
         -->
-        <p>The development of this project is a collaborative, open-source and non-profit action, currently under MIT License.</p>
-        
+        <!--
         <div id="link-card">
             <div id="image-link-container">
                 <div class="image-link">
@@ -48,8 +47,10 @@
                         <img src="{{ url_for('static', filename='images/instagram-logo-small.png') }}" alt="Instagram logo">
                     </a>
                 </div>
+
             </div>
         </div>
+        -->
 
         <hr>
         
@@ -62,7 +63,7 @@
     </footer>
     
     <script src="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui-standalone-preset.js"></script>
-    <script src="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" crossorigin></script>
 
     <script>
         window.onload = function() {
@@ -79,7 +80,7 @@
                     SwaggerUIBundle.plugins.DownloadUrl
                 ],
                 defaultModelsExpandDepth: 0,
-                docExpansion: ['none'],
+                docExpansion: ["none"],
             })
             window.ui = ui
         }

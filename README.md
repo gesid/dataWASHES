@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="src/img/logo.png" height="100px" alt="Logo dataWASHES">
+    <img src="src/static/images/logo.png" height="100px" alt="Logo dataWASHES">
 </p>
 
 # dataWASHES
