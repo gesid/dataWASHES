@@ -2,6 +2,7 @@ from flask import request, jsonify
 from flask_restx import Resource, Namespace
 from resouces import papers_db
 from models import paper, abstracts, reference, citation
+from utils.logging_washes import log_request,  log_request_papers_error, log_request_papers_success
 # Adicionadas importações dos modelos de referências e citações
 
 ns = Namespace(name="Papers", path="/papers")
@@ -51,31 +52,37 @@ class PapersList(Resource):
             try:
                 year = int(year)
                 if year not in [paper["Year"] for paper in filtered_papers]:
+                    log_request_papers_error(request.method, request.path, "year", year, 404)
                     return jsonify({"error": "No papers found for the specified year."}), 404
                 filtered_papers = [paper for paper in filtered_papers if paper["Year"] == year] 
             except ValueError:
+                log_request_papers_error(request.method, request.path, "year", year, 400)
                 return jsonify({"error": "Invalid year format"}), 400
 
         if paper_id:
             try:
                 paper_id = int(paper_id)
             except ValueError:
+                log_request_papers_error(request.method, request.path, "id", paper_id, 400)
                 return jsonify({'error': 'ID de artigo inválido. O ID deve ser um número inteiro.'}), 400
 
             filtered_papers = [paper for paper in filtered_papers if paper.get("Paper_id") == paper_id]
 
             if not filtered_papers:
+                log_request_papers_error(request.method, request.path, "id", paper_id, 404)
                 return jsonify({'error': 'Artigo não encontrado'}), 404
 
         if paper_type:
             try:
                 paper_type = paper_type.lower().capitalize()
                 if paper_type not in {paper["Type"] for paper in filtered_papers}:
+                    log_request_papers_error(request.method, request.path, "type", paper_type, 404)
                     return jsonify({"error": "Tipo de artigo não encontrado."}), 404
                 filtered_papers = [
                     paper for paper in filtered_papers if paper["Type"] == paper_type
                 ]
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "type", paper_type, 400)
                 return jsonify({"error": f"Erro ao filtrar pelo tipo de artigo: {str(e)}"}), 400
 
         if author_name:
@@ -86,8 +93,10 @@ class PapersList(Resource):
                     if any(author_name.lower() in author["Name"].lower() for author in paper["Authors"])
                 ]
                 if not filtered_papers:
+                    log_request_papers_error(request.method, request.path, "author", author_name, 404)
                     return jsonify({"error": "Nenhum artigo encontrado para o autor especificado."}), 404
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "author", author_name, 404)
                 return jsonify({"error": f"Erro ao filtrar pelo nome do autor: {str(e)}"}), 400
 
         if institution_name:
@@ -98,8 +107,10 @@ class PapersList(Resource):
                     if any(institution_name.lower() in author["Institution"].lower() for author in paper["Authors"])
                 ]
                 if not filtered_papers:
+                    log_request_papers_error(request.method, request.path, "institution", institution_name, 404)
                     return jsonify({"error": "Nenhum artigo encontrado para a instituição especificada."}), 404
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "institution", institution_name, 400)
                 return jsonify({"error": f"Erro ao filtrar pelo nome da instituição: {str(e)}"}), 400
 
         if author_state:
@@ -110,8 +121,10 @@ class PapersList(Resource):
                     if any(author_state.lower() in author["State"].lower() for author in paper["Authors"])
                 ]
                 if not filtered_papers:
+                    log_request_papers_error(request.method, request.path, "state", author_state, 404)
                     return jsonify({"error": "Nenhum artigo encontrado para o estado especificado."}), 404
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "state", author_state, 400)
                 return jsonify({"error": f"Erro ao filtrar pelo estado do autor: {str(e)}"}), 400
 
         if abstract_query:
@@ -122,8 +135,10 @@ class PapersList(Resource):
                     if abstract_query.lower() in paper["Abstract"].lower()
                 ]
                 if not filtered_papers:
+                    log_request_papers_error(request.method, request.path, "abstract", abstract_query, 404)
                     return jsonify({"error": "Nenhum artigo encontrado para a consulta de resumo."}), 404
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "abstract", abstract_query, 400)
                 return jsonify({"error": f"Erro ao filtrar pelo resumo: {str(e)}"}), 400
 
         if resumo_query:
@@ -134,8 +149,10 @@ class PapersList(Resource):
                     if resumo_query.lower() in paper["Resumo"].lower()
                 ]
                 if not filtered_papers:
+                    log_request_papers_error(request.method, request.path, "resumo", resumo_query, 404)
                     return jsonify({"error": "Nenhum artigo encontrado para a consulta de resumo."}), 404
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "resumo", resumo_query, 400)
                 return jsonify({"error": f"Erro ao filtrar pelo resumo: {str(e)}"}), 400
 
         if keyword:
@@ -146,8 +163,10 @@ class PapersList(Resource):
                     if keyword.lower() in paper["Keywords"].lower()
                 ]
                 if not filtered_papers:
+                    log_request_papers_error(request.method, request.path, "keyword", keyword, 404)
                     return jsonify({"error": "Nenhum artigo encontrado para a palavra-chave especificada."}), 404
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "keyword", keyword, 400)
                 return jsonify({"error": f"Erro ao filtrar pela palavra-chave: {str(e)}"}), 400
 
         if generic_query:
@@ -159,8 +178,10 @@ class PapersList(Resource):
                     or generic_query.lower() in paper["Abstract"].lower()
                 ]
                 if not filtered_papers:
+                    log_request_papers_error(request.method, request.path, "search", generic_query, 404)
                     return jsonify({"error": "Nenhum artigo encontrado para a consulta genérica."}), 404
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "search", generic_query, 400)
                 return jsonify({"error": f"Erro ao filtrar pela consulta genérica: {str(e)}"}), 400
 
         if reference_query:
@@ -171,8 +192,10 @@ class PapersList(Resource):
                     if reference_query in paper.get("References", [])
                 ]
                 if not filtered_papers:
+                    log_request_papers_error(request.method, request.path, "reference", reference_query, 404)
                     return jsonify({"error": "Nenhum artigo encontrado para a referência especificada."}), 404
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "reference", reference_query, 400)
                 return jsonify({"error": f"Erro ao filtrar pela referência: {str(e)}"}), 400
 
         if citation_query:
@@ -183,10 +206,15 @@ class PapersList(Resource):
                     if citation_query in paper.get("Cited_by", [])
                 ]
                 if not filtered_papers:
+                    log_request_papers_error(request.method, request.path, "citation", citation_query, 404)
                     return jsonify({"error": "Nenhum artigo encontrado para a citação especificada."}), 404
             except Exception as e:
+                log_request_papers_error(request.method, request.path, "citation", citation_query, 400)
                 return jsonify({"error": f"Erro ao filtrar pela citação: {str(e)}"}), 400
 
+        all_paths_and_arguments = f"year/{year}/id/{paper_id}/type/{paper_type}/author/{author_name}/institution/{institution_name}/state/{author_state}/abstract/{abstract_query}/resumo/{resumo_query}/keyword/{keyword}/search/{generic_query}/reference/{reference_query}/citation/{citation_query}"
+        
+        log_request_papers_success(request.method, request.path, 200, all_paths_and_arguments)
         return filtered_papers
 
 @ns.route("/abstracts")
@@ -200,6 +228,7 @@ class GetPaperAbstracts(Resource):
     )
     def get(self):
         abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
+        log_request(request.method, request.path, 200)
         return abstracts
 
       
@@ -218,11 +247,14 @@ class SearchPapersByTitle(Resource):
     def get(self, search):
         keyword = search
         if not keyword:
+            log_request(request.method, request.path, 400)
             return jsonify({"error": "Missing 'title' parameter"}), 400
         matched_papers = [p for p in papers_db if keyword.lower() in p["Title"].lower()]
         if matched_papers:
+            log_request(request.method, request.path, 200)
             return matched_papers
         else:
+            log_request(request.method, request.path, 404)
             return jsonify({"error": "No papers found with the specified title"}), 404
 
 
@@ -241,7 +273,10 @@ class GetPapersByYear(Resource):
     def get(self, year):
         matched_papers = [p for p in papers_db if p["Year"] == year]
         if not matched_papers:
+            log_request(request.method, request.path, 404)
             return {"message": "No papers found for the specified year."}, 404
+        
+        log_request(request.method, request.path, 200)
         return matched_papers
 
 
@@ -261,7 +296,10 @@ class PaperById(Resource):
     def get(self, id):
         for paper in papers_db:
             if paper["Paper_id"] == id:
+                log_request(request.method, request.path, 200)
                 return paper
+        
+        log_request(request.method, request.path, 404)
         ns.abort(404, message=f"Paper {id} not found")
       
 # Adicionando rota para obter as citações de um artigo identificado pelo `id`.
@@ -285,8 +323,10 @@ class GetPaperCitations(Resource):
                 citations = paper.get("Cited_by", [])
                 break
         if not citations:
+            log_request(request.method, request.path, 404)
             ns.abort(404, message=f"No citations found for paper {id}")
-
+        
+        log_request(request.method, request.path, 200)
         return [{"Paper_id": id, "Cited_by": citations}]
 
 # Adicionando rota para obter as referências de um artigo identificado pelo `id`.
@@ -310,6 +350,8 @@ class GetPaperReferences(Resource):
                 references = paper.get("References", [])
                 break
         if not references:
+            log_request(request.method, request.path, 404)
             ns.abort(404, message=f"No references found for paper {id}")
 
+        log_request(request.method, request.path, 200)
         return [{"Paper_id": id, "References": references}]
