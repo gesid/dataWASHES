@@ -1,13 +1,14 @@
 from flask_restx import Resource, Namespace
+from flask import jsonify
 from resouces import papers_db, authors_db
-from models import author, paper
-from utils.utils import paginate
+from models import author, paper, author_paging
+from api_utils import paginate
 
 ns = Namespace(name="Authors", path="/authors")
 
 @ns.route("/")
 class AuthorsList(Resource):
-    @ns.marshal_list_with(author, mask=None)
+    @ns.marshal_list_with(author_paging, mask=None)
     @ns.doc(
         "list_authors", 
         description='''
@@ -20,7 +21,7 @@ class AuthorsList(Resource):
     )
     def get(self):
         try:
-            authors = paginate(authors_db)[0]
+            authors = paginate(authors_db)
         except ValueError as e:
             ns.abort(400, message=str(e))
         return authors
@@ -49,7 +50,7 @@ class Author(Resource):
 @ns.route("/by-name/<string:name>")
 @ns.response(404, "Author not found")
 class SearchAuthor(Resource):
-    @ns.marshal_list_with(author, mask=None)
+    @ns.marshal_list_with(author_paging, mask=None)
     @ns.doc(
         "search_author", 
         description='''
@@ -69,7 +70,7 @@ class SearchAuthor(Resource):
             ns.abort(404, message=f"Author {name} doesn't exist")
 
         try:
-            queried_authors = paginate(queried_authors)[0]
+            queried_authors = paginate(queried_authors)
         except ValueError as e:
             ns.abort(400, message=str(e))
 

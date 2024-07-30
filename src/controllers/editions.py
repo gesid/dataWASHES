@@ -2,7 +2,7 @@ from flask_restx import Resource, Namespace
 from flask import jsonify
 from resouces import editions_db, papers_db
 from models import edition, paper
-from utils.utils import paginate
+from api_utils import paginate
 
 ns = Namespace(name='Editions', path='/editions')
 

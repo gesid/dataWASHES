@@ -2,7 +2,7 @@ from flask import request, jsonify
 from flask_restx import Resource, Namespace
 from resouces import papers_db
 from models import paper, abstracts, reference, citation
-from utils.utils import paginate
+from api_utils import paginate
 # Adicionadas importações dos modelos de referências e citações
 
 ns = Namespace(name="Papers", path="/papers")
