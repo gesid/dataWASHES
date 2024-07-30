@@ -1,7 +1,9 @@
 from flask_restx import Resource, Namespace
+from flask import request
 from resouces import papers_db, authors_db
 from models import author, author_paging, paper_paging
-from api_utils import paginate
+from api_utils import paginate, log_request
+
 
 ns = Namespace(name="Authors", path="/authors")
 
@@ -22,7 +24,9 @@ class AuthorsList(Resource):
         try:
             authors = paginate(authors_db)
         except ValueError as e:
+            log_request(request.method, request.path, 400)
             ns.abort(400, message=str(e))
+        log_request(request.method, request.path, 200)
         return authors
 
 
@@ -42,7 +46,9 @@ class Author(Resource):
     def get(self, id):
         for author in authors_db:
             if author["Author_id"] == id:
+                log_request(request.method, request.path, 200)
                 return author
+        log_request(request.method, request.path, 404)
         ns.abort(404, message=f"Author with id {id} doesn't exist")
 
 
@@ -66,13 +72,16 @@ class SearchAuthor(Resource):
             author for author in authors_db if name.lower() in author["Name"].lower()
         ]
         if not queried_authors:
+            log_request(request.method, request.path, 404)
             ns.abort(404, message=f"Author {name} doesn't exist")
 
         try:
             queried_authors = paginate(queried_authors)
         except ValueError as e:
+            log_request(request.method, request.path, 400)
             ns.abort(400, message=str(e))
 
+        log_request(request.method, request.path, 200)
         return queried_authors
 
 
@@ -98,9 +107,15 @@ class PapersByAuthor(Resource):
             if any(author["Author_id"] == id for author in paper["Authors"])
         ]
 
+        if not author_papers:
+            log_request(request.method, request.path, 404)
+            return {"message": f"Author with ID {id} not found."}, 404
+        
         try:
             author_papers = paginate(author_papers)
         except ValueError as e:
+            log_request(request.method, request.path, 400)
             ns.abort(400, message=str(e))
 
+        log_request(request.method, request.path, 200)
         return author_papers
