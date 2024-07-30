@@ -1,5 +1,5 @@
-from flask import request
 from math import ceil
+from flask import request
 
 def paginate(data, page_param='page', per_page_param='per_page', default_page=1, default_per_page=20):
     """
@@ -46,4 +46,4 @@ def paginate(data, page_param='page', per_page_param='per_page', default_page=1,
             }
         }
     except ValueError as e:
-        raise ValueError(str(e))
+        raise ValueError(str(e)) from e

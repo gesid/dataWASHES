@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from flask_restx import Resource, Namespace
 from resouces import papers_db
-from models import paper, abstracts, reference, citation
+from models import paper, paper_paging, abstracts, reference, citation
 from api_utils import paginate
 # Adicionadas importações dos modelos de referências e citações
 
@@ -10,7 +10,7 @@ ns = Namespace(name="Papers", path="/papers")
 @ns.route("/")
 class PapersList(Resource):
 
-    @ns.marshal_list_with(paper, mask=None)
+    @ns.marshal_list_with(paper_paging, mask=None)
     @ns.doc(
         "list_papers",
         params={
@@ -134,7 +134,7 @@ class PapersList(Resource):
             ]
 
         try:
-            paginated_papers = paginate(filtered_papers)[0]
+            paginated_papers = paginate(filtered_papers)
         except ValueError as e:
             ns.abort(400, message=str(e))
 
@@ -163,7 +163,7 @@ class PaperById(Resource):
 
 @ns.route("/by-title/<string:search>")
 class SearchPapersByTitle(Resource):
-    @ns.marshal_list_with(paper, mask=None)
+    @ns.marshal_list_with(paper_paging, mask=None)
     @ns.doc(
         "search_papers_by_title", 
         description='''
@@ -182,7 +182,7 @@ class SearchPapersByTitle(Resource):
         matched_papers = [p for p in papers_db if keyword.lower() in p["Title"].lower()]
 
         try:
-            matched_papers = paginate(matched_papers)[0]
+            matched_papers = paginate(matched_papers)
         except ValueError as e:
             ns.abort(400, message=str(e))
 
@@ -191,7 +191,7 @@ class SearchPapersByTitle(Resource):
 
 @ns.route("/by-year/<int:year>")
 class GetPapersByYear(Resource):
-    @ns.marshal_list_with(paper, mask=None)
+    @ns.marshal_list_with(paper_paging, mask=None)
     @ns.doc(
         "get_papers_by_year", 
         description='''
@@ -207,7 +207,7 @@ class GetPapersByYear(Resource):
         matched_papers = [p for p in papers_db if p["Year"] == year]
 
         try:
-            matched_papers = paginate(matched_papers)[0]
+            matched_papers = paginate(matched_papers)
         except ValueError as e:
             ns.abort(400, message=str(e))
 

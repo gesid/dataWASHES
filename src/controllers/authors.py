@@ -1,7 +1,6 @@
 from flask_restx import Resource, Namespace
-from flask import jsonify
 from resouces import papers_db, authors_db
-from models import author, paper, author_paging
+from models import author, author_paging, paper_paging
 from api_utils import paginate
 
 ns = Namespace(name="Authors", path="/authors")
@@ -79,7 +78,7 @@ class SearchAuthor(Resource):
 
 @ns.route("/<int:id>/papers")
 class PapersByAuthor(Resource):
-    @ns.marshal_list_with(paper, mask=None)
+    @ns.marshal_list_with(paper_paging, mask=None)
     @ns.doc(
         "get_papers_by_author", 
         description='''
@@ -100,7 +99,7 @@ class PapersByAuthor(Resource):
         ]
 
         try:
-            author_papers = paginate(author_papers)[0]
+            author_papers = paginate(author_papers)
         except ValueError as e:
             ns.abort(400, message=str(e))
 
