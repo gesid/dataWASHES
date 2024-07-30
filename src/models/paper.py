@@ -77,6 +77,7 @@ abstracts = server.getApi().model(
         "Abstract": fields.String(description="The abstract of the paper", example="Continuous  learning  of  software...")
     }
 )
+abstracts_paging = paging_model_construct("Abstract Paging", abstracts)
 
 # Adicionando modelo para representar as referências de um artigo
 reference = server.getApi().model(
