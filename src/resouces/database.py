@@ -5,6 +5,7 @@ with open("data/authors.json", "r", encoding="utf8") as authors_file:
 
 with open("data/papers.json", "r", encoding="utf8") as papers_file:
     papers_db = json.load(papers_file)
+    print(type(papers_db[0]))
 
 with open("data/editions.json", "r", encoding="utf8") as editions_file:
     editions_db = json.load(editions_file)
