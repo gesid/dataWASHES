@@ -325,7 +325,9 @@ class GetPapersByYear(Resource):
     )
     def get(self, year):
         matched_papers = [p for p in papers_db if p["Year"] == year]
-
+        if not matched_papers:
+            log_request(request.method, request.path, 404)
+            ns.abort(404, message=f"No paper found for year {year}")
         try:
             matched_papers = paginate(matched_papers)
         except ValueError as e:
