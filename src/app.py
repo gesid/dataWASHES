@@ -1,7 +1,7 @@
 from flask import make_response
 from controllers import authorsNs, editionsNs, papersNs, exemploNs
 from server import server
-from models import convert_to_csv
+from api_utils import convert_to_csv
 
 @server.api.representation('text/csv')
 def data_csv(data, code, headers):
