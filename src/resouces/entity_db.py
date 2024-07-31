@@ -26,6 +26,15 @@ class EntityDB(metaclass=ABCMeta):
             if value.lower() in entity[key].lower()
         ])
     
+    def filter_by_vector_string(self, key: str, value: str) -> None:
+        """
+        Filter the database considering a key of type vector of string
+        """
+        self._set_database([
+            entity for entity in self._get_database()
+            if any(value.lower() in item.lower() for item in entity[key])
+        ])
+
     def filter_by_enum(self, key: str, value: str) -> None:
         """
         Filter the database considering a key of type ``Enum``
@@ -57,13 +66,15 @@ class EntityDB(metaclass=ABCMeta):
         """
 
     @abstractmethod
-    def get_by_id(self, id: int) -> dict:
+    def get_by_id(self, paper_id: int) -> dict:
         """
         Returns the object identified by the ``id``
         """
 
     @abstractmethod
-    def filter_by(self, keys: dict) -> list[dict]:
+    def filter_by(self, query_object: dict) -> list[dict]:
         """
         Filter the database
         """
+    def get_data(self) -> dict[list]:
+        return self._get_database()
