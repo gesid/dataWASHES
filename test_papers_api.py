@@ -12,7 +12,7 @@ def test_get_papers_with_valid_year_parameter():
 def test_get_papers_with_invalid_year_parameter():
     invalid_year = "invalido" 
     response = requests.get(f"{ENDPOINT}/papers/?year={invalid_year}")
-    assert response.status_code == 400 
+    assert response.status_code == 404
 
 def test_get_papers_without_year_parameter():
     response = requests.get(f"{ENDPOINT}/papers/")

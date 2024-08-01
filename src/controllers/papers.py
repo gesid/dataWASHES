@@ -48,7 +48,7 @@ class PapersList(Resource):
 
         if filtered_papers.is_empty():
             log_request(request.method, request.path, 404)
-            ns.abort(400, massage="No papers found")
+            ns.abort(404, massage="No papers found")
 
         log_request(request.method, request.path, 200)
         return filtered_papers.get_data()
@@ -84,7 +84,7 @@ class SearchPapersByTitle(Resource):
         keyword = search
         if not keyword:
             log_request(request.method, request.path, 400)
-            ns.abort(404, message="Missing 'title' parameter")
+            ns.abort(400, message="Missing 'title' parameter")
 
         papers = PaperDB()
         papers.filter_by({"Title": keyword})
@@ -113,7 +113,7 @@ class GetPapersByYear(Resource):
 
         if not year:
             log_request(request.method, request.path, 400)
-            ns.abort(404, message="Missing 'year' parameter")
+            ns.abort(400, message="Missing 'year' parameter")
 
         papers.filter_by({"Year": year})
         if papers.is_empty():
