@@ -113,11 +113,7 @@ class GetPapersByYear(Resource):
 
         if not year:
             log_request(request.method, request.path, 400)
-            ns.abort(400, message="Missing 'year' parameter")
-
-        if not str(year).isnumeric():
-            log_request(request.method, request.path, 400)
-            ns.abort(400, message="Invalid 'year' parameter")
+            ns.abort(404, message="Missing 'year' parameter")
 
         papers.filter_by({"Year": year})
         if papers.is_empty():
