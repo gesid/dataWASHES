@@ -13,6 +13,7 @@ class PapersList(Resource):
     @ns.doc(
         "list_papers",
         params={
+            "year": "The year of publishment",
             "type": "The type of the paper",
             "author": "The name of at least one of the authors",
             "institution": "The institution name of at least one of the authors",

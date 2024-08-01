@@ -53,7 +53,7 @@ class EntityDB(metaclass=ABCMeta):
         """
         self._set_database([
             entity for entity in self._get_database()
-            if number == entity[key]
+            if int(number) == entity[key]
         ])
 
     def get_data(self) -> tuple[dict[list], int]:
