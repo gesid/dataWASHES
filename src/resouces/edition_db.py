@@ -1,5 +1,6 @@
 from .database import editions_db
 from .entity_db import EntityDB
+from .paper_db import PaperDB
 
 class EditionDB(EntityDB):
     """
@@ -30,3 +31,21 @@ class EditionDB(EntityDB):
             match key:
                 case "Year":
                     self.filter_by_number(key, value)
+
+    def get_papers(self, edition_id: int) -> list[dict]:
+        """
+        Return the editions list of papers 
+        """
+        papers: list[dict] = []
+
+        edition: dict = self.get_by_id(edition_id)
+        if not edition:
+            return papers
+
+        for paper_id in edition["Papers"]:
+            paper_database: PaperDB = PaperDB()
+            paper: dict = paper_database.get_by_id(paper_id)
+
+            if paper:
+                papers.append(paper)
+        return papers

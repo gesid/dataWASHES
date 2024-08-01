@@ -48,5 +48,4 @@ class AuthorDB(EntityDB):
 
             if paper:
                 papers.append(paper)
-
         return papers
