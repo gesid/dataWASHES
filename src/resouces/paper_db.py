@@ -14,24 +14,18 @@ class PaperDB(EntityDB):
     """
     A class to manege actions onto the papers JSON objects
     """
+
     def __init__(self) -> None:
-        self.__database = papers_db
+        super().__init__()
+        self._set_database(papers_db)
 
     # Overriding
-    def _get_database(self) -> list[dict]:
-        return self.__database
-
-    # Overriding
-    def _set_database(self, new_database) -> None:
-        self.__database = new_database
-
-    # Overriding
-    def get_by_id(self, paper_id: int) -> dict:
-        self.filter_by_number(paper_id, "Paper_id")
+    def get_by_id(self, entity_id: int) -> dict:
+        self.filter_by_number(entity_id, "Paper_id")
 
         if self.is_empty():
             return {}
-        return self._get_database()[0]
+        return self.get_data()[0]
 
     # Overriding
     def filter_by(self, query_object: dict) -> list[dict]:
@@ -78,3 +72,12 @@ class PaperDB(EntityDB):
             paper for paper in self._get_database()
             if any(value.lower() in author[key].lower() for author in paper["Authors"])
         ])
+
+    def get_abstracts(self) -> list[dict]:
+        """
+        Returns the abstract of all papers
+        """
+        return [
+            {"Paper_id": paper["Paper_id"], "Abstract": paper["Abstract"]}
+            for paper in self._get_database()
+        ]

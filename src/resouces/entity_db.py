@@ -5,6 +5,9 @@ class EntityDB(metaclass=ABCMeta):
     A class to manege actions onto the JSON objects
     """
 
+    def __init__(self) -> None:
+        self.__database: list[dict] = []
+
     def total_count(self) -> int:
         """
         Returns the number os objects in the database
@@ -25,7 +28,7 @@ class EntityDB(metaclass=ABCMeta):
             entity for entity in self._get_database()
             if value.lower() in entity[key].lower()
         ])
-    
+
     def filter_by_vector_string(self, key: str, value: str) -> None:
         """
         Filter the database considering a key of type vector of string
@@ -53,20 +56,26 @@ class EntityDB(metaclass=ABCMeta):
             if number == entity[key]
         ])
 
-    @abstractmethod
+    def get_data(self) -> dict[list]:
+        """
+        Returns the data of the database
+        """
+        return self._get_database()
+
     def _get_database(self) -> list[dict]:
         """
         Return the database object
         """
+        return self.__database
 
-    @abstractmethod
-    def _set_database(self, new_database) -> None:
+    def _set_database(self, new_database: list[dict]) -> None:
         """
         Changes the database object
         """
+        self.__database = new_database
 
     @abstractmethod
-    def get_by_id(self, paper_id: int) -> dict:
+    def get_by_id(self, entity_id: int) -> dict:
         """
         Returns the object identified by the ``id``
         """
@@ -76,5 +85,3 @@ class EntityDB(metaclass=ABCMeta):
         """
         Filter the database
         """
-    def get_data(self) -> dict[list]:
-        return self._get_database()
