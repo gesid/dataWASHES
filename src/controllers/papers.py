@@ -31,6 +31,7 @@ class PapersList(Resource):
     )
     def get(self):
         query_object = {
+            "Year": request.args.get("year"),
             "Type": request.args.get("type"),
             "Author": request.args.get("author"),
             "Institution": request.args.get("institution"),
