@@ -21,11 +21,11 @@ class PaperDB(EntityDB):
 
     # Overriding
     def get_by_id(self, entity_id: int) -> dict:
-        self.filter_by_number(entity_id, "Paper_id")
+        self.filter_by_number("Paper_id", entity_id)
 
         if self.is_empty():
             return {}
-        return self.get_data()[0]
+        return self._get_database()[0]
 
     # Overriding
     def filter_by(self, query_object: dict) -> list[dict]:
@@ -33,7 +33,8 @@ class PaperDB(EntityDB):
             raise ValueError()
 
         for key, value in query_object.items():
-            if not value: continue
+            if not value:
+                continue
 
             match key:
                 case "Year":
