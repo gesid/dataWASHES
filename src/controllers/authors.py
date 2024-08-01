@@ -1,5 +1,5 @@
 from flask_restx import Resource, Namespace
-from resouces import papers_db, authors_db
+from resouces import AuthorDB
 from models import author, paper
 from flask import request
 from utils.logging_washes import log_request
@@ -16,9 +16,9 @@ class AuthorsList(Resource):
         '''
     )
     def get(self):
+        authors = AuthorDB()
         log_request(request.method, request.path, 200)
-        return authors_db
-
+        return authors.get_data()
 
 @ns.route("/<int:id>")
 @ns.response(404, "Author not found")
@@ -34,13 +34,13 @@ class Author(Resource):
         }
     )
     def get(self, id):
-        for author in authors_db:
-            if author["Author_id"] == id:
-                log_request(request.method, request.path, 200)
-                return author
-        log_request(request.method, request.path, 404)
-        ns.abort(404, message=f"Author with id {id} doesn't exist")
-
+        authors = AuthorDB()
+        found_author = authors.get_by_id(id)
+        if not found_author:
+            log_request(request.method, request.path, 404)
+            ns.abort(404, message=f"Author with id {id} doesn't exist")
+        log_request(request.method, request.path, 200)
+        return found_author, 200
 
 @ns.route("/by-name/<string:name>")
 @ns.response(404, "Author not found")
@@ -56,15 +56,13 @@ class SearchAuthor(Resource):
         }
     )
     def get(self, name):
-        queried_authors = [
-            author for author in authors_db if name.lower() in author["Name"].lower()
-        ]
-        if queried_authors:
-            log_request(request.method, request.path, 200)
-            return queried_authors
-        log_request(request.method, request.path, 404)
-        ns.abort(404, message=f"Author {name} doesn't exist")
-
+        authors = AuthorDB()
+        authors.filter_by({"Name": name})
+        if authors.is_empty():
+            log_request(request.method, request.path, 404)
+            ns.abort(404, message=f"Author {name} doesn't exist")
+        log_request(request.method, request.path, 200)
+        return authors.get_data()
 
 @ns.route("/<int:id>/papers")
 class PapersByAuthor(Resource):
@@ -80,13 +78,10 @@ class PapersByAuthor(Resource):
         }
     )
     def get(self, id):
-        author_papers = [
-            paper
-            for paper in papers_db
-            if any(author["Author_id"] == id for author in paper["Authors"])
-        ]
+        authors = AuthorDB()
+        author_papers = authors.get_papers(id)
         if not author_papers:
             log_request(request.method, request.path, 404)
-            return {"message": f"Author with ID {id} not found."}, 404
+            ns.abort(404, message=f"Author with ID {id} not found.")
         log_request(request.method, request.path, 200)
-        return author_papers
+        return author_papers, 200
