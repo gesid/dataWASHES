@@ -45,12 +45,16 @@ class PapersList(Resource):
             "References": request.args.get("reference"),
         }
 
+        if not str(query_object["Year"]).isnumeric():
+            log_request(request.method, request.path, 400)
+            ns.abort(400, message="Invalid year")
+
         filtered_papers = PaperDB()
         filtered_papers.filter_by(query_object)
 
         if filtered_papers.is_empty():
             log_request(request.method, request.path, 404)
-            ns.abort(404, massage="No papers found")
+            ns.abort(404, message="No papers found")
 
         log_request(request.method, request.path, 200)
         return filtered_papers.get_data()
