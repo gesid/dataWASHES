@@ -32,6 +32,7 @@ class PapersList(Resource):
     )
     def get(self):
         query_object = {
+            "Paper_id": request.args.get("id"),
             "Year": request.args.get("year"),
             "Type": request.args.get("type"),
             "Author": request.args.get("author"),
@@ -45,9 +46,13 @@ class PapersList(Resource):
             "References": request.args.get("reference"),
         }
 
-        if not str(query_object["Year"]).isnumeric():
+        if query_object["Year"] and not query_object["Year"].isnumeric():
             log_request(request.method, request.path, 400)
             ns.abort(400, message="Invalid year")
+
+        if query_object["Paper_id"] and not query_object["Paper_id"].isnumeric():
+            log_request(request.method, request.path, 400)
+            ns.abort(400, message="Invalid paper id")
 
         filtered_papers = PaperDB()
         filtered_papers.filter_by(query_object)

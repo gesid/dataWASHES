@@ -37,7 +37,7 @@ class PaperDB(EntityDB):
                 continue
 
             match key:
-                case "Year":
+                case "Paper_id" | "Year":
                     self.filter_by_number(key, value)
                 case "Type":
                     if any(value == paper_type.value for paper_type in PaperTypes):
