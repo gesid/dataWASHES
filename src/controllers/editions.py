@@ -19,16 +19,16 @@ class EditionsList(Resource):
         log_request(request.method, request.path, 200)
         return editions.get_data()
 
-@ns.route("/<int:id>")
+@ns.route("/<int:edition_id>")
 class EditionById(Resource):
     @ns.response(404, "Edition not found", error_model)
     @ns.marshal_with(edition, mask=None)
     @ns.doc("get_edition_by_id",
         description='''
-            Returns the edition identified by the ``id``.
+            Returns the edition identified by the ``edition_id``.
         ''',
         params={
-            "id": "The edition unique identifier"
+            "edition_id": "The edition unique identifier"
         }
     )
     def get(self, edition_id):
@@ -60,16 +60,16 @@ class SearchEditions(Resource):
         log_request(request.method, request.path, 200)
         return editions.get_data()
 
-@ns.route("/<int:id>/papers")
+@ns.route("/<int:edition_id>/papers")
 class PapersByEdition(Resource):
     @ns.response(404, "Edition papers not found", error_model)
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc("get_papers_by_id",
         description='''
-            Returns all the papers that were published in the edition specified by the ``id``.
+            Returns all the papers that were published in the edition specified by the ``edition_id``.
         ''',
         params={
-            "id": "The edition unique identifier"
+            "edition_id": "The edition unique identifier"
         }
     )
     def get(self, edition_id):

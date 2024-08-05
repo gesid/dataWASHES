@@ -130,17 +130,17 @@ class GetPapersByYear(Resource):
         log_request(request.method, request.path, 200)
         return papers.get_data()
 
-@ns.route("/<int:id>")
+@ns.route("/<int:paper_id>")
 class PaperById(Resource):
     @ns.response(404, "Paper not found", error_model)
     @ns.marshal_with(paper, mask=None)
     @ns.doc(
         "get_paper_by_id", 
         description='''
-            Returns the paper identified by the ``id``.
+            Returns the paper identified by the ``paper_id``.
         ''',
         params={
-            "id": "The paper unique identifier",
+            "paper_id": "The paper unique identifier",
         }
     )
     def get(self, paper_id):
@@ -154,17 +154,17 @@ class PaperById(Resource):
         return found_paper, 200
 
 # Adicionando rota para obter as citações de um artigo identificado pelo `id`.
-@ns.route("/<int:id>/citations")
+@ns.route("/<int:paper_id>/citations")
 class GetPaperCitations(Resource):
     @ns.response(404, "Paper not found", error_model)
     @ns.marshal_with(citation, mask=None)
     @ns.doc(
         "get_paper_citations",
         description='''
-            Returns the citations of the paper identified by the ``id``.
+            Returns the citations of the paper identified by the ``paper_id``.
         ''',
         params={
-            "id": "The paper unique identifier",
+            "paper_id": "The paper unique identifier",
         }
     )
     def get(self, paper_id):
@@ -179,17 +179,17 @@ class GetPaperCitations(Resource):
         return citations, 200
 
 # Adicionando rota para obter as referências de um artigo identificado pelo `id`.
-@ns.route("/<int:id>/references")
+@ns.route("/<int:paper_id>/references")
 class GetPaperReferences(Resource):
     @ns.response(404, "Paper not found", error_model)
     @ns.marshal_with(reference, mask=None)
     @ns.doc(
         "get_paper_references",
         description='''
-            Returns the ``references`` of the paper identified by the ``id``
+            Returns the ``references`` of the paper identified by the ``paper_id``
         ''',
         params={
-            "id": "The paper unique identifier",
+            "paper_id": "The paper unique identifier",
         }
     )
     def get(self, paper_id):

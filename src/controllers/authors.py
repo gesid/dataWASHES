@@ -20,17 +20,17 @@ class AuthorsList(Resource):
         log_request(request.method, request.path, 200)
         return authors.get_data()
 
-@ns.route("/<int:id>")
+@ns.route("/<int:author_id>")
 class Author(Resource):
     @ns.response(404, "Author not found", error_model)
     @ns.marshal_with(author, mask=None)
     @ns.doc(
         "get_author", 
         description='''
-            Returns the author identified by the ``id``. 
+            Returns the author identified by the ``author_id``. 
         ''',
         params={
-            "id": "The author unique identifier"
+            "author_id": "The author unique identifier"
         }
     )
     def get(self, author_id):
@@ -64,18 +64,18 @@ class SearchAuthor(Resource):
         log_request(request.method, request.path, 200)
         return authors.get_data()
 
-@ns.route("/<int:id>/papers")
+@ns.route("/<int:author_id>/papers")
 class PapersByAuthor(Resource):
     @ns.response(404, "Author papers not found", error_model)
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc(
         "get_papers_by_author", 
         description='''
-            Returns the papers of the author specified by ``id``. 
+            Returns the papers of the author specified by ``author_id``. 
         '''
         ,
         params={
-            "id": "The author unique identifier"
+            "author_id": "The author unique identifier"
         }
     )
     def get(self, author_id):
