@@ -1,7 +1,7 @@
 from flask_restx import Resource, Namespace
 from flask import request
 from resouces import EditionDB
-from models import edition, paper
+from models import edition, paper, error_model
 from utils.logging_washes import log_request
 
 ns = Namespace(name='Editions', path='/editions')
@@ -20,8 +20,8 @@ class EditionsList(Resource):
         return editions.get_data()
 
 @ns.route("/<int:id>")
-@ns.response(404, "Edition not found")
 class EditionById(Resource):
+    @ns.response(404, "Edition not found", error_model)
     @ns.marshal_with(edition, mask=None)
     @ns.doc("get_edition_by_id",
         description='''
@@ -36,13 +36,13 @@ class EditionById(Resource):
         found_edition = editions.get_by_id(id)
         if not found_edition:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message="Edition not found")
+            ns.abort(404, message="Edition not found", error_code=404)
         log_request(request.method, request.path, 200)
         return found_edition, 200
 
 @ns.route("/by-year/<int:year>")
-@ns.response(404, "Edition not found")
 class SearchEditions(Resource):
+    @ns.response(404, "Edition not found", error_model)
     @ns.marshal_with(edition, mask=None)
     @ns.doc("search_editions_by_year",
              description='''
@@ -52,21 +52,17 @@ class SearchEditions(Resource):
                  "year": "The year of the edition"
              })
     def get(self, year):
-        if not year:
-            log_request(request.method, request.path, 404)
-            ns.abort(404, message="Missing 'year' parameter")
-
         editions = EditionDB()
         editions.filter_by({"Year": year})
         if editions.is_empty():
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Edition not found for year {year}")
+            ns.abort(404, message=f"Edition not found for year {year}", error_code=404)
         log_request(request.method, request.path, 200)
         return editions.get_data()
 
 @ns.route("/<int:id>/papers")
-@ns.response(404, "Edition not found")
 class PapersByEdition(Resource):
+    @ns.response(404, "Edition papers not found", error_model)
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc("get_papers_by_id",
         description='''
@@ -82,6 +78,6 @@ class PapersByEdition(Resource):
 
         if not papers_in_edition:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message="Edition not found")
+            ns.abort(404, message="Edition not found", error_code=404)
         log_request(request.method, request.path, 200)
         return papers_in_edition, 200

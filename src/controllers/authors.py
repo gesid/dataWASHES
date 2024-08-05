@@ -1,6 +1,6 @@
 from flask_restx import Resource, Namespace
 from resouces import AuthorDB
-from models import author, paper
+from models import author, paper, error_model
 from flask import request
 from utils.logging_washes import log_request
 
@@ -21,8 +21,8 @@ class AuthorsList(Resource):
         return authors.get_data()
 
 @ns.route("/<int:id>")
-@ns.response(404, "Author not found")
 class Author(Resource):
+    @ns.response(404, "Author not found", error_model)
     @ns.marshal_with(author, mask=None)
     @ns.doc(
         "get_author", 
@@ -38,13 +38,13 @@ class Author(Resource):
         found_author = authors.get_by_id(id)
         if not found_author:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Author with id {id} doesn't exist")
+            ns.abort(404, message=f"Author with id {id} doesn't exist", error_code=404)
         log_request(request.method, request.path, 200)
         return found_author, 200
 
 @ns.route("/by-name/<string:name>")
-@ns.response(404, "Author not found")
 class SearchAuthor(Resource):
+    @ns.response(404, "Author not found", error_model)
     @ns.marshal_list_with(author, mask=None)
     @ns.doc(
         "search_author", 
@@ -60,12 +60,13 @@ class SearchAuthor(Resource):
         authors.filter_by({"Name": name})
         if authors.is_empty():
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Author {name} doesn't exist")
+            ns.abort(404, message=f"Author '{name}' doesn't exist", error_code=404)
         log_request(request.method, request.path, 200)
         return authors.get_data()
 
 @ns.route("/<int:id>/papers")
 class PapersByAuthor(Resource):
+    @ns.response(404, "Author papers not found", error_model)
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc(
         "get_papers_by_author", 
@@ -82,6 +83,6 @@ class PapersByAuthor(Resource):
         author_papers = authors.get_papers(id)
         if not author_papers:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Author with ID {id} not found.")
+            ns.abort(404, message=f"Author with ID {id} not found.", error_code=404)
         log_request(request.method, request.path, 200)
         return author_papers, 200
