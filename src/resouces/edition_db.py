@@ -17,7 +17,7 @@ class EditionDB(EntityDB):
 
         if self.is_empty():
             return {}
-        return self.get_data()[0]
+        return self._get_database()[0]
 
     # Overriding
     def filter_by(self, query_object: dict) -> list[dict]:
@@ -41,7 +41,6 @@ class EditionDB(EntityDB):
         edition: dict = self.get_by_id(edition_id)
         if not edition:
             return papers
-
         for paper_id in edition["Papers"]:
             paper_database: PaperDB = PaperDB()
             paper: dict = paper_database.get_by_id(paper_id)

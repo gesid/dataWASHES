@@ -2,7 +2,7 @@ from abc import abstractmethod, ABCMeta
 
 class EntityDB(metaclass=ABCMeta):
     """
-    A class to manege actions onto the JSON objects
+    A class to manage actions onto the JSON objects
     """
 
     def __init__(self) -> None:
@@ -10,7 +10,7 @@ class EntityDB(metaclass=ABCMeta):
 
     def total_count(self) -> int:
         """
-        Returns the number os objects in the database
+        Returns the number of objects in the database
         """
         return len(self._get_database())
 
@@ -31,7 +31,7 @@ class EntityDB(metaclass=ABCMeta):
 
     def filter_by_vector_string(self, key: str, value: str) -> None:
         """
-        Filter the database considering a key of type vector of string
+        Filter the database considering a key of type ``vector of string``
         """
         self._set_database([
             entity for entity in self._get_database()
@@ -40,20 +40,20 @@ class EntityDB(metaclass=ABCMeta):
 
     def filter_by_enum(self, key: str, value: str) -> None:
         """
-        Filter the database considering a key of type ``Enum``
+        Filter the database considering a key of type ``enum``
         """
         self._set_database([
             entity for entity in self._get_database()
             if value.lower() == entity[key].lower()
         ])
 
-    def filter_by_number(self, key: str, number: int | float) -> None:
+    def filter_by_number(self, key: str, number: int) -> None:
         """
-        Filter the database considering a key of type ``int`` or ``float``
+        Filter the database considering a key of type ``int``
         """
         self._set_database([
             entity for entity in self._get_database()
-            if number == entity[key]
+            if int(number) == entity[key]
         ])
 
     def get_data(self) -> tuple[dict[list], int]:

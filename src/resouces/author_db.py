@@ -17,7 +17,7 @@ class AuthorDB(EntityDB):
 
         if self.is_empty():
             return {}
-        return self.get_data()[0]
+        return self._get_database()[0]
 
     # Overriding
     def filter_by(self, query_object: dict) -> list[dict]:
