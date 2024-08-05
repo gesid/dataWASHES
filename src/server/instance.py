@@ -1,10 +1,9 @@
 from flask import Flask
 from flask_restx import Api
-import pyodbc
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import SQLALCHEMY_DATABASE_URI
-
+from sqlalchemy import create_engine
 
 class Server():
     def __init__(self):
@@ -20,7 +19,7 @@ class Server():
         )
         
         self.jwt = JWTManager(self.app)
-        self.conn = pyodbc.connect(SQLALCHEMY_DATABASE_URI)
+        self.conn = create_engine(SQLALCHEMY_DATABASE_URI)
 
     def run(self):
         self.app.run()

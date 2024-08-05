@@ -1,21 +1,24 @@
-from server.instance import Server
+from server.instance import server
 from flask import jsonify
+from sqlalchemy import text
+
 
 class DatabaseConn:
     
     @staticmethod
     def command(query, fetch=True):
-        server = Server()
         conn = server.getConn()
-        cursor = conn.cursor()
-        cursor.execute(query)
 
-        if not fetch:
-            cursor.commit()
-            cursor.close()
-            return
-        
-        rows = cursor.fetchall()
-        results = [{column_name: column_value for column_name, column_value in zip([column[0] for column in cursor.description], row)} for row in rows]
-        cursor.close()
-        return jsonify(results)
+        try:
+            with conn.connect() as conn:
+                if not fetch:
+                    conn.execute(text(query))
+                    return
+                
+                result = conn.execute(text(query))
+                rows = result.fetchall()
+                columns = result.keys()
+                results = [{column: value for column, value in zip(columns, row)} for row in rows]
+                return jsonify(results)
+        except Exception as e:
+            return jsonify({'error': str(e)})
