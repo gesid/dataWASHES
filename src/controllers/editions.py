@@ -31,12 +31,12 @@ class EditionById(Resource):
             "id": "The edition unique identifier"
         }
     )
-    def get(self, id):
+    def get(self, edition_id):
         editions = EditionDB()
-        found_edition = editions.get_by_id(id)
+        found_edition = editions.get_by_id(edition_id)
         if not found_edition:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message="Edition not found", error_code=404)
+            ns.abort(404, message=f"Edition {edition_id} not found", error_code=404)
         log_request(request.method, request.path, 200)
         return found_edition, 200
 
@@ -72,12 +72,12 @@ class PapersByEdition(Resource):
             "id": "The edition unique identifier"
         }
     )
-    def get(self, id):
+    def get(self, edition_id):
         editions = EditionDB()
-        papers_in_edition = editions.get_papers(id)
+        papers_in_edition = editions.get_papers(edition_id)
 
         if not papers_in_edition:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message="Edition not found", error_code=404)
+            ns.abort(404, message=f"Edition {edition_id} not found", error_code=404)
         log_request(request.method, request.path, 200)
         return papers_in_edition, 200

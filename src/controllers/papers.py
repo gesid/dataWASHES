@@ -143,13 +143,13 @@ class PaperById(Resource):
             "id": "The paper unique identifier",
         }
     )
-    def get(self, id):
+    def get(self, paper_id):
         papers = PaperDB()
-        found_paper = papers.get_by_id(id)
+        found_paper = papers.get_by_id(paper_id)
 
         if not found_paper:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Paper {id} not found", error_code=404)
+            ns.abort(404, message=f"Paper {paper_id} not found", error_code=404)
         log_request(request.method, request.path, 200)
         return found_paper, 200
 
@@ -167,13 +167,13 @@ class GetPaperCitations(Resource):
             "id": "The paper unique identifier",
         }
     )
-    def get(self, id):
+    def get(self, paper_id):
         papers = PaperDB()
-        citations = papers.get_citations_by_id(id)
+        citations = papers.get_citations_by_id(paper_id)
 
         if not citations:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"No citations found for paper {id}", error_code=404)
+            ns.abort(404, message=f"No citations found for paper {paper_id}", error_code=404)
 
         log_request(request.method, request.path, 200)
         return citations, 200
@@ -192,13 +192,13 @@ class GetPaperReferences(Resource):
             "id": "The paper unique identifier",
         }
     )
-    def get(self, id):
+    def get(self, paper_id):
         papers = PaperDB()
-        references = papers.get_references_by_id(id)
+        references = papers.get_references_by_id(paper_id)
 
         if not references:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"No references found for paper {id}", error_code=404)
+            ns.abort(404, message=f"No references found for paper {paper_id}", error_code=404)
 
         log_request(request.method, request.path, 200)
         return references, 200

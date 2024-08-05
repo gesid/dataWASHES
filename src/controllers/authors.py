@@ -33,12 +33,12 @@ class Author(Resource):
             "id": "The author unique identifier"
         }
     )
-    def get(self, id):
+    def get(self, author_id):
         authors = AuthorDB()
-        found_author = authors.get_by_id(id)
+        found_author = authors.get_by_id(author_id)
         if not found_author:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Author with id {id} doesn't exist", error_code=404)
+            ns.abort(404, message=f"Author with id {author_id} doesn't exist", error_code=404)
         log_request(request.method, request.path, 200)
         return found_author, 200
 
@@ -78,11 +78,11 @@ class PapersByAuthor(Resource):
             "id": "The author unique identifier"
         }
     )
-    def get(self, id):
+    def get(self, author_id):
         authors = AuthorDB()
-        author_papers = authors.get_papers(id)
+        author_papers = authors.get_papers(author_id)
         if not author_papers:
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Author with ID {id} not found.", error_code=404)
+            ns.abort(404, message=f"Author with ID {author_id} not found.", error_code=404)
         log_request(request.method, request.path, 200)
         return author_papers, 200
