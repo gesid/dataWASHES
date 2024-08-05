@@ -30,7 +30,7 @@ class PaperDB(EntityDB):
     # Overriding
     def filter_by(self, query_object: dict) -> list[dict]:
         if not isinstance(query_object, dict):
-            raise ValueError()
+            raise ValueError("query_object must be a dictionary")
 
         for key, value in query_object.items():
             if not value:
@@ -40,7 +40,7 @@ class PaperDB(EntityDB):
                 case "Paper_id" | "Year":
                     self.filter_by_number(key, value)
                 case "Type":
-                    if any(value == paper_type.value for paper_type in PaperTypes):
+                    if self.validate_paper_type(value):
                         self.filter_by_enum(key, value)
                     else:
                         raise ValueError("Invalid paper type")
@@ -54,6 +54,15 @@ class PaperDB(EntityDB):
                     self.filter_by_author_string(key, value)
                 case "References" | "Cited_by":
                     self.filter_by_vector_string(key, value)
+
+    @staticmethod
+    def validate_paper_type(value: str) -> bool:
+        """
+        Returns ``True`` if 'value' is a valid paper type ``False`` otherwise
+        """
+        if any(value.lower() == paper_type.value.lower() for paper_type in PaperTypes):
+            return True
+        return False
 
     def filter_by_two_strings(self, key1: str, key2: str, value: str) -> None:
         """

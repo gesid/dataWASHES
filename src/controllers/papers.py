@@ -56,6 +56,10 @@ class PapersList(Resource):
             log_request(request.method, request.path, 400)
             ns.abort(400, message="Invalid paper id", error_code=400)
 
+        if query_object["Type"] and not PaperDB.validate_paper_type(query_object["Type"]):
+            log_request(request.method, request.path, 400)
+            ns.abort(400, message="Invalid paper type", error_code=400)
+
         filtered_papers = PaperDB()
         filtered_papers.filter_by(query_object)
 
