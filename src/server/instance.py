@@ -37,7 +37,7 @@ class Server():
     def getApp(self):
         return self.app
     
-    def getConn(self):
+    '''def getConn(self):
         return self.conn
-
+'''
 server = Server()

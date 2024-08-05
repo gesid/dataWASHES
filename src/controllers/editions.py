@@ -1,22 +1,31 @@
 from flask_restx import Resource, Namespace
 from flask import request, jsonify
 from resouces import editions_db, papers_db
-from models import edition, paper
-from utils.logging_washes import log_request
+from models import edition, edition_paging, paper_paging
+from api_utils import paginate, log_request
 
 ns = Namespace(name='Editions', path='/editions')
 
 @ns.route("/")
 class EditionsList(Resource):
-    @ns.marshal_list_with(edition, mask=None)
+    @ns.marshal_list_with(edition_paging, mask=None)
     @ns.doc("list_editions", 
         description='''
             Returns all the editions in the dataset.
-        '''
+        ''',
+        params={
+            "page": "The page number to retrieve",
+            "per_page": "The number of editions to display per page"
+        }
     )
     def get(self):
+        try:
+            editions = paginate(editions_db)
+        except ValueError as e:
+            log_request(request.method, request.path, 400)
+            ns.abort(400, message=str(e))
         log_request(request.method, request.path, 200)
-        return editions_db
+        return editions
 
 @ns.route("/<int:id>")
 @ns.response(404, "Edition not found")
@@ -70,13 +79,15 @@ class SearchEditions(Resource):
 @ns.route("/<int:id>/papers")
 @ns.response(404, "Edition not found")
 class PapersByEdition(Resource):
-    @ns.marshal_list_with(paper, mask=None)
+    @ns.marshal_list_with(paper_paging, mask=None)
     @ns.doc("get_papers_by_id", 
         description='''
             Returns all the papers that were published in the edition specified by the ``id``.
         ''',
         params={
-            "id": "The edition unique identifier"
+            "id": "The edition unique identifier",
+            "page": "The page number to retrieve",
+            "per_page": "The number of papers to display per page"
         }
     )
     def get(self, id):
@@ -87,5 +98,12 @@ class PapersByEdition(Resource):
         papers_in_edition = [
             paper for paper in papers_db if paper["Paper_id"] in edition["Papers"]
         ]
+
+        try:
+            papers_in_edition = paginate(papers_in_edition)
+        except ValueError as e:
+            log_request(request.method, request.path, 400)
+            ns.abort(400, message=str(e))
+            
         log_request(request.method, request.path, 200)
         return papers_in_edition

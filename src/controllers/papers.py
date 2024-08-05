@@ -1,8 +1,8 @@
 from flask import request, jsonify
 from flask_restx import Resource, Namespace
 from resouces import papers_db
-from models import paper, abstracts, reference, citation
-from utils.logging_washes import log_request,  log_request_papers_error, log_request_papers_success
+from models import paper, paper_paging, abstracts_paging, reference, citation
+from api_utils import paginate, log_request, log_request_papers_error, log_request_papers_success
 # Adicionadas importações dos modelos de referências e citações
 
 ns = Namespace(name="Papers", path="/papers")
@@ -10,7 +10,7 @@ ns = Namespace(name="Papers", path="/papers")
 @ns.route("/")
 class PapersList(Resource):
 
-    @ns.marshal_list_with(paper, mask=None)
+    @ns.marshal_list_with(paper_paging, mask=None)
     @ns.doc(
         "list_papers",
         params={
@@ -26,6 +26,8 @@ class PapersList(Resource):
             "search": "Generic word present in title or abstract of papers",
             "reference": "A specific reference used in the paper",
             "citation": "A specific article that cites this article",
+            "page": "The page number to retrieve",
+            "per_page": "The number of items to display per page"
         }, 
         description='''
             Returns all the paper in the dataset.
@@ -212,73 +214,15 @@ class PapersList(Resource):
                 log_request_papers_error(request.method, request.path, "citation", citation_query, 400)
                 return jsonify({"error": f"Erro ao filtrar pela citação: {str(e)}"}), 400
 
+        try:
+            paginated_papers = paginate(filtered_papers)
+        except ValueError as e:
+            ns.abort(400, message=str(e))
+
         all_paths_and_arguments = f"year/{year}/id/{paper_id}/type/{paper_type}/author/{author_name}/institution/{institution_name}/state/{author_state}/abstract/{abstract_query}/resumo/{resumo_query}/keyword/{keyword}/search/{generic_query}/reference/{reference_query}/citation/{citation_query}"
-        
         log_request_papers_success(request.method, request.path, 200, all_paths_and_arguments)
-        return filtered_papers
-
-@ns.route("/abstracts")
-class GetPaperAbstracts(Resource):
-    @ns.marshal_list_with(abstracts, mask=None)
-    @ns.doc(
-        "get_paper_abstracts", 
-        description='''
-            Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
-        '''
-    )
-    def get(self):
-        abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
-        log_request(request.method, request.path, 200)
-        return abstracts
-
-      
-@ns.route("/by-title/<string:search>")
-class SearchPapersByTitle(Resource):
-    @ns.marshal_list_with(paper, mask=None)
-    @ns.doc(
-        "search_papers_by_title", 
-        description='''
-            Returns all the papers where the string ``search`` is included in the title.
-        ''',
-        params={
-            "search": "Generic word present in title",
-        }
-    )
-    def get(self, search):
-        keyword = search
-        if not keyword:
-            log_request(request.method, request.path, 400)
-            return jsonify({"error": "Missing 'title' parameter"}), 400
-        matched_papers = [p for p in papers_db if keyword.lower() in p["Title"].lower()]
-        if matched_papers:
-            log_request(request.method, request.path, 200)
-            return matched_papers
-        else:
-            log_request(request.method, request.path, 404)
-            return jsonify({"error": "No papers found with the specified title"}), 404
-
-
-@ns.route("/by-year/<int:year>")
-class GetPapersByYear(Resource):
-    @ns.marshal_list_with(paper, mask=None)
-    @ns.doc(
-        "get_papers_by_year", 
-        description='''
-            Returns all the papers published in the ``year`` specified.
-        ''',
-        params={
-            "year": "The year of publishment",
-        }
-    )
-    def get(self, year):
-        matched_papers = [p for p in papers_db if p["Year"] == year]
-        if not matched_papers:
-            log_request(request.method, request.path, 404)
-            return {"message": "No papers found for the specified year."}, 404
         
-        log_request(request.method, request.path, 200)
-        return matched_papers
-
+        return paginated_papers
 
 @ns.route("/<int:id>")
 @ns.response(404, "Paper not found")
@@ -328,6 +272,94 @@ class GetPaperCitations(Resource):
         
         log_request(request.method, request.path, 200)
         return [{"Paper_id": id, "Cited_by": citations}]
+
+
+@ns.route("/by-title/<string:search>")
+class SearchPapersByTitle(Resource):
+    @ns.marshal_list_with(paper_paging, mask=None)
+    @ns.doc(
+        "search_papers_by_title", 
+        description='''
+            Returns all the papers where the string ``search`` is included in the title.
+        ''',
+        params={
+            "search": "Generic word present in title",
+            "page": "The page number to retrieve",
+            "per_page": "The number of papers to display per page"
+        }
+    )
+    def get(self, search):
+        keyword = search
+        if not keyword:
+            log_request(request.method, request.path, 400)
+            return jsonify({"error": "Missing 'title' parameter"}), 400
+        
+        matched_papers = [p for p in papers_db if keyword.lower() in p["Title"].lower()]
+        
+        if not matched_papers:
+            log_request(request.method, request.path, 404)
+            return jsonify({"error": "No papers found with the specified title"}), 404
+        
+        try:
+            matched_papers = paginate(matched_papers)
+        except ValueError as e:
+            log_request(request.method, request.path, 400)
+            ns.abort(400, message=str(e))
+
+        log_request(request.method, request.path, 200)
+        return matched_papers
+
+@ns.route("/by-year/<int:year>")
+class GetPapersByYear(Resource):
+    @ns.marshal_list_with(paper_paging, mask=None)
+    @ns.doc(
+        "get_papers_by_year", 
+        description='''
+            Returns all the papers published in the ``year`` specified.
+        ''',
+        params={
+            "year": "The year of publishment",
+            "page": "The page number to retrieve",
+            "per_page": "The number of papers to display per page"
+        }
+    )
+    def get(self, year):
+        matched_papers = [p for p in papers_db if p["Year"] == year]
+        if not matched_papers:
+            log_request(request.method, request.path, 404)
+            ns.abort(404, message=f"No paper found for year {year}")
+        try:
+            matched_papers = paginate(matched_papers)
+        except ValueError as e:
+            log_request(request.method, request.path, 400)
+            ns.abort(400, message=str(e))
+
+        log_request(request.method, request.path, 200)
+        return matched_papers
+
+@ns.route("/abstracts")
+class GetPaperAbstracts(Resource):
+    @ns.marshal_list_with(abstracts_paging, mask=None)
+    @ns.doc(
+        "get_paper_abstracts", 
+        description='''
+            Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
+        ''',
+        params={
+            "page": "The page number to retrieve",
+            "per_page": "The number of abstracts to display per page"
+        }
+    )
+    def get(self):
+        abstracts = [{"Paper_id": p["Paper_id"], "Abstract": p["Abstract"]} for p in papers_db]
+
+        try:
+            abstracts = paginate(abstracts)
+        except ValueError as e:
+            log_request(request.method, request.path, 400)
+            ns.abort(400, message=str(e))
+        log_request(request.method, request.path, 200)
+        return abstracts
 
 # Adicionando rota para obter as referências de um artigo identificado pelo `id`.
 @ns.route("/<int:id>/references")

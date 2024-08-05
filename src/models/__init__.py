@@ -1,1 +1,3 @@
-from .models import abstracts, author, chairs, edition, paper, paperAuthor, reference, citation
+from .author import author, author_paging
+from .paper import paper, paper_paging, abstracts, reference, citation, abstracts_paging
+from .edition import edition, edition_paging
