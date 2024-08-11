@@ -18,13 +18,13 @@ class Administration(Resource):
             "password": "The password of the user to be created"
         }
     )
-    @jwt_required()
+    #@jwt_required()
     def post(self):
         username = request.args.get('username')
         password = request.args.get('password')
 
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        DatabaseConn.command(f"INSERT INTO Users (username, password) VALUES ('{username}', '{password}')", fetch=False)
+        DatabaseConn.command(f'INSERT INTO public."Users" ("UserName", "Password") VALUES (\'{username}\', \'{password}\')', fetch=False)
         return {"message": "User created"}
     
 @ns.route("/login")
@@ -40,33 +40,36 @@ class Administration(Resource):
         }
     )
     def post(self):
-        username = request.args.get('username')
-        password = request.args.get('password')
-        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        try :
+            username = request.args.get('username')
+            password = request.args.get('password')
+            password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-        if self.verify_user(username, password):
-            access_token = create_access_token(identity=username)
-            return {"access_token": access_token}
-        return {"message": "Invalid credentials"}
+            if self.verify_user(username, password):
+                access_token = create_access_token(identity=username)
+                return {"access_token": access_token}
+            return {"message": "Invalid credentials"}
+        except Exception as e:
+            return {"message": str(e)}
 
     def verify_user(self, username, password):
-        results = DatabaseConn.command(f"SELECT * FROM Users WHERE username = '{username}' AND password = '{password}'")
-        return len(results) > 0
+        results = DatabaseConn.command(f'SELECT * FROM public."Users" WHERE "UserName" = \'{username}\' AND "Password" = \'{password}\'')
+        return any(results)
 
 @ns.route("/authors")
 class Administration(Resource):
     def get(self):
-        results = DatabaseConn.command("SELECT * FROM Authors")
+        results = DatabaseConn.command('SELECT * FROM public."Authors"')
         return results
     
 @ns.route("/papers")
 class Administration(Resource):
     def get(self):
-        results = DatabaseConn.command("SELECT * FROM Papers")
+        results = DatabaseConn.command('SELECT * FROM public."Papers"')
         return results
     
 @ns.route("/editions")
 class Administration(Resource):
     def get(self):
-        results = DatabaseConn.command("SELECT * FROM Editions")
+        results = DatabaseConn.command('SELECT * FROM public."Editions"')
         return results

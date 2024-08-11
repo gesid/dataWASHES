@@ -1,1 +1,1 @@
-SQLALCHEMY_DATABASE_URI  = 'postgresql://washes_user:vRWKrn8CIGQFMFs6m8TKSNtGlyWVfId4@dpg-cqi19t2ju9rs73ca40cg-a.oregon-postgres.render.com:5432/washes'
+SQLALCHEMY_DATABASE_URI  = 'postgresql://washes_user:vRWKrn8CIGQFMFs6m8TKSNtGlyWVfId4@dpg-cqi19t2ju9rs73ca40cg-a.oregon-postgres.render.com/washes'
