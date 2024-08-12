@@ -21,25 +21,26 @@ class PaperDB(EntityDB):
 
     # Overriding
     def get_by_id(self, entity_id: int) -> dict:
-        self.filter_by_number(entity_id, "Paper_id")
+        self.filter_by_number("Paper_id", entity_id)
 
         if self.is_empty():
             return {}
-        return self.get_data()[0]
+        return self._get_database()[0]
 
     # Overriding
     def filter_by(self, query_object: dict) -> list[dict]:
         if not isinstance(query_object, dict):
-            raise ValueError()
+            raise ValueError("query_object must be a dictionary")
 
         for key, value in query_object.items():
-            if not value: continue
+            if not value:
+                continue
 
             match key:
-                case "Year":
+                case "Paper_id" | "Year":
                     self.filter_by_number(key, value)
                 case "Type":
-                    if any(value == paper_type.value for paper_type in PaperTypes):
+                    if self.validate_paper_type(value):
                         self.filter_by_enum(key, value)
                     else:
                         raise ValueError("Invalid paper type")
@@ -53,6 +54,15 @@ class PaperDB(EntityDB):
                     self.filter_by_author_string(key, value)
                 case "References" | "Cited_by":
                     self.filter_by_vector_string(key, value)
+
+    @staticmethod
+    def validate_paper_type(value: str) -> bool:
+        """
+        Returns ``True`` if 'value' is a valid paper type ``False`` otherwise
+        """
+        if any(value.lower() == paper_type.value.lower() for paper_type in PaperTypes):
+            return True
+        return False
 
     def filter_by_two_strings(self, key1: str, key2: str, value: str) -> None:
         """
@@ -81,8 +91,11 @@ class PaperDB(EntityDB):
             {"Paper_id": paper["Paper_id"], "Abstract": paper["Abstract"]}
             for paper in self._get_database()
         ]
-    
+
     def get_citations_by_id(self, paper_id: int) -> dict:
+        """
+        Returns the citations of the paper identified by the ``paper_id``
+        """
         paper = self.get_by_id(paper_id)
         if not paper:
             return {}
@@ -90,8 +103,11 @@ class PaperDB(EntityDB):
             "Paper_id": paper_id,
             "Cited_by": paper["Cited_by"]
         }
-    
+
     def get_references_by_id(self, paper_id: int) -> dict:
+        """
+        Returns the references of the paper identified by the ``paper_id``
+        """
         paper = self.get_by_id(paper_id)
         if not paper:
             return {}

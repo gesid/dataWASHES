@@ -1,7 +1,7 @@
 from flask_restx import Resource, Namespace
 from flask import request
-from resouces import papers_db, authors_db
-from models import author, author_paging, paper_paging
+from resouces import AuthorDB
+from models import author, paper, error_model
 from api_utils import paginate, log_request
 
 
@@ -9,7 +9,7 @@ ns = Namespace(name="Authors", path="/authors")
 
 @ns.route("/")
 class AuthorsList(Resource):
-    @ns.marshal_list_with(author_paging, mask=None)
+    @ns.marshal_list_with(author, mask=None)
     @ns.doc(
         "list_authors", 
         description='''
@@ -21,41 +21,36 @@ class AuthorsList(Resource):
         }
     )
     def get(self):
-        try:
-            authors = paginate(authors_db)
-        except ValueError as e:
-            log_request(request.method, request.path, 400)
-            ns.abort(400, message=str(e))
+        authors = AuthorDB()
         log_request(request.method, request.path, 200)
-        return authors
+        return authors.get_data()
 
-
-@ns.route("/<int:id>")
-@ns.response(404, "Author not found")
+@ns.route("/<int:author_id>")
 class Author(Resource):
+    @ns.response(404, "Author not found", error_model)
     @ns.marshal_with(author, mask=None)
     @ns.doc(
         "get_author", 
         description='''
-            Returns the author identified by the ``id``. 
+            Returns the author identified by the ``author_id``. 
         ''',
         params={
-            "id": "The author unique identifier"
+            "author_id": "The author unique identifier"
         }
     )
-    def get(self, id):
-        for author in authors_db:
-            if author["Author_id"] == id:
-                log_request(request.method, request.path, 200)
-                return author
-        log_request(request.method, request.path, 404)
-        ns.abort(404, message=f"Author with id {id} doesn't exist")
-
+    def get(self, author_id):
+        authors = AuthorDB()
+        found_author = authors.get_by_id(author_id)
+        if not found_author:
+            log_request(request.method, request.path, 404)
+            ns.abort(404, message=f"Author with id {author_id} doesn't exist", error_code=404)
+        log_request(request.method, request.path, 200)
+        return found_author, 200
 
 @ns.route("/by-name/<string:name>")
-@ns.response(404, "Author not found")
 class SearchAuthor(Resource):
-    @ns.marshal_list_with(author_paging, mask=None)
+    @ns.response(404, "Author not found", error_model)
+    @ns.marshal_list_with(author, mask=None)
     @ns.doc(
         "search_author", 
         description='''
@@ -68,54 +63,33 @@ class SearchAuthor(Resource):
         }
     )
     def get(self, name):
-        queried_authors = [
-            author for author in authors_db if name.lower() in author["Name"].lower()
-        ]
-        if not queried_authors:
+        authors = AuthorDB()
+        authors.filter_by({"Name": name})
+        if authors.is_empty():
             log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Author {name} doesn't exist")
-
-        try:
-            queried_authors = paginate(queried_authors)
-        except ValueError as e:
-            log_request(request.method, request.path, 400)
-            ns.abort(400, message=str(e))
-
+            ns.abort(404, message=f"Author '{name}' doesn't exist", error_code=404)
         log_request(request.method, request.path, 200)
-        return queried_authors
+        return authors.get_data()
 
-
-@ns.route("/<int:id>/papers")
+@ns.route("/<int:author_id>/papers")
 class PapersByAuthor(Resource):
-    @ns.marshal_list_with(paper_paging, mask=None)
+    @ns.response(404, "Author papers not found", error_model)
+    @ns.marshal_list_with(paper, mask=None)
     @ns.doc(
         "get_papers_by_author", 
         description='''
-            Returns the papers of the author specified by ``id``. 
+            Returns the papers of the author specified by ``author_id``. 
         '''
         ,
         params={
-            "id": "The author unique identifier",
-            "page": "The page number to retrieve",
-            "per_page": "The number of papers to display per page"
+            "author_id": "The author unique identifier"
         }
     )
-    def get(self, id):
-        author_papers = [
-            paper
-            for paper in papers_db
-            if any(author["Author_id"] == id for author in paper["Authors"])
-        ]
-
+    def get(self, author_id):
+        authors = AuthorDB()
+        author_papers = authors.get_papers(author_id)
         if not author_papers:
             log_request(request.method, request.path, 404)
-            return {"message": f"Author with ID {id} not found."}, 404
-        
-        try:
-            author_papers = paginate(author_papers)
-        except ValueError as e:
-            log_request(request.method, request.path, 400)
-            ns.abort(400, message=str(e))
-
+            ns.abort(404, message=f"Author with ID {author_id} not found.", error_code=404)
         log_request(request.method, request.path, 200)
-        return author_papers
+        return author_papers, 200
