@@ -91,8 +91,11 @@ class PaperDB(EntityDB):
             {"Paper_id": paper["Paper_id"], "Abstract": paper["Abstract"]}
             for paper in self._get_database()
         ]
-    
+
     def get_citations_by_id(self, paper_id: int) -> dict:
+        """
+        Returns the citations of the paper identified by the ``paper_id``
+        """
         paper = self.get_by_id(paper_id)
         if not paper:
             return {}
@@ -100,8 +103,11 @@ class PaperDB(EntityDB):
             "Paper_id": paper_id,
             "Cited_by": paper["Cited_by"]
         }
-    
+
     def get_references_by_id(self, paper_id: int) -> dict:
+        """
+        Returns the references of the paper identified by the ``paper_id``
+        """
         paper = self.get_by_id(paper_id)
         if not paper:
             return {}
