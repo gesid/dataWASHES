@@ -1,5 +1,5 @@
 from flask import make_response
-from controllers import authorsNs, editionsNs, papersNs, exemploNs
+from controllers import authorsNs, editionsNs, papersNs
 from server import server
 from api_utils import convert_to_csv
 
@@ -13,6 +13,5 @@ def data_csv(data, code, headers):
 server.api.add_namespace(editionsNs)
 server.api.add_namespace(papersNs)
 server.api.add_namespace(authorsNs)
-server.api.add_namespace(exemploNs)
 
 server.run()
