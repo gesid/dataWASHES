@@ -1,7 +1,7 @@
 from flask import request
 from flask_restx import Resource, Namespace # type: ignore
 from resouces import PaperDB
-from models import paper, abstracts, reference, citation, error_model
+from models import paper, paper_paging, abstracts, reference, citation, error_model
 from api_utils import log_request, abort_execution
 from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM
 
@@ -12,7 +12,7 @@ class PapersList(Resource):
     """
     Papers list route
     """
-    @ns.marshal_list_with(paper, mask=None)
+    @ns.marshal_with(paper_paging, mask=None)
     @ns.response(404, "No papers found", error_model)
     @ns.response(400, "Invalid parameter", error_model)
     @ns.doc(
@@ -35,11 +35,12 @@ class PapersList(Resource):
         description='''
             Returns all the paper in the dataset.
             The list of paper can be filtered using the header arguments specified below.
-        '''
+        ''',
+        hide=True
     )
     def get(self):
         """
-        GET function to papers list
+        List of papers
         """
         # Gruping GET parameters into a dictionary
         query_object = {
@@ -69,7 +70,7 @@ class PapersList(Resource):
         if filtered_papers.is_empty():
             abort_execution(ns, "No papers found", 404)
         log_request(request.method, request.path, 200)
-        return filtered_papers.get_data()
+        return filtered_papers.get_paginated_data(ns)
 
 @ns.route("/abstracts")
 class PapersAbstracts(Resource):
@@ -85,7 +86,7 @@ class PapersAbstracts(Resource):
     )
     def get(self):
         """
-        GET function to papers abstracts
+        List of all papers' abstracts
         """
         papers = PaperDB()
         log_request(request.method, request.path, 200)
@@ -109,7 +110,7 @@ class SearchPapersByTitle(Resource):
     )
     def get(self, search):
         """
-        GET function to search papers by title
+        Search papers by title
         """
         papers = PaperDB()
         papers.filter_by({"Title": search})
@@ -136,7 +137,7 @@ class PapersByYear(Resource):
     )
     def get(self, year):
         """
-        GET function to papers by year
+        Search papers by year
         """
         papers = PaperDB()
         papers.filter_by({"Year": year})
@@ -163,7 +164,7 @@ class PaperById(Resource):
     )
     def get(self, paper_id):
         """
-        GET function to paper by ``ID``
+        Get paper by ID
         """
         papers = PaperDB()
         found_paper = papers.get_by_id(paper_id)
@@ -191,7 +192,7 @@ class PaperCitations(Resource):
     )
     def get(self, paper_id):
         """
-        GET function to papers citations
+        Get the paper's citations by ID
         """
         papers = PaperDB()
         citations = papers.get_citations_by_id(paper_id)
@@ -219,7 +220,7 @@ class PaperReferences(Resource):
     )
     def get(self, paper_id):
         """
-        GET function to papers references
+        Get the paper's references by ID
         """
         papers = PaperDB()
         references = papers.get_references_by_id(paper_id)

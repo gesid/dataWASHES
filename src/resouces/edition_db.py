@@ -31,17 +31,13 @@ class EditionDB(EntityDB):
                 case "Year":
                     self.filter_by_number(key, value)
 
-    def get_papers(self, edition_id: int) -> list[dict] | None:
+    def get_papers(self, edition_id: int) -> PaperDB | None:
         """
         Return the editions list of papers 
         """
-        papers: list[dict] = []
+        papers = PaperDB()
         edition = self.get_by_id(edition_id)
         if not edition:
             return None
-        for paper_id in edition["Papers"]:
-            paper_database: PaperDB = PaperDB()
-            paper = paper_database.get_by_id(paper_id)
-            if paper:
-                papers.append(paper)
+        papers.filter_by_list_of_ids(edition["Papers"])
         return papers

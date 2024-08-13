@@ -1,7 +1,7 @@
 from flask_restx import Resource, Namespace # type: ignore
 from flask import request
 from resouces import AuthorDB
-from models import author, paper, error_model
+from models import author, author_paging, paper, error_model
 from api_utils import log_request, abort_execution
 from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM
 
@@ -12,7 +12,7 @@ class AuthorsList(Resource):
     """
     Authors list route
     """
-    @ns.marshal_list_with(author, mask=None)
+    @ns.marshal_with(author_paging, mask=None)
     @ns.doc(
         "list_authors", 
         description='''
@@ -25,11 +25,11 @@ class AuthorsList(Resource):
     )
     def get(self):
         """
-        GET function to authors list
+        List of authors
         """
         authors = AuthorDB()
         log_request(request.method, request.path, 200)
-        return authors.get_data()
+        return authors.get_paginated_data(ns)
 
 @ns.route("/<int:author_id>")
 class AuthorById(Resource):
@@ -49,7 +49,7 @@ class AuthorById(Resource):
     )
     def get(self, author_id):
         """
-        GET function to author by ``ID``
+        Get author by ID
         """
         authors = AuthorDB()
         found_author = authors.get_by_id(author_id)
@@ -64,7 +64,7 @@ class SearchAuthorByName(Resource):
     Search author by name route
     """
     @ns.response(404, "Author not found", error_model)
-    @ns.marshal_list_with(author, mask=None)
+    @ns.marshal_with(author_paging, mask=None)
     @ns.doc(
         "search_author", 
         description='''
@@ -78,14 +78,14 @@ class SearchAuthorByName(Resource):
     )
     def get(self, name):
         """
-        GET function to search author by ``Name``
+        Search authors by Name
         """
         authors = AuthorDB()
         authors.filter_by({"Name": name})
         if authors.is_empty():
             abort_execution(ns, f"Author '{name}' doesn't exist", 404)
         log_request(request.method, request.path, 200)
-        return authors.get_data()
+        return authors.get_paginated_data(ns)
 
 @ns.route("/<int:author_id>/papers")
 class PapersByAuthor(Resource):
@@ -106,7 +106,7 @@ class PapersByAuthor(Resource):
     )
     def get(self, author_id):
         """
-        GET function to papers by author ``ID``
+        Get author's papers
         """
         authors = AuthorDB()
         author_papers = authors.get_papers(author_id)

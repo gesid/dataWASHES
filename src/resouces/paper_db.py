@@ -104,6 +104,17 @@ class PaperDB(EntityDB):
             for paper in self._get_database()
         ]
 
+    def filter_by_list_of_ids(self, papers_ids: list[int]) -> None:
+        """
+        filter the database considering a list of IDs
+        """
+        papers_ids_set = set(papers_ids)
+        papers: list[dict] = []
+        for paper in self._get_database():
+            if paper["Paper_id"] in papers_ids_set:
+                papers.append(paper)
+        self._set_database(papers)
+
     def get_citations_by_id(self, paper_id: int) -> dict | None:
         """
         Returns the citations of the paper identified by the ``paper_id``

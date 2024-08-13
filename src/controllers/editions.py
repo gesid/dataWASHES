@@ -1,7 +1,7 @@
 from flask_restx import Resource, Namespace # type: ignore
 from flask import request
 from resouces import EditionDB
-from models import edition, paper, error_model
+from models import edition, edition_paging, paper_paging, error_model
 from api_utils import log_request, abort_execution
 from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM
 
@@ -12,7 +12,7 @@ class EditionsList(Resource):
     """
     Editions list route
     """
-    @ns.marshal_list_with(edition, mask=None)
+    @ns.marshal_with(edition_paging, mask=None)
     @ns.doc("list_editions",
         description='''
             Returns all the editions in the dataset.
@@ -24,11 +24,11 @@ class EditionsList(Resource):
     )
     def get(self):
         """
-        GET function to return the editions list
+        List of editions
         """
         editions = EditionDB()
         log_request(request.method, request.path, 200)
-        return editions.get_data()
+        return editions.get_paginated_data(ns)
 
 @ns.route("/<int:edition_id>")
 class EditionById(Resource):
@@ -47,7 +47,7 @@ class EditionById(Resource):
     )
     def get(self, edition_id):
         """
-        GET function to return the edition by ``ID``
+        Get edition by ID
         """
         editions = EditionDB()
         found_edition = editions.get_by_id(edition_id)
@@ -72,7 +72,7 @@ class SearchEditionsByYear(Resource):
              })
     def get(self, year):
         """
-        GET function to search editions by ``year``
+        Search edition by year
         """
         editions = EditionDB()
         editions.filter_by({"Year": year})
@@ -84,10 +84,10 @@ class SearchEditionsByYear(Resource):
 @ns.route("/<int:edition_id>/papers")
 class EditionPapersById(Resource):
     """
-    Editions papers by ``ID`` route
+    Editions papers by ID route
     """
     @ns.response(404, "Edition papers not found", error_model)
-    @ns.marshal_list_with(paper, mask=None)
+    @ns.marshal_with(paper_paging, mask=None)
     @ns.doc("get_papers_by_id",
         description='''
             Returns all the papers that were published in the edition specified by the ``edition_id``.
@@ -100,11 +100,11 @@ class EditionPapersById(Resource):
     )
     def get(self, edition_id):
         """
-        GET function to the edition papers by ``ID``
+        Get the edition's papers
         """
         editions = EditionDB()
         papers_in_edition = editions.get_papers(edition_id)
         if not papers_in_edition:
             abort_execution(ns, f"Edition {edition_id} not found", 404)
         log_request(request.method, request.path, 200)
-        return papers_in_edition, 200
+        return papers_in_edition.get_paginated_data(ns)

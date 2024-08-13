@@ -1,8 +1,10 @@
 from math import ceil
+from flask_restx import Namespace # type: ignore
 from flask import request
-from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM, DEFAULT_PAGE, DEFAULT_PER_PAGE
+from .abort_func import abort_execution
+from .constants import PAGE_PARAM, PER_PAGE_PARAM
 
-def paginate(data: list[dict]) -> dict | None:
+def paginate(ns: Namespace, data: list[dict], default_page: int = 1, default_per_page: int = 10) -> dict | None:
     """
     Paginate the given data.
 
@@ -12,11 +14,11 @@ def paginate(data: list[dict]) -> dict | None:
     :return: A dictionary with paginated data, paging infos and links to other pages
     """
     try:
-        page: int = int(request.args.get(PAGE_PARAM, DEFAULT_PAGE))
-        per_page: int = int(request.args.get(PER_PAGE_PARAM, DEFAULT_PER_PAGE))
+        page = int(request.args.get(PAGE_PARAM, default_page))
+        per_page = int(request.args.get(PER_PAGE_PARAM, default_per_page))
 
         if page < 1 or per_page < 1:
-            raise ValueError("Page and per_page must be positive integers")
+            abort_execution(ns, "Page and per_page must be positive integers", 400)
 
         total_count: int = len(data)
         page_count: int = ceil(total_count / per_page)
@@ -24,7 +26,7 @@ def paginate(data: list[dict]) -> dict | None:
         end: int = start + per_page
 
         if start >= total_count:
-            raise ValueError("Page number out of range")
+            abort_execution(ns, "Page number out of range", 400)
 
         paginated_data: list[dict] = data[start:end]
 
@@ -44,5 +46,6 @@ def paginate(data: list[dict]) -> dict | None:
                 "last": f"{request.path}?page={page_count}&per_page={per_page}",
             }
         }
-    except ValueError as e:
-        raise ValueError("Page and per_page must be positive integers") from e
+    except ValueError:
+        abort_execution(ns, "Page and per_page must be positive integers", 400)
+        return None

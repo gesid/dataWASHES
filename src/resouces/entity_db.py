@@ -1,4 +1,6 @@
 from abc import abstractmethod, ABCMeta
+from flask_restx import Namespace # type: ignore
+from api_utils import paginate
 
 class EntityDB(metaclass=ABCMeta):
     """
@@ -65,6 +67,14 @@ class EntityDB(metaclass=ABCMeta):
         if self.is_empty():
             return self._get_database(), 404
         return self._get_database(), 200
+
+    def get_paginated_data(self, ns: Namespace) -> tuple[dict | None, int]:
+        """
+        Returns the data of the database paginated, also the response code\n
+        404 - When the database is empty\n
+        200 - When the database is not empty
+        """
+        return paginate(ns, self._get_database()), 200
 
     def _get_database(self) -> list[dict]:
         """
