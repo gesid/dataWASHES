@@ -12,6 +12,7 @@ class AuthorsList(Resource):
     """
     Authors list route
     """
+    @ns.response(400, "Invalid parameter", error_model)
     @ns.marshal_with(author_paging, mask=None)
     @ns.doc(
         "list_authors", 
@@ -63,6 +64,7 @@ class SearchAuthorByName(Resource):
     """
     Search author by name route
     """
+    @ns.response(400, "Invalid parameter", error_model)
     @ns.response(404, "Author not found", error_model)
     @ns.marshal_with(author_paging, mask=None)
     @ns.doc(

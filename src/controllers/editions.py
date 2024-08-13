@@ -12,6 +12,7 @@ class EditionsList(Resource):
     """
     Editions list route
     """
+    @ns.response(400, "Invalid parameter", error_model)
     @ns.marshal_with(edition_paging, mask=None)
     @ns.doc("list_editions",
         description='''
@@ -86,6 +87,7 @@ class EditionPapersById(Resource):
     """
     Editions papers by ID route
     """
+    @ns.response(400, "Invalid parameter", error_model)
     @ns.response(404, "Edition papers not found", error_model)
     @ns.marshal_with(paper_paging, mask=None)
     @ns.doc("get_papers_by_id",
