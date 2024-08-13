@@ -1,7 +1,7 @@
 from flask import Flask, render_template
-from flask_restx import Api
-import pyodbc
-from flask_cors import CORS
+from flask_restx import Api # type: ignore
+from flask_cors import CORS # type: ignore
+import pyodbc # type: ignore
 
 
 class Server():
@@ -36,8 +36,8 @@ class Server():
 
     def getApp(self):
         return self.app
-    
+
     '''def getConn(self):
-        return self.conn
-'''
-server = Server()
+        return self.conn'''
+
+server: Server = Server()

@@ -56,7 +56,7 @@ class EntityDB(metaclass=ABCMeta):
             if int(number) == entity[key]
         ])
 
-    def get_data(self) -> tuple[dict[list], int]:
+    def get_data(self) -> tuple[list[dict], int]:
         """
         Returns the data of the database with the response code\n
         404 - When the database is empty\n
@@ -79,13 +79,13 @@ class EntityDB(metaclass=ABCMeta):
         self.__database = new_database
 
     @abstractmethod
-    def get_by_id(self, entity_id: int) -> dict:
+    def get_by_id(self, entity_id: int) -> dict | None:
         """
         Returns the object identified by the ``id``
         """
 
     @abstractmethod
-    def filter_by(self, query_object: dict) -> list[dict]:
+    def filter_by(self, query_object: dict) -> None:
         """
         Filter the database
         """

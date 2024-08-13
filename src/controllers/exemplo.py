@@ -1,4 +1,4 @@
-from flask_restx import Resource, Namespace
+from flask_restx import Resource, Namespace # type: ignore
 from resouces.database_conn import DatabaseConn
 
 ns = Namespace(name='Exemplo', path='/exemplo')

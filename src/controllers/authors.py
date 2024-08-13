@@ -1,14 +1,17 @@
-from flask_restx import Resource, Namespace
+from flask_restx import Resource, Namespace # type: ignore
 from flask import request
 from resouces import AuthorDB
 from models import author, paper, error_model
-from api_utils import paginate, log_request
-
+from api_utils import log_request, abort_execution
+from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM
 
 ns = Namespace(name="Authors", path="/authors")
 
 @ns.route("/")
 class AuthorsList(Resource):
+    """
+    Authors list route
+    """
     @ns.marshal_list_with(author, mask=None)
     @ns.doc(
         "list_authors", 
@@ -16,17 +19,23 @@ class AuthorsList(Resource):
             Returns all the authors in the dataset. 
         ''',
         params={
-            "page": "The page number to retrieve",
-            "per_page": "The number of authors to display per page"
+            PAGE_PARAM: "The page number to retrieve",
+            PER_PAGE_PARAM: "The number of authors to display per page"
         }
     )
     def get(self):
+        """
+        GET function to authors list
+        """
         authors = AuthorDB()
         log_request(request.method, request.path, 200)
         return authors.get_data()
 
 @ns.route("/<int:author_id>")
-class Author(Resource):
+class AuthorById(Resource):
+    """
+    Author by id route
+    """
     @ns.response(404, "Author not found", error_model)
     @ns.marshal_with(author, mask=None)
     @ns.doc(
@@ -39,16 +48,21 @@ class Author(Resource):
         }
     )
     def get(self, author_id):
+        """
+        GET function to author by ``ID``
+        """
         authors = AuthorDB()
         found_author = authors.get_by_id(author_id)
         if not found_author:
-            log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Author with id {author_id} doesn't exist", error_code=404)
+            abort_execution(ns, f"Author with id {author_id} doesn't exist", 404)
         log_request(request.method, request.path, 200)
         return found_author, 200
 
 @ns.route("/by-name/<string:name>")
-class SearchAuthor(Resource):
+class SearchAuthorByName(Resource):
+    """
+    Search author by name route
+    """
     @ns.response(404, "Author not found", error_model)
     @ns.marshal_list_with(author, mask=None)
     @ns.doc(
@@ -58,21 +72,26 @@ class SearchAuthor(Resource):
         ''',
         params={
             "name": "The author name",
-            "page": "The page number to retrieve",
-            "per_page": "The number of authors to display per page"
+            PAGE_PARAM: "The page number to retrieve",
+            PER_PAGE_PARAM: "The number of authors to display per page"
         }
     )
     def get(self, name):
+        """
+        GET function to search author by ``Name``
+        """
         authors = AuthorDB()
         authors.filter_by({"Name": name})
         if authors.is_empty():
-            log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Author '{name}' doesn't exist", error_code=404)
+            abort_execution(ns, f"Author '{name}' doesn't exist", 404)
         log_request(request.method, request.path, 200)
         return authors.get_data()
 
 @ns.route("/<int:author_id>/papers")
 class PapersByAuthor(Resource):
+    """
+    Papers by author route
+    """
     @ns.response(404, "Author papers not found", error_model)
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc(
@@ -86,10 +105,12 @@ class PapersByAuthor(Resource):
         }
     )
     def get(self, author_id):
+        """
+        GET function to papers by author ``ID``
+        """
         authors = AuthorDB()
         author_papers = authors.get_papers(author_id)
         if not author_papers:
-            log_request(request.method, request.path, 404)
-            ns.abort(404, message=f"Author with ID {author_id} not found.", error_code=404)
+            abort_execution(ns, f"Author with ID {author_id} not found.", 404)
         log_request(request.method, request.path, 200)
         return author_papers, 200

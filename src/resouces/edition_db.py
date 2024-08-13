@@ -12,15 +12,14 @@ class EditionDB(EntityDB):
         self._set_database(editions_db)
 
     # Overriding
-    def get_by_id(self, entity_id: int) -> dict:
+    def get_by_id(self, entity_id: int) -> dict | None:
         self.filter_by_number("Edition_id", entity_id)
-
         if self.is_empty():
-            return {}
+            return None
         return self._get_database()[0]
 
     # Overriding
-    def filter_by(self, query_object: dict) -> list[dict]:
+    def filter_by(self, query_object: dict) -> None:
         if not isinstance(query_object, dict):
             raise ValueError()
 
@@ -32,19 +31,17 @@ class EditionDB(EntityDB):
                 case "Year":
                     self.filter_by_number(key, value)
 
-    def get_papers(self, edition_id: int) -> list[dict]:
+    def get_papers(self, edition_id: int) -> list[dict] | None:
         """
         Return the editions list of papers 
         """
         papers: list[dict] = []
-
-        edition: dict = self.get_by_id(edition_id)
+        edition = self.get_by_id(edition_id)
         if not edition:
-            return papers
+            return None
         for paper_id in edition["Papers"]:
             paper_database: PaperDB = PaperDB()
-            paper: dict = paper_database.get_by_id(paper_id)
-
+            paper = paper_database.get_by_id(paper_id)
             if paper:
                 papers.append(paper)
         return papers

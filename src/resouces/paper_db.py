@@ -20,27 +20,25 @@ class PaperDB(EntityDB):
         self._set_database(papers_db)
 
     # Overriding
-    def get_by_id(self, entity_id: int) -> dict:
+    def get_by_id(self, entity_id: int) -> dict | None:
         self.filter_by_number("Paper_id", entity_id)
 
         if self.is_empty():
-            return {}
+            return None
         return self._get_database()[0]
 
     # Overriding
-    def filter_by(self, query_object: dict) -> list[dict]:
+    def filter_by(self, query_object: dict) -> None:
         if not isinstance(query_object, dict):
             raise ValueError("query_object must be a dictionary")
-
         for key, value in query_object.items():
             if not value:
                 continue
-
             match key:
                 case "Paper_id" | "Year":
                     self.filter_by_number(key, value)
                 case "Type":
-                    if self.validate_paper_type(value):
+                    if self.is_valid_paper_type(value):
                         self.filter_by_enum(key, value)
                     else:
                         raise ValueError("Invalid paper type")
@@ -56,13 +54,27 @@ class PaperDB(EntityDB):
                     self.filter_by_vector_string(key, value)
 
     @staticmethod
-    def validate_paper_type(value: str) -> bool:
+    def is_valid_paper_type(value: str) -> bool:
         """
         Returns ``True`` if 'value' is a valid paper type ``False`` otherwise
         """
         if any(value.lower() == paper_type.value.lower() for paper_type in PaperTypes):
             return True
         return False
+
+    @staticmethod
+    def is_valid_year(value: str) -> bool:
+        """
+        Returns ``True`` if 'value' is a valid Year ``False`` otherwise
+        """
+        return value.isnumeric()
+
+    @staticmethod
+    def is_valid_paper_id(value: str) -> bool:
+        """
+        Returns ``True`` if 'value' is a valid Paper_id ``False`` otherwise
+        """
+        return value.isnumeric()
 
     def filter_by_two_strings(self, key1: str, key2: str, value: str) -> None:
         """
@@ -74,7 +86,7 @@ class PaperDB(EntityDB):
                 value.lower() in paper[key2].lower()
         ])
 
-    def filter_by_author_string(self, key: str, value: str) -> list[dict]:
+    def filter_by_author_string(self, key: str, value: str) -> None:
         """
         Filter the database considering an author property
         """
@@ -92,25 +104,25 @@ class PaperDB(EntityDB):
             for paper in self._get_database()
         ]
 
-    def get_citations_by_id(self, paper_id: int) -> dict:
+    def get_citations_by_id(self, paper_id: int) -> dict | None:
         """
         Returns the citations of the paper identified by the ``paper_id``
         """
         paper = self.get_by_id(paper_id)
         if not paper:
-            return {}
+            return None
         return {
             "Paper_id": paper_id,
             "Cited_by": paper["Cited_by"]
         }
 
-    def get_references_by_id(self, paper_id: int) -> dict:
+    def get_references_by_id(self, paper_id: int) -> dict | None:
         """
         Returns the references of the paper identified by the ``paper_id``
         """
         paper = self.get_by_id(paper_id)
         if not paper:
-            return {}
+            return None
         return {
             "Paper_id": paper_id,
             "References": paper["References"]
