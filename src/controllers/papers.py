@@ -69,7 +69,7 @@ class PapersList(Resource):
         filtered_papers.filter_by(query_object)
         if filtered_papers.is_empty():
             abort_execution(ns, "No papers found", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return filtered_papers.get_paginated_data(ns)
 
 @ns.route("/abstracts")
@@ -89,7 +89,7 @@ class PapersAbstracts(Resource):
         List of all papers' abstracts
         """
         papers = PaperDB()
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return papers.get_abstracts(), 200
 
 @ns.route("/by-title/<string:search>")
@@ -116,7 +116,7 @@ class SearchPapersByTitle(Resource):
         papers.filter_by({"Title": search})
         if papers.is_empty():
             abort_execution(ns, "No papers found with the specified title", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return papers.get_data()
 
 @ns.route("/by-year/<int:year>")
@@ -143,7 +143,7 @@ class PapersByYear(Resource):
         papers.filter_by({"Year": year})
         if papers.is_empty():
             abort_execution(ns, "No papers found for the specified year", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return papers.get_data()
 
 @ns.route("/<int:paper_id>")
@@ -170,7 +170,7 @@ class PaperById(Resource):
         found_paper = papers.get_by_id(paper_id)
         if not found_paper:
             abort_execution(ns, f"Paper identified by '{paper_id}' not found", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return found_paper, 200
 
 # Adicionando rota para obter as citações de um artigo identificado pelo `id`.
@@ -198,7 +198,7 @@ class PaperCitations(Resource):
         citations = papers.get_citations_by_id(paper_id)
         if not citations:
             abort_execution(ns, f"No citations found for paper '{paper_id}'", error_code=404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return citations, 200
 
 # Adicionando rota para obter as referências de um artigo identificado pelo `id`.
@@ -226,5 +226,5 @@ class PaperReferences(Resource):
         references = papers.get_references_by_id(paper_id)
         if not references:
             abort_execution(ns, f"No references found for paper {paper_id}", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return references, 200

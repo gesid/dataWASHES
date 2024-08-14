@@ -29,7 +29,7 @@ class Server():
         #self.conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=washesDb.mssql.somee.com;DATABASE=washesDb;UID=washes_SQLLogin_1;PWD=gwzzwtovvh')
 
     def run(self):
-        self.app.run(debug=True)
+        self.app.run(debug=False)
 
     def getApi(self):
         return self.api

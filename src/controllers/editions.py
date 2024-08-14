@@ -1,5 +1,4 @@
 from flask_restx import Resource, Namespace # type: ignore
-from flask import request
 from resouces import EditionDB
 from models import edition, edition_paging, paper_paging, error_model
 from api_utils import log_request, abort_execution
@@ -28,7 +27,7 @@ class EditionsList(Resource):
         List of editions
         """
         editions = EditionDB()
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return editions.get_paginated_data(ns)
 
 @ns.route("/<int:edition_id>")
@@ -54,7 +53,7 @@ class EditionById(Resource):
         found_edition = editions.get_by_id(edition_id)
         if not found_edition:
             abort_execution(ns, f"Edition {edition_id} not found", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return found_edition, 200
 
 @ns.route("/by-year/<int:year>")
@@ -79,7 +78,7 @@ class SearchEditionsByYear(Resource):
         editions.filter_by({"Year": year})
         if editions.is_empty():
             abort_execution(ns, f"Edition not found for year {year}", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return editions.get_data()
 
 @ns.route("/<int:edition_id>/papers")
@@ -108,5 +107,5 @@ class EditionPapersById(Resource):
         papers_in_edition = editions.get_papers(edition_id)
         if not papers_in_edition:
             abort_execution(ns, f"Edition {edition_id} not found", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return papers_in_edition.get_paginated_data(ns)

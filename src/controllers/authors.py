@@ -29,7 +29,7 @@ class AuthorsList(Resource):
         List of authors
         """
         authors = AuthorDB()
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return authors.get_paginated_data(ns)
 
 @ns.route("/<int:author_id>")
@@ -56,7 +56,7 @@ class AuthorById(Resource):
         found_author = authors.get_by_id(author_id)
         if not found_author:
             abort_execution(ns, f"Author with id {author_id} doesn't exist", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return found_author, 200
 
 @ns.route("/by-name/<string:name>")
@@ -86,7 +86,7 @@ class SearchAuthorByName(Resource):
         authors.filter_by({"Name": name})
         if authors.is_empty():
             abort_execution(ns, f"Author '{name}' doesn't exist", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return authors.get_paginated_data(ns)
 
 @ns.route("/<int:author_id>/papers")
@@ -114,5 +114,5 @@ class PapersByAuthor(Resource):
         author_papers = authors.get_papers(author_id)
         if not author_papers:
             abort_execution(ns, f"Author with ID {author_id} not found.", 404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return author_papers, 200
