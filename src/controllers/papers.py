@@ -49,25 +49,25 @@ class PapersList(Resource):
         }
 
         if query_object["Year"] and not query_object["Year"].isnumeric():
-            log_request(request.method, request.path, 400)
+            log_request(400)
             ns.abort(400, message="Invalid year", error_code=400)
 
         if query_object["Paper_id"] and not query_object["Paper_id"].isnumeric():
-            log_request(request.method, request.path, 400)
+            log_request(400)
             ns.abort(400, message="Invalid paper id", error_code=400)
 
         if query_object["Type"] and not PaperDB.validate_paper_type(query_object["Type"]):
-            log_request(request.method, request.path, 400)
+            log_request(400)
             ns.abort(400, message="Invalid paper type", error_code=400)
 
         filtered_papers = PaperDB()
         filtered_papers.filter_by(query_object)
 
         if filtered_papers.is_empty():
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message="No papers found", error_code=404)
 
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return filtered_papers.get_data()
 
 @ns.route("/abstracts")
@@ -81,7 +81,7 @@ class GetPaperAbstracts(Resource):
     )
     def get(self):
         papers = PaperDB()
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return papers.get_abstracts(), 200
 
       
@@ -104,10 +104,10 @@ class SearchPapersByTitle(Resource):
         papers.filter_by({"Title": search})
 
         if papers.is_empty():
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message="No papers found with the specified title", error_code=404)
 
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return papers.get_data()
 
 @ns.route("/by-year/<int:year>")
@@ -128,10 +128,10 @@ class GetPapersByYear(Resource):
 
         papers.filter_by({"Year": year})
         if papers.is_empty():
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message="No papers found for the specified year.", error_code=404)
 
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return papers.get_data()
 
 @ns.route("/<int:paper_id>")
@@ -152,9 +152,9 @@ class PaperById(Resource):
         found_paper = papers.get_by_id(paper_id)
 
         if not found_paper:
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message=f"Paper {paper_id} not found", error_code=404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return found_paper, 200
 
 # Adicionando rota para obter as citações de um artigo identificado pelo `id`.
@@ -176,10 +176,10 @@ class GetPaperCitations(Resource):
         citations = papers.get_citations_by_id(paper_id)
 
         if not citations:
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message=f"No citations found for paper {paper_id}", error_code=404)
 
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return citations, 200
 
 # Adicionando rota para obter as referências de um artigo identificado pelo `id`.
@@ -201,8 +201,8 @@ class GetPaperReferences(Resource):
         references = papers.get_references_by_id(paper_id)
 
         if not references:
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message=f"No references found for paper {paper_id}", error_code=404)
 
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return references, 200
