@@ -1,7 +1,6 @@
 from flask_restx import Resource, Namespace
 from resouces import AuthorDB
 from models import author, paper, error_model
-from flask import request
 from utils.logging_washes import log_request
 
 ns = Namespace(name="Authors", path="/authors")
