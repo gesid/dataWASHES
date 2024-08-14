@@ -18,7 +18,7 @@ class PaperDB(EntityDB):
     Each instance of PaperDB starts with a reference to the paper's dataset.\n
     When any filter action is executed, another reference is created, leaving the actual dataset unchanged.\n
     That means the object is supposed to be used for only one action.\n
-    If you need to perform more than one filter action, you will need to create another instance.\n
+    If you need to perform more than one filter action, you are going to need to create another instance.\n
     """
 
     def __init__(self) -> None:

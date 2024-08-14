@@ -2,13 +2,14 @@ from .database import editions_db
 from .entity_db import EntityDB
 from .paper_db import PaperDB
 
+
 class EditionDB(EntityDB):
     """
     A class to manage actions onto the edition's JSON dataset.\n
     Each instance of EditionDB starts with a reference to the edition's dataset.\n
     When any filter action is executed, another reference is created, leaving the actual dataset unchanged.\n
     That means the object is supposed to be used for only one action.\n
-    If you need to perform more than one filter action, you will need to create another instance.\n
+    If you need to perform more than one filter action, you are going to need to create another instance.\n
     """
 
     def __init__(self) -> None:

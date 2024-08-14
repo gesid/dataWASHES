@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABCMeta
-from flask_restx import Namespace # type: ignore
+from flask_restx import Namespace  # type: ignore
 from api_utils import paginate
+
 
 class EntityDB(metaclass=ABCMeta):
     """

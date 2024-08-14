@@ -1,5 +1,6 @@
-from flask_restx import Namespace # type: ignore
+from flask_restx import Namespace  # type: ignore
 from .logging_washes import log_request
+
 
 def abort_execution(ns: Namespace, message: str, error_code: int) -> None:
     """

@@ -2,8 +2,10 @@ from math import ceil
 from flask import request
 from .constants import PAGE_PARAM, PER_PAGE_PARAM
 
+
 class PaginateError(Exception):
     pass
+
 
 def paginate(data: list[dict], default_page: int = 1, default_per_page: int = 10) -> dict | None:
     """
