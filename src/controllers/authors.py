@@ -1,7 +1,6 @@
 from flask_restx import Resource, Namespace
 from resouces import AuthorDB
 from models import author, paper, error_model
-from flask import request
 from utils.logging_washes import log_request
 
 ns = Namespace(name="Authors", path="/authors")
@@ -17,7 +16,7 @@ class AuthorsList(Resource):
     )
     def get(self):
         authors = AuthorDB()
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return authors.get_data()
 
 @ns.route("/<int:author_id>")
@@ -37,9 +36,9 @@ class Author(Resource):
         authors = AuthorDB()
         found_author = authors.get_by_id(author_id)
         if not found_author:
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message=f"Author with id {author_id} doesn't exist", error_code=404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return found_author, 200
 
 @ns.route("/by-name/<string:name>")
@@ -59,9 +58,9 @@ class SearchAuthor(Resource):
         authors = AuthorDB()
         authors.filter_by({"Name": name})
         if authors.is_empty():
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message=f"Author '{name}' doesn't exist", error_code=404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return authors.get_data()
 
 @ns.route("/<int:author_id>/papers")
@@ -82,7 +81,7 @@ class PapersByAuthor(Resource):
         authors = AuthorDB()
         author_papers = authors.get_papers(author_id)
         if not author_papers:
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message=f"Author with ID {author_id} not found.", error_code=404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return author_papers, 200

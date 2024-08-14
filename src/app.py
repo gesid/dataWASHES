@@ -4,6 +4,7 @@ from api_utils import convert_to_csv
 from server import server
 
 
+
 @server.api.representation('text/csv')
 def data_csv(data, code, headers):
     """Get result in csv"""

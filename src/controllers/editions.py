@@ -1,5 +1,4 @@
 from flask_restx import Resource, Namespace
-from flask import request
 from resouces import EditionDB
 from models import edition, paper, error_model
 from utils.logging_washes import log_request
@@ -16,7 +15,7 @@ class EditionsList(Resource):
     )
     def get(self):
         editions = EditionDB()
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return editions.get_data()
 
 @ns.route("/<int:edition_id>")
@@ -35,9 +34,9 @@ class EditionById(Resource):
         editions = EditionDB()
         found_edition = editions.get_by_id(edition_id)
         if not found_edition:
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message=f"Edition {edition_id} not found", error_code=404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return found_edition, 200
 
 @ns.route("/by-year/<int:year>")
@@ -55,9 +54,9 @@ class SearchEditions(Resource):
         editions = EditionDB()
         editions.filter_by({"Year": year})
         if editions.is_empty():
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message=f"Edition not found for year {year}", error_code=404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return editions.get_data()
 
 @ns.route("/<int:edition_id>/papers")
@@ -77,7 +76,7 @@ class PapersByEdition(Resource):
         papers_in_edition = editions.get_papers(edition_id)
 
         if not papers_in_edition:
-            log_request(request.method, request.path, 404)
+            log_request(404)
             ns.abort(404, message=f"Edition {edition_id} not found", error_code=404)
-        log_request(request.method, request.path, 200)
+        log_request(200)
         return papers_in_edition, 200
