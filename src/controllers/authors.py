@@ -1,21 +1,22 @@
-from flask_restx import Resource, Namespace # type: ignore
-from flask import request
+from flask_restx import Resource, Namespace  # type: ignore
 from resouces import AuthorDB
 from models import author, author_paging, paper, error_model
-from api_utils import log_request, abort_execution
+from api_utils import log_request, abort_execution, PaginateError
 from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM
 
 ns = Namespace(name="Authors", path="/authors")
+
 
 @ns.route("/")
 class AuthorsList(Resource):
     """
     Authors list route
     """
+
     @ns.response(400, "Invalid parameter", error_model)
     @ns.marshal_with(author_paging, mask=None)
     @ns.doc(
-        "list_authors", 
+        "list_authors",
         description='''
             Returns all the authors in the dataset. 
         ''',
@@ -28,19 +29,24 @@ class AuthorsList(Resource):
         """
         List of authors
         """
-        authors = AuthorDB()
-        log_request(200)
-        return authors.get_paginated_data(ns)
+        try:
+            authors = AuthorDB().get_paginated_data()
+            log_request(200)
+            return authors
+        except PaginateError as e:
+            abort_execution(ns, str(e), 400)
+
 
 @ns.route("/<int:author_id>")
 class AuthorById(Resource):
     """
     Author by id route
     """
+
     @ns.response(404, "Author not found", error_model)
     @ns.marshal_with(author, mask=None)
     @ns.doc(
-        "get_author", 
+        "get_author",
         description='''
             Returns the author identified by the ``author_id``. 
         ''',
@@ -59,16 +65,18 @@ class AuthorById(Resource):
         log_request(200)
         return found_author, 200
 
+
 @ns.route("/by-name/<string:name>")
 class SearchAuthorByName(Resource):
     """
     Search author by name route
     """
+
     @ns.response(400, "Invalid parameter", error_model)
     @ns.response(404, "Author not found", error_model)
     @ns.marshal_with(author_paging, mask=None)
     @ns.doc(
-        "search_author", 
+        "search_author",
         description='''
             Returns the authors whose names match the ``name`` specified. 
         ''',
@@ -86,18 +94,24 @@ class SearchAuthorByName(Resource):
         authors.filter_by({"Name": name})
         if authors.is_empty():
             abort_execution(ns, f"Author '{name}' doesn't exist", 404)
-        log_request(200)
-        return authors.get_paginated_data(ns)
+        try:
+            authors_paginated = authors.get_paginated_data()
+            log_request(200)
+            return authors_paginated
+        except PaginateError as e:
+            abort_execution(ns, str(e), 400)
+
 
 @ns.route("/<int:author_id>/papers")
 class PapersByAuthor(Resource):
     """
     Papers by author route
     """
+
     @ns.response(404, "Author papers not found", error_model)
     @ns.marshal_list_with(paper, mask=None)
     @ns.doc(
-        "get_papers_by_author", 
+        "get_papers_by_author",
         description='''
             Returns the papers of the author specified by ``author_id``. 
         '''

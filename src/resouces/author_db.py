@@ -4,7 +4,11 @@ from .paper_db import PaperDB
 
 class AuthorDB(EntityDB):
     """
-    A class to manege actions onto the authors JSON objects
+    A class to manage actions onto the author's JSON dataset.\n
+    Each instance of AuthorDB starts with a reference to the author's dataset.\n
+    When any filter action is executed, another reference is created, leaving the actual dataset unchanged.\n
+    That means the object is supposed to be used for only one action.\n
+    If you need to perform more than one filter action, you will need to create another instance.\n
     """
 
     def __init__(self) -> None:
@@ -13,13 +17,13 @@ class AuthorDB(EntityDB):
 
     # Overriding
     def get_by_id(self, entity_id: int) -> dict | None:
-        self.filter_by_number("Author_id", entity_id)
+        self.filter_by_number_key("Author_id", entity_id)
         if self.is_empty():
             return None
         return self._get_database()[0]
 
     # Overriding
-    def filter_by(self, query_object: dict) -> None:
+    def filter_by(self, query_object: dict[str, str]) -> None:
         if not isinstance(query_object, dict):
             raise ValueError("query_object must be a dictionary")
         for key, value in query_object.items():
@@ -27,7 +31,7 @@ class AuthorDB(EntityDB):
                 continue
             match key:
                 case "Name":
-                    self.filter_by_string(key, value)
+                    self.filter_by_string_key(key, value)
 
     def get_papers(self, author_id: int) -> list[dict] | None:
         """
