@@ -1,5 +1,4 @@
 from flask_restx import Resource, Namespace
-from flask import request
 from resouces import EditionDB
 from models import edition, paper, error_model
 from utils.logging_washes import log_request
