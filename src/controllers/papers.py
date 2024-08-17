@@ -139,7 +139,7 @@ class PapersByYear(Resource):
             Returns all the papers published in the ``year`` specified.
         ''',
         params={
-            "year": "The year of publishment",
+            "year": "The year of publication",
         }
     )
     def get(self, year: int):
@@ -183,7 +183,6 @@ class PaperById(Resource):
         return found_paper, 200
 
 
-# Adicionando rota para obter as citações de um artigo identificado pelo `id`.
 @ns.route("/<int:paper_id>/citations")
 class PaperCitations(Resource):
     """
@@ -213,7 +212,6 @@ class PaperCitations(Resource):
         return citations, 200
 
 
-# Adicionando rota para obter as referências de um artigo identificado pelo `id`.
 @ns.route("/<int:paper_id>/references")
 class PaperReferences(Resource):
     """
