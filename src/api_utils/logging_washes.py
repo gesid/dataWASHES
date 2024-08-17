@@ -6,6 +6,7 @@ logging.basicConfig(filename='access.log', level=logging.INFO, format='%(message
 werkzeug_logger = logging.getLogger('werkzeug')
 werkzeug_logger.setLevel(logging.ERROR)
 
+
 def log_request(status):
     log_details = {
         "ip": request.remote_addr,

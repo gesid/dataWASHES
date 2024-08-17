@@ -2,6 +2,7 @@ from enum import Enum
 from .database import papers_db
 from .entity_db import EntityDB
 
+
 class PaperTypes(Enum):
     """
     The types of papers
@@ -10,9 +11,14 @@ class PaperTypes(Enum):
     POSTER = "Poster"
     FULL_PAPER = "Full paper"
 
+
 class PaperDB(EntityDB):
     """
-    A class to manege actions onto the papers JSON objects
+    A class to manage actions onto the paper's JSON dataset.\n
+    Each instance of PaperDB starts with a reference to the paper's dataset.\n
+    When any filter action is executed, another reference is created, leaving the actual dataset unchanged.\n
+    That means the object is supposed to be used for only one action.\n
+    If you need to perform more than one filter action, you are going to need to create another instance.\n
     """
 
     def __init__(self) -> None:
@@ -20,43 +26,48 @@ class PaperDB(EntityDB):
         self._set_database(papers_db)
 
     # Overriding
-    def get_by_id(self, entity_id: int) -> dict:
-        self.filter_by_number("Paper_id", entity_id)
+    def get_by_id(self, entity_id: int) -> dict | None:
+        self.filter_by_number_key("Paper_id", entity_id)
 
         if self.is_empty():
-            return {}
+            return None
         return self._get_database()[0]
 
     # Overriding
-    def filter_by(self, query_object: dict) -> list[dict]:
+    def filter_by(self, query_object: dict[str, str]) -> None:
+        """
+            Filter the database based on the provided 'query object'
+            :param query_object: The dictionary containing the paper's keys and values to make the filtering
+            :return: None
+            :raises ValueError:
+
+        """
         if not isinstance(query_object, dict):
             raise ValueError("query_object must be a dictionary")
-
         for key, value in query_object.items():
-            if not value:
-                continue
-
-            match key:
-                case "Paper_id" | "Year":
-                    self.filter_by_number(key, value)
-                case "Type":
-                    if self.validate_paper_type(value):
-                        self.filter_by_enum(key, value)
-                    else:
-                        raise ValueError("Invalid paper type")
-                case "Title" | "Abstract" | "Resumo" | "Keywords" | "Download_link":
-                    self.filter_by_string(key, value)
-                case "Search":
-                    self.filter_by_two_strings("Title", "Abstract", value)
-                case "Author":
-                    self.filter_by_author_string("Name", value)
-                case "Institution" | "State":
-                    self.filter_by_author_string(key, value)
-                case "References" | "Cited_by":
-                    self.filter_by_vector_string(key, value)
+            if value:
+                match key:
+                    case "Paper_id" | "Year":
+                        if not value.isnumeric():
+                            raise ValueError(f"Invalid {value}, must be numeric")
+                        self.filter_by_number_key(key, int(value))
+                    case "Type":
+                        if not self.is_valid_paper_type(value):
+                            raise ValueError("Invalid paper type")
+                        self.filter_by_enum_key(key, value)
+                    case "Title" | "Abstract" | "Resumo" | "Keywords" | "Download_link":
+                        self.filter_by_string_key(key, value)
+                    case "Search":
+                        self.filter_by_two_strings_keys("Title", "Abstract", value)
+                    case "Author":
+                        self.filter_by_author_string_key("Name", value)
+                    case "Institution" | "State":
+                        self.filter_by_author_string_key(key, value)
+                    case "References" | "Cited_by":
+                        self.filter_by_string_list_key(key, value)
 
     @staticmethod
-    def validate_paper_type(value: str) -> bool:
+    def is_valid_paper_type(value: str) -> bool:
         """
         Returns ``True`` if 'value' is a valid paper type ``False`` otherwise
         """
@@ -64,17 +75,16 @@ class PaperDB(EntityDB):
             return True
         return False
 
-    def filter_by_two_strings(self, key1: str, key2: str, value: str) -> None:
+    def filter_by_two_strings_keys(self, key1: str, key2: str, value: str) -> None:
         """
         Filter considering two keys of type ``string``
         """
         self._set_database([
-                paper for paper in self._get_database()
-                if value.lower() in paper[key1].lower() or
-                value.lower() in paper[key2].lower()
+            paper for paper in self._get_database()
+            if value.lower() in paper[key1].lower() or value.lower() in paper[key2].lower()
         ])
 
-    def filter_by_author_string(self, key: str, value: str) -> list[dict]:
+    def filter_by_author_string_key(self, key: str, value: str) -> None:
         """
         Filter the database considering an author property
         """
@@ -92,25 +102,36 @@ class PaperDB(EntityDB):
             for paper in self._get_database()
         ]
 
-    def get_citations_by_id(self, paper_id: int) -> dict:
+    def filter_by_list_of_ids(self, papers_ids: list[int]) -> None:
+        """
+        filter the database considering a list of IDs
+        """
+        papers_ids_set = set(papers_ids)
+        papers: list[dict] = []
+        for paper in self._get_database():
+            if paper["Paper_id"] in papers_ids_set:
+                papers.append(paper)
+        self._set_database(papers)
+
+    def get_citations_by_id(self, paper_id: int) -> dict | None:
         """
         Returns the citations of the paper identified by the ``paper_id``
         """
         paper = self.get_by_id(paper_id)
         if not paper:
-            return {}
+            return None
         return {
             "Paper_id": paper_id,
             "Cited_by": paper["Cited_by"]
         }
 
-    def get_references_by_id(self, paper_id: int) -> dict:
+    def get_references_by_id(self, paper_id: int) -> dict | None:
         """
         Returns the references of the paper identified by the ``paper_id``
         """
         paper = self.get_by_id(paper_id)
         if not paper:
-            return {}
+            return None
         return {
             "Paper_id": paper_id,
             "References": paper["References"]
