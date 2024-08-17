@@ -56,7 +56,7 @@ class EntityDB(metaclass=ABCMeta):
             if int(number) == entity[key]
         ])
 
-    def get_data(self) -> tuple[dict[list], int]:
+    def get_data(self) -> tuple[list[dict], int]:
         """
         Returns the data of the database with the response code\n
         404 - When the database is empty\n

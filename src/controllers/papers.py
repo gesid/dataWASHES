@@ -140,7 +140,7 @@ class PaperById(Resource):
     @ns.marshal_with(paper, mask=None)
     @ns.doc(
         "get_paper_by_id", 
-        description='''
+description='''
             Returns the paper identified by the ``paper_id``.
         ''',
         params={
