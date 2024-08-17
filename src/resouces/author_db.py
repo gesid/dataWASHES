@@ -2,14 +2,9 @@ from .database import authors_db
 from .entity_db import EntityDB
 from .paper_db import PaperDB
 
-
 class AuthorDB(EntityDB):
     """
-    A class to manage actions onto the author's JSON dataset.\n
-    Each instance of AuthorDB starts with a reference to the author's dataset.\n
-    When any filter action is executed, another reference is created, leaving the actual dataset unchanged.\n
-    That means the object is supposed to be used for only one action.\n
-    If you need to perform more than one filter action, you are going to need to create another instance.\n
+    A class to manege actions onto the authors JSON objects
     """
 
     def __init__(self) -> None:
@@ -17,34 +12,40 @@ class AuthorDB(EntityDB):
         self._set_database(authors_db)
 
     # Overriding
-    def get_by_id(self, entity_id: int) -> dict | None:
-        self.filter_by_number_key("Author_id", entity_id)
+    def get_by_id(self, entity_id: int) -> dict:
+        self.filter_by_number("Author_id", entity_id)
+
         if self.is_empty():
-            return None
+            return {}
         return self._get_database()[0]
 
     # Overriding
-    def filter_by(self, query_object: dict[str, str]) -> None:
+    def filter_by(self, query_object: dict) -> list[dict]:
         if not isinstance(query_object, dict):
-            raise ValueError("query_object must be a dictionary")
+            raise ValueError()
+
         for key, value in query_object.items():
             if not value:
                 continue
+
             match key:
                 case "Name":
-                    self.filter_by_string_key(key, value)
+                    self.filter_by_string(key, value)
 
-    def get_papers(self, author_id: int) -> list[dict] | None:
+    def get_papers(self, author_id: int) -> list[dict]:
         """
         Return the authors list of papers 
         """
         papers: list[dict] = []
-        author = self.get_by_id(author_id)
+
+        author: dict = self.get_by_id(author_id)
         if not author:
-            return None
+            return papers
+
         for paper_id in author["Papers"]:
             paper_database: PaperDB = PaperDB()
-            paper = paper_database.get_by_id(paper_id)
+            paper: dict = paper_database.get_by_id(paper_id)
+
             if paper:
                 papers.append(paper)
         return papers
