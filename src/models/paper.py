@@ -2,7 +2,7 @@ from flask_restx import fields
 from server import server
 from .paging import paging_model_construct
 
-paperAuthor = server.getApi().model(
+paperAuthor = server.get_api().model(
     "Paper Author",
     {
         "Name": fields.String(description="Author's name", example="Maria"),
@@ -16,7 +16,7 @@ paperAuthor = server.getApi().model(
     },
 )
 
-paper = server.getApi().model(
+paper = server.get_api().model(
     "Paper",
     {
         "Authors": fields.List(
@@ -70,7 +70,7 @@ paper = server.getApi().model(
 
 paper_paging = paging_model_construct("Paper Paging", paper)
 
-abstracts = server.getApi().model(
+abstracts = server.get_api().model(
     "Abstract",
     {
         "Paper_id": fields.Integer(description="The paper unique identifier", example="7"),
@@ -80,7 +80,7 @@ abstracts = server.getApi().model(
 abstracts_paging = paging_model_construct("Abstract Paging", abstracts)
 
 # Adicionando modelo para representar as referências de um artigo
-reference = server.getApi().model(
+reference = server.get_api().model(
     "Reference",
     {
         "Paper_id": fields.Integer(
@@ -94,7 +94,7 @@ reference = server.getApi().model(
 )
 
 # Adicionado modelo para representar as citações de um artigo
-citation = server.getApi().model(
+citation = server.get_api().model(
     "Citation",
     {
         "Paper_id": fields.Integer(

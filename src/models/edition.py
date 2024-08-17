@@ -2,7 +2,7 @@ from flask_restx import fields
 from server.instance import server
 from .paging import paging_model_construct
 
-chairs = server.getApi().model(
+chairs = server.get_api().model(
     "Chair",
     {
         "Name": fields.String(description="Chair's name", example="João"),
@@ -14,7 +14,7 @@ chairs = server.getApi().model(
     },
 )
 
-edition = server.getApi().model(
+edition = server.get_api().model(
     "Edition",
     {
         "Year": fields.Integer(
