@@ -1,7 +1,7 @@
 from flask_restx import fields
 from server.instance import server
 
-chairs = server.getApi().model(
+chairs = server.get_api().model(
     "Chair",
     {
         "Name": fields.String(description="Chair's name", example="João"),
@@ -13,7 +13,7 @@ chairs = server.getApi().model(
     },
 )
 
-edition = server.getApi().model(
+edition = server.get_api().model(
     "Edition",
     {
         "Year": fields.Integer(
@@ -45,7 +45,7 @@ edition = server.getApi().model(
     },
 )
 
-paperAuthor = server.getApi().model(
+paperAuthor = server.get_api().model(
     "Paper Author",
     {
         "Name": fields.String(description="Author's name", example="Maria"),
@@ -59,7 +59,7 @@ paperAuthor = server.getApi().model(
     },
 )
 
-paper = server.getApi().model(
+paper = server.get_api().model(
     "Paper",
     {
         "Authors": fields.List(
@@ -111,7 +111,7 @@ paper = server.getApi().model(
     },
 )
 
-abstracts = server.getApi().model(
+abstracts = server.get_api().model(
     "Abstract",
     {
         "Paper_id": fields.Integer(description="The paper unique identifier", example="7"),
@@ -119,7 +119,7 @@ abstracts = server.getApi().model(
     }
 )
 
-author = server.getApi().model(
+author = server.get_api().model(
     "Author",
     {
         "Author_id": fields.Integer(
@@ -137,7 +137,7 @@ author = server.getApi().model(
 )
 
 # Adicionando modelo para representar as referências de um artigo
-reference = server.getApi().model(
+reference = server.get_api().model(
     "Reference",
     {
         "Paper_id": fields.Integer(
@@ -151,7 +151,7 @@ reference = server.getApi().model(
 )
 
 # Adicionado modelo para representar as citações de um artigo
-citation = server.getApi().model(
+citation = server.get_api().model(
     "Citation",
     {
         "Paper_id": fields.Integer(

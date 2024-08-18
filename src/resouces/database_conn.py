@@ -6,7 +6,7 @@ class DatabaseConn:
     @staticmethod
     def command(query):
         server = Server()
-        conn = server.getConn()
+        conn = server.get_conn()
         cursor = conn.cursor()
         cursor.execute(query)
         rows = cursor.fetchall()
