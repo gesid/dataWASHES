@@ -1,7 +1,8 @@
 from flask import request
-from flask_restx import Resource, Namespace
-from resouces import PaperDB
-from models import paper, abstracts, reference, citation, error_model
+from flask_restx import Namespace, Resource
+from resources import PaperDB
+
+from models import abstracts, citation, error_model, paper, reference
 from utils.logging_washes import log_request
 
 ns = Namespace(name="Papers", path="/papers")
