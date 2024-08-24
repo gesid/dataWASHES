@@ -34,8 +34,8 @@ for i in range(len(df.index)):
         paper["Keywords"] = df.loc[i, "Palavras-chave"]
         paper["Type"] = df.loc[i, "Full paper, short paper or poster"]
         paper["Download_link"] = df.loc[i, "Link"]
-        paper["References"] = df.loc[i, "Referências"].split(sep='\n\n')
-        paper["Cited_by"] = df.loc[i, "Citações"].split(sep='\n')
+        paper["References"] = df.loc[i, "Referências"].strip().split(sep='\n\n')
+        paper["Cited_by"] = df.loc[i, "Citações"].strip().split(sep='\n')
         paper["Updated_in"] = str(df.loc[i, "Data de obtenção"].date())
         paper["Authors"] = []
 
@@ -44,5 +44,5 @@ for i in range(len(df.index)):
 
     paper["Authors"].append(author)
 
-with open('papers.json', 'w', encoding='utf-8') as json_file:
+with open('../papers.json', 'w', encoding='utf-8') as json_file:
     json.dump(paperJson, json_file, sort_keys=False)

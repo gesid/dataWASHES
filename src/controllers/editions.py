@@ -1,6 +1,7 @@
-from flask_restx import Resource, Namespace
-from resouces import EditionDB
-from models import edition, paper, error_model
+from flask_restx import Namespace, Resource
+from resources import EditionDB
+
+from models import edition, error_model, paper
 from utils.logging_washes import log_request
 
 ns = Namespace(name='Editions', path='/editions')
