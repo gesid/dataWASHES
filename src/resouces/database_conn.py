@@ -22,7 +22,7 @@ class DatabaseConn:
 
                 columns = result.keys()
                 results = [{column: value for column, value in zip(columns, row)} for row in rows]
-                return results
+                return jsonify(results)
         except Exception as e:
             raise jsonify({'error': str(e)})
             
