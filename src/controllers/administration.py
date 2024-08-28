@@ -18,7 +18,7 @@ class Administration(Resource):
             "password": "The password of the user to be created"
         }
     )
-    @jwt_required()
+    #@jwt_required()
     def post(self):
         username = request.args.get('username')
         password = request.args.get('password')
