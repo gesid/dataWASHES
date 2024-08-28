@@ -1,8 +1,9 @@
 from flask import request
-from flask_restx import Resource, Namespace
-from resouces import PaperDB
-from models import paper, abstracts, reference, citation, error_model
-from utils.logging_washes import log_request
+from flask_restx import Resource, Namespace  # type: ignore
+from resources import PaperDB
+from models import paper, paper_paging, abstracts, reference, citation, error_model
+from api_utils import log_request, abort_execution, PaginateError
+from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM
 
 ns = Namespace(name="Papers", path="/papers")
 

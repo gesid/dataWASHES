@@ -1,7 +1,8 @@
-from flask_restx import Resource, Namespace
-from resouces import EditionDB
-from models import edition, paper, error_model
-from utils.logging_washes import log_request
+from flask_restx import Resource, Namespace  # type: ignore
+from resources import EditionDB
+from models import edition, paper_paging, error_model
+from api_utils import log_request, abort_execution, PaginateError
+from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM
 
 ns = Namespace(name='Editions', path='/editions')
 
