@@ -5,12 +5,18 @@ from .paging import paging_model_construct
 chairs = server.get_api().model(
     "Chair",
     {
-        "Name": fields.String(description="Chair's name", example="João"),
+        "Name": fields.String(
+            description="Chair's name",
+            example="João"
+        ),
         "Instituition": fields.String(
             description="Chair's institution",
             example="UFCA - Universidade Federal do Cariri",
         ),
-        "State": fields.String(description="Chair's state", example="CE"),
+        "State": fields.String(
+            description="Chair's state",
+            example="CE"
+        ),
     },
 )
 
@@ -18,20 +24,24 @@ edition = server.get_api().model(
     "Edition",
     {
         "Year": fields.Integer(
-            description="Edition year of occurrence", example="2023"
+            description="Edition year of occurrence",
+            example="2023"
         ),
         "Edition_id": fields.Integer(
-            description="The edition unique identifier", example="7"
+            description="The edition unique identifier",
+            example="7"
         ),
         "Title": fields.String(
             description="Edition's title",
             example="Anais do VIII Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
         ),
         "Location": fields.String(
-            description="Edition's location", example="Cabo Branco - PB"
+            description="Edition's location",
+            example="Cabo Branco - PB"
         ),
         "Date": fields.String(
-            description="Edition's date of occurrence", example="06/08/2023"
+            description="Edition's date of occurrence",
+            example="06/08/2023"
         ),
         "Proceedings": fields.String(
             description="Edition's preceedings",
@@ -42,7 +52,10 @@ edition = server.get_api().model(
             description="Papers IDs of the edition",
             example="[0, 2, 12, 72]",
         ),
-        "Chairs": fields.List(fields.Nested(chairs), description="Edition's chairs"),
+        "Chairs": fields.List(
+            fields.Nested(chairs),
+            description="Edition's chairs"
+        ),
     },
 )
 

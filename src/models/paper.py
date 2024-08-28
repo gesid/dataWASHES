@@ -5,13 +5,25 @@ from .paging import paging_model_construct
 paperAuthor = server.get_api().model(
     "Paper Author",
     {
-        "Name": fields.String(description="Author's name", example="Maria"),
-        "Institution": fields.String(
-            description="Author' institution", example="Universidade Federal do Cariri"
+        "Name": fields.String(
+            description="Author's name",
+            example="Maria",
         ),
-        "State": fields.String(description="Author's state", exmple="CE", example="CE"),
+        "Institution": fields.String(
+            description="Author' institution",
+            example="Universidade Federal do Cariri",
+        ),
+        "Institution_acronym": fields.String(
+            description="Tha acronym of the author's institution",
+            example="UFCA",
+        ),
+        "State": fields.String(
+            description="Author's state",
+            exmple="CE",
+        ),
         "Author_id": fields.Integer(
-            description="The author unique identifier", example="34"
+            description="The author unique identifier",
+            example="34",
         ),
     },
 )
@@ -24,14 +36,16 @@ paper = server.get_api().model(
             description="A list of the paper authors IDs"
         ),
         "Paper_id": fields.Integer(
-            description="The paper unique identifier", example="3"
+            description="The paper unique identifier",
+            example="3"
         ),
         "Title": fields.String(
             description="Paper title",
             example="Um Modelo para o Gerenciamento de Padrões de Projeto em Java",
         ),
         "Year": fields.Integer(
-            description="Publication year of the paper", example="2022"
+            description="Publication year of the paper",
+            example="2022"
         ),
         "Abstract": fields.String(
             description="Abstract of the paper",
@@ -61,6 +75,10 @@ paper = server.get_api().model(
             fields.String,
             description="List of articles that cite this article",
         ),
+        "Language": fields.String(
+            description="The language of the paper",
+            example="pt"
+        ),
         "Updated_in": fields.String(
             description="Date of last update of the ``Cited_by`` field",
             example="2024-04-10"
@@ -73,8 +91,14 @@ paper_paging = paging_model_construct("Paper Paging", paper)
 abstracts = server.get_api().model(
     "Abstract",
     {
-        "Paper_id": fields.Integer(description="The paper unique identifier", example="7"),
-        "Abstract": fields.String(description="The abstract of the paper", example="Continuous  learning  of  software...")
+        "Paper_id": fields.Integer(
+            description="The paper unique identifier",
+            example="7"
+        ),
+        "Abstract": fields.String(
+            description="The abstract of the paper",
+            example="Continuous  learning  of  software..."
+        )
     }
 )
 abstracts_paging = paging_model_construct("Abstract Paging", abstracts)
@@ -84,7 +108,8 @@ reference = server.get_api().model(
     "Reference",
     {
         "Paper_id": fields.Integer(
-            description="The paper unique identifier", example="3"
+            description="The paper unique identifier",
+            example="3"
         ),
         "References": fields.List(
             fields.String,
