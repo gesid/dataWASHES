@@ -1,22 +1,26 @@
 from flask import request
-from flask_restx import Namespace, Resource
+from flask_restx import Resource, Namespace  # type: ignore
 from resources import PaperDB
-
-from models import abstracts, citation, error_model, paper, reference
-from utils.logging_washes import log_request
+from models import paper, paper_paging, abstracts, reference, citation, error_model
+from api_utils import log_request, abort_execution, PaginateError
+from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM
 
 ns = Namespace(name="Papers", path="/papers")
 
+
 @ns.route("/")
 class PapersList(Resource):
+    """
+    Papers list route
+    """
 
-    @ns.marshal_list_with(paper, mask=None)
+    @ns.marshal_with(paper_paging, mask=None)
     @ns.response(404, "No papers found", error_model)
     @ns.response(400, "Invalid parameter", error_model)
     @ns.doc(
         "list_papers",
         params={
-            "year": "The year of publishment",
+            "year": "The year of publication",
             "type": "The type of the paper",
             "author": "The name of at least one of the authors",
             "institution": "The institution name of at least one of the authors",
@@ -27,13 +31,20 @@ class PapersList(Resource):
             "search": "Generic word present in title or abstract of papers",
             "reference": "A specific reference used in the paper",
             "citation": "A specific article that cites this article",
+            PAGE_PARAM: "The page number to retrieve",
+            PER_PAGE_PARAM: "The number of items to display per page"
         },
         description='''
             Returns all the paper in the dataset.
             The list of paper can be filtered using the header arguments specified below.
-        '''
+        ''',
+        hide=True
     )
     def get(self):
+        """
+        List of papers
+        """
+        # Grouping GET parameters into a dictionary
         query_object = {
             "Paper_id": request.args.get("id"),
             "Year": request.args.get("year"),
@@ -48,50 +59,53 @@ class PapersList(Resource):
             "Cited_by": request.args.get("citation"),
             "References": request.args.get("reference"),
         }
-
-        if query_object["Year"] and not query_object["Year"].isnumeric():
-            log_request(400)
-            ns.abort(400, message="Invalid year", error_code=400)
-
-        if query_object["Paper_id"] and not query_object["Paper_id"].isnumeric():
-            log_request(400)
-            ns.abort(400, message="Invalid paper id", error_code=400)
-
-        if query_object["Type"] and not PaperDB.validate_paper_type(query_object["Type"]):
-            log_request(400)
-            ns.abort(400, message="Invalid paper type", error_code=400)
-
         filtered_papers = PaperDB()
-        filtered_papers.filter_by(query_object)
+        try:
+            # Executing query
+            filtered_papers.filter_by(query_object)
+            if filtered_papers.is_empty():
+                abort_execution(ns, "No papers found", 404)
+            paginated_papers = filtered_papers.get_paginated_data()
+            log_request(200)
+            return paginated_papers
+        except ValueError as e:
+            abort_execution(ns, str(e), 400)
+        except PaginateError as e:
+            abort_execution(ns, str(e), 400)
 
-        if filtered_papers.is_empty():
-            log_request(404)
-            ns.abort(404, message="No papers found", error_code=404)
-
-        log_request(200)
-        return filtered_papers.get_data()
 
 @ns.route("/abstracts")
-class GetPaperAbstracts(Resource):
+class PapersAbstracts(Resource):
+    """
+    Papers abstracts route
+    """
+
     @ns.marshal_list_with(abstracts, mask=None)
     @ns.doc(
-        "get_paper_abstracts", 
+        "get_paper_abstracts",
         description='''
             Returns the ``abstract`` and ``ID`` of all the papers in the dataset. 
         '''
     )
     def get(self):
+        """
+        List of all papers' abstracts
+        """
         papers = PaperDB()
         log_request(200)
         return papers.get_abstracts(), 200
 
-      
+
 @ns.route("/by-title/<string:search>")
 class SearchPapersByTitle(Resource):
+    """
+    Search papers by title route
+    """
+
     @ns.marshal_list_with(paper, mask=None)
     @ns.response(404, "No papers found", error_model)
     @ns.doc(
-        "search_papers_by_title", 
+        "search_papers_by_title",
         description='''
             Returns all the papers where the string ``search`` is included in the title.
         ''',
@@ -99,48 +113,57 @@ class SearchPapersByTitle(Resource):
             "search": "Generic word present in title",
         }
     )
-    def get(self, search):
-
+    def get(self, search: str):
+        """
+        Search papers by title
+        """
         papers = PaperDB()
         papers.filter_by({"Title": search})
-
         if papers.is_empty():
-            log_request(404)
-            ns.abort(404, message="No papers found with the specified title", error_code=404)
-
+            abort_execution(ns, "No papers found with the specified title", 404)
         log_request(200)
         return papers.get_data()
 
+
 @ns.route("/by-year/<int:year>")
-class GetPapersByYear(Resource):
+class PapersByYear(Resource):
+    """
+    Papers by year route
+    """
+
     @ns.marshal_list_with(paper, mask=None)
     @ns.response(404, "No papers found", error_model)
     @ns.doc(
-        "get_papers_by_year", 
+        "get_papers_by_year",
         description='''
             Returns all the papers published in the ``year`` specified.
         ''',
         params={
-            "year": "The year of publishment",
+            "year": "The year of publication",
         }
     )
-    def get(self, year):
+    def get(self, year: int):
+        """
+        Search papers by year
+        """
         papers = PaperDB()
-
-        papers.filter_by({"Year": year})
+        papers.filter_by({"Year": str(year)})
         if papers.is_empty():
-            log_request(404)
-            ns.abort(404, message="No papers found for the specified year.", error_code=404)
-
+            abort_execution(ns, "No papers found for the specified year", 404)
         log_request(200)
         return papers.get_data()
 
+
 @ns.route("/<int:paper_id>")
 class PaperById(Resource):
+    """
+    Paper by id route
+    """
+
     @ns.response(404, "Paper not found", error_model)
     @ns.marshal_with(paper, mask=None)
     @ns.doc(
-        "get_paper_by_id", 
+        "get_paper_by_id",
         description='''
             Returns the paper identified by the ``paper_id``.
         ''',
@@ -148,19 +171,24 @@ class PaperById(Resource):
             "paper_id": "The paper unique identifier",
         }
     )
-    def get(self, paper_id):
+    def get(self, paper_id: int):
+        """
+        Get paper by ID
+        """
         papers = PaperDB()
         found_paper = papers.get_by_id(paper_id)
-
         if not found_paper:
-            log_request(404)
-            ns.abort(404, message=f"Paper {paper_id} not found", error_code=404)
+            abort_execution(ns, f"Paper identified by '{paper_id}' not found", 404)
         log_request(200)
         return found_paper, 200
 
-# Adicionando rota para obter as citações de um artigo identificado pelo `id`.
+
 @ns.route("/<int:paper_id>/citations")
-class GetPaperCitations(Resource):
+class PaperCitations(Resource):
+    """
+    Papers citations route
+    """
+
     @ns.response(404, "Paper not found", error_model)
     @ns.marshal_with(citation, mask=None)
     @ns.doc(
@@ -172,20 +200,24 @@ class GetPaperCitations(Resource):
             "paper_id": "The paper unique identifier",
         }
     )
-    def get(self, paper_id):
+    def get(self, paper_id: int):
+        """
+        Get the paper's citations by ID
+        """
         papers = PaperDB()
         citations = papers.get_citations_by_id(paper_id)
-
         if not citations:
-            log_request(404)
-            ns.abort(404, message=f"No citations found for paper {paper_id}", error_code=404)
-
+            abort_execution(ns, f"No citations found for paper '{paper_id}'", error_code=404)
         log_request(200)
         return citations, 200
 
-# Adicionando rota para obter as referências de um artigo identificado pelo `id`.
+
 @ns.route("/<int:paper_id>/references")
-class GetPaperReferences(Resource):
+class PaperReferences(Resource):
+    """
+    Papers references
+    """
+
     @ns.response(404, "Paper not found", error_model)
     @ns.marshal_with(reference, mask=None)
     @ns.doc(
@@ -197,13 +229,13 @@ class GetPaperReferences(Resource):
             "paper_id": "The paper unique identifier",
         }
     )
-    def get(self, paper_id):
+    def get(self, paper_id: int):
+        """
+        Get the paper's references by ID
+        """
         papers = PaperDB()
         references = papers.get_references_by_id(paper_id)
-
         if not references:
-            log_request(404)
-            ns.abort(404, message=f"No references found for paper {paper_id}", error_code=404)
-
+            abort_execution(ns, f"No references found for paper {paper_id}", 404)
         log_request(200)
         return references, 200

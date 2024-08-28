@@ -1,7 +1,7 @@
 from flask_restx import fields
 from server.instance import server
 
-error_model = server.getApi().model(
+error_model = server.get_api().model(
     "Error",
     {
         "error_code": fields.Integer(description="The error code", example="404"),
