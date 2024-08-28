@@ -1,7 +1,7 @@
 from flask_restx import fields, Model
 from server import server
 
-paging_model = server.get_api().model(
+paging_model = server.api.model(
     "Paging",
     {
         "page": fields.Integer(
@@ -23,7 +23,7 @@ paging_model = server.get_api().model(
     }
 )
 
-links_model = server.get_api().model(
+links_model = server.api.model(
     "Links",
     {
         "self": fields.String(
@@ -53,7 +53,7 @@ links_model = server.get_api().model(
 def paging_model_construct(name: str, model: Model) -> Model:
     """Return a paging model"""
 
-    return server.get_api().model(
+    return server.api.model(
         name,
         {
             "data": fields.List(

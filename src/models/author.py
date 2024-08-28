@@ -2,7 +2,7 @@ from flask_restx import fields
 from server import server
 from .paging import paging_model_construct
 
-author = server.get_api().model(
+author = server.api.model(
     "Author",
     {
         "Author_id": fields.Integer(

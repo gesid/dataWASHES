@@ -3,40 +3,48 @@ from flask_restx import Api  # type: ignore
 from flask_cors import CORS  # type: ignore
 
 
-class Server():
+class Server:
     def __init__(self):
-        self.app = Flask(
+        self.__app = Flask(
             __name__,
             template_folder='../templates',
             static_folder='../static',
         )
 
-        @self.app.route('/')
+        @self.__app.route('/')
         def swagger_template():
             return render_template('swagger_ui.html')
 
-        CORS(self.app)
-        self.app.config['CORS_HEADERS'] = 'Content-Type'
+        CORS(self.__app)
+        self.__app.config['CORS_HEADERS'] = 'Content-Type'
 
-        self.api = Api(
-            self.app,
+        self.__api = Api(
+            self.__app,
             title='dataWASHES API',
-            description='dataWASHES is an open source Application Programming Interface (API) that aims to facilitate streamlined programmatic access to the Workshop on Social, Human, and Economic Aspects of Software (WASHES) proceedings.',
+            description='dataWASHES is an open source Application Programming Interface (API) that aims to facilitate '
+                        'streamlined programmatic access to the Workshop on Social, Human, and Economic Aspects of '
+                        'Software (WASHES) proceedings.',
             doc='/doc/',
         )
-        # self.conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=washesDb.mssql.somee.com;DATABASE=washesDb;UID=washes_SQLLogin_1;PWD=gwzzwtovvh')
 
-    def run(self):
+    @property
+    def api(self) -> Api:
+        return self.__api
+
+    @api.setter
+    def api(self, value) -> None:
+        pass
+
+    @property
+    def app(self) -> Flask:
+        return self.__app
+
+    @app.setter
+    def app(self, value) -> None:
+        pass
+
+    def run(self) -> None:
         self.app.run(debug=True)
-
-    def get_api(self):
-        return self.api
-
-    def get_app(self):
-        return self.app
-
-    '''def getConn(self):
-        return self.conn'''
 
 
 server: Server = Server()

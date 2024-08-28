@@ -94,8 +94,20 @@ class StatisticsCalculator:
 
     @staticmethod
     @memoize
-    def test() -> int:
-        i = 0
-        for _ in range(1_000_000_00):
-            i += 1
-        return i
+    def papers_by_languages() -> list[dict]:
+        paper_db: PaperDB = PaperDB()
+        languages: dict[str, int] = {}
+        for paper in paper_db.get_data()[0]:
+            if paper["Language"] not in languages:
+                languages[paper["Language"]] = 1
+            else:
+                languages[paper["Language"]] += 1
+        sorted_languages = sorted(
+            languages.items(),
+            reverse=True,
+            key=lambda x: x[1]
+        )
+        return [
+            {"language": language, "publications": count}
+            for language, count in sorted_languages
+        ]
