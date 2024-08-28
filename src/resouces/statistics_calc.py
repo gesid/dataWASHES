@@ -34,7 +34,7 @@ class StatisticsCalculator:
         papers_db = PaperDB()
         institutions: dict[str, int] = {}
         for paper in papers_db.get_data()[0]:
-            institution = paper["Authors"][0]["Institution"]
+            institution = paper["Authors"][0]["Institution_acronym"]
             if institution not in institutions:
                 institutions[institution] = 1
             else:

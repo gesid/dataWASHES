@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 
-df = pd.read_excel('dataWASHES-data.xlsx')
+df = pd.read_excel('dataWASHES-data v2 teste.xlsx')
 
 paperJson = []
 authors = {}
@@ -20,24 +20,27 @@ for i in range(len(df.index)):
     author = {
         "Name": df.loc[i, "Authors"],
         "Institution": df.loc[i, "Author's institution"],
+        "Institution_acronym": df.loc[i, "Institution's Acronym"],
         "State": df.loc[i, "Author's state of Brazil"],
         "Author_id": author_id,
     }
 
     if pd.notna(df.loc[i, "Paper's title"]):
-        paper = {}
-        paper["Paper_id"] = paper_counter
-        paper["Title"] = df.loc[i, "Paper's title"]
-        paper["Year"] = int(df.loc[i, "Year"])
-        paper["Abstract"] = df.loc[i, "Abstract"]
-        paper["Resumo"] = df.loc[i, "Resumo"]
-        paper["Keywords"] = df.loc[i, "Palavras-chave"]
-        paper["Type"] = df.loc[i, "Full paper, short paper or poster"]
-        paper["Download_link"] = df.loc[i, "Link"]
-        paper["References"] = df.loc[i, "Referências"].strip().split(sep='\n\n')
-        paper["Cited_by"] = df.loc[i, "Citações"].strip().split(sep='\n')
-        paper["Updated_in"] = str(df.loc[i, "Data de obtenção"].date())
-        paper["Authors"] = []
+        paper = {
+            "Paper_id": paper_counter,
+            "Title": df.loc[i, "Paper's title"],
+            "Year": int(df.loc[i, "Year"]),
+            "Abstract": df.loc[i, "Abstract"],
+            "Resumo": df.loc[i, "Resumo"],
+            "Keywords": df.loc[i, "Palavras-chave"],
+            "Type": df.loc[i, "Full paper, short paper or poster"],
+            "Download_link": df.loc[i, "Link"],
+            "References": df.loc[i, "Referências"].strip().split(sep='\n\n'),
+            "Cited_by": df.loc[i, "Citações"].strip().split(sep='\n'),
+            "Updated_in": str(df.loc[i, "Data de obtenção"].date()),
+            "Language": df.loc[i, "Language"],
+            "Authors": [],
+        }
 
         paperJson.append(paper)
         paper_counter += 1
