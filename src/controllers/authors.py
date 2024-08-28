@@ -1,5 +1,5 @@
 from flask_restx import Resource, Namespace  # type: ignore
-from resouces import AuthorDB
+from resources import AuthorDB
 from models import author, author_paging, paper, error_model
 from api_utils import log_request, abort_execution, PaginateError
 from api_utils.constants import PAGE_PARAM, PER_PAGE_PARAM
