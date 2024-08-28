@@ -59,7 +59,7 @@ class Administration(Resource):
 @ns.route("/authors")
 class Administration(Resource):
     def get(self):
-        results = DatabaseConn.command('SELECT * FROM public."Authors"')
+        results = DatabaseConn.command('SELECT a.*, p."Link" FROM public."Authors" a JOIN public."Papers" p ON p."PaperId" = a."PaperId"')
         return results
     
 @ns.route("/papers")
