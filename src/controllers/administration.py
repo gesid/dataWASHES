@@ -53,7 +53,7 @@ class Administration(Resource):
             return {"message": str(e)}
 
     def verify_user(self, username, password):
-        results = DatabaseConn.command(f'SELECT * FROM public."Users" WHERE "UserName" = \'{username}\' AND "Password" = \'{password}\'')
+        results = DatabaseConn.command(f'SELECT * FROM public."Users" WHERE "UserName" = \'{username}\' AND "Password" = \'{password}\'', isJsonify=False)
         return any(results)
 
 @ns.route("/authors")
@@ -73,3 +73,4 @@ class Administration(Resource):
     def get(self):
         results = DatabaseConn.command('SELECT * FROM public."Editions"')
         return results
+    

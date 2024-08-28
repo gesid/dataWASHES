@@ -5,7 +5,7 @@ from sqlalchemy import text
 class DatabaseConn:
     
     @staticmethod
-    def command(query, fetch=True):
+    def command(query, fetch=True, isJsonify=True):
         conn = server.getConn()
         
         try:
@@ -21,6 +21,8 @@ class DatabaseConn:
 
                 columns = result.keys()
                 results = [{column: value for column, value in zip(columns, row)} for row in rows]
+                if isJsonify:
+                    return jsonify(results)
                 return results
         except Exception as e:
             raise jsonify({'error': str(e)})
