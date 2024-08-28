@@ -1,10 +1,12 @@
-from flask_restx import Resource, Namespace # type: ignore
-from resouces.database_conn import DatabaseConn
+from flask_restx import Namespace, Resource
+from resources.database_conn import DatabaseConn
 
-ns = Namespace(name='Exemplo', path='/exemplo')
+ns = Namespace(name="Exemplo", path="/exemplo")
+
 
 @ns.route("/")
 class Exemplo(Resource):
     def get(self):
         results = DatabaseConn.command("SELECT * FROM Authors")
         return results
+
