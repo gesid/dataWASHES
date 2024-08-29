@@ -1,4 +1,3 @@
-from typing import Any
 from api_utils import memoize
 from .author_db import AuthorDB
 from .paper_db import PaperDB
@@ -8,7 +7,7 @@ class StatisticsCalculator:
 
     @staticmethod
     @memoize
-    def authors_rank() -> list[dict[str, Any]]:
+    def authors_rank() -> list[dict[str, ...]]:
         author_db = AuthorDB()
         sorted_author_db = sorted(
             author_db.data,
@@ -19,7 +18,7 @@ class StatisticsCalculator:
 
     @staticmethod
     @memoize
-    def most_cited_papers() -> list[dict[str, Any]]:
+    def most_cited_papers() -> list[dict[str, ...]]:
         papers_db = PaperDB()
         sorted_papers_db = sorted(
             papers_db.data,

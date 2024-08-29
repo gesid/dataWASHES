@@ -114,8 +114,7 @@ class PapersByAuthor(Resource):
         "get_papers_by_author",
         description='''
             Returns the papers of the author specified by ``author_id``. 
-        '''
-        ,
+        ''',
         params={
             "author_id": "The author unique identifier"
         }

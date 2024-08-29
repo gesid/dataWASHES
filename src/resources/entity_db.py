@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABCMeta
 from collections.abc import Iterator
-
 from api_utils import paginate
 
 
