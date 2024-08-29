@@ -1,4 +1,5 @@
 from api_utils import memoize
+from . import EditionDB
 from .author_db import AuthorDB
 from .paper_db import PaperDB
 
@@ -29,7 +30,7 @@ class StatisticsCalculator:
 
     @staticmethod
     @memoize
-    def institution_rank() -> list[dict[str, int]]:
+    def institution_rank() -> list[dict[str, str | int]]:
         papers_db: PaperDB = PaperDB()
         institutions: dict[str, int] = {}
         for paper in papers_db:
@@ -50,7 +51,7 @@ class StatisticsCalculator:
 
     @staticmethod
     @memoize
-    def states_rank() -> list[dict[str, int]]:
+    def states_rank() -> list[dict[str, str | int]]:
         papers_db: PaperDB = PaperDB()
         states: dict[str, int] = {}
         for paper in papers_db:
@@ -68,6 +69,18 @@ class StatisticsCalculator:
             {"state": state, "publications": publications}
             for state, publications in institutions_rank
         ]
+
+    @staticmethod
+    @memoize
+    def publications_by_years() -> list[dict[str, int]]:
+        editions_db: EditionDB = EditionDB()
+        publications_by_year: list[dict[str, int]] = []
+        for edition in editions_db:
+            year = edition["Year"]
+            publications = len(edition["Papers"])
+            publications_by_year.append({"year": year, "publications": publications})
+        print(publications_by_year)
+        return publications_by_year
 
     @staticmethod
     @memoize
@@ -93,7 +106,7 @@ class StatisticsCalculator:
 
     @staticmethod
     @memoize
-    def papers_by_languages() -> list[dict]:
+    def papers_by_languages() -> list[dict[str, str | int]]:
         paper_db: PaperDB = PaperDB()
         languages: dict[str, int] = {}
         for paper in paper_db:

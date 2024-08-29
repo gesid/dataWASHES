@@ -1,3 +1,5 @@
+from builtins import filter
+
 from flask_restx import fields
 from server.instance import server
 
@@ -20,8 +22,16 @@ institutions_rank_model = server.api.model(
 languages_rank_model = server.api.model(
     "Languages Rank",
     {
-        "language": fields.String(description="The language of the paper", example="en"),
+        "language": fields.String(description="The language of the papers", example="en"),
         "publications": fields.Integer(description="The number of publications in this language", example=10)
+    }
+)
+
+publications_by_year_model = server.api.model(
+    "Publications By Years",
+    {
+        "year": fields.Integer(description="The year of the papers", example=2024),
+        "publications": fields.Integer(description="The number of publications in this year", example=25)
     }
 )
 

@@ -2,7 +2,13 @@ from .author import author, author_paging
 from .paper import paper, paper_paging, abstracts, reference, citation, abstracts_paging
 from .edition import edition, edition_paging
 from .error import error_model
-from .statistics_models import keywords_cloud_model, states_rank_model, institutions_rank_model, languages_rank_model
+from .statistics_models import (
+    keywords_cloud_model,
+    states_rank_model,
+    institutions_rank_model,
+    languages_rank_model,
+    publications_by_year_model,
+)
 
 __all__ = [
     "author",
@@ -20,4 +26,5 @@ __all__ = [
     "states_rank_model",
     "institutions_rank_model",
     "languages_rank_model",
+    "publications_by_year_model",
 ]

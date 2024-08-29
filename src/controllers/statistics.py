@@ -8,6 +8,7 @@ from models import (
     institutions_rank_model,
     keywords_cloud_model,
     languages_rank_model,
+    publications_by_year_model,
 )
 from api_utils import abort_execution
 
@@ -66,6 +67,25 @@ class MostCitedPaper(Resource):
         """
         abort_if_invalid_rank_size(rank_size)
         return StatisticsCalculator.most_cited_papers()[:rank_size], 200
+
+
+@ns.route("/papers/publications/by-years")
+class PublicationsByYear(Resource):
+    """
+    Papers publications by year route
+    """
+
+    @ns.marshal_list_with(publications_by_year_model, mask=None)
+    @ns.doc("papers_publications_by_years",
+            description='''
+                Returns the number of papers published by the years 
+            ''',
+            )
+    def get(self):
+        """
+        Publications by years.
+        """
+        return StatisticsCalculator.publications_by_years(), 200
 
 
 @ns.route("/institutions/rank-by/publications/<int:rank_size>")
