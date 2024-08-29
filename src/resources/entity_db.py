@@ -1,4 +1,6 @@
 from abc import abstractmethod, ABCMeta
+from collections.abc import Iterator
+
 from api_utils import paginate
 
 
@@ -10,11 +12,19 @@ class EntityDB(metaclass=ABCMeta):
     def __init__(self) -> None:
         self.__database: list[dict] = []
 
+    @property
+    def data(self) -> list[dict]:
+        return self.__database
+
+    @data.setter
+    def data(self, value: list[dict]) -> None:
+        pass
+
     def total_count(self) -> int:
         """
         Returns the number of objects in the database
         """
-        return len(self._get_database())
+        return len(self.data)
 
     def is_empty(self) -> bool:
         """
@@ -27,7 +37,7 @@ class EntityDB(metaclass=ABCMeta):
         Filter the database considering a key value of type ``string``
         """
         self._set_database([
-            entity for entity in self._get_database()
+            entity for entity in self.data
             if value.lower() in entity[key].lower()
         ])
 
@@ -36,7 +46,7 @@ class EntityDB(metaclass=ABCMeta):
         Filter the database considering a key value of type ``list of string``
         """
         self._set_database([
-            entity for entity in self._get_database()
+            entity for entity in self.data
             if any(value.lower() in item.lower() for item in entity[key])
         ])
 
@@ -45,7 +55,7 @@ class EntityDB(metaclass=ABCMeta):
         Filter the database considering a key value of type ``enum``
         """
         self._set_database([
-            entity for entity in self._get_database()
+            entity for entity in self.data
             if value.lower() == entity[key].lower()
         ])
 
@@ -54,21 +64,11 @@ class EntityDB(metaclass=ABCMeta):
         Filter the database considering a key value of type ``int``
         """
         self._set_database([
-            entity for entity in self._get_database()
+            entity for entity in self.data
             if number == entity[key]
         ])
 
-    def get_data(self) -> tuple[list[dict], int]:
-        """
-        Returns the data of the database with the response code\n
-        404 - When the database is empty\n
-        200 - When the database is not empty
-        """
-        if self.is_empty():
-            return self._get_database(), 404
-        return self._get_database(), 200
-
-    def get_paginated_data(self) -> tuple[dict | None, int]:
+    def get_paginated_response(self) -> tuple[dict | None, int]:
         """
         Returns the data of the database paginated, also the response code\n
         
@@ -81,13 +81,7 @@ class EntityDB(metaclass=ABCMeta):
         """
         if self.is_empty():
             return None, 404
-        return paginate(self._get_database()), 200
-
-    def _get_database(self) -> list[dict]:
-        """
-        Return the database object
-        """
-        return self.__database
+        return paginate(self.data), 200
 
     def _set_database(self, new_database: list[dict]) -> None:
         """
@@ -106,3 +100,15 @@ class EntityDB(metaclass=ABCMeta):
         """
         Filter the database
         """
+
+    def __len__(self) -> int:
+        return len(self.data)
+
+    def __iter__(self) -> Iterator[dict]:
+        return iter(self.data)
+
+    def __bool__(self) -> bool:
+        return bool(self.data)
+
+    def __getitem__(self, item: int) -> dict:
+        return self.data[int(item)]

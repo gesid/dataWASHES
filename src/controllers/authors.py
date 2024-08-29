@@ -30,7 +30,7 @@ class AuthorsList(Resource):
         List of authors
         """
         try:
-            authors = AuthorDB().get_paginated_data()
+            authors = AuthorDB().get_paginated_response()
             log_request(200)
             return authors
         except PaginateError as e:
@@ -95,7 +95,7 @@ class SearchAuthorByName(Resource):
         if authors.is_empty():
             abort_execution(ns, f"Author '{name}' doesn't exist", 404)
         try:
-            authors_paginated = authors.get_paginated_data()
+            authors_paginated = authors.get_paginated_response()
             log_request(200)
             return authors_paginated
         except PaginateError as e:

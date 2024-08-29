@@ -11,7 +11,7 @@ class StatisticsCalculator:
     def authors_rank() -> list[dict[str, Any]]:
         author_db = AuthorDB()
         sorted_author_db = sorted(
-            author_db.get_data()[0],
+            author_db.data,
             reverse=True,
             key=lambda author: len(author["Papers"])
         )
@@ -22,7 +22,7 @@ class StatisticsCalculator:
     def most_cited_papers() -> list[dict[str, Any]]:
         papers_db = PaperDB()
         sorted_papers_db = sorted(
-            papers_db.get_data()[0],
+            papers_db.data,
             reverse=True,
             key=lambda paper: len(paper["Cited_by"])
         )
@@ -31,9 +31,9 @@ class StatisticsCalculator:
     @staticmethod
     @memoize
     def institution_rank() -> list[dict[str, int]]:
-        papers_db = PaperDB()
+        papers_db: PaperDB = PaperDB()
         institutions: dict[str, int] = {}
-        for paper in papers_db.get_data()[0]:
+        for paper in papers_db:
             institution = paper["Authors"][0]["Institution_acronym"]
             if institution not in institutions:
                 institutions[institution] = 1
@@ -52,9 +52,9 @@ class StatisticsCalculator:
     @staticmethod
     @memoize
     def states_rank() -> list[dict[str, int]]:
-        papers_db = PaperDB()
+        papers_db: PaperDB = PaperDB()
         states: dict[str, int] = {}
-        for paper in papers_db.get_data()[0]:
+        for paper in papers_db:
             state = paper["Authors"][0]["State"]
             if state not in states:
                 states[state] = 1
@@ -74,7 +74,7 @@ class StatisticsCalculator:
     @memoize
     def keywords_cloud() -> list[dict]:
         key_words: dict[str, int] = {}
-        paper_db = PaperDB().get_data()[0]
+        paper_db = PaperDB()
         for paper in paper_db:
             keys = paper["Keywords"].split(', ')
             for key in keys:
@@ -97,7 +97,7 @@ class StatisticsCalculator:
     def papers_by_languages() -> list[dict]:
         paper_db: PaperDB = PaperDB()
         languages: dict[str, int] = {}
-        for paper in paper_db.get_data()[0]:
+        for paper in paper_db:
             if paper["Language"] not in languages:
                 languages[paper["Language"]] = 1
             else:
