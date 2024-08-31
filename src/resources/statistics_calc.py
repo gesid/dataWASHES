@@ -4,7 +4,7 @@ from .author_db import AuthorDB
 from .paper_db import PaperDB
 
 
-class StatisticsCalculator:
+class StatisticsCalc:
 
     @staticmethod
     @memoize

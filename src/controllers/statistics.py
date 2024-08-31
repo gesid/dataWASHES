@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource  # type: ignore
-from resources import StatisticsCalculator
+from resources import StatisticsCalc
 from models import (
     author,
     paper,
@@ -42,7 +42,7 @@ class MostPublishedAuthors(Resource):
         Rank authors by number of publications
         """
         abort_if_invalid_rank_size(rank_size)
-        return StatisticsCalculator.authors_rank()[:rank_size], 200
+        return StatisticsCalc.authors_rank()[:rank_size], 200
 
 
 @ns.route("/papers/rank-by/citations/<int:rank_size>")
@@ -66,7 +66,7 @@ class MostCitedPaper(Resource):
         Rank papers by number of citations
         """
         abort_if_invalid_rank_size(rank_size)
-        return StatisticsCalculator.most_cited_papers()[:rank_size], 200
+        return StatisticsCalc.most_cited_papers()[:rank_size], 200
 
 
 @ns.route("/papers/publications/by-years")
@@ -85,7 +85,7 @@ class PublicationsByYear(Resource):
         """
         Publications by years.
         """
-        return StatisticsCalculator.publications_by_years(), 200
+        return StatisticsCalc.publications_by_years(), 200
 
 
 @ns.route("/institutions/rank-by/publications/<int:rank_size>")
@@ -109,7 +109,7 @@ class InstitutionRank(Resource):
         Rank institutions by number of publications
         """
         abort_if_invalid_rank_size(rank_size)
-        return StatisticsCalculator.institution_rank()[:rank_size], 200
+        return StatisticsCalc.institution_rank()[:rank_size], 200
 
 
 @ns.route("/states/rank-by/publications/<int:rank_size>")
@@ -133,7 +133,7 @@ class StatesRank(Resource):
         Rank states by number of publications
         """
         abort_if_invalid_rank_size(rank_size)
-        return StatisticsCalculator.states_rank()[:rank_size], 200
+        return StatisticsCalc.states_rank()[:rank_size], 200
 
 
 @ns.route("/languages/rank-by/publications/<int:rank_size>")
@@ -153,7 +153,7 @@ class LanguagesRank(Resource):
         Rank languages by number of publications
         """
         abort_if_invalid_rank_size(rank_size)
-        return StatisticsCalculator.papers_by_languages()[:rank_size], 200
+        return StatisticsCalc.papers_by_languages()[:rank_size], 200
 
 
 @ns.route("/keywords/cloud/")
@@ -172,4 +172,4 @@ class KeywordsCloud(Resource):
         """
         Count occurrence of keywords
         """
-        return StatisticsCalculator.keywords_cloud(), 200
+        return StatisticsCalc.keywords_cloud(), 200
