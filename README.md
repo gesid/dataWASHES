@@ -39,4 +39,4 @@ python src/app.py # Linux/Mac
 2. Visit the API documentation at http://localhost:5000/ for details on available endpoints and how to use them.
 
 # References
-The WASHES proceedings are openly available and well-maintained through SBC OpenLib ([SOL](https://sol.sbc.org.br)). Currently, all documents published in SOL are made available under the [Creative Commons license (CC BY 4.0)](https://sol.sbc.org.br), allowing for copying and redistribution of the material in any medium or format for any purpose.
+The WASHES proceedings are openly available and well-maintained through SBC OpenLib ([SOL](https://sol.sbc.org.br)). Currently, all documents published in [SOL](https://sol.sbc.org.br/index.php/indice/faq)  are made available under the [Creative Commons license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.en), allowing for copying and redistribution of the material in any medium or format for any purpose.
