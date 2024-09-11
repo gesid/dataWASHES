@@ -2,7 +2,7 @@ from flask_restx import Resource, Namespace
 from resouces.database_conn import DatabaseConn
 import hashlib
 from flask_jwt_extended import create_access_token, jwt_required
-from flask import request
+from flask import jsonify, request
 
 ns = Namespace(name='Administration', path='/administration')
 
@@ -18,7 +18,7 @@ class Administration(Resource):
             "password": "The password of the user to be created"
         }
     )
-    #@jwt_required()
+    @jwt_required()
     def post(self):
         username = request.args.get('username')
         password = request.args.get('password')
@@ -58,19 +58,26 @@ class Administration(Resource):
 
 @ns.route("/authors")
 class Administration(Resource):
+    @jwt_required()
     def get(self):
         results = DatabaseConn.command('SELECT a.*, p."Link" FROM public."Authors" a JOIN public."Papers" p ON p."PaperId" = a."PaperId"')
-        return results
+        return results, 200
     
 @ns.route("/papers")
 class Administration(Resource):
+    @jwt_required()
     def get(self):
         results = DatabaseConn.command('SELECT * FROM public."Papers"')
-        return results
+        return results, 200
     
 @ns.route("/editions")
 class Administration(Resource):
+    @jwt_required()
     def get(self):
-        results = DatabaseConn.command('SELECT * FROM public."Editions"')
-        return results
+        try:
+            results = DatabaseConn.command('SELECT * FROM public."Editions"')
+            return results, 200
+        except Exception:
+            return jsonify({"error": "Assinatura do token inválida."}), 401
+
     

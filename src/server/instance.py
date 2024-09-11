@@ -22,7 +22,7 @@ class Server():
         self.conn = create_engine(SQLALCHEMY_DATABASE_URI)
 
     def run(self):
-        self.app.run()
+        self.app.run(debug=True)
 
     def getApi(self):
         return self.api
