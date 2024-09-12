@@ -8,7 +8,7 @@ Given the importance of the Workshop on Social, Human, and Economic Aspects of S
 # Proposal
 Therefore, we present **dataWASHES**: a public, academic, and open source Application Programming Interface (API) designed to streamline the programmatic process of gathering data from the WASHES proceedings open available at SOL. Hence, by introducing our API, in the form of open infrastructure, we aim to provide the community with a convenient tool for systematically and programmatically accessing data (papers, authors, and editions) from the proceedings, thereby enhancing openness, usefulness, and efficiency.
 
-The development of this project is a collaborative, open-source and non-profit action, currently under [MIT License](https://opensource.org/license/mit).
+The development of this project is a collaborative, open-source and non-profit action, currently under [MIT License](https://opensource.org/license/mit). Check out our [paper](https://sol.sbc.org.br/index.php/washes/article/view/29451) with preliminary results published at WASHES 2024.
 
 ## Install
 1. Clone the repository to your computer:
