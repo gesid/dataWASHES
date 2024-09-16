@@ -1,7 +1,7 @@
 <p align="center">
     <img src="src/static/images/logo.png" height="100px" alt="Logo dataWASHES">
     
-    Link: https://gesid.github.io/dataWASHES
+    Link: [https://gesid.github.io/dataWASHES](https://gesid.github.io/dataWASHES)
 </p>
 
 # Motivation
