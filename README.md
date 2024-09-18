@@ -12,6 +12,8 @@ Therefore, we present **dataWASHES**: a public, academic, and open source Applic
 
 The development of this project is a collaborative, open-source and non-profit action, currently under [MIT License](https://opensource.org/license/mit). Check out our [paper](https://sol.sbc.org.br/index.php/washes/article/view/29451) with preliminary results published at WASHES 2024.
 
+See our [video](https://youtu.be/KXjFx9ddqPQ) for a brief tutorial/demonstration.
+
 ## Install
 1. Clone the repository to your computer:
 ```shell
