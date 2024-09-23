@@ -8,20 +8,11 @@ ns = Namespace(name='Administration', path='/administration')
 
 @ns.route("/createusers")
 class Administration(Resource):
-    @ns.doc(
-        "createusers", 
-        description='''
-        Create a new user
-        ''',
-        params={
-            "username": "The username of the user to be created",
-            "password": "The password of the user to be created"
-        }
-    )
     @jwt_required()
     def post(self):
-        username = request.args.get('username')
-        password = request.args.get('password')
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
 
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         DatabaseConn.command(f'INSERT INTO public."Users" ("UserName", "Password") VALUES (\'{username}\', \'{password}\')', fetch=False)
@@ -29,31 +20,22 @@ class Administration(Resource):
     
 @ns.route("/login")
 class Administration(Resource):
-    @ns.doc(
-        "login", 
-        description='''
-        Log in to the system
-        ''',
-        params={
-            "username": "The username of the user to be logged in",
-            "password": "The password of the user to be logged in"
-        }
-    )
     def post(self):
         try :
-            username = request.args.get('username')
-            password = request.args.get('password')
+            data = request.get_json()
+            username = data.get('username')
+            password = data.get('password')
             password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
             if self.verify_user(username, password):
                 access_token = create_access_token(identity=username)
                 return {"access_token": access_token}
-            return {"message": "Invalid credentials"}
+            return {"message": "Invalid credentials"}, 400
         except Exception as e:
             return {"message": str(e)}
 
     def verify_user(self, username, password):
-        results = DatabaseConn.command(f'SELECT * FROM public."Users" WHERE "UserName" = \'{username}\' AND "Password" = \'{password}\'', isJsonify=False)
+        results = DatabaseConn.command(f'SELECT * FROM public."Users" WHERE "UserName" = \'{username}\' AND "Password" = \'{password}\'')
         return any(results)
 
 @ns.route("/authors")

@@ -1,3 +1,4 @@
+import datetime
 from server.instance import server
 from flask import jsonify
 from sqlalchemy import text
@@ -5,7 +6,7 @@ from sqlalchemy import text
 class DatabaseConn:
     
     @staticmethod
-    def command(query, fetch=True, isJsonify=True):
+    def command(query, fetch=True):
         conn = server.getConn()
         
         try:
@@ -20,9 +21,7 @@ class DatabaseConn:
                     return []
 
                 columns = result.keys()
-                results = [{column: value for column, value in zip(columns, row)} for row in rows]
-                if isJsonify:
-                    return jsonify(results)
+                results = [{column: (value.isoformat() if isinstance(value, datetime.datetime) else value) for column, value in zip(columns, row)} for row in rows]
                 return results
         except Exception as e:
             raise jsonify({'error': str(e)})
