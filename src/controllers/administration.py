@@ -3,6 +3,7 @@ from resouces.database_conn import DatabaseConn
 import hashlib
 from flask_jwt_extended import create_access_token, jwt_required
 from flask import jsonify, request
+from datetime import datetime
 
 ns = Namespace(name='Administration', path='/administration')
 
@@ -111,10 +112,15 @@ class Administration(Resource):
     @jwt_required()
     def post(self):
         data = request.get_json()
-        name = data.get('name')
-        year = data.get('year')
+        title = data.get('Title')
+        year = data.get('Year')
+        location = data.get('Location')
+        proceedings = data.get('Proceedings')
+        current_date = datetime.now().isoformat()
 
-        DatabaseConn.command(f'INSERT INTO public."Editions" ("Name", "Year") VALUES (\'{name}\', {year})', fetch=False)
+        DatabaseConn.command(f'INSERT INTO public."Editions" '
+        f'("Title", "Year", "Location", "Date", "Proceedings") '
+        f'VALUES (\'{title}\', {year}, \'{location}\', \'{current_date}\', \'{proceedings}\')', fetch=False)
         return {"message": "Edition created"}, 201
 
     @jwt_required()
