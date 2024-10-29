@@ -14,7 +14,7 @@ nav {
     top: 0;
     z-index: 100;
     width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra sutil */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 nav ul {
@@ -42,7 +42,7 @@ nav a {
 
 nav a:hover {
     background-color: #005694;
-    color: #e6f2ff; /* Mudança de cor de texto para maior contraste */
+    color: #e6f2ff;
 }
 
 #logo-conteiner {
@@ -57,11 +57,10 @@ nav a:hover {
     width: auto;
     height: 55px;
     display: block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15)); /* Adiciona sombra ao logo */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
 }
 
-/* Navbar styles end */
-
+/* Main Styles */
 main {
     margin: 30px;
 }
@@ -119,6 +118,7 @@ a:hover {
     filter: opacity(100%);
 }
 
+/* Footer Styles */
 footer {
     background: #003d6a;
     padding: 15px 0;
