@@ -8,12 +8,13 @@ body {
 
 /* Navbar Styles */
 nav {
-    background-color: #003d6a;
-    padding: 10px 0;
+    background-image: linear-gradient(to right, #e6f2ff, #80b8d9, #3a739f, #003d6a);
+    padding: 12px 0;
     position: static;
     top: 0;
     z-index: 100;
     width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra sutil */
 }
 
 nav ul {
@@ -30,30 +31,33 @@ nav li {
 }
 
 nav a {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
-    font-weight: bold;
-    padding: 8px 12px;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 8px 16px;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 nav a:hover {
     background-color: #005694;
+    color: #e6f2ff; /* Mudança de cor de texto para maior contraste */
 }
 
 #logo-conteiner {
-    background-color: white;
     padding: 10px;
     border-radius: 5px;
     display: inline-block;
     margin-right: auto;
+    transition: transform 0.3s ease;
 }
 
 #logo-api {
     width: auto;
-    height: 40px;
+    height: 55px;
     display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15)); /* Adiciona sombra ao logo */
 }
 
 /* Navbar styles end */
@@ -116,8 +120,17 @@ a:hover {
 }
 
 footer {
-    margin-bottom: 0;
-    width: 100%;
-    height: 80px;
-    background-color: #003d6a;
+    background: #003d6a;
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+footer p {
+    margin: 0;
 }
