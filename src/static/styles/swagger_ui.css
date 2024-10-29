@@ -8,7 +8,7 @@ body {
 
 /* Navbar Styles */
 nav {
-    background-image: linear-gradient(to right, #e6f2ff, #80b8d9, #3a739f, #003d6a);
+    background-image: linear-gradient(to right, #e6f2ff, #b0c8e0, #6089b8, #003d6a);
     padding: 12px 0;
     position: static;
     top: 0;
@@ -120,7 +120,7 @@ a:hover {
 
 /* Footer Styles */
 footer {
-    background: #003d6a;
+    background-image: linear-gradient(to right, #003d6a, #3a739f, #80b8d9, #e6f2ff);
     padding: 15px 0;
     display: flex;
     align-items: center;
@@ -131,6 +131,59 @@ footer {
     margin-top: 20px;
 }
 
-footer p {
+.footer-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-content p,
+.footer-content a {
+    color: #ffffff;
     margin: 0;
+}
+
+.footer-logo-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.footer-logo {
+    height: 30px;
+    width: auto;
+}
+
+/* Responsividade para tablets e dispositivos menores */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+    }
+
+    nav li {
+        margin: 10px 0;
+    }
+
+    nav a {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+
+    #logo-api {
+        height: 45px;
+    }
+
+    main {
+        margin: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
 }

@@ -70,7 +70,15 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 dataWASHES. Todos os direitos reservados.</p>
+        <div class="footer-content">
+            <p>
+                <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>
+            </p>
+            <p>&copy; 2024</p>
+            <div class="footer-logo-container">
+                <img class="footer-logo" alt="Logo do dataWASHES API" src="{{ url_for('static', filename='images/logo.png') }}">
+            </div>
+        </div>
     </footer>
     
     <script src="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui-standalone-preset.js"></script>
