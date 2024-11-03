@@ -6,16 +6,16 @@ from sqlalchemy import text
 class DatabaseConn:
     
     @staticmethod
-    def command(query, fetch=True):
+    def command(query, params = None, fetch=True):
         conn = server.getConn()
         
         try:
             with conn.connect() as conn:
                 if not fetch:
-                    conn.execute(text(query))
+                    conn.execute(text(query), params or {})
                     return
                 
-                result = conn.execute(text(query))
+                result = conn.execute(text(query), params or {})
                 rows = result.fetchall()
                 if len(rows) == 0:
                     return []

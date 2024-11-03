@@ -4,6 +4,7 @@ import hashlib
 from flask_jwt_extended import create_access_token, jwt_required
 from flask import jsonify, request
 from datetime import datetime
+from datetime import timedelta
 
 ns = Namespace(name='Administration', path='/administration')
 
@@ -30,7 +31,7 @@ class Administration(Resource):
 
             if self.verify_user(username, password):
                 access_token = create_access_token(identity=username)
-                return {"access_token": access_token}
+                return {"access_token": access_token, "expiration": (datetime.utcnow() + timedelta(hours=1)).isoformat()}, 200
             return {"message": "Invalid credentials"}, 400
         except Exception as e:
             return {"message": str(e)}
@@ -117,24 +118,64 @@ class Administration(Resource):
         location = data.get('Location')
         proceedings = data.get('Proceedings')
         current_date = datetime.now().isoformat()
-
-        DatabaseConn.command(f'INSERT INTO public."Editions" '
-        f'("Title", "Year", "Location", "Date", "Proceedings") '
-        f'VALUES (\'{title}\', {year}, \'{location}\', \'{current_date}\', \'{proceedings}\')', fetch=False)
+        
+        query = '''
+            INSERT INTO public."Editions" ("Title", "Year", "Date", "Location", "Proceedings")
+            VALUES (:title, :year, :current_date, :location, :proceedings)
+        '''
+        
+        params = {
+            'title': title,
+            'year': year,
+            'current_date': current_date,
+            'location': location,
+            'proceedings': proceedings
+        }
+        
+        DatabaseConn.command(query, params, fetch=False)
         return {"message": "Edition created"}, 201
 
     @jwt_required()
-    def put(self, edition_id):
+    def put(self):
         data = request.get_json()
-        name = data.get('name')
-        year = data.get('year')
+        title = data.get('Title')
+        year = data.get('Year')
+        edition_id = data.get('EditionId')
+        date = data.get('Date')
+        location = data.get('Location')
+        proceedings = data.get('Proceedings')
+        
+        query = '''
+            UPDATE public."Editions" 
+            SET "Title" = :title, 
+                "Year" = :year, 
+                "Date" = :date, 
+                "Location" = :location, 
+                "Proceedings" = :proceedings 
+            WHERE "EditionId" = :edition_id
+        '''
+        
+        params = {
+            'title': title,
+            'year': year,
+            'date': date,
+            'location': location,
+            'proceedings': proceedings,
+            'edition_id': edition_id
+        }
 
-        DatabaseConn.command(f'UPDATE public."Editions" SET "Name" = \'{name}\', "Year" = {year} WHERE "EditionId" = {edition_id}', fetch=False)
+        DatabaseConn.command(query, params, fetch=False)
         return {"message": "Edition updated"}, 200
 
     @jwt_required()
-    def delete(self, edition_id):
-        DatabaseConn.command(f'DELETE FROM public."Editions" WHERE "EditionId" = {edition_id}', fetch=False)
+    def delete(self):
+        data = request.get_json()
+        edition_id = data.get('EditionId')
+        
+        query = 'DELETE FROM public."Editions" WHERE "EditionId" = :edition_id'
+        params = {'edition_id': edition_id}
+        
+        DatabaseConn.command(query, params, fetch=False)
         return {"message": "Edition deleted"}, 200
 
     

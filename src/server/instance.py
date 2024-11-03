@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import SQLALCHEMY_DATABASE_URI
 from sqlalchemy import create_engine
+from datetime import timedelta
 
 class Server():
     def __init__(self):
@@ -11,6 +12,7 @@ class Server():
         CORS(self.app)
         self.app.config['CORS_HEADERS'] = 'Content-Type'
         self.app.config['JWT_SECRET_KEY'] = 'washes_secret_key_2024_!@#erdce2324fwdsvs'
+        self.app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
         self.api = Api(
             self.app,
             title='dataWASHES API',
