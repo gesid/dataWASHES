@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-        <meta charset="UTF-8">
-        <title>dataWASHES</title>
-        <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swagger_ui.css') }}">
-  </head>
-  <body>
+{% extends 'root_layout.html' %}
+{% block content %}
     <header>
         <div id="logo-conteiner">
             <img id="logo-api" alt="Logo do dataWASHES API" src="{{ url_for('static', filename='images/logo.png') }}">
@@ -85,5 +78,4 @@
             window.ui = ui
         }
     </script>
-  </body>
-</html>
+{% endblock %}
