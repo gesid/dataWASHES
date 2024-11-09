@@ -80,24 +80,97 @@ class Administration(Resource):
     @jwt_required()
     def post(self):
         data = request.get_json()
-        title = data.get('title')
-        link = data.get('link')
-
-        DatabaseConn.command(f'INSERT INTO public."Papers" ("Title", "Link") VALUES (\'{title}\', \'{link}\')', fetch=False)
+        title = data.get('Title')
+        year = data.get('Year')
+        abstract = data.get('Abstract')
+        summary = data.get('Summary')
+        keywords = data.get('Keywords')
+        type = data.get('Type')
+        link = data.get('Link')
+        references = data.get('References')
+        citation = data.get('Citation')
+        obtenDate = datetime.now().isoformat()
+        editionId = data.get('EditionId')
+        
+        query = '''
+            INSERT INTO public."Papers" ("Title", "Year", "Abstract", "Summary", "Keywords", "Type", "Link", "References", "Citation", "ObtenDate", "EditionId")
+            VALUES (:title, :year, :abstract, :summary, :keywords, :type, :link, :references, :citation, :obtenDate, :editionId)
+        '''
+        
+        params = {
+            'title': title,
+            'year': year,
+            'abstract': abstract,
+            'summary': summary,
+            'keywords': keywords,
+            'type': type,
+            'link': link,
+            'references': references,
+            'citation': citation,
+            'obtenDate': obtenDate,
+            'editionId': editionId
+        }
+        
+        DatabaseConn.command(query, params, fetch=False)
         return {"message": "Paper created"}, 201
 
+
     @jwt_required()
-    def put(self, paper_id):
+    def put(self):
         data = request.get_json()
-        title = data.get('title')
-        link = data.get('link')
+        title = data.get('Title')
+        year = data.get('Year')
+        abstract = data.get('Abstract')
+        summary = data.get('Summary')
+        keywords = data.get('Keywords')
+        type = data.get('Type')
+        link = data.get('Link')
+        references = data.get('References')
+        citation = data.get('Citation')
+        obtenDate = data.get('ObtenDate')
+        editionId = data.get('EditionId')
+        paperId = data.get('PaperId')
+        
+        query = '''
+            UPDATE public."Papers"
+            SET "Title" = :title,
+                "Year" = :year,
+                "Abstract" = :abstract,
+                "Summary" = :summary,
+                "Keywords" = :keywords,
+                "Type" = :type,
+                "Link" = :link,
+                "References" = :references,
+                "Citation" = :citation,
+                "ObtenDate" = :obtenDate,
+                "EditionId" = :editionId
+            WHERE "PaperId" = :paperId
+        '''
+        
+        params = {
+            'title': title,
+            'year': year,
+            'abstract': abstract,
+            'summary': summary,
+            'keywords': keywords,
+            'type': type,
+            'link': link,
+            'references': references,
+            'citation': citation,
+            'obtenDate': obtenDate,
+            'editionId': editionId,
+            'paperId': paperId
+        }
+            
 
-        DatabaseConn.command(f'UPDATE public."Papers" SET "Title" = \'{title}\', "Link" = \'{link}\' WHERE "PaperId" = {paper_id}', fetch=False)
+        DatabaseConn.command(query, params, fetch=False)
         return {"message": "Paper updated"}, 200
-
+        
     @jwt_required()
-    def delete(self, paper_id):
-        DatabaseConn.command(f'DELETE FROM public."Papers" WHERE "PaperId" = {paper_id}', fetch=False)
+    def delete(self):
+        data = request.get_json()
+        paperId = data.get('PaperId')
+        DatabaseConn.command(f'DELETE FROM public."Papers" WHERE "PaperId" = {paperId}', fetch=False)
         return {"message": "Paper deleted"}, 200
     
 @ns.route("/editions")
@@ -105,7 +178,7 @@ class Administration(Resource):
     @jwt_required()
     def get(self):
         try:
-            results = DatabaseConn.command('SELECT * FROM public."Editions"')
+            results = DatabaseConn.command('SELECT * FROM public."Editions" ORDER BY "Year" DESC')
             return results, 200
         except Exception:
             return jsonify({"error": "Assinatura do token inválida."}), 401
