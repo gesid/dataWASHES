@@ -1,0 +1,21 @@
+name: CI/CD Workflow
+
+on:
+  workflow_run:
+    workflows: 
+      - Continuous Integration Lint
+      - Continuous Integration Tests
+    types:
+      - completed
+
+jobs:
+  merge-check:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Merge Verification
+        run: |
+          echo "Lint e testes completados com sucesso. O código está pronto para revisão e merge."
