@@ -27,9 +27,9 @@ jobs:
           pip install pylint
 
       - name: Run pylint and save output
-        id: pylint
+        id: running-pylint
         run: |
-          pylint $(find . -name "*.py") || true
+          pylint $(find . -name "*.py") --output-format=parseable > validation_pylint.txt || true
 
       - name: Upload Lint Results
         uses: actions/upload-artifact@v3
