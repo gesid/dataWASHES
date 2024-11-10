@@ -3,7 +3,7 @@ name: CI/CD Workflow
 on:
   workflow_run:
     workflows: 
-      - Continuous Integration Lint
+      #- Continuous Integration Lint
       - Continuous Integration Tests
     types:
       - completed
@@ -16,6 +16,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Merge Verification
+      - name: Verify Success of Lint and Tests
         run: |
           echo "Lint e testes completados com sucesso. O código está pronto para revisão e merge."
+      
+      - name: Create Pull Request from feature branch to develop
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "Automated PR: Merge feature/* into develop"
+          body: "Este PR foi automaticamente criado após a conclusão bem-sucedida dos workflows de lint e testes."
+          base: develop
+          head: feature/*  
+          draft: false

@@ -2,9 +2,11 @@ name: Continuous Integration Tests
 
 on: 
   push:
-    branches: [ main ]
+    branches:
+      - feature/*
   pull_request:
-    branches: [ main ]
+    branches:
+      - develop
 
 jobs:
   build-execute-test:
@@ -36,10 +38,6 @@ jobs:
               sleep 5
               
           - name: Run tests
+            id: running-test
             run: |
               python -m pytest -v
-            
-            
-
-
-
