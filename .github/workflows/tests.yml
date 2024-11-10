@@ -2,9 +2,11 @@ name: Continuous Integration Tests
 
 on: 
   push:
-    branches: [ develop ]
+    branches:
+      - feature/*
   pull_request:
-    branches: [ develop ]
+    branches:
+      - develop
 
 jobs:
   build-execute-test:

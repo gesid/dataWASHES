@@ -2,9 +2,11 @@ name: Continuous Integration Lint
 
 on:
   push:
-    branches: [ develop ]
+    branches:
+      - feature/*
   pull_request:
-    branches: [ develop ]
+    branches:
+      - develop
 
 jobs:
   pylint:
@@ -24,16 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pylint
 
-      - name: Debug environment
-        run: |
-          ls -la  # Verifica o conteúdo do diretório para garantir que está correto
-          pwd     # Mostra o diretório atual para verificação
-        continue-on-error: true  
-
       - name: Run pylint and save output
         id: pylint
         run: |
-          pylint $(find . -name "*.py") --output-format=parseable > validation_pylint.txt || true
+          pylint $(find . -name "*.py") || true
 
       - name: Upload Lint Results
         uses: actions/upload-artifact@v3
