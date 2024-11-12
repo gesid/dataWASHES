@@ -21,7 +21,7 @@ class AuthorDB(EntityDB):
         self.filter_by_number_key("Author_id", entity_id)
         if self.is_empty():
             return None
-        return self._get_database()[0]
+        return self[0]
 
     # Overriding
     def filter_by(self, query_object: dict[str, str]) -> None:

@@ -2,21 +2,33 @@ from flask_restx import fields
 from server import server
 from .paging import paging_model_construct
 
-paperAuthor = server.get_api().model(
+paperAuthor = server.api.model(
     "Paper Author",
     {
-        "Name": fields.String(description="Author's name", example="Maria"),
-        "Institution": fields.String(
-            description="Author' institution", example="Universidade Federal do Cariri"
+        "Name": fields.String(
+            description="Author's name",
+            example="Maria",
         ),
-        "State": fields.String(description="Author's state", exmple="CE", example="CE"),
+        "Institution": fields.String(
+            description="Author' institution",
+            example="Universidade Federal do Cariri",
+        ),
+        "Institution_acronym": fields.String(
+            description="Tha acronym of the author's institution",
+            example="UFCA",
+        ),
+        "State": fields.String(
+            description="Author's state",
+            exmple="CE",
+        ),
         "Author_id": fields.Integer(
-            description="The author unique identifier", example="34"
+            description="The author unique identifier",
+            example="34",
         ),
     },
 )
 
-paper = server.get_api().model(
+paper = server.api.model(
     "Paper",
     {
         "Authors": fields.List(
@@ -24,14 +36,16 @@ paper = server.get_api().model(
             description="A list of the paper authors IDs"
         ),
         "Paper_id": fields.Integer(
-            description="The paper unique identifier", example="3"
+            description="The paper unique identifier",
+            example="3"
         ),
         "Title": fields.String(
             description="Paper title",
             example="Um Modelo para o Gerenciamento de Padrões de Projeto em Java",
         ),
         "Year": fields.Integer(
-            description="Publication year of the paper", example="2022"
+            description="Publication year of the paper",
+            example="2022"
         ),
         "Abstract": fields.String(
             description="Abstract of the paper",
@@ -61,6 +75,10 @@ paper = server.get_api().model(
             fields.String,
             description="List of articles that cite this article",
         ),
+        "Language": fields.String(
+            description="The language of the paper",
+            example="pt"
+        ),
         "Updated_in": fields.String(
             description="Date of last update of the ``Cited_by`` field",
             example="2024-04-10"
@@ -70,21 +88,28 @@ paper = server.get_api().model(
 
 paper_paging = paging_model_construct("Paper Paging", paper)
 
-abstracts = server.get_api().model(
+abstracts = server.api.model(
     "Abstract",
     {
-        "Paper_id": fields.Integer(description="The paper unique identifier", example="7"),
-        "Abstract": fields.String(description="The abstract of the paper", example="Continuous  learning  of  software...")
+        "Paper_id": fields.Integer(
+            description="The paper unique identifier",
+            example="7"
+        ),
+        "Abstract": fields.String(
+            description="The abstract of the paper",
+            example="Continuous  learning  of  software..."
+        )
     }
 )
 abstracts_paging = paging_model_construct("Abstract Paging", abstracts)
 
 # Adicionando modelo para representar as referências de um artigo
-reference = server.get_api().model(
+reference = server.api.model(
     "Reference",
     {
         "Paper_id": fields.Integer(
-            description="The paper unique identifier", example="3"
+            description="The paper unique identifier",
+            example="3"
         ),
         "References": fields.List(
             fields.String,
@@ -94,7 +119,7 @@ reference = server.get_api().model(
 )
 
 # Adicionado modelo para representar as citações de um artigo
-citation = server.get_api().model(
+citation = server.api.model(
     "Citation",
     {
         "Paper_id": fields.Integer(

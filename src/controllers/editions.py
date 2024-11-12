@@ -24,9 +24,9 @@ class EditionsList(Resource):
         """
         List of editions
         """
-        editions = EditionDB()
+        editions: EditionDB = EditionDB()
         log_request(200)
-        return editions.get_data()
+        return editions.data, 200
 
 
 @ns.route("/<int:edition_id>")
@@ -49,7 +49,7 @@ class EditionById(Resource):
         """
         Get edition by ID
         """
-        editions = EditionDB()
+        editions: EditionDB = EditionDB()
         found_edition = editions.get_by_id(edition_id)
         if not found_edition:
             abort_execution(ns, f"Edition {edition_id} not found", 404)
@@ -81,7 +81,7 @@ class SearchEditionsByYear(Resource):
         if editions.is_empty():
             abort_execution(ns, f"Edition not found for year {year}", 404)
         log_request(200)
-        return editions.get_data()
+        return editions.data, 200
 
 
 @ns.route("/<int:edition_id>/papers")
@@ -112,7 +112,7 @@ class EditionPapersById(Resource):
         if not papers_in_edition:
             abort_execution(ns, f"Edition {edition_id} not found", 404)
         try:
-            paginated_papers = papers_in_edition.get_paginated_data()
+            paginated_papers = papers_in_edition.get_paginated_response()
             log_request(200)
             return paginated_papers
         except PaginateError as e:

@@ -28,10 +28,9 @@ class PaperDB(EntityDB):
     # Overriding
     def get_by_id(self, entity_id: int) -> dict | None:
         self.filter_by_number_key("Paper_id", entity_id)
-
         if self.is_empty():
             return None
-        return self._get_database()[0]
+        return self[0]
 
     # Overriding
     def filter_by(self, query_object: dict[str, str]) -> None:
@@ -80,7 +79,7 @@ class PaperDB(EntityDB):
         Filter considering two keys of type ``string``
         """
         self._set_database([
-            paper for paper in self._get_database()
+            paper for paper in self
             if value.lower() in paper[key1].lower() or value.lower() in paper[key2].lower()
         ])
 
@@ -89,7 +88,7 @@ class PaperDB(EntityDB):
         Filter the database considering an author property
         """
         self._set_database([
-            paper for paper in self._get_database()
+            paper for paper in self
             if any(value.lower() in author[key].lower() for author in paper["Authors"])
         ])
 
@@ -99,16 +98,16 @@ class PaperDB(EntityDB):
         """
         return [
             {"Paper_id": paper["Paper_id"], "Abstract": paper["Abstract"]}
-            for paper in self._get_database()
+            for paper in self
         ]
 
     def filter_by_list_of_ids(self, papers_ids: list[int]) -> None:
         """
         filter the database considering a list of IDs
         """
-        papers_ids_set = set(papers_ids)
+        papers_ids_set: set = set(papers_ids)
         papers: list[dict] = []
-        for paper in self._get_database():
+        for paper in self:
             if paper["Paper_id"] in papers_ids_set:
                 papers.append(paper)
         self._set_database(papers)
