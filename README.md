@@ -1,5 +1,7 @@
 <p align="center">
     <img src="src/static/images/logo.png" height="100px" alt="Logo dataWASHES">
+
+    https://gesid.github.io/dataWASHES
 </p>
 
 # Motivation
@@ -8,7 +10,9 @@ Given the importance of the Workshop on Social, Human, and Economic Aspects of S
 # Proposal
 Therefore, we present **dataWASHES**: a public, academic, and open source Application Programming Interface (API) designed to streamline the programmatic process of gathering data from the WASHES proceedings open available at SOL. Hence, by introducing our API, in the form of open infrastructure, we aim to provide the community with a convenient tool for systematically and programmatically accessing data (papers, authors, and editions) from the proceedings, thereby enhancing openness, usefulness, and efficiency.
 
-The development of this project is a collaborative, open-source and non-profit action, currently under [MIT License](https://opensource.org/license/mit).
+The development of this project is a collaborative, open-source and non-profit action, currently under [MIT License](https://opensource.org/license/mit). Check out our [paper](https://sol.sbc.org.br/index.php/washes/article/view/29451) with preliminary results published at WASHES 2024.
+
+See our [video](https://youtu.be/KXjFx9ddqPQ) for a brief tutorial/demonstration.
 
 ## Install
 1. Clone the repository to your computer:
@@ -39,4 +43,4 @@ python src/app.py # Linux/Mac
 2. Visit the API documentation at http://localhost:5000/ for details on available endpoints and how to use them.
 
 # References
-The WASHES proceedings are openly available and well-maintained through SBC OpenLib ([SOL](https://sol.sbc.org.br)). Currently, all documents published in SOL are made available under the [Creative Commons license (CC BY 4.0)](https://sol.sbc.org.br), allowing for copying and redistribution of the material in any medium or format for any purpose.
+The WASHES proceedings are openly available and well-maintained through SBC OpenLib ([SOL](https://sol.sbc.org.br)). Currently, all documents published in [SOL](https://sol.sbc.org.br/index.php/indice/faq)  are made available under the [Creative Commons license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.en), allowing for copying and redistribution of the material in any medium or format for any purpose.
