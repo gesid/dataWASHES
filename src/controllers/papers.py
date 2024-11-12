@@ -65,7 +65,7 @@ class PapersList(Resource):
             filtered_papers.filter_by(query_object)
             if filtered_papers.is_empty():
                 abort_execution(ns, "No papers found", 404)
-            paginated_papers = filtered_papers.get_paginated_data()
+            paginated_papers = filtered_papers.get_paginated_response()
             log_request(200)
             return paginated_papers
         except ValueError as e:
@@ -122,7 +122,7 @@ class SearchPapersByTitle(Resource):
         if papers.is_empty():
             abort_execution(ns, "No papers found with the specified title", 404)
         log_request(200)
-        return papers.get_data()
+        return papers.data, 200
 
 
 @ns.route("/by-year/<int:year>")
@@ -151,7 +151,7 @@ class PapersByYear(Resource):
         if papers.is_empty():
             abort_execution(ns, "No papers found for the specified year", 404)
         log_request(200)
-        return papers.get_data()
+        return papers.data, 200
 
 
 @ns.route("/<int:paper_id>")
