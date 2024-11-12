@@ -1,0 +1,81 @@
+body {
+    background-color: #F5F5F5;
+    font-family: "Poppins", sans-serif;
+    color: #353535;
+}
+
+.dashboard {
+    width: 90vw;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px 20px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "artigos_por_edicao artigos_por_idioma"
+        "ranking_instituicoes ranking_autore"
+        "nuvem_palavras artigos_por_estado"
+        "artigos_premiados artigos_premiados"
+        "artigos_por_categorias artigos_por_categorias"
+        "artigos_por_categorias artigos_por_categorias"
+        "artigos_por_categorias artigos_por_categorias";
+}
+
+.container > div {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.artigos_premiados {
+    grid-area: artigos_premiados;
+}
+
+.artigos_por_edicao {
+    grid-area: artigos_por_edicao;
+}
+
+.artigos_por_idioma {
+    grid-area: artigos_por_idioma;
+}
+
+.ranking_instituicoes {
+    grid-area: ranking_instituicoes;
+}
+
+.ranking_autore {
+    grid-area: ranking_autore;
+}
+
+.nuvem_palavras {
+    grid-area: nuvem_palavras;
+}
+
+.artigos_por_estado {
+    grid-area: artigos_por_estado;
+}
+
+.artigos_por_categorias {
+    grid-area: artigos_por_categorias;
+}
+
+.graph-header {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: large;
+}
+
+.info-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+}

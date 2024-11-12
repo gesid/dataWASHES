@@ -1,0 +1,50 @@
+{% extends 'root_layout.html' %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/dashboard.css') }}">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='javascript/graphs_generator.js') }}"></script>
+
+    <header>
+
+    </header>
+
+    <main>
+        <div class="dashboard">
+            <div class="container">
+                <div class="artigos_premiados">
+                </div>
+                <div class="artigos_por_edicao">
+                    <div class="graph-header">
+                        <span class="title">Artigos por edição</span>
+                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                    </div>
+                    <canvas id="artigos-por-edicao"></canvas>
+                </div>
+                <div class="artigos_por_idioma">
+                    <div class="graph-header">
+                        <span class="title">Artigos por idioma</span>
+                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                    </div>
+                    <canvas id="artigos-por-idioma"></canvas>
+                </div>
+                <div class="ranking_instituicoes"></div>
+                <div class="ranking_autore"></div>
+                <div class="nuvem_palavras"></div>
+                <div class="artigos_por_estado"></div>
+                <div class="artigos_por_categorias"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <script>
+        const papers_editions = document.getElementById("artigos-por-edicao")
+        const papers_languages = document.getElementById("artigos-por-idioma")
+        insert_horizontal_bar_chart(papers_editions)
+        insert_line_chart(papers_languages)
+    </script>
+{% endblock %}
