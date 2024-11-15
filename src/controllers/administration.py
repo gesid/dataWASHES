@@ -50,24 +50,59 @@ class Administration(Resource):
     @jwt_required()
     def post(self):
         data = request.get_json()
-        name = data.get('name')
-        paper_id = data.get('paper_id')
-
-        DatabaseConn.command(f'INSERT INTO public."Authors" ("Name", "PaperId") VALUES (\'{name}\', {paper_id})', fetch=False)
+        name = data.get('Name')
+        instituition = data.get('Instituition')
+        state = data.get('State')
+        paperId = data.get('PaperId')
+        
+        query = '''
+            INSERT INTO public."Authors" ("Name", "Instituition", "State", "PaperId")
+            VALUES (:name, :instituition, :state, :paperId)
+        '''
+        params = {
+            'name': name,
+            'instituition': instituition,
+            'state': state,
+            'paperId': paperId
+        }
+        
+        DatabaseConn.command(query, params, fetch=False)
         return {"message": "Author created"}, 201
 
     @jwt_required()
-    def put(self, author_id):
+    def put(self):
         data = request.get_json()
-        name = data.get('name')
-        paper_id = data.get('paper_id')
-
-        DatabaseConn.command(f'UPDATE public."Authors" SET "Name" = \'{name}\', "PaperId" = {paper_id} WHERE "AuthorId" = {author_id}', fetch=False)
+        name = data.get('Name')
+        instituition = data.get('Instituition')
+        state = data.get('State')
+        paperId = data.get('PaperId')
+        authorId = data.get('AuthorId')
+        
+        query = '''
+            UPDATE public."Authors"
+            SET "Name" = :name,
+                "Instituition" = :instituition,
+                "State" = :state,
+                "PaperId" = :paperId
+            WHERE "AuthorId" = :authorId
+        '''
+        params = {
+            'name': name,
+            'instituition': instituition,
+            'state': state,
+            'paperId': paperId,
+            'authorId': authorId
+        }
+        
+        DatabaseConn.command(query, params, fetch=False)
         return {"message": "Author updated"}, 200
 
     @jwt_required()
-    def delete(self, author_id):
-        DatabaseConn.command(f'DELETE FROM public."Authors" WHERE "AuthorId" = {author_id}', fetch=False)
+    def delete(self):
+        data = request.get_json()
+        authorId = data.get('AuthorId')
+        
+        DatabaseConn.command(f'DELETE FROM public."Authors" WHERE "AuthorId" = {authorId}', fetch=False)
         return {"message": "Author deleted"}, 200
     
 @ns.route("/papers")
