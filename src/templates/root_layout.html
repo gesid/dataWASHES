@@ -3,12 +3,42 @@
   <head>
         <meta charset="UTF-8">
         <title>dataWASHES</title>
-        <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swagger_ui.css') }}">
   </head>
     <body>
+        <!-- Navbar -->
+        <nav>
+            <div id="menu-icon" onclick="toggleMenu()">&#9776;</div> <!-- Ícone do menu hambúrguer -->
+            <ul id="navbar">
+                <li id="logo-conteiner">
+                    <a href="{{ url_for('swagger_template') }}">
+                        <img id="logo-api" alt="Logo do dataWASHES API"
+                             src="{{ url_for('static', filename='images/logo.png') }}">
+                    </a>
+                </li>
+                <li><a href="#motivation" class="nav-link">API</a></li>
+                <li><a href="https://youtu.be/KXjFx9ddqPQ" class="nav-link" target="_blank">Tutorial</a></li>
+                <li><a href="https://github.com/gesid/dataWASHES/" class="nav-link" target="_blank">GitHub</a></li>
+                <li><a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a></li>
+                <li><a href="https://sites.google.com/view/washes-series/?authuser=1" class="nav-link" target="_blank">WASHES</a></li>
+            </ul>
+        </nav>
+
         {% block content %}
 
         {% endblock %}
+
+        <footer>
+            <div class="footer-content">
+                <p>
+                    <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>
+                </p>
+                <p>&copy; 2024</p>
+                <div class="footer-logo-container">
+                    <img class="footer-logo" alt="Logo do dataWASHES API"
+                        src="{{ url_for('static', filename='images/logo.png') }}">
+                </div>
+            </div>
+        </footer>
     </body>
 </html>
