@@ -76,7 +76,6 @@ nav li .nav-link:hover {
     width: auto;
     height: 55px;
     display: block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
 }
 
 /* Hamburger Menu for Mobile */
