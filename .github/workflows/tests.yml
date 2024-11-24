@@ -1,12 +1,13 @@
 name: Continuous Integration Tests
 
-on: 
+on:
   push:
     branches:
       - feature/*
   pull_request:
     branches:
       - develop
+      - main
 
 jobs:
   build-execute-test:
@@ -16,11 +17,11 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v3
 
-          - name: Set up Python 
+          - name: Set up Python
             uses: actions/setup-python@v3
             with:
               python-version: '3.10'
-            
+
           - name: Install ODBC and SQL Server drivers
             run: |
               sudo apt-get update
@@ -30,14 +31,20 @@ jobs:
           - name: Install dependencies
             run: |
               python -m pip install --upgrade pip
-              pip install -r requirements.txt
-              
+              pip install -r requirements.txt pytest pytest-cov
+
           - name: Start API server
             run: |
               python src/app.py &  
               sleep 5
-              
-          - name: Run tests
+
+          - name: Run tests with coverage
             id: running-test
             run: |
-              python -m pytest -v
+              pytest --cov=src --cov-report=term-missing -v
+
+          - name: Save coverage report as artifact
+            uses: actions/upload-artifact@v3
+            with:
+              name: coverage-report
+              path: .coverage
