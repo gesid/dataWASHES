@@ -4,15 +4,26 @@ body {
     color: #353535;
 }
 
+canvas {
+    width: 100%;
+}
+
+#dash-title {
+    font-size: xx-large;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
 .dashboard {
     width: 90vw;
+    margin-left: 2.5vw;
 }
 
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 20px 20px;
+    gap: 50px 50px;
     grid-auto-flow: row;
     grid-template-areas:
         "artigos_por_edicao artigos_por_idioma"
@@ -24,38 +35,53 @@ body {
         "artigos_por_categorias artigos_por_categorias";
 }
 
-.container > div {
+.artigos_premiados {
+    grid-area: artigos_premiados;
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
 }
 
-.artigos_premiados {
-    grid-area: artigos_premiados;
-}
-
 .artigos_por_edicao {
     grid-area: artigos_por_edicao;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .artigos_por_idioma {
     grid-area: artigos_por_idioma;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .ranking_instituicoes {
     grid-area: ranking_instituicoes;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .ranking_autore {
     grid-area: ranking_autore;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .nuvem_palavras {
     grid-area: nuvem_palavras;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .artigos_por_estado {
     grid-area: artigos_por_estado;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .artigos_por_categorias {
@@ -79,3 +105,97 @@ body {
     margin-top: 5px;
     cursor: pointer;
 }
+
+.paper-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.paper-table thead {
+    text-align: left;
+    background: linear-gradient(to right, #0078D0, #0595FD);;
+    padding: 10px;
+    height: 50px;
+    border: 0px solid #FFFFFF;
+    font-size: large;
+}
+
+.paper-table thead tr {
+    border-bottom: 0px solid #FFFFFF;
+}
+
+.paper-table th {
+    color: #FFFFFF;
+    text-align: center;
+    width: 40%;
+}
+
+.paper-table td {
+    text-align: center;
+    padding: 10px;
+}
+
+.paper-table tr {
+    border-bottom: 2px solid #0595FD;
+}
+
+.paper-table th td {
+    padding: 10px 15px;
+}
+
+.paper-table td:nth-child(2) {
+    width: 40%;
+    border-left: 2px solid rgba(0, 0, 0, .5);
+    border-right: 2px solid rgba(0, 0, 0, .5);
+}
+
+.paper-table td:nth-child(3) {
+    width: 20%;
+}
+
+.donnuts {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px 20px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "abordagem objetivo procedimentos"
+    "coleta-de-dados dados-quantitativos dados-qualitativos";
+}
+
+.donnuts > div {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.abordagem {
+    grid-area: abordagem;
+}
+
+.objetivo {
+    grid-area: objetivo;
+}
+
+.procedimentos {
+    grid-area: procedimentos;
+}
+
+.coleta-de-dados {
+    grid-area: coleta-de-dados;
+}
+
+.dados-quantitativos {
+    grid-area: dados-quantitativos;
+}
+
+.dados-qualitativos {
+    grid-area: dados-qualitativos;
+}
+
+.graph-display {
+    position: relative;
+    width: 100%;
+}
+
