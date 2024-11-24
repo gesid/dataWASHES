@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - feature/*
-#  pull_request:
-#    branches:
-#      - develop
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build-execute-test:
