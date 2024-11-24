@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Log conclusion
         run: |
-          echo "Workflow conclusion resulting: ${{ github.event.workflow_run.conclusion }}"
+          echo "Workflow conclusion results: ${{ github.event.workflow_run.conclusion }}"
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -42,12 +42,12 @@ jobs:
         run: |
           echo "Lint e testes completados com sucesso. O código está pronto para revisão e merge."
       
-      - name: Create Pull Request from feature branch to develop
+      - name: Create Pull Request from develop branch to main
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: "Automated PR: Merge feature/* into develop"
+          title: "Automated PR: Merge develop into main"
           body: "Este PR foi automaticamente criado após a conclusão bem-sucedida dos workflows de lint e testes."
-          base: develop
-          branch: ${{ github.head_ref }}
+          base: main
+          branch: develop
           draft: false
