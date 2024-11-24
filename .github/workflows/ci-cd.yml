@@ -12,11 +12,12 @@ jobs:
   merge-check:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: Log conclusion
-    run: |
-      echo "Workflow conclusion result: ${{ github.event.workflow_run.conclusion }}"
 
     steps:
+      - name: Log conclusion
+        run: |
+          echo "Workflow conclusion result: ${{ github.event.workflow_run.conclusion }}"
+
       - name: Checkout code
         uses: actions/checkout@v4
 
