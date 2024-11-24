@@ -14,7 +14,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Log conclusion
     run: |
-      echo "Workflow conclusion: ${{ github.event.workflow_run.conclusion }}"
+      echo "Workflow conclusion result: ${{ github.event.workflow_run.conclusion }}"
 
     steps:
       - name: Checkout code
