@@ -3,7 +3,7 @@ name: CI/CD Workflow
 on:
   workflow_run:
     workflows: 
-      #- Continuous Integration Lint
+      - Continuous Integration Lint
       - Continuous Integration Tests
     types:
       - completed
