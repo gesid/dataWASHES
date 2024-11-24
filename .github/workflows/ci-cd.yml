@@ -12,9 +12,22 @@ jobs:
   merge-check:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: Log conclusion
+    run: |
+      echo "Workflow conclusion: ${{ github.event.workflow_run.conclusion }}"
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Verify if the token is set
+        run: |
+          if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
+            echo "Token is not set!"
+            exit 1
+          else
+            echo "Token is set."
+          fi
       
       - name: Verify Success of Lint and Tests
         run: |
@@ -27,5 +40,5 @@ jobs:
           title: "Automated PR: Merge feature/* into develop"
           body: "Este PR foi automaticamente criado após a conclusão bem-sucedida dos workflows de lint e testes."
           base: develop
-          head: feature/*
+          branch: ${{ github.head_ref }}
           draft: false

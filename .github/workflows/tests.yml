@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - feature/*
-  pull_request:
-    branches:
-      - develop
+#  pull_request:
+#    branches:
+#      - develop
 
 jobs:
   build-execute-test:
@@ -14,10 +14,10 @@ jobs:
 
       steps:
           - name: Checkout code
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
 
           - name: Set up Python
-            uses: actions/setup-python@v3
+            uses: actions/setup-python@v4
             with:
               python-version: '3.10'
 
@@ -30,14 +30,14 @@ jobs:
           - name: Install dependencies
             run: |
               python -m pip install --upgrade pip
-              pip install -r requirements.txt pytest pytest-cov
+              pip install -r requirements.txt
 
           - name: Start API server
             run: |
               python src/app.py &  
               sleep 5
 
-          - name: Run tests with coverage
+          - name: Run tests
             id: running-test
             run: |
-              pytest --cov=src --cov-report=term-missing -v
+              python -m pytest -v
