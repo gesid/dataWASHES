@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python and install dependencies
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
@@ -32,7 +32,7 @@ jobs:
           pylint $(find . -name "*.py") --output-format=parseable > validation_pylint.txt || true
 
       - name: Upload Lint Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pylint-report
           path: validation_pylint.txt
