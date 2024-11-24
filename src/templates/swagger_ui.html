@@ -1,30 +1,6 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>dataWASHES</title>
-    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swagger_ui.css') }}">
-</head>
-
-<body>
-
-    <!-- Navbar -->
-    <nav>
-        <div id="menu-icon" onclick="toggleMenu()">&#9776;</div> <!-- Ícone do menu hambúrguer -->
-        <ul id="navbar">
-            <li id="logo-conteiner">
-                <img id="logo-api" alt="Logo do dataWASHES API"
-                    src="{{ url_for('static', filename='images/logo.png') }}">
-            </li>
-            <li><a href="#motivation">API</a></li>
-            <li><a href="https://youtu.be/KXjFx9ddqPQ" target="_blank">Tutorial</a></li>
-            <li><a href="https://github.com/gesid/dataWASHES/" target="_blank">GitHub</a></li>
-            <li><a href="" target="_blank">Dashboard</a></li>
-            <li><a href="https://sites.google.com/view/washes-series/?authuser=1" target="_blank">WASHES</a></li>
-        </ul>
-    </nav>
+{% extends 'root_layout.html' %}
+{% block content %}
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css"/>
 
     <main>
         <div id="swagger-ui"></div>
@@ -45,7 +21,7 @@
         <hr>
         <h1 id="proposal">Proposal</h1>
         <p>Therefore, we present dataWASHES (<a target="_blank" href="https://github.com/gesid/dataWASHES/">GitHub
-                repository</a>) a <b>public, academic, and open source</b> Application Programming Interface (API)
+            repository</a>) a <b>public, academic, and open source</b> Application Programming Interface (API)
             designed to streamline the programmatic process of gathering data from the WASHES proceedings open available
             at <a target="_blank" href="https://sol.sbc.org.br/index.php/washes">SOL</a>. Hence, by introducing our API,
             in the form of open infrastructure, we aim to provide the community with a convenient tool for
@@ -59,54 +35,16 @@
         <p>See our <a target="_blank" href="https://youtu.be/KXjFx9ddqPQ"> video </a> for a brief
             tutorial/demonstration.</p>
 
-        <!--
-        <p>A key decision for this task was the selection of Flask, a micro web framework written in Python. Flask was chosen for its simplicity and flexibility, which significantly contributed to the ease of development. The development tasks encompassed coding the endpoints, managing requests and responses, integrating with the data source, and ensuring the API’s robustness.</p>
-        
-        <p>The API is designed to facilitate open access to the existing WASHES proceedings data. Following the Representational State Transfer (REST) architecture, our API employed the HTTP protocol for data transmission, effectively functioning as a web service. In this client-server communication paradigm, clients send HTTP requests to our API server and receive encoded data in HTTP responses.</p>
-
-        <p>We structured JSON files to efficiently organize data about papers, authors, and editions. To this end, we first manually organized a collaborative spreadsheet with all required data from WASHES proceedings. Then, we began populating the JSON files. These JSON structures facilitated users' seamless access and retrieval of information through API endpoints, ensuring ease of interaction and utilization.</p>
-        -->
-        <!--
-        <div id="link-card">
-            <div id="image-link-container">
-                <div class="image-link">
-                    <a target="_blank" href="https://gesid.github.io/dataWASHES">
-                        <img src="{{ url_for('static', filename='images/github-logo-2-small.png') }}" alt="GitHub logo">
-                    </a>
-                </div>
-
-                <div class="image-link">
-                    <a target="_blank" href="https://www.instagram.com/washescommunity?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
-                        <img src="{{ url_for('static', filename='images/instagram-logo-small.png') }}" alt="Instagram logo">
-                    </a>
-                </div>
-
-            </div>
-        </div>
-        -->
-
         <hr>
 
         <h1 id="references">References</h1>
         <p>The WASHES proceedings are openly available and well-maintained through SBC OpenLib (<a target="_blank"
-                href="https://sol.sbc.org.br/index.php/washes">SOL</a>). Currently, all documents published in <a
-                target="_blank" href="https://sol.sbc.org.br/index.php/washes">SOL</a> are made available under the
+                                                                                                   href="https://sol.sbc.org.br/index.php/washes">SOL</a>).
+            Currently, all documents published in <a
+                    target="_blank" href="https://sol.sbc.org.br/index.php/washes">SOL</a> are made available under the
             Creative Commons license (CC BY 4.0), allowing for copying and redistribution of the material in any medium
             or format for any purpose.</p>
     </main>
-
-    <footer>
-        <div class="footer-content">
-            <p>
-                <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>
-            </p>
-            <p>&copy; 2024</p>
-            <div class="footer-logo-container">
-                <img class="footer-logo" alt="Logo do dataWASHES API"
-                    src="{{ url_for('static', filename='images/logo.png') }}">
-            </div>
-        </div>
-    </footer>
 
     <script src="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui-standalone-preset.js"></script>
     <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" crossorigin></script>
@@ -131,7 +69,7 @@
             window.ui = ui
         }
     </script>
-  
+
     <script>
         function toggleMenu() {
             var navbar = document.getElementById("navbar");
@@ -142,6 +80,4 @@
             }
         }
     </script>
-</body>
-
-</html>
+{% endblock %}
