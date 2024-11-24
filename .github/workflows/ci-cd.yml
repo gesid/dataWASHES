@@ -27,5 +27,5 @@ jobs:
           title: "Automated PR: Merge feature/* into develop"
           body: "Este PR foi automaticamente criado após a conclusão bem-sucedida dos workflows de lint e testes."
           base: develop
-          head: feature/*
+          branch: feature/*
           draft: false
