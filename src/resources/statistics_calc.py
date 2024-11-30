@@ -79,7 +79,6 @@ class StatisticsCalc:
             year = edition["Year"]
             publications = len(edition["Papers"])
             publications_by_year.append({"year": year, "publications": publications})
-        print(publications_by_year)
         return publications_by_year
 
     @staticmethod
@@ -89,11 +88,14 @@ class StatisticsCalc:
         paper_db = PaperDB()
         for paper in paper_db:
             keys = paper["Keywords"].split(', ')
-            for key in keys:
-                if key.lower() in key_words:
-                    key_words[key.lower()] += 1
-                elif key != '#':
-                    key_words[key.lower()] = 1
+            for word in keys:
+                for key in word.split():
+                    if key == 'de' or key == 'e':
+                        continue
+                    if key.lower() in key_words:
+                        key_words[key.lower()] += 1
+                    elif key != '#':
+                        key_words[key.lower()] = 1
         sorted_key_words = sorted(
             key_words.items(),
             reverse=True,
@@ -123,3 +125,26 @@ class StatisticsCalc:
             {"language": language, "publications": count}
             for language, count in sorted_languages
         ]
+
+    @staticmethod
+    @memoize
+    def publications_by_years_by_languages() -> dict:
+        editions_db: EditionDB = EditionDB()
+        languages = set()
+        publications_by_lang: list[dict] = []
+        for edition in editions_db:
+            key = edition["Year"]
+            publications_by_lang.append({'year': key})
+            papers_db: PaperDB = PaperDB()
+            papers_db.filter_by_list_of_ids(edition["Papers"])
+            for paper in papers_db:
+                if paper["Language"] not in publications_by_lang[-1]:
+                    publications_by_lang[-1][paper["Language"]] = 1
+                    languages.add(paper["Language"])
+                else:
+                    publications_by_lang[-1][paper["Language"]] += 1
+        print(publications_by_lang)
+        return {
+            'data': publications_by_lang,
+            'langs': list(languages),
+        }

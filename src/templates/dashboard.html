@@ -2,15 +2,8 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/dashboard.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-wordcloud"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo"></script>
-    <script src="https://d3js.org/topojson.v1.min.js"></script>
-    <script src="{{ url_for('static', filename='javascript/graphs_generator.js') }}"></script>
 
-    <header>
-
-    </header>
+    <script type="module" src="{{ url_for('static', filename='javascript/graphs_generator.js') }}"></script>
 
     <main>
         <div class="dashboard">
@@ -24,28 +17,33 @@
                     </div>
                     <table class="paper-table">
                         <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Autores</th>
-                                <th>Link para o artigo</th>
-                            </tr>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autores</th>
+                            <th>Link para o artigo</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Uma Reflexão sobre as Dimensões do Ambiente de Aprendizagem em Organizações de Software</td>
-                                <td>José Jorge Lima Dias Júnior (UFPB)</td>
-                                <td>Link</td>
-                            </tr>
-                            <tr>
-                                <td>Uma Abordagem para a Implementação da Gerência do Fornecedor usando Metodologias Ágeis</td>
-                                <td>Olavo Barbosa (ATI), Rodrigo Pereira dos Santos (UNIRIO) e Davi Viana (UFMA)</td>
-                                <td>Link</td>
-                            </tr>
-                            <tr>
-                                <td>Percepção docente sobre o uso do WhatsApp como ferramenta de comunicação no ensino remoto emergencial</td>
-                                <td>Ivanilse Calderon (UFAM) et al.</td>
-                                <td>Link</td>
-                            </tr>
+                        <tr>
+                            <td>Uma Reflexão sobre as Dimensões do Ambiente de Aprendizagem em Organizações de
+                                Software
+                            </td>
+                            <td>José Jorge Lima Dias Júnior (UFPB)</td>
+                            <td>Link</td>
+                        </tr>
+                        <tr>
+                            <td>Uma Abordagem para a Implementação da Gerência do Fornecedor usando Metodologias Ágeis
+                            </td>
+                            <td>Olavo Barbosa (ATI), Rodrigo Pereira dos Santos (UNIRIO) e Davi Viana (UFMA)</td>
+                            <td>Link</td>
+                        </tr>
+                        <tr>
+                            <td>Percepção docente sobre o uso do WhatsApp como ferramenta de comunicação no ensino
+                                remoto emergencial
+                            </td>
+                            <td>Ivanilse Calderon (UFAM) et al.</td>
+                            <td>Link</td>
+                        </tr>
 
                         </tbody>
                     </table>
@@ -94,48 +92,48 @@
                 </div>
                 <div class="artigos_por_categorias">
                     <div class="donnuts">
-                      <div class="abordagem">
-                          <div class="graph-header">
-                            <span class="title">Artigos por abordagem</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-abordagem"></canvas>
-                      </div>
-                      <div class="objetivo">
-                          <div class="graph-header">
-                            <span class="title">Artigos por objetivo</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-objetivo"></canvas>
-                      </div>
-                      <div class="procedimentos">
-                          <div class="graph-header">
-                            <span class="title">Artigos por procedimentos</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-procedimentos"></canvas>
-                      </div>
-                      <div class="coleta-de-dados">
-                          <div class="graph-header">
-                            <span class="title">Artigos por método de coleta de dados</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-coleta-dados"></canvas>
-                      </div>
-                      <div class="dados-quantitativos">
-                          <div class="graph-header">
-                            <span class="title">Artigos por método de análise de dados quantitativos</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-quantitativos"></canvas>
-                      </div>
-                      <div class="dados-qualitativos">
-                          <div class="graph-header">
-                            <span class="title">Artigos por método de análise de dados qualitativos</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-qualitativos"></canvas>
-                      </div>
+                        <div class="abordagem">
+                            <div class="graph-header">
+                                <span class="title">Artigos por abordagem</span>
+                                <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            </div>
+                            <canvas id="artigos-por-abordagem"></canvas>
+                        </div>
+                        <div class="objetivo">
+                            <div class="graph-header">
+                                <span class="title">Artigos por objetivo</span>
+                                <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            </div>
+                            <canvas id="artigos-por-objetivo"></canvas>
+                        </div>
+                        <div class="procedimentos">
+                            <div class="graph-header">
+                                <span class="title">Artigos por procedimentos</span>
+                                <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            </div>
+                            <canvas id="artigos-por-procedimentos"></canvas>
+                        </div>
+                        <div class="coleta-de-dados">
+                            <div class="graph-header">
+                                <span class="title">Artigos por método de coleta de dados</span>
+                                <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            </div>
+                            <canvas id="artigos-por-coleta-dados"></canvas>
+                        </div>
+                        <div class="dados-quantitativos">
+                            <div class="graph-header">
+                                <span class="title">Artigos por método de análise de dados quantitativos</span>
+                                <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            </div>
+                            <canvas id="artigos-por-quantitativos"></canvas>
+                        </div>
+                        <div class="dados-qualitativos">
+                            <div class="graph-header">
+                                <span class="title">Artigos por método de análise de dados qualitativos</span>
+                                <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            </div>
+                            <canvas id="artigos-por-qualitativos"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,41 +141,66 @@
     </main>
 
     <script>
-        const papers_editions = document.getElementById("artigos-por-edicao")
-        const papers_languages = document.getElementById("artigos-por-idioma")
-        const institutions_ranking = document.getElementById("raking-institutions")
-        const authors_ranking = document.getElementById("raking-authors")
-        const paper_per_approach = document.getElementById("artigos-por-abordagem")
-        const paper_per_objective = document.getElementById("artigos-por-objetivo")
-        const paper_per_procedure = document.getElementById("artigos-por-procedimentos")
-        const paper_per_data_collection = document.getElementById("artigos-por-coleta-dados")
-        const paper_per_quantitative = document.getElementById("artigos-por-quantitativos")
-        const paper_per_qualitative = document.getElementById("artigos-por-qualitativos")
-        const cloud_words = document.getElementById("nuvem-de-palavras")
-        const publications_per_state = document.getElementById("papers_per_state")
+        document.addEventListener("DOMContentLoaded", () => {
+            const papers_editions = document.getElementById("artigos-por-edicao")
+            const papers_languages = document.getElementById("artigos-por-idioma")
+            const institutions_ranking = document.getElementById("raking-institutions")
+            const authors_ranking = document.getElementById("raking-authors")
+            const paper_per_approach = document.getElementById("artigos-por-abordagem")
+            const paper_per_objective = document.getElementById("artigos-por-objetivo")
+            const paper_per_procedure = document.getElementById("artigos-por-procedimentos")
+            const paper_per_data_collection = document.getElementById("artigos-por-coleta-dados")
+            const paper_per_quantitative = document.getElementById("artigos-por-quantitativos")
+            const paper_per_qualitative = document.getElementById("artigos-por-qualitativos")
+            const cloud_words = document.getElementById("nuvem-de-palavras")
+            const publications_per_state = document.getElementById("papers_per_state")
 
-        insert_horizontal_bar_chart(papers_editions, {
-            'labels': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
-            'data': [65, 59, 80, 81, 56, 55, 40, 32, 32],
+
+            const authors = {{ statistics.authors_rank()[:10] | tojson }};
+            insert_horizontal_bar_chart(authors_ranking, {
+                'labels': authors.map(author => author.Name),
+                'data': authors.map(author => author.Papers.length),
+                'rank': true,
+            })
+
+            const editions = {{ statistics.publications_by_years()[:10] | tojson }}
+            insert_horizontal_bar_chart(papers_editions, {
+                'labels': editions.map(edition => edition.year),
+                'data': editions.map(edition => edition.publications),
+            })
+
+            const institutions = {{ statistics.institution_rank()[:10] | tojson }}
+            insert_horizontal_bar_chart(institutions_ranking, {
+                'labels': institutions.map(institution => institution.institution),
+                'data': institutions.map(institution => institution.publications),
+                'rank': true,
+            })
+
+            const words = {{ statistics.keywords_cloud()[:20] | tojson }}
+            insert_cloud_word_chart(cloud_words, {
+                'labels': words.map(word => word.keyword),
+                'data': words.map(word => (parseInt(word.count) * 10)),
+            })
+
+            const states = {{ statistics.states_rank() | tojson }}
+            insert_brazil_map_chart(publications_per_state, states.reduce((acc, item) => {
+                acc[item.state] = item.publications;
+                return acc;
+            }, {}))
+
+            const languages = {{ statistics.publications_by_years_by_languages() | tojson }}
+            insert_line_chart(papers_languages, {
+                'labels': languages.data.map(language => language.year),
+                'langs': languages.langs,
+                'data': languages.data,
+            })
+
+            insert_radar_chart(paper_per_approach)
+            insert_radar_chart(paper_per_objective)
+            insert_radar_chart(paper_per_procedure)
+            insert_radar_chart(paper_per_data_collection)
+            insert_radar_chart(paper_per_quantitative)
+            insert_radar_chart(paper_per_qualitative)
         })
-        insert_horizontal_bar_chart(institutions_ranking, {
-            'labels': ['UFCA', 'UFRJ', 'UFC', 'UNIRO', 'IFCE', 'UFMA', 'UFPE', 'UFAC'],
-            'data': [16, 14, 11, 8, 8, 6, 4, 2],
-            'rank': true,
-        })
-        insert_horizontal_bar_chart(authors_ranking, {
-            'labels': ['João', 'Pedro', 'Henrique', 'Matheus', 'Fernando', 'Rafael'],
-            'data': [10, 6, 4, 3, 3, 2],
-            'rank': true,
-        })
-        insert_line_chart(papers_languages)
-        insert_doughnut_chart(paper_per_approach)
-        insert_doughnut_chart(paper_per_objective)
-        insert_doughnut_chart(paper_per_procedure)
-        insert_doughnut_chart(paper_per_data_collection)
-        insert_doughnut_chart(paper_per_quantitative)
-        insert_doughnut_chart(paper_per_qualitative)
-        insert_cloud_word_chart(cloud_words)
-        insert_brazil_map_chart(publications_per_state)
     </script>
 {% endblock %}
