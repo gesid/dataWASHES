@@ -12,3 +12,6 @@ with open(path.join(DATA_DIR, "papers.json"), "r", encoding="utf8") as papers_fi
 
 with open(path.join(DATA_DIR, "editions.json"), "r", encoding="utf8") as editions_file:
     editions_db = json.load(editions_file)
+
+with open(path.join(DATA_DIR, "award_papers.json"), "r", encoding="utf8") as award_papers_file:
+    award_papers_db = json.load(award_papers_file)

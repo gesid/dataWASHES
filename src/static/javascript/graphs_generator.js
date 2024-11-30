@@ -25,7 +25,7 @@ function insert_horizontal_bar_chart(element, infos) {
                 color.push(week_color)
         }
     }
-    const ticks_data = infos['data'].toSorted()
+    const ticks_data = new Set(infos['data'])
     const data = {
         labels: labels,
         datasets: [{
@@ -57,9 +57,9 @@ function insert_horizontal_bar_chart(element, infos) {
                     },
                     ticks: {
                         callback: function (value, index, ticks) {
-                            const valuesToShow = ticks_data;
-                            return valuesToShow.includes(value) ? value : null;
-                        }
+                            return ticks_data.has(value) ? value : null;
+                        },
+                        stepSize: 1,
                     }
                 },
                 y: {

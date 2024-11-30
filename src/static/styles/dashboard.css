@@ -154,6 +154,32 @@ canvas {
     width: 20%;
 }
 
+.pagination-section {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.pagination-section span {
+    margin-left: 15px;
+
+}
+
+.pag-year-button {
+    background-color: #0595FD;
+    color: #FFFFFF;
+    font-size: 12pt;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
 .donnuts {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

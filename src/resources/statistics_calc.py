@@ -2,9 +2,17 @@ from api_utils import memoize
 from . import EditionDB
 from .author_db import AuthorDB
 from .paper_db import PaperDB
+from .award_papers_db import AwardPapersDB
 
 
 class StatisticsCalc:
+
+    def __init__(self):
+        self.__award_papers = AwardPapersDB()
+
+    @property
+    def award_winning_papers(self) -> list[dict]:
+        return self.__award_papers.data
 
     @staticmethod
     @memoize

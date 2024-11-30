@@ -1,10 +1,12 @@
 {% extends 'root_layout.html' %}
-{% block content %}
+
+{% block header %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/dashboard.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
     <script type="module" src="{{ url_for('static', filename='javascript/graphs_generator.js') }}"></script>
+{% endblock %}
 
+{% block content %}
     <main>
         <div class="dashboard">
             <h1 id="dash-title">Dashboard</h1>
@@ -24,33 +26,36 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Uma Reflexão sobre as Dimensões do Ambiente de Aprendizagem em Organizações de
-                                Software
-                            </td>
-                            <td>José Jorge Lima Dias Júnior (UFPB)</td>
-                            <td>Link</td>
-                        </tr>
-                        <tr>
-                            <td>Uma Abordagem para a Implementação da Gerência do Fornecedor usando Metodologias Ágeis
-                            </td>
-                            <td>Olavo Barbosa (ATI), Rodrigo Pereira dos Santos (UNIRIO) e Davi Viana (UFMA)</td>
-                            <td>Link</td>
-                        </tr>
-                        <tr>
-                            <td>Percepção docente sobre o uso do WhatsApp como ferramenta de comunicação no ensino
-                                remoto emergencial
-                            </td>
-                            <td>Ivanilse Calderon (UFAM) et al.</td>
-                            <td>Link</td>
-                        </tr>
-
+                        {% for edition_papers in statistics.award_winning_papers %}
+                            {% for paper in edition_papers['Papers'] %}
+                                <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
+                                    <td>{{ paper['Title'] }}</td>
+                                    {% if paper['Authors'] | length > 2 %}
+                                        <td>{{ paper['Authors'][0]['Name'] }} <i>et al.</i></td>
+                                    {% elif paper['Authors'] | length == 2 %}
+                                        <td>{{ paper['Authors'][0]['Name'] }} e {{ paper['Authors'][1]['Name'] }}</td>
+                                    {% else %}
+                                        <td>{{ paper['Authors'][0]['Name'] }}</td>
+                                    {% endif %}
+                                    <td><a target="_blank" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
                         </tbody>
                     </table>
+                    <div class="pagination-section">
+                        <span id="before"><</span>
+                        {% for edition in statistics.award_winning_papers %}
+                            <button onclick="paginate_papers_table(this, {{ edition['Year'] }})"
+                                    class="pag-year-button"
+                                    id="button-{{ edition['Year'] }}">{{ edition['Year'] }}</button>
+                        {% endfor %}
+                        <span id="next">>></span>
+                    </div>
                 </div>
                 <div class="artigos_por_edicao">
                     <div class="graph-header">
-                        <span class="title">Artigos por edição</span>
+                        <span class="title">Artigos por ano (edição)</span>
                         <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
                     </div>
                     <canvas id="artigos-por-edicao"></canvas>
@@ -141,7 +146,34 @@
     </main>
 
     <script>
+        let active_edition = 0
+        let active_button = null
+        function paginate_papers_table(button, edition) {
+            if (edition === active_edition) {
+                return
+            }
+
+            const new_tables_lines = document.getElementsByClassName(`paper-from-${edition}`)
+            const old_table_lines = document.getElementsByClassName(`paper-from-${active_edition}`)
+            for (const table_row of old_table_lines) {
+                table_row.style.display = 'none'
+                if (active_button)
+                    active_button.style.backgroundColor = '#0595FD'
+            }
+            for (const table_row of new_tables_lines) {
+                table_row.style.display = ''
+                button.style.backgroundColor = '#2662F0'
+            }
+            active_edition = edition
+            active_button = button
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
+            paginate_papers_table(
+                document.getElementById('button-{{ statistics.award_winning_papers[0]['Year'] }}'),
+                {{ statistics.award_winning_papers[0]['Year'] }}
+            )
+
             const papers_editions = document.getElementById("artigos-por-edicao")
             const papers_languages = document.getElementById("artigos-por-idioma")
             const institutions_ranking = document.getElementById("raking-institutions")
@@ -165,7 +197,7 @@
 
             const editions = {{ statistics.publications_by_years()[:10] | tojson }}
             insert_horizontal_bar_chart(papers_editions, {
-                'labels': editions.map(edition => edition.year),
+                'labels': editions.map((edition, index) => `${edition.year} (${index + 1}°)`),
                 'data': editions.map(edition => edition.publications),
             })
 
