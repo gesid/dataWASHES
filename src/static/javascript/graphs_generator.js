@@ -261,7 +261,7 @@ function insert_brazil_map_chart(element, infos) {
                 datasets: [
                     {
                         label: 'Publicações',
-                        data: states.map((d) => ({feature: d, value: Math.random() * 10})),
+                        data: states.map((d) => ({feature: d, value: infos[d.properties.name] || 0})),
                     }
                 ]
             };
