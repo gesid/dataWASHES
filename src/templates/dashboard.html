@@ -32,22 +32,31 @@
                                 <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
                                     <td>{{ paper['Title'] }}</td>
                                     {% if paper['Authors'] | length > 2 %}
-                                        <td>{{ paper['Authors'][0]['Name'] }} ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                        <td>{{ paper['Authors'][0]['Name'] }}
+                                            ({{ paper['Authors'][0]['Institution_acronym'] }})
                                             <div class="tooltip">
                                                 <i>et al.</i>
                                                 <div class="tooltip-text">
                                                     <ul>
-                                                    {% for author in paper['Authors'][1:] %}
-                                                        <li>{{ author['Name'] }} ({{ author['Institution_acronym'] }})</li>
-                                                    {% endfor %}
+                                                        {% for author in paper['Authors'][1:] %}
+                                                            <li>{{ author['Name'] }}
+                                                                ({{ author['Institution_acronym'] }})
+                                                            </li>
+                                                        {% endfor %}
                                                     </ul>
                                                 </div>
                                             </div>
                                         </td>
                                     {% elif paper['Authors'] | length == 2 %}
-                                        <td>{{ paper['Authors'][0]['Name'] }} ({{ paper['Authors'][0]['Institution_acronym'] }}) e {{ paper['Authors'][1]['Name'] }} ({{ paper['Authors'][1]['Institution_acronym'] }})</td>
+                                        <td>{{ paper['Authors'][0]['Name'] }}
+                                            ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                            e {{ paper['Authors'][1]['Name'] }}
+                                            ({{ paper['Authors'][1]['Institution_acronym'] }})
+                                        </td>
                                     {% else %}
-                                        <td>{{ paper['Authors'][0]['Name'] }} ({{ paper['Authors'][0]['Institution_acronym'] }})</td>
+                                        <td>{{ paper['Authors'][0]['Name'] }}
+                                            ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                        </td>
                                     {% endif %}
                                     <td>{{ paper['Award'] }}</td>
                                     <td><a target="_blank" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
@@ -69,42 +78,87 @@
                 <div class="artigos_por_edicao">
                     <div class="graph-header">
                         <span class="title">Artigos por ano (edição)</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico mostra a quantidade de<br>
+                                artigos publicados em cada edição do<br>
+                                WASHES ao longo dos anos.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="artigos-por-edicao"></canvas>
                 </div>
                 <div class="artigos_por_idioma">
                     <div class="graph-header">
                         <span class="title">Artigos por idioma</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico mostra a evolução do número<br>
+                                de artigos escritos em português e em inglês<br>
+                                ao longo dos anos nas edições do WASHES.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="artigos-por-idioma"></canvas>
                 </div>
                 <div class="ranking_instituicoes">
                     <div class="graph-header">
                         <span class="title">Ranking de instituições</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico mostra um ranking das instituições dos<br>
+                                participantes do WASHES, organizado pela quantidade de<br>
+                                artigos publicados em cada edição do evento. Para cada artigo<br>
+                                foi considerando a instituição do primeiro autor.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="raking-institutions"></canvas>
                 </div>
                 <div class="ranking_autore">
                     <div class="graph-header">
                         <span class="title">Ranking de autores</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico exibe um ranking dos autores com<br>
+                                maior número de artigos publicados nas edições<br>
+                                do WASHES.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="raking-authors"></canvas>
                 </div>
                 <div class="nuvem_palavras">
                     <div class="graph-header">
                         <span class="title">Palavras-chave por edição</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Esta nuvem de palavras destaca as palavras-chave<br>
+                                mais frequentes, considerando todas as edição do<br>
+                                WASHES, extraídas das palavras-chave dos artigos<br>
+                                publicados.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="nuvem-de-palavras"></canvas>
                 </div>
                 <div class="artigos_por_estado">
                     <div class="graph-header">
                         <span class="title">Artigos publicados por estado</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico apresenta a quantidade de artigos<br>
+                                publicados por estado, considerando o estado de<br>
+                                origem do primeiro autor de cada artigo nas edições<br>
+                                do WASHES.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="papers_per_state"></canvas>
                 </div>
@@ -161,6 +215,7 @@
     <script>
         let active_edition = 0
         let active_button = null
+
         function paginate_papers_table(button, edition) {
             if (edition === active_edition) {
                 return
