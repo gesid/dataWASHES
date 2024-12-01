@@ -151,7 +151,6 @@ class StatisticsCalc:
                     languages.add(paper["Language"])
                 else:
                     publications_by_lang[-1][paper["Language"]] += 1
-        print(publications_by_lang)
         return {
             'data': publications_by_lang,
             'langs': list(languages),

@@ -22,6 +22,7 @@
                         <tr>
                             <th>Título</th>
                             <th>Autores</th>
+                            <th>Premiação</th>
                             <th>Link para o artigo</th>
                         </tr>
                         </thead>
@@ -31,12 +32,24 @@
                                 <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
                                     <td>{{ paper['Title'] }}</td>
                                     {% if paper['Authors'] | length > 2 %}
-                                        <td>{{ paper['Authors'][0]['Name'] }} <i>et al.</i></td>
+                                        <td>{{ paper['Authors'][0]['Name'] }} ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                            <div class="tooltip">
+                                                <i>et al.</i>
+                                                <div class="tooltip-text">
+                                                    <ul>
+                                                    {% for author in paper['Authors'][1:] %}
+                                                        <li>{{ author['Name'] }} ({{ author['Institution_acronym'] }})</li>
+                                                    {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
                                     {% elif paper['Authors'] | length == 2 %}
-                                        <td>{{ paper['Authors'][0]['Name'] }} e {{ paper['Authors'][1]['Name'] }}</td>
+                                        <td>{{ paper['Authors'][0]['Name'] }} ({{ paper['Authors'][0]['Institution_acronym'] }}) e {{ paper['Authors'][1]['Name'] }} ({{ paper['Authors'][1]['Institution_acronym'] }})</td>
                                     {% else %}
-                                        <td>{{ paper['Authors'][0]['Name'] }}</td>
+                                        <td>{{ paper['Authors'][0]['Name'] }} ({{ paper['Authors'][0]['Institution_acronym'] }})</td>
                                     {% endif %}
+                                    <td>{{ paper['Award'] }}</td>
                                     <td><a target="_blank" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
                                 </tr>
                             {% endfor %}
@@ -44,13 +57,13 @@
                         </tbody>
                     </table>
                     <div class="pagination-section">
-                        <span id="before"><</span>
+                        <span style="cursor: pointer" onclick="table_before_page()" id="before"><</span>
                         {% for edition in statistics.award_winning_papers %}
                             <button onclick="paginate_papers_table(this, {{ edition['Year'] }})"
                                     class="pag-year-button"
                                     id="button-{{ edition['Year'] }}">{{ edition['Year'] }}</button>
                         {% endfor %}
-                        <span id="next">>></span>
+                        <span style="cursor: pointer" onclick="table_next_page()" id="next">>></span>
                     </div>
                 </div>
                 <div class="artigos_por_edicao">
@@ -166,6 +179,18 @@
             }
             active_edition = edition
             active_button = button
+        }
+
+        function table_next_page() {
+            const e = document.getElementById(`button-${active_edition + 1}`)
+            if (e)
+                paginate_papers_table(e, active_edition + 1)
+        }
+
+        function table_before_page() {
+            const e = document.getElementById(`button-${active_edition - 1}`)
+            if (e)
+                paginate_papers_table(e, active_edition - 1)
         }
 
         document.addEventListener("DOMContentLoaded", () => {

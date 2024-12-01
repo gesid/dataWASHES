@@ -23,7 +23,7 @@ canvas {
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1.3fr 1fr 1fr 1fr;
     gap: 50px 50px;
     grid-auto-flow: row;
     grid-template-areas:
@@ -128,7 +128,6 @@ canvas {
 .paper-table th {
     color: #FFFFFF;
     text-align: center;
-    width: 40%;
 }
 
 .paper-table td {
@@ -144,13 +143,23 @@ canvas {
     padding: 10px 15px;
 }
 
-.paper-table td:nth-child(2) {
+.paper-table td:nth-child(4) {
     width: 40%;
+}
+
+.paper-table td:nth-child(2) {
+    width: 30%;
     border-left: 2px solid rgba(0, 0, 0, .5);
     border-right: 2px solid rgba(0, 0, 0, .5);
 }
 
 .paper-table td:nth-child(3) {
+    width: 10%;
+    border-left: 2px solid rgba(0, 0, 0, .5);
+    border-right: 2px solid rgba(0, 0, 0, .5);
+}
+
+.paper-table td:nth-child(4) {
     width: 20%;
 }
 
@@ -226,3 +235,31 @@ canvas {
     width: 100%;
 }
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip .tooltip-text {
+    text-align: left;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fefefe;
+    color: #333;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    transition: opacity 0.1s, visibility 0.1s;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1000;
+}

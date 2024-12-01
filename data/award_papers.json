@@ -140,5 +140,574 @@
         ]
       }
     ]
+  },
+  {
+    "Year": 2019,
+    "Papers": [
+      {
+        "Paper_id": 31,
+        "Award": "1° Lugar",
+        "Title": "Compreendendo a Evasão em uma Década no Curso Sistemas de Informação à luz de fatores humanos e sociais",
+        "Year": 2019,
+        "Keywords": "Evasão, Curso de Sistemas de Informação, Aspectos Humanos e Sociais",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6406",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Juliana Saraiva",
+            "Institution": "Universidade Federal da Paraíba (UFPB)",
+            "Institution_acronym": "UFPB",
+            "State": "PB",
+            "Author_id": 101
+          },
+          {
+            "Name": "Vanessa Dantas",
+            "Institution": "Universidade Federal da Paraíba (UFPB)",
+            "Institution_acronym": "UFPB",
+            "State": "PB",
+            "Author_id": 102
+          },
+          {
+            "Name": "Amanda Rodrigues",
+            "Institution": "Universidade Federal da Paraíba (UFPB)",
+            "Institution_acronym": "UFPB",
+            "State": "PB",
+            "Author_id": 103
+          }
+        ]
+      },
+      {
+        "Paper_id": 35,
+        "Award": "2° Lugar",
+        "Title": "Internalização de novos membros em equipes de desenvolvimento de software: benefícios e limitações",
+        "Year": 2019,
+        "Keywords": "Internalização, Cultura Organizacional, integração, host, engenharia de software, equipes de desenvolvimento.",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6410",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Patrícia Cristina Moser",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 116
+          },
+          {
+            "Name": "Joelson Isidro da Silva Araujo",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 117
+          },
+          {
+            "Name": "Everton Renne Barros de Oliveira",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 118
+          },
+          {
+            "Name": "Henrique Santos Ferreira",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 119
+          },
+          {
+            "Name": "Christiane Pereira",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 120
+          }
+        ]
+      },
+      {
+        "Paper_id": 36,
+        "Award": "3° Lugar",
+        "Title": "Um Estudo sobre Turnover em Empresas de TI Embarcadas no Porto Digital de Recife",
+        "Year": 2019,
+        "Keywords": "Turnover, Empresas de TI",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6411",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Cleidiane Normando Nunes",
+            "Institution": "Softex Recife",
+            "Institution_acronym": "Softex Recife",
+            "State": "PE",
+            "Author_id": 121
+          },
+          {
+            "Name": "Ivaldir de Farias Junior",
+            "Institution": "Universidade de Pernambuco (UPE)",
+            "Institution_acronym": "UPE",
+            "State": "PE",
+            "Author_id": 122
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Year": 2020,
+    "Papers": [
+      {
+        "Paper_id": 39,
+        "Award": "1° Lugar",
+        "Title": "Uso da Netnografia para a Geração de Personas e Requisitos para Sistemas com foco em pessoas com Transtorno do Espectro Autista: Um Relato de Experiência",
+        "Year": 2020,
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/11192",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Anna Beatriz Marques",
+            "Institution": "Universidade Federal do Ceará (Campus de Russas)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 128
+          },
+          {
+            "Name": "Gabriel Aires",
+            "Institution": "Universidade Federal do Ceará (Campus de Russas)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 129
+          }
+        ]
+      },
+      {
+        "Paper_id": 41,
+        "Award": "2° Lugar",
+        "Title": "Projetando a Usabilidade e a Experiência do Usuário com a Técnica UXUG-AP: um Estudo Exploratório",
+        "Year": 2020,
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/11194",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Aline Sousa",
+            "Institution": "Departamento de Informática –Universidade Federal do Paraná (UFPR)",
+            "Institution_acronym": "UFPR",
+            "State": "PR",
+            "Author_id": 132
+          },
+          {
+            "Name": "Natasha Valentim",
+            "Institution": "Departamento de Informática –Universidade Federal do Paraná (UFPR)",
+            "Institution_acronym": "UFPR",
+            "State": "PR",
+            "Author_id": 133
+          }
+        ]
+      },
+      {
+        "Paper_id": 48,
+        "Award": "3° Lugar",
+        "Title": "O Organizar de Práticas Cooperativas no Contexto de um Ambiente de Estágio em Desenvolvimento de Software",
+        "Year": 2020,
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/11201",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Ariádna Miranda",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 151
+          },
+          {
+            "Name": "Allysson Allex Araújo",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 152
+          },
+          {
+            "Name": "Emanuel Coutinho",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 93
+          },
+          {
+            "Name": "Jerffeson Souza",
+            "Institution": "Universidade Estadual do Ceará(UECE)",
+            "Institution_acronym": "UECE",
+            "State": "CE",
+            "Author_id": 153
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Year": 2021,
+    "Papers": [
+      {
+        "Paper_id": 55,
+        "Award": "1° Lugar",
+        "Title": "Um estudo comparativo na geração de personas de crianças autistas com base em dados reais",
+        "Year": 2021,
+        "Keywords": "Persona, Geração de personas, Avaliação de personas, Transtorno do Espectro Autista, Clusterização",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/15886",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Francisco Luciano Quirino da Silva",
+            "Institution": "Universidade Federal do Ceará (Campus Russas)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 169
+          },
+          {
+            "Name": "Anna Beatriz Marques",
+            "Institution": "Universidade Federal do Ceará (Campus Russas)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 128
+          },
+          {
+            "Name": "Tatiane F. Figueiredo",
+            "Institution": "Universidade Federal do Ceará (Campus Russas)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 170
+          }
+        ]
+      },
+      {
+        "Paper_id": 54,
+        "Award": "2° Lugar",
+        "Title": "Investigando Colaboração em Ecossistemas",
+        "Year": 2021,
+        "Keywords": "Colaboração, Ecossistemas Digitais, Ecossistemas de Software, Ecossistemas de Negócio, Ecossistemas de Inovação",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/15885",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Mariana Pinheiro",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "Institution_acronym": "UNIRIO",
+            "State": "RJ",
+            "Author_id": 149
+          },
+          {
+            "Name": "Luciana Chueri",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "Institution_acronym": "UNIRIO",
+            "State": "RJ",
+            "Author_id": 147
+          },
+          {
+            "Name": "Rodrigo Pereira dos Santos",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "Institution_acronym": "UNIRIO",
+            "State": "RJ",
+            "Author_id": 10
+          }
+        ]
+      },
+      {
+        "Paper_id": 53,
+        "Award": "3° Lugar",
+        "Title": "Um Levantamento de Fatores Humanos e Técnicos em Garantia de Qualidade de Projeto de Software Embarcado Aeronáutico no Brasil",
+        "Year": 2021,
+        "Keywords": "software, qualidade, aviação, normatização, processo",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/15884",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Sarasuaty Yelisetty",
+            "Institution": "Divisão de Ciência da Computação – Instituto Tecnológico de Aeronáutica (ITA)",
+            "Institution_acronym": "ITA",
+            "State": "SP",
+            "Author_id": 165
+          },
+          {
+            "Name": "Lilian Barros",
+            "Institution": "Divisão de Ciência da Computação – Instituto Tecnológico de Aeronáutica (ITA)",
+            "Institution_acronym": "ITA",
+            "State": "SP",
+            "Author_id": 166
+          },
+          {
+            "Name": "Talita Slavov",
+            "Institution": "Instituto de Ciência e Tecnologia – Universidade Federal de São Paulo (UNIFESP)",
+            "Institution_acronym": "UNIFESP",
+            "State": "SP",
+            "Author_id": 167
+          },
+          {
+            "Name": "Johnny Marques",
+            "Institution": "Divisão de Ciência da Computação – Instituto Tecnológico de Aeronáutica (ITA)",
+            "Institution_acronym": "ITA",
+            "State": "SP",
+            "Author_id": 168
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Year": 2022,
+    "Papers": [
+      {
+        "Paper_id": 62,
+        "Award": "1° Lugar",
+        "Title": "Towards Inclusive Software: Accessible Questionnaires for Deaf People",
+        "Year": 2022,
+        "Keywords": "software accessibility, deaf, questionnaires",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/20459",
+        "Language": "en",
+        "Authors": [
+          {
+            "Name": "Débora Maria Barroso Paiva",
+            "Institution": "Faculdade de Computação – Universidade Federal de Mato Grosso do Sul (UFMS)",
+            "Institution_acronym": "UFMS",
+            "State": "MS",
+            "Author_id": 198
+          },
+          {
+            "Name": "Michele dos Santos Soares",
+            "Institution": "Faculdade de Computação – Universidade Federal de Mato Grosso do Sul (UFMS)",
+            "Institution_acronym": "UFMS",
+            "State": "MS",
+            "Author_id": 199
+          },
+          {
+            "Name": "Gênesis Medeiros do Carmo",
+            "Institution": "Faculdade de Computação – Universidade Federal de Mato Grosso do Sul (UFMS)",
+            "Institution_acronym": "UFMS",
+            "State": "MS",
+            "Author_id": 200
+          },
+          {
+            "Name": "Maria Istela Cagnin",
+            "Institution": "Faculdade de Computação – Universidade Federal de Mato Grosso do Sul (UFMS)",
+            "Institution_acronym": "UFMS",
+            "State": "MS",
+            "Author_id": 201
+          }
+        ]
+      },
+      {
+        "Paper_id": 60,
+        "Award": "2° Lugar",
+        "Title": "Programando às cegas: investigando a acessibilidade de ambientes de desenvolvimento de software",
+        "Year": 2022,
+        "Keywords": "acessibilidade, ambientes de desenvolvimento, pessoas cegas",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/20457",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Felipe Lúcio do Nascimento",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 191
+          },
+          {
+            "Name": "Pedro Luis Saraiva Barbosa",
+            "Institution": "Instituto Federal do Ceará (IFCE)",
+            "Institution_acronym": "IFCE",
+            "State": "CE",
+            "Author_id": 192
+          },
+          {
+            "Name": "Windson Viana",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 193
+          }
+        ]
+      },
+      {
+        "Paper_id": 63,
+        "Award": "3° Lugar",
+        "Title": "Análise quali-quantitativa sobre a influência da diversidade na produtividade de equipes ágeis: um estudo na indústria",
+        "Year": 2022,
+        "Keywords": "Diversidade, Metodologias Ágeis, Produtividade, Qualidade",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/20460",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Taianne Valerie Alves Motta",
+            "Institution": "Instituto de Ciências Exatas e Tecnológicas - Universidade Federal de Viçosa (UFV)",
+            "Institution_acronym": "UFV",
+            "State": "MG",
+            "Author_id": 202
+          },
+          {
+            "Name": "Gláucia Braga e Silva",
+            "Institution": "Instituto de Ciências Exatas e Tecnológicas - Universidade Federal de Viçosa (UFV)",
+            "Institution_acronym": "UFV",
+            "State": "MG",
+            "Author_id": 203
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Year": 2023,
+    "Papers": [
+      {
+        "Paper_id": 76,
+        "Award": "1° Lugar",
+        "Title": "Investigando a Percepção de Feedback em Times de Desenvolvimento de Software: Um Estudo Inicial",
+        "Year": 2023,
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/24779",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Adriano de Souza",
+            "Institution": "Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "Institution_acronym": "UFRJ",
+            "State": "RJ",
+            "Author_id": 249
+          },
+          {
+            "Name": "Fernanda dos Santos",
+            "Institution": "Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "Institution_acronym": "UFRJ",
+            "State": "RJ",
+            "Author_id": 250
+          },
+          {
+            "Name": "Lidvaldo dos Santos",
+            "Institution": "Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "Institution_acronym": "UFRJ",
+            "State": "RJ",
+            "Author_id": 251
+          },
+          {
+            "Name": "Patrick Belém",
+            "Institution": "Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "Institution_acronym": "UFRJ",
+            "State": "RJ",
+            "Author_id": 252
+          },
+          {
+            "Name": "Sírius da Silva",
+            "Institution": "Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "Institution_acronym": "UFRJ",
+            "State": "RJ",
+            "Author_id": 253
+          },
+          {
+            "Name": "Adriana Vivacqua",
+            "Institution": "Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "Institution_acronym": "UFRJ",
+            "State": "RJ",
+            "Author_id": 254
+          },
+          {
+            "Name": "Rafael de Mello",
+            "Institution": "Programa de Pós-Graduação em Informática, Instituto de Computação - Universidade Federal do Rio de Janeiro (UFRJ)",
+            "Institution_acronym": "UFRJ",
+            "State": "RJ",
+            "Author_id": 255
+          }
+        ]
+      },
+      {
+        "Paper_id": 71,
+        "Award": "2° Lugar",
+        "Title": "The impact of UX work on communication and collaboration in software startups",
+        "Year": 2023,
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/24774",
+        "Language": "en",
+        "Authors": [
+          {
+            "Name": "Jullia Saad",
+            "Institution": "Federal University of São Carlos",
+            "Institution_acronym": "UFSCar",
+            "State": "SP",
+            "Author_id": 231
+          },
+          {
+            "Name": "Joelma Choma",
+            "Institution": "Federal University of São Carlos",
+            "Institution_acronym": "UFSCar",
+            "State": "SP",
+            "Author_id": 232
+          },
+          {
+            "Name": "Alexandre Alvaro",
+            "Institution": "Federal University of São Carlos",
+            "Institution_acronym": "UFSCar",
+            "State": "SP",
+            "Author_id": 233
+          },
+          {
+            "Name": "Luciana Zaina",
+            "Institution": "Federal University of São Carlos",
+            "Institution_acronym": "UFSCar",
+            "State": "SP",
+            "Author_id": 234
+          }
+        ]
+      },
+      {
+        "Paper_id": 78,
+        "Award": "3° Lugar",
+        "Title": "Brainwriting na elicitação de requisitos para IA confiável",
+        "Year": 2023,
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/24781",
+        "Language": "pt",
+        "Authors": [
+          {
+            "Name": "Francisco Luciano Quirino da Silva",
+            "Institution": "Programa de Pós-Graduação em Computação (PCOMP) – Universidade Federal do Ceará (UFC)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 169
+          },
+          {
+            "Name": "Andréia Libório Sampaio",
+            "Institution": "Programa de Pós-Graduação em Computação (PCOMP) – Universidade Federal do Ceará (UFC)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 260
+          },
+          {
+            "Name": "Carla Ilane Moreira Bezerra",
+            "Institution": "Programa de Pós-Graduação em Computação (PCOMP) – Universidade Federal do Ceará (UFC)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 261
+          },
+          {
+            "Name": "Ingrid Teixeira Monteiro",
+            "Institution": "Programa de Pós-Graduação em Computação (PCOMP) – Universidade Federal do Ceará (UFC)",
+            "Institution_acronym": "UFC",
+            "State": "CE",
+            "Author_id": 262
+          }
+        ]
+      }
+    ]
   }
 ]

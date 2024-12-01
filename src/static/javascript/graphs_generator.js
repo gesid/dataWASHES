@@ -255,7 +255,6 @@ function insert_brazil_map_chart(element, infos) {
         .then(response => response.json())
         .then(geoJson => {
             const states = topojson.feature(geoJson, geoJson.objects.states).features;
-            console.log(states)
             const data = {
                 labels: states.map(s => s.properties.name),
                 datasets: [
