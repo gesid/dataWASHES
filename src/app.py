@@ -3,7 +3,6 @@ from controllers import authors_ns, editions_ns, papers_ns, statistics_ns
 from server import server
 from api_utils import convert_to_csv
 
-
 def main() -> None:
     server.api.add_namespace(editions_ns)
     server.api.add_namespace(papers_ns)
