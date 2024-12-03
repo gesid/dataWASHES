@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_restx import Api  # type: ignore
 from flask_cors import CORS  # type: ignore
-
+import os
 
 class Server:
     def __init__(self):
@@ -27,6 +27,7 @@ class Server:
             doc='/doc/',
         )
 
+
     @property
     def api(self) -> Api:
         return self.__api
@@ -43,8 +44,11 @@ class Server:
     def app(self, value) -> None:
         pass
 
-    def run(self) -> None:
-        self.app.run(debug=True)
+    # def run(self) -> None:
+    #     self.app.run(debug=True)
 
+    def run(self) -> None:
+        port = int(os.environ.get('PORT', 5000))
+        self.app.run(debug=True, host='0.0.0.0', port=port)
 
 server: Server = Server()

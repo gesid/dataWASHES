@@ -20,14 +20,6 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_ref }}
-
-      - name: Check Git status
-        run: |
-          git status
-          git remote -v
-          git branch -a
 
       - name: Verify if the token is set
         run: |
