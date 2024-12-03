@@ -27,7 +27,6 @@ class Server:
             doc='/doc/',
         )
 
-
     @property
     def api(self) -> Api:
         return self.__api
