@@ -5,7 +5,8 @@ flask-swagger-ui==4.11.1
 Werkzeug==3.0.1
 pytest
 requests
-pyodbc==5.1.0
+pyodbc==5.2.0
 Flask-Cors==4.0.1
 pylint
-
+flask-jwt-extended
+psycopg2-binary==2.9.10

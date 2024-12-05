@@ -1,0 +1,1 @@
+SQLALCHEMY_DATABASE_URI  = 'postgresql://postgres.wafwlcigjlybitdwxgbe:washes2024jp@aws-0-sa-east-1.pooler.supabase.com/postgres'

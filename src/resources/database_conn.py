@@ -1,20 +1,32 @@
-from server.instance import Server
-from flask import jsonify
-
+from server.instance import server
+import datetime
 
 class DatabaseConn:
 
     @staticmethod
-    def command(query):
-        server = Server()
+    def command(query, params=None, fetch=True):
         conn = server.getConn()
-        cursor = conn.cursor()
-        cursor.execute(query)
-        rows = cursor.fetchall()
+        try:
+            with conn.cursor() as cur:
+                cur.execute(query, params or {})
+                
+                if not fetch:
+                    conn.commit()
+                    return
 
-        results = [{column_name: column_value for column_name, column_value in
-                    zip([column[0] for column in cursor.description], row)} for row in rows]
+                rows = cur.fetchall()
+                if len(rows) == 0:
+                    return []
 
-        cursor.close()
+                columns = [desc[0] for desc in cur.description]
+                results = [
+                    {
+                        column: (value.isoformat() if isinstance(value, datetime.datetime) else value)
+                        for column, value in zip(columns, row)
+                    }
+                    for row in rows
+                ]
 
-        return jsonify(results)
+                return results
+        except Exception as e:
+            raise Exception(f"Erro ao executar consulta: {str(e)}")

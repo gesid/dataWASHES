@@ -2,6 +2,10 @@ from flask import Flask, render_template
 from flask_restx import Api  # type: ignore
 from flask_cors import CORS  # type: ignore
 import os
+from flask_jwt_extended import JWTManager
+from config import SQLALCHEMY_DATABASE_URI
+from datetime import timedelta
+import psycopg2
 
 class Server:
     def __init__(self):
@@ -17,6 +21,9 @@ class Server:
 
         CORS(self.__app)
         self.__app.config['CORS_HEADERS'] = 'Content-Type'
+        
+        self.__app.config['JWT_SECRET_KEY'] = 'washes_secret_key_2024_!@#erdce2324fwdsvs'
+        self.__app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 
         self.__api = Api(
             self.__app,
@@ -26,6 +33,8 @@ class Server:
                         'Software (WASHES) proceedings.',
             doc='/doc/',
         )
+        
+        self.jwt = JWTManager(self.__app)
 
     @property
     def api(self) -> Api:
@@ -42,6 +51,10 @@ class Server:
     @app.setter
     def app(self, value) -> None:
         pass
+    
+    def getConn(self):
+        conn = psycopg2.connect(SQLALCHEMY_DATABASE_URI)
+        return conn
 
     # def run(self) -> None:
     #     self.app.run(debug=True)

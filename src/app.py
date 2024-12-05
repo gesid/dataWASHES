@@ -1,5 +1,5 @@
 from flask import make_response, render_template
-from controllers import authors_ns, editions_ns, papers_ns, statistics_ns
+from controllers import authors_ns, editions_ns, papers_ns, statistics_ns, administration_ns
 from server import server
 from api_utils import convert_to_csv
 
@@ -8,6 +8,7 @@ def main() -> None:
     server.api.add_namespace(papers_ns)
     server.api.add_namespace(authors_ns)
     server.api.add_namespace(statistics_ns)
+    server.api.add_namespace(administration_ns)
     server.run()
 
 
