@@ -2,19 +2,32 @@ from flask_restx import Resource, Namespace
 from resources.database_conn import DatabaseConn
 import hashlib
 from flask_jwt_extended import create_access_token, jwt_required
-from flask import jsonify, request
+from flask import request
 from datetime import datetime
 from datetime import timedelta
 
 ns = Namespace(name='Administration', path='/administration')
 
-@ns.route("/createusers")
+
+@ns.route("/users")
 class Administration(Resource):
+    @jwt_required()
+    def get(self):
+        query = 'SELECT "UserId", "UserName" FROM public."Users"'
+        results = DatabaseConn.command(query)
+        return results, 200
+    
     @jwt_required()
     def post(self):
         data = request.get_json()
-        username = data.get('username')
-        password = data.get('password')
+        username = data.get('UserName')
+        password = data.get('Password')
+        
+        if not username:
+            return {"message": "Username is required"}, 400
+        
+        if not password:
+            return {"message": "Password is required"}, 400
 
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         query = '''
@@ -24,6 +37,39 @@ class Administration(Resource):
         params = {'username': username, 'password': password}
         DatabaseConn.command(query, params, fetch=False)
         return {"message": "User created"}
+    
+    @jwt_required()
+    def put(self):
+        data = request.get_json()
+        username = data.get('UserName')
+        password = data.get('Password')
+        userId = data.get('UserId')
+        
+        if not password:
+            return {"message": "Password is required"}, 400
+
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        query = '''
+            UPDATE public."Users"
+            SET "UserName" = %(username)s,
+                "Password" = %(password)s
+            WHERE "UserId" = %(userId)s
+        '''
+        params = {'username': username, 'password': password, 'userId': userId}
+        DatabaseConn.command(query, params, fetch=False)
+        return {"message": "User updated"}
+    
+    @jwt_required()
+    def delete(self):
+        data = request.get_json()
+        userId = data.get('UserId')
+        
+        query = '''
+            DELETE FROM public."Users" WHERE "UserId" = %(userId)s
+        '''
+        params = {'userId': userId}
+        DatabaseConn.command(query, params, fetch=False)
+        return {"message": "User deleted"}
     
 @ns.route("/login")
 class Administration(Resource):
