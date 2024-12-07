@@ -1,16 +1,27 @@
-import {Chart, registerables} from "https://esm.sh/chart.js";
-import {WordCloudController, WordElement} from "https://esm.sh/chartjs-chart-wordcloud";
+import {Chart, registerables} from 'https://esm.sh/chart.js@4.4.6';
+import {WordCloudController, WordElement} from 'https://esm.sh/chartjs-chart-wordcloud@4.4.4';
 import {
     topojson,
     ChoroplethController,
+    ChoroplethChart,
     GeoFeature,
     ProjectionScale,
     ColorScale,
-} from "https://esm.sh/chartjs-chart-geo";
+} from 'https://esm.sh/chartjs-chart-geo@4.3.4';
+
 
 Chart.register(WordCloudController, WordElement, ChoroplethController, GeoFeature, ProjectionScale, ColorScale, ...registerables);
 
-const BRAZIL_GEOJASON = "static/javascript/geo_info_Brazil/br-states.min.json"
+
+const BRAZIL_GEOJSON_PATH = 'static/javascript/geo_info_Brazil/br-states.min.json'
+let brazil_geoJSON = null
+
+async function loadGeoJSON() {
+    if (!brazil_geoJSON) {
+        const file = await fetch(BRAZIL_GEOJSON_PATH)
+        brazil_geoJSON = await file.json()
+    }
+}
 
 function insert_horizontal_bar_chart(element, infos) {
     const labels = infos['labels'];
@@ -215,19 +226,19 @@ function insert_radar_chart(element, infos) {
 
 function insert_cloud_word_chart(element, infos) {
     const config = {
-        type: 'wordCloud',
+        type: "wordCloud",
         data: {
             labels: infos['labels'],
             datasets: [
                 {
-                    label: 'Frequência',
+                    label: '',
                     data: infos['data'],
                 },
             ],
         },
         options: {
             responsive: false,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             plugins: {
                 legend: {
                     display: false
@@ -241,7 +252,7 @@ function insert_cloud_word_chart(element, infos) {
                         const colors = ['#003D6A', '#22CBE4', '#2662F0', '#333333'];
                         return colors[ctx.index % colors.length];
                     },
-
+                    padding: 5,
                 }
             }
         },
@@ -251,47 +262,45 @@ function insert_cloud_word_chart(element, infos) {
 }
 
 function insert_brazil_map_chart(element, infos) {
-    fetch(BRAZIL_GEOJASON)
-        .then(response => response.json())
-        .then(geoJson => {
-            const states = topojson.feature(geoJson, geoJson.objects.states).features;
-            const data = {
-                labels: states.map(s => s.properties.name),
-                datasets: [
-                    {
-                        label: 'Publicações',
-                        data: states.map((d) => ({feature: d, value: infos[d.properties.name] || 0})),
-                    }
-                ]
-            };
-            const config = {
-                type: 'choropleth',
-                data: data,
-                options: {
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                    },
-                    scales: {
-                        projection: {
-                            axis: 'x',
-                            projection: 'geoMercator',
-                            projectionScale: 8,
-                            projectionOffset: [320, -100],
-                        },
-                        color: {
-                            axis: 'x',
-                            legend: {
-                                position: 'center-right',
-                            },
-                        }
-                    },
+    loadGeoJSON().then(geoJson => {
+        const states = topojson.feature(brazil_geoJSON, brazil_geoJSON.objects.states).features;
+        const data = {
+            labels: states.map(s => s.properties.name),
+            datasets: [
+                {
+                    label: 'Publicações',
+                    data: states.map((d) => ({feature: d, value: infos[d.properties.name] || 0})),
                 }
-            };
+            ]
+        };
+        const config = {
+            type: ChoroplethController.id,
+            data: data,
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                },
+                scales: {
+                    projection: {
+                        axis: 'x',
+                        projection: 'geoMercator',
+                        projectionScale: 8,
+                        projectionOffset: [320, -100],
+                    },
+                    color: {
+                        axis: 'x',
+                        legend: {
+                            position: 'center-right',
+                        },
+                    }
+                },
+            }
+        };
 
-            new Chart(element, config);
-        })
+        new ChoroplethChart(element.getContext('2d'), config);
+    })
 }
 
 window.insert_horizontal_bar_chart = insert_horizontal_bar_chart;

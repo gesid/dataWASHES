@@ -98,7 +98,7 @@ class StatisticsCalc:
             keys = paper["Keywords"].split(', ')
             for word in keys:
                 for key in word.split():
-                    if key == 'de' or key == 'e':
+                    if key == 'de' or key == 'e' or key == 'do':
                         continue
                     if key.lower() in key_words:
                         key_words[key.lower()] += 1
