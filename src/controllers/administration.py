@@ -176,7 +176,24 @@ class Administration(Resource):
 class Administration(Resource):
     @jwt_required()
     def get(self):
-        query = 'SELECT * FROM public."Papers"'
+        query = '''
+            SELECT 
+                p.*,
+                    json_agg(json_build_object(
+                        'AuthorId', a."AuthorId",
+                        'Name', a."Name"
+                    ) ORDER BY a."Name"
+                ) AS "Authors"
+            FROM 
+                "Papers" p
+            INNER JOIN 
+                "AuthorPapers" ap ON p."PaperId" = ap."PaperId"
+            INNER JOIN 
+                "Authors" a ON ap."AuthorId" = a."AuthorId"
+            GROUP BY 
+                p."PaperId"
+            ORDER BY p."Year" DESC;
+        '''
         results = DatabaseConn.command(query)
         return results, 200
     
@@ -230,7 +247,7 @@ class Administration(Resource):
         link = data.get('Link')
         references = data.get('References')
         citation = data.get('Citation')
-        obtenDate = data.get('ObtenDate')
+        obtenDate = datetime.utcnow().isoformat()
         editionId = data.get('EditionId')
         paperId = data.get('PaperId')
         
