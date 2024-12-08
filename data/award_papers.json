@@ -4,7 +4,8 @@
     "Papers": [
       {
         "Paper_id": 0,
-        "Title": "Uma Reflexão sobre as Dimensões do Ambiente de Aprendizagem em Organizações de Software",
+        "Award": "1° Lugar",
+        "Title": "[Placeholder]Uma Reflexão sobre as Dimensões do Ambiente de Aprendizagem em Organizações de Software",
         "Keywords": "treinamento, organização de software",
         "Type": "Short paper",
         "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6224",
@@ -20,7 +21,33 @@
       },
       {
         "Paper_id": 1,
-        "Title": "Análise de Ferramentas para Controle de Versões de Software no Contexto do MPS.BR.",
+        "Award": "2° Lugar",
+        "Title": "[Placeholder]Análise de Ferramentas para Controle de Versões de Software no Contexto do MPS.BR.",
+        "Year": 2016,
+        "Keywords": "gerenciamento de configuração, sistema de controle de versão, MPS.BR",
+        "Type": "Short paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6225",
+        "Authors": [
+          {
+            "Name": "Danne da Silva Oliveira",
+            "Institution": "Instituto de Ciências Exatas - Universidade Federal de Goiás",
+            "Institution_acronym": "UFG",
+            "State": "GO",
+            "Author_id": 1
+          },
+          {
+            "Name": "Heitor Costa",
+            "Institution": "Departamento de Ciência da Computação - Universidade Federal de Lavras",
+            "Institution_acronym": "UFLA",
+            "State": "MG",
+            "Author_id": 2
+          }
+        ]
+      },
+      {
+        "Paper_id": 1,
+        "Award": "3° Lugar",
+        "Title": "[Placeholder]Análise de Ferramentas para Controle de Versões de Software no Contexto do MPS.BR.",
         "Year": 2016,
         "Keywords": "gerenciamento de configuração, sistema de controle de versão, MPS.BR",
         "Type": "Short paper",
@@ -49,7 +76,8 @@
     "Papers": [
       {
         "Paper_id": 15,
-        "Title": "Facing up the primary emotions in Mobile Software Ecosystems from Developer Experience",
+        "Award": "1° Lugar",
+        "Title": "[Placeholder]Facing up the primary emotions in Mobile Software Ecosystems from Developer Experience",
         "Year": 2017,
         "Keywords": "Software ecosystems, mobile application development, mining software repository, developer experience",
         "Type": "Full paper",
@@ -88,7 +116,215 @@
       },
       {
         "Paper_id": 16,
-        "Title": "Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
+        "Award": "2° Lugar",
+        "Title": "[Placeholder]Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
+        "Year": 2017,
+        "Keywords": "Communication, Maturity Models, Distributed Software Development",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6234",
+        "Language": "en",
+        "Authors": [
+          {
+            "Name": "Nelson G. de Sá Leitão Junior",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 55
+          },
+          {
+            "Name": "Ivaldir H. de Farias Junior",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 56
+          },
+          {
+            "Name": "Sabrina Marczak",
+            "Institution": "Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)",
+            "Institution_acronym": "PUCRS",
+            "State": "RS",
+            "Author_id": 57
+          },
+          {
+            "Name": "Rodrigo Santos",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "Institution_acronym": "UNIRIO",
+            "State": "RJ",
+            "Author_id": 54
+          },
+          {
+            "Name": "Felipe Furtado",
+            "Institution": "CESAR School",
+            "Institution_acronym": "Cesar School",
+            "State": "PE",
+            "Author_id": 58
+          },
+          {
+            "Name": "Hermano P. de Moura",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 59
+          }
+        ]
+      },
+      {
+        "Paper_id": 16,
+        "Award": "3° Lugar",
+        "Title": "[Placeholder]Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
+        "Year": 2017,
+        "Keywords": "Communication, Maturity Models, Distributed Software Development",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6234",
+        "Language": "en",
+        "Authors": [
+          {
+            "Name": "Nelson G. de Sá Leitão Junior",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 55
+          },
+          {
+            "Name": "Ivaldir H. de Farias Junior",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 56
+          },
+          {
+            "Name": "Sabrina Marczak",
+            "Institution": "Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)",
+            "Institution_acronym": "PUCRS",
+            "State": "RS",
+            "Author_id": 57
+          },
+          {
+            "Name": "Rodrigo Santos",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "Institution_acronym": "UNIRIO",
+            "State": "RJ",
+            "Author_id": 54
+          },
+          {
+            "Name": "Felipe Furtado",
+            "Institution": "CESAR School",
+            "Institution_acronym": "Cesar School",
+            "State": "PE",
+            "Author_id": 58
+          },
+          {
+            "Name": "Hermano P. de Moura",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 59
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Year": 2018,
+    "Papers": [
+      {
+        "Paper_id": 15,
+        "Award": "1° Lugar",
+        "Title": "[Placeholder]Facing up the primary emotions in Mobile Software Ecosystems from Developer Experience",
+        "Year": 2017,
+        "Keywords": "Software ecosystems, mobile application development, mining software repository, developer experience",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6233",
+        "Language": "en",
+        "Authors": [
+          {
+            "Name": "Awdren Fontão",
+            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "Institution_acronym": "UFAM",
+            "State": "AM",
+            "Author_id": 52
+          },
+          {
+            "Name": "Oswald M. Ekwoge",
+            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "Institution_acronym": "UFAM",
+            "State": "AM",
+            "Author_id": 53
+          },
+          {
+            "Name": "Rodrigo Santos",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "Institution_acronym": "UNIRIO",
+            "State": "RJ",
+            "Author_id": 54
+          },
+          {
+            "Name": "Arilo Claudio Dias-Neto",
+            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "Institution_acronym": "UFAM",
+            "State": "AM",
+            "Author_id": 51
+          }
+        ]
+      },
+      {
+        "Paper_id": 16,
+        "Award": "2° Lugar",
+        "Title": "[Placeholder]Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
+        "Year": 2017,
+        "Keywords": "Communication, Maturity Models, Distributed Software Development",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6234",
+        "Language": "en",
+        "Authors": [
+          {
+            "Name": "Nelson G. de Sá Leitão Junior",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 55
+          },
+          {
+            "Name": "Ivaldir H. de Farias Junior",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 56
+          },
+          {
+            "Name": "Sabrina Marczak",
+            "Institution": "Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)",
+            "Institution_acronym": "PUCRS",
+            "State": "RS",
+            "Author_id": 57
+          },
+          {
+            "Name": "Rodrigo Santos",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "Institution_acronym": "UNIRIO",
+            "State": "RJ",
+            "Author_id": 54
+          },
+          {
+            "Name": "Felipe Furtado",
+            "Institution": "CESAR School",
+            "Institution_acronym": "Cesar School",
+            "State": "PE",
+            "Author_id": 58
+          },
+          {
+            "Name": "Hermano P. de Moura",
+            "Institution": "Universidade Federal de Pernambuco (UFPE)",
+            "Institution_acronym": "UFPE",
+            "State": "PE",
+            "Author_id": 59
+          }
+        ]
+      },
+      {
+        "Paper_id": 16,
+        "Award": "3° Lugar",
+        "Title": "[Placeholder]Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
         "Year": 2017,
         "Keywords": "Communication, Maturity Models, Distributed Software Development",
         "Type": "Full paper",

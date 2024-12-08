@@ -15,7 +15,15 @@
                 <div class="artigos_premiados">
                     <div class="graph-header">
                         <span class="title">Artigos premiados</span>
-                        <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Esta tabela lista os artigos premiados<br>
+                                em cada edição do WASHES, exibindo o título,<br>
+                                autores, posição e um link para acesso aos artigos.
+                            </div>
+                        </div>
                     </div>
                     <table class="paper-table">
                         <thead>
@@ -79,7 +87,8 @@
                     <div class="graph-header">
                         <span class="title">Artigos por ano (edição)</span>
                         <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
                             <div class="tooltip-text">
                                 Este gráfico mostra a quantidade de<br>
                                 artigos publicados em cada edição do<br>
@@ -93,7 +102,8 @@
                     <div class="graph-header">
                         <span class="title">Artigos por idioma</span>
                         <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
                             <div class="tooltip-text">
                                 Este gráfico mostra a evolução do número<br>
                                 de artigos escritos em português e em inglês<br>
@@ -107,7 +117,8 @@
                     <div class="graph-header">
                         <span class="title">Ranking de instituições</span>
                         <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
                             <div class="tooltip-text">
                                 Este gráfico mostra um ranking das instituições dos<br>
                                 participantes do WASHES, organizado pela quantidade de<br>
@@ -122,7 +133,8 @@
                     <div class="graph-header">
                         <span class="title">Ranking de autores</span>
                         <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
                             <div class="tooltip-text">
                                 Este gráfico exibe um ranking dos autores com<br>
                                 maior número de artigos publicados nas edições<br>
@@ -136,7 +148,8 @@
                     <div class="graph-header">
                         <span class="title">Palavras-chave por edição</span>
                         <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
                             <div class="tooltip-text">
                                 Esta nuvem de palavras destaca as palavras-chave<br>
                                 mais frequentes, considerando todas as edição do<br>
@@ -151,7 +164,8 @@
                     <div class="graph-header">
                         <span class="title">Artigos publicados por estado</span>
                         <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
                             <div class="tooltip-text">
                                 Este gráfico apresenta a quantidade de artigos<br>
                                 publicados por estado, considerando o estado<br>
@@ -167,42 +181,48 @@
                         <div class="abordagem">
                             <div class="graph-header">
                                 <span class="title">Artigos por abordagem</span>
-                                <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <img class="info-icon" alt="Ícone de informação"
+                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
                             </div>
                             <canvas id="artigos-por-abordagem"></canvas>
                         </div>
                         <div class="objetivo">
                             <div class="graph-header">
                                 <span class="title">Artigos por objetivo</span>
-                                <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <img class="info-icon" alt="Ícone de informação"
+                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
                             </div>
                             <canvas id="artigos-por-objetivo"></canvas>
                         </div>
                         <div class="procedimentos">
                             <div class="graph-header">
                                 <span class="title">Artigos por procedimentos</span>
-                                <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <img class="info-icon" alt="Ícone de informação"
+                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
                             </div>
                             <canvas id="artigos-por-procedimentos"></canvas>
                         </div>
                         <div class="coleta-de-dados">
                             <div class="graph-header">
                                 <span class="title">Artigos por método de coleta de dados</span>
-                                <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <img class="info-icon" alt="Ícone de informação"
+                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
                             </div>
                             <canvas id="artigos-por-coleta-dados"></canvas>
                         </div>
                         <div class="dados-quantitativos">
                             <div class="graph-header">
                                 <span class="title">Artigos por método de análise de dados quantitativos</span>
-                                <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <img class="info-icon" alt="Ícone de informação"
+                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
                             </div>
                             <canvas id="artigos-por-quantitativos"></canvas>
                         </div>
                         <div class="dados-qualitativos">
                             <div class="graph-header">
                                 <span class="title">Artigos por método de análise de dados qualitativos</span>
-                                <img class="info-icon" alt="Ícone de informação" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <img class="info-icon" alt="Ícone de informação"
+                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
                             </div>
                             <canvas id="artigos-por-qualitativos"></canvas>
                         </div>
@@ -267,6 +287,18 @@
             const cloud_words = document.getElementById("nuvem-de-palavras")
             const publications_per_state = document.getElementById("papers_per_state")
 
+            const editions = {{ statistics.publications_by_years()[:10] | tojson }}
+            insert_horizontal_bar_chart(papers_editions, {
+                'labels': editions.map((edition, index) => `${edition.year} (${index + 1}°)`),
+                'data': editions.map(edition => edition.publications),
+            })
+
+            const languages = {{ statistics.publications_by_years_by_languages() | tojson }}
+            insert_line_chart(papers_languages, {
+                'labels': languages.data.map(language => language.year),
+                'langs': languages.langs,
+                'data': languages.data,
+            })
 
             const authors = {{ statistics.authors_rank()[:10] | tojson }};
             insert_horizontal_bar_chart(authors_ranking, {
@@ -275,24 +307,11 @@
                 'rank': true,
             })
 
-            const editions = {{ statistics.publications_by_years()[:10] | tojson }}
-            insert_horizontal_bar_chart(papers_editions, {
-                'labels': editions.map((edition, index) => `${edition.year} (${index + 1}°)`),
-                'data': editions.map(edition => edition.publications),
-            })
-
             const institutions = {{ statistics.institution_rank()[:10] | tojson }}
             insert_horizontal_bar_chart(institutions_ranking, {
                 'labels': institutions.map(institution => institution.institution),
                 'data': institutions.map(institution => institution.publications),
                 'rank': true,
-            })
-
-            const languages = {{ statistics.publications_by_years_by_languages() | tojson }}
-            insert_line_chart(papers_languages, {
-                'labels': languages.data.map(language => language.year),
-                'langs': languages.langs,
-                'data': languages.data,
             })
 
             insert_radar_chart(paper_per_approach)
