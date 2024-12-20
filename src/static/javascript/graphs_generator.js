@@ -88,6 +88,70 @@ function insert_horizontal_bar_chart(element, infos) {
     new Chart(element, config)
 }
 
+function insert_vertical_bar_chart(element, infos) {
+    const labels = infos['labels'];
+    let color = ['rgba(5, 149, 253)']
+    if (infos['rank']) {
+        let rank_color = color[0]
+        let week_color = 'rgba(5, 149, 253, .5)'
+        for (let i = 1; i < infos['labels'].length; i++) {
+            if (i <= 2)
+                color.push(rank_color)
+            else
+                color.push(week_color)
+        }
+    }
+    const ticks_data = new Set(infos['data'])
+    const data = {
+        labels: labels,
+        datasets: [{
+            axis: 'y',
+            label: '',
+            data: infos['data'],
+            fill: false,
+            backgroundColor: color,
+            borderWidth: 0,
+        }]
+    };
+    const config = {
+        type: 'bar',
+        data,
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+            },
+            scales: {
+                y: {
+                    grid: {
+                        display: true
+                    },
+                    border: {
+                        display: false,
+                    },
+                    ticks: {
+                        callback: function (value, index, ticks) {
+                            return ticks_data.has(value) ? value : null;
+                        },
+                        stepSize: 1,
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    border: {
+                        width: 2,
+                        color: 'rgb(0, 0, 0)'
+                    },
+                },
+            },
+        }
+    };
+    new Chart(element, config)
+}
+
 function insert_line_chart(element, infos) {
     const bg_colors = ['rgba(5, 149, 253)', '#2662F0']
     const data = {
@@ -202,6 +266,16 @@ function insert_radar_chart(element, infos) {
                 legend: {
                     display: false
                 },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            const label = tooltipItem.label || '';
+                            const value = tooltipItem.raw || '';
+
+                            return `${label}: ${value}`;
+                        }
+                    },
+                }
             },
             elements: {
                 line: {
@@ -309,3 +383,4 @@ window.insert_doughnut_chart = insert_doughnut_chart;
 window.insert_cloud_word_chart = insert_cloud_word_chart;
 window.insert_brazil_map_chart = insert_brazil_map_chart;
 window.insert_radar_chart = insert_radar_chart;
+window.insert_vertical_bar_chart = insert_vertical_bar_chart;

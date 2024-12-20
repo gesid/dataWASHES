@@ -146,7 +146,7 @@
                 </div>
                 <div class="nuvem_palavras">
                     <div class="graph-header">
-                        <span class="title">Palavras-chave por edição</span>
+                        <span class="title">Palavras-chave das edições</span>
                         <div class="tooltip">
                             <img class="info-icon" alt="Ícone de informação"
                                  src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -288,14 +288,14 @@
             const publications_per_state = document.getElementById("papers_per_state")
 
             const editions = {{ statistics.publications_by_years()[:10] | tojson }}
-            insert_horizontal_bar_chart(papers_editions, {
+            insert_vertical_bar_chart(papers_editions, {
                 'labels': editions.map((edition, index) => `${edition.year} (${index + 1}°)`),
                 'data': editions.map(edition => edition.publications),
             })
 
             const languages = {{ statistics.publications_by_years_by_languages() | tojson }}
             insert_line_chart(papers_languages, {
-                'labels': languages.data.map(language => language.year),
+                'labels': languages.data.map((language, index) => `${language.year} (${index + 1}°)`),
                 'langs': languages.langs,
                 'data': languages.data,
             })
