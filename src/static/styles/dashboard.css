@@ -2,6 +2,8 @@ body {
     background-color: #F5F5F5;
     font-family: "Poppins", sans-serif;
     color: #353535;
+    overflow-x: hidden;
+
 }
 
 canvas {
@@ -246,7 +248,7 @@ canvas {
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    top: 100%;
+    top: 90%;
     left: 50%;
     transform: translateX(-50%);
     background-color: #fefefe;

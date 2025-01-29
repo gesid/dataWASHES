@@ -1,5 +1,5 @@
-import {Chart, registerables} from 'https://esm.sh/chart.js@4.4.6';
-import {WordCloudController, WordElement} from 'https://esm.sh/chartjs-chart-wordcloud@4.4.4';
+import {Chart, registerables} from 'https://esm.sh/chart.js';
+import {WordCloudController, WordElement} from 'https://esm.sh/chartjs-chart-wordcloud';
 import {
     topojson,
     ChoroplethController,
@@ -7,7 +7,7 @@ import {
     GeoFeature,
     ProjectionScale,
     ColorScale,
-} from 'https://esm.sh/chartjs-chart-geo@4.3.4';
+} from 'https://esm.sh/chartjs-chart-geo';
 
 
 Chart.register(WordCloudController, WordElement, ChoroplethController, GeoFeature, ProjectionScale, ColorScale, ...registerables);
@@ -203,25 +203,25 @@ function insert_line_chart(element, infos) {
 
 function insert_doughnut_chart(element, infos) {
     const data = {
-        labels: [
-            'estatística descritiva',
-            'regressão logística',
-            'regressão linear',
-            'análise de conteúdo',
-            'análise de discurso',
-            'análise temática',
-            'Quantitativa',
-            'Qualitativa',
-        ],
+        labels: infos['labels'],
         datasets: [{
-            label: 'My First Dataset',
-            data: [300, 250, 200, 140, 100, 100, 20, 50],
+            label: '',
+            data: infos['data'],
             backgroundColor: [
-                '#003D6A',
-                '#22CBE4',
-                '#2662F0'
+                "#003D6A",
+                "#22CBE4",
+                "#2662F0",
+                "#005D94",
+                "#1A9BC6",
+                "#478BF4",
+                "#004E7F",
+                "#00A0C8",
+                "#1E5FB8",
+                "#3399FF",
+                "#004B85",
+                "#008DBD"
             ],
-            hoverOffset: 4
+            hoverOffset: 6
         }]
     }
     const config = {
@@ -229,6 +229,21 @@ function insert_doughnut_chart(element, infos) {
         data: data,
         options: {
             cutout: '60%',
+            responsive: false,
+            maintainAspectRatio: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            const data_sum = infos['data'].reduce((acc, value) => acc + value, 0)
+                            const label = tooltipItem.label || '';
+                            const value = tooltipItem.raw || '';
+
+                            return `${label}: ${value} (${(value / data_sum) * 100 | 0}%)`;
+                        }
+                    },
+                }
+            },
         },
     }
     new Chart(element, config)
@@ -236,20 +251,11 @@ function insert_doughnut_chart(element, infos) {
 
 function insert_radar_chart(element, infos) {
     const data = {
-        labels: [
-            'estatística descritiva',
-            'regressão logística',
-            'regressão linear',
-            'análise de conteúdo',
-            'análise de discurso',
-            'análise temática',
-            'Quantitativa',
-            'Qualitativa',
-        ],
+        labels: infos['labels'],
         datasets: [{
-            label: 'My First Dataset',
+            label: '',
             fill: true,
-            data: [300, 250, 100, 190, 120, 100, 150, 50],
+            data: infos['data'],
             backgroundColor: 'rgba(38, 98, 240, .2)',
             borderColor: 'rgb(38, 98, 240)',
             pointBackgroundColor: '#2662F0',
@@ -284,7 +290,7 @@ function insert_radar_chart(element, infos) {
             },
             scales: {
                 r: {
-                    beginAtZero: true,
+                    beginAtZero: false,
                     pointLabels: { // Configurações dos rótulos das categorias
                         font: {
                             size: 11 // Define o tamanho da fonte (em pixels)

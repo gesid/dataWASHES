@@ -21,7 +21,7 @@
                             <div class="tooltip-text">
                                 Esta tabela lista os artigos premiados<br>
                                 em cada edição do WASHES, exibindo o título,<br>
-                                autores, posição e um link para acesso aos artigos.
+                                autores, premiação e um link para acesso aos artigos.
                             </div>
                         </div>
                     </div>
@@ -74,13 +74,13 @@
                         </tbody>
                     </table>
                     <div class="pagination-section">
-                        <span style="cursor: pointer" onclick="table_before_page()" id="before"><</span>
+                        <!-- <span style="cursor: pointer" onclick="table_before_page()" id="before"><</span> -->
                         {% for edition in statistics.award_winning_papers %}
                             <button onclick="paginate_papers_table(this, {{ edition['Year'] }})"
                                     class="pag-year-button"
                                     id="button-{{ edition['Year'] }}">{{ edition['Year'] }}</button>
                         {% endfor %}
-                        <span style="cursor: pointer" onclick="table_next_page()" id="next">>></span>
+                        <!-- <span style="cursor: pointer" onclick="table_next_page()" id="next">>></span> -->
                     </div>
                 </div>
                 <div class="artigos_por_edicao">
@@ -146,7 +146,7 @@
                 </div>
                 <div class="nuvem_palavras">
                     <div class="graph-header">
-                        <span class="title">Palavras-chave das edições</span>
+                        <span class="title">Nuvem de palavras-chave dos artigos publicado</span>
                         <div class="tooltip">
                             <img class="info-icon" alt="Ícone de informação"
                                  src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -162,7 +162,7 @@
                 </div>
                 <div class="artigos_por_estado">
                     <div class="graph-header">
-                        <span class="title">Artigos publicados por estado</span>
+                        <span class="title">Quantidade de artigos publicados por estado</span>
                         <div class="tooltip">
                             <img class="info-icon" alt="Ícone de informação"
                                  src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -176,53 +176,103 @@
                     </div>
                     <canvas id="papers_per_state"></canvas>
                 </div>
+
                 <div class="artigos_por_categorias">
                     <div class="donnuts">
                         <div class="abordagem">
                             <div class="graph-header">
                                 <span class="title">Artigos por abordagem</span>
-                                <img class="info-icon" alt="Ícone de informação"
-                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        por abordagem: <b>qualitativa</b>, que explora<br>
+                                        significados e contextos; <b>quantitativa</b>, baseada<br>
+                                        em dados numéricos e estatísticas; e <b>mista</b>, que<br>
+                                        combina ambas para uma análise mais abrangente.
+                                    </div>
+                                </div>
                             </div>
                             <canvas id="artigos-por-abordagem"></canvas>
                         </div>
                         <div class="objetivo">
                             <div class="graph-header">
                                 <span class="title">Artigos por objetivo</span>
-                                <img class="info-icon" alt="Ícone de informação"
-                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        segundo seus objetivos, indicando como cada<br>
+                                        estudo foi estruturado para alcançar seus propósitos.
+                                    </div>
+                                </div>
                             </div>
                             <canvas id="artigos-por-objetivo"></canvas>
                         </div>
                         <div class="procedimentos">
                             <div class="graph-header">
                                 <span class="title">Artigos por procedimentos</span>
-                                <img class="info-icon" alt="Ícone de informação"
-                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        conforme seus procedimentos, destacando<br>
+                                        as metodologias utilizadas para conduzir os estudos
+                                    </div>
+                                </div>
                             </div>
                             <canvas id="artigos-por-procedimentos"></canvas>
                         </div>
                         <div class="coleta-de-dados">
                             <div class="graph-header">
                                 <span class="title">Artigos por método de coleta de dados</span>
-                                <img class="info-icon" alt="Ícone de informação"
-                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        conforme o método de coleta de dados, evidenciando<br>
+                                        as técnicas utilizadas para obtenção das informações<br>
+                                        nos estudos.
+                                    </div>
+                                </div>
                             </div>
                             <canvas id="artigos-por-coleta-dados"></canvas>
                         </div>
                         <div class="dados-quantitativos">
                             <div class="graph-header">
                                 <span class="title">Artigos por método de análise de dados quantitativos</span>
-                                <img class="info-icon" alt="Ícone de informação"
-                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        conforme o método de análise de dados<br>
+                                        quantitativos, destacando as abordagens<br>
+                                        estatísticas e técnicas utilizadas para<br>
+                                        interpretar os dados numéricos.
+                                    </div>
+                                </div>
                             </div>
                             <canvas id="artigos-por-quantitativos"></canvas>
                         </div>
                         <div class="dados-qualitativos">
                             <div class="graph-header">
                                 <span class="title">Artigos por método de análise de dados qualitativos</span>
-                                <img class="info-icon" alt="Ícone de informação"
-                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        conforme o método de análise de dados<br>
+                                        qualitativos, destacando as abordagens<br>
+                                        interpretativas e técnicas usadas para<br>
+                                        entender os dados não numéricos.
+                                    </div>
+                                </div>
                             </div>
                             <canvas id="artigos-por-qualitativos"></canvas>
                         </div>
@@ -314,12 +364,41 @@
                 'rank': true,
             })
 
-            insert_radar_chart(paper_per_approach)
-            insert_radar_chart(paper_per_objective)
-            insert_radar_chart(paper_per_procedure)
-            insert_radar_chart(paper_per_data_collection)
-            insert_radar_chart(paper_per_quantitative)
-            insert_radar_chart(paper_per_qualitative)
+            const papers_by_approach = {{ statistics.papers_by_approach() | tojson }}
+            insert_doughnut_chart(paper_per_approach, {
+                'labels': papers_by_approach.map(approachs => approachs.class),
+                'data': papers_by_approach.map(approachs => approachs.count)
+            })
+
+            const papers_by_objective = {{ statistics.papers_by_objetive() | tojson }}
+            insert_doughnut_chart(paper_per_objective, {
+                'labels': papers_by_objective.map(objectives => objectives.class),
+                'data': papers_by_objective.map(objectives => objectives.count)
+            })
+
+            const papers_by_procedure = {{ statistics.papers_by_procedures() | tojson }}
+            insert_doughnut_chart(paper_per_procedure, {
+                'labels': papers_by_procedure.map(procedures => procedures.class),
+                'data': papers_by_procedure.map(procedures => procedures.count)
+            })
+
+            const papers_by_data_collection = {{ statistics.papers_by_data_collection() | tojson }}
+            insert_doughnut_chart(paper_per_data_collection, {
+                'labels': papers_by_data_collection.map(data_collections => data_collections.class),
+                'data': papers_by_data_collection.map(data_collections => data_collections.count)
+            })
+
+            const papers_by_quanti_analy = {{ statistics.papers_by_quanti_data_analy() | tojson }}
+            insert_doughnut_chart(paper_per_quantitative, {
+                'labels': papers_by_quanti_analy.map(quanti_analys => quanti_analys.class),
+                'data': papers_by_quanti_analy.map(quanti_analys => quanti_analys.count)
+            })
+
+            const papers_by_quali_analy = {{ statistics.papers_by_quali_data_analy() | tojson }}
+            insert_doughnut_chart(paper_per_qualitative, {
+                'labels': papers_by_quali_analy.map(quali_analys => quali_analys.class),
+                'data': papers_by_quali_analy.map(quali_analys => quali_analys.count)
+            })
 
             const states = {{ statistics.states_rank() | tojson }}
             insert_brazil_map_chart(publications_per_state, states.reduce((acc, item) => {
@@ -332,6 +411,34 @@
                 'labels': words.map(word => word.keyword),
                 'data': words.map(word => (parseInt(word.count) * 5)),
             })
+
+            document.querySelectorAll('.tooltip').forEach(tooltip => {
+                tooltip.addEventListener('mouseover', function () {
+                    const tooltipText = this.querySelector('.tooltip-text');
+                    const rect = tooltipText.getBoundingClientRect();
+
+                    // Verifica se o tooltip ultrapassa a borda direita da página
+                    if (rect.right > window.innerWidth) {
+                        tooltipText.style.left = 'auto';
+                        tooltipText.style.right = '0';
+                        tooltipText.style.transform = 'translateX(0)';
+                    }
+
+                    // Verifica se o tooltip ultrapassa a borda esquerda da página
+                    if (rect.left < 0) {
+                        tooltipText.style.left = '0';
+                        tooltipText.style.right = 'auto';
+                        tooltipText.style.transform = 'translateX(0)';
+                    }
+                });
+
+                tooltip.addEventListener('mouseout', function () {
+                    const tooltipText = this.querySelector('.tooltip-text');
+                    tooltipText.style.left = '50%';
+                    tooltipText.style.right = 'auto';
+                    tooltipText.style.transform = 'translateX(-50%)';
+                });
+            });
         })
     </script>
 {% endblock %}

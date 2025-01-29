@@ -3,222 +3,115 @@
     "Year": 2016,
     "Papers": [
       {
-        "Paper_id": 0,
-        "Award": "1° Lugar",
-        "Title": "[Placeholder]Uma Reflexão sobre as Dimensões do Ambiente de Aprendizagem em Organizações de Software",
-        "Keywords": "treinamento, organização de software",
-        "Type": "Short paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6224",
-        "Authors": [
-          {
-            "Name": "José Jorge Lima Dias Júnior",
-            "Institution": "Departamento de Ciências Exatas – Universidade Federal da Paraíba (UFPB)",
-            "Institution_acronym": "UFPB",
-            "State": "PB",
-            "Author_id": 0
-          }
-        ]
-      },
-      {
-        "Paper_id": 1,
-        "Award": "2° Lugar",
-        "Title": "[Placeholder]Análise de Ferramentas para Controle de Versões de Software no Contexto do MPS.BR.",
-        "Year": 2016,
-        "Keywords": "gerenciamento de configuração, sistema de controle de versão, MPS.BR",
-        "Type": "Short paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6225",
-        "Authors": [
-          {
-            "Name": "Danne da Silva Oliveira",
-            "Institution": "Instituto de Ciências Exatas - Universidade Federal de Goiás",
-            "Institution_acronym": "UFG",
-            "State": "GO",
-            "Author_id": 1
-          },
-          {
-            "Name": "Heitor Costa",
-            "Institution": "Departamento de Ciência da Computação - Universidade Federal de Lavras",
-            "Institution_acronym": "UFLA",
-            "State": "MG",
-            "Author_id": 2
-          }
-        ]
-      },
-      {
-        "Paper_id": 1,
-        "Award": "3° Lugar",
-        "Title": "[Placeholder]Análise de Ferramentas para Controle de Versões de Software no Contexto do MPS.BR.",
-        "Year": 2016,
-        "Keywords": "gerenciamento de configuração, sistema de controle de versão, MPS.BR",
-        "Type": "Short paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6225",
-        "Authors": [
-          {
-            "Name": "Danne da Silva Oliveira",
-            "Institution": "Instituto de Ciências Exatas - Universidade Federal de Goiás",
-            "Institution_acronym": "UFG",
-            "State": "GO",
-            "Author_id": 1
-          },
-          {
-            "Name": "Heitor Costa",
-            "Institution": "Departamento de Ciência da Computação - Universidade Federal de Lavras",
-            "Institution_acronym": "UFLA",
-            "State": "MG",
-            "Author_id": 2
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "Year": 2017,
-    "Papers": [
-      {
-        "Paper_id": 15,
-        "Award": "1° Lugar",
-        "Title": "[Placeholder]Facing up the primary emotions in Mobile Software Ecosystems from Developer Experience",
-        "Year": 2017,
-        "Keywords": "Software ecosystems, mobile application development, mining software repository, developer experience",
-        "Type": "Full paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6233",
+        "Paper_id": 10,
+        "Award": "-",
+        "Title": "Applying Software Craftsmanship Practices to a Scrum Project: an Experience Report",
         "Language": "en",
+        "Year": 2016,
+        "Keywords": "Sofwtare craftmanship, scrum, software engineering",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6219",
         "Authors": [
           {
-            "Name": "Awdren Fontão",
-            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
-            "Institution_acronym": "UFAM",
-            "State": "AM",
-            "Author_id": 52
+            "Name": "Percival Lucena",
+            "Institution": "IBM Research",
+            "State": "SP",
+            "Author_id": 35,
+            "Institution_acronym": "IBM Research"
           },
           {
-            "Name": "Oswald M. Ekwoge",
+            "Name": "Leonardo P. Tizzei",
+            "Institution": "IBM Research",
+            "State": "SP",
+            "Author_id": 36,
+            "Institution_acronym": "IBM Research"
+          }
+        ]
+      },
+      {
+        "Paper_id": 14,
+        "Award": "-",
+        "Title": "Explorando a Personalidade do Desenvolvedor em Ecossistemas de Software Móvel",
+        "Language": "pt",
+        "Year": 2016,
+        "Keywords": "ecossistema, software móvel, personalidade",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6223",
+        "Authors": [
+          {
+            "Name": "Bruno Pedraça de Souza",
             "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
-            "Institution_acronym": "UFAM",
             "State": "AM",
-            "Author_id": 53
+            "Author_id": 47,
+            "Institution_acronym": "UFAM"
           },
           {
-            "Name": "Rodrigo Santos",
-            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
-            "Institution_acronym": "UNIRIO",
-            "State": "RJ",
-            "Author_id": 54
+            "Name": "Bruno Araujo Bonifácio",
+            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State": "AM",
+            "Author_id": 48,
+            "Institution_acronym": "UFAM"
+          },
+          {
+            "Name": "Priscila Silva Fernandes",
+            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State": "AM",
+            "Author_id": 49,
+            "Institution_acronym": "UFAM"
+          },
+          {
+            "Name": "Andrew L. Fontão",
+            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
+            "State": "AM",
+            "Author_id": 50,
+            "Institution_acronym": "UFAM"
           },
           {
             "Name": "Arilo Claudio Dias-Neto",
             "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
-            "Institution_acronym": "UFAM",
             "State": "AM",
-            "Author_id": 51
+            "Author_id": 51,
+            "Institution_acronym": "UFAM"
           }
         ]
       },
       {
-        "Paper_id": 16,
-        "Award": "2° Lugar",
-        "Title": "[Placeholder]Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
-        "Year": 2017,
-        "Keywords": "Communication, Maturity Models, Distributed Software Development",
+        "Paper_id": 11,
+        "Award": "-",
+        "Title": "Uma avaliação de ferramentas de análise de sentimentos aplicadas a comentários da plataforma GitHub",
+        "Language": "pt",
+        "Year": 2016,
+        "Keywords": "GitHub, mineração de repositórios, análise de sentimentos",
         "Type": "Full paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6234",
-        "Language": "en",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6220",
         "Authors": [
           {
-            "Name": "Nelson G. de Sá Leitão Junior",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 55
+            "Name": "Giuseppe Portolese",
+            "Institution": "Universidade Estadual de Maringá (UEM)",
+            "State": "PR",
+            "Author_id": 37,
+            "Institution_acronym": "UEM"
           },
           {
-            "Name": "Ivaldir H. de Farias Junior",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 56
+            "Name": "Guilherme A. M. da Cruz",
+            "Institution": "Universidade Estadual de Maringá (UEM)",
+            "State": "PR",
+            "Author_id": 38,
+            "Institution_acronym": "UEM"
           },
           {
-            "Name": "Sabrina Marczak",
-            "Institution": "Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)",
-            "Institution_acronym": "PUCRS",
-            "State": "RS",
-            "Author_id": 57
+            "Name": "Elisa H. M. Huzita",
+            "Institution": "Universidade Estadual de Maringá (UEM)",
+            "State": "PR",
+            "Author_id": 39,
+            "Institution_acronym": "UEM"
           },
           {
-            "Name": "Rodrigo Santos",
-            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
-            "Institution_acronym": "UNIRIO",
-            "State": "RJ",
-            "Author_id": 54
-          },
-          {
-            "Name": "Felipe Furtado",
-            "Institution": "CESAR School",
-            "Institution_acronym": "Cesar School",
-            "State": "PE",
-            "Author_id": 58
-          },
-          {
-            "Name": "Hermano P. de Moura",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 59
-          }
-        ]
-      },
-      {
-        "Paper_id": 16,
-        "Award": "3° Lugar",
-        "Title": "[Placeholder]Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
-        "Year": 2017,
-        "Keywords": "Communication, Maturity Models, Distributed Software Development",
-        "Type": "Full paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6234",
-        "Language": "en",
-        "Authors": [
-          {
-            "Name": "Nelson G. de Sá Leitão Junior",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 55
-          },
-          {
-            "Name": "Ivaldir H. de Farias Junior",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 56
-          },
-          {
-            "Name": "Sabrina Marczak",
-            "Institution": "Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)",
-            "Institution_acronym": "PUCRS",
-            "State": "RS",
-            "Author_id": 57
-          },
-          {
-            "Name": "Rodrigo Santos",
-            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
-            "Institution_acronym": "UNIRIO",
-            "State": "RJ",
-            "Author_id": 54
-          },
-          {
-            "Name": "Felipe Furtado",
-            "Institution": "CESAR School",
-            "Institution_acronym": "Cesar School",
-            "State": "PE",
-            "Author_id": 58
-          },
-          {
-            "Name": "Hermano P. de Moura",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 59
+            "Name": "Valéria D. Feltrim",
+            "Institution": "Universidade Estadual de Maringá (UEM)",
+            "State": "PR",
+            "Author_id": 40,
+            "Institution_acronym": "UEM"
           }
         ]
       }
@@ -228,150 +121,114 @@
     "Year": 2018,
     "Papers": [
       {
-        "Paper_id": 15,
-        "Award": "1° Lugar",
-        "Title": "[Placeholder]Facing up the primary emotions in Mobile Software Ecosystems from Developer Experience",
-        "Year": 2017,
-        "Keywords": "Software ecosystems, mobile application development, mining software repository, developer experience",
-        "Type": "Full paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6233",
+        "Paper_id": 25,
+        "Award": "-",
+        "Title": "BPEL4PEOPLE Anti-Patterns: Discovering Authorization Constraint Anti-Patterns in Web Services",
         "Language": "en",
+        "Year": 2018,
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/3474",
         "Authors": [
           {
-            "Name": "Awdren Fontão",
-            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
-            "Institution_acronym": "UFAM",
-            "State": "AM",
-            "Author_id": 52
+            "Name": "Henrique J. A. Holanda",
+            "Institution": "Universidade Estadual de Rio Grande do Norte (UERN)",
+            "State": "RN",
+            "Author_id": 81,
+            "Institution_acronym": "UERN"
           },
           {
-            "Name": "Oswald M. Ekwoge",
-            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
-            "Institution_acronym": "UFAM",
-            "State": "AM",
-            "Author_id": 53
+            "Name": "Carla K. de M. Marques",
+            "Institution": "Instituto Federal do Rio Grande do Norte (IFRN)",
+            "State": "RN",
+            "Author_id": 82,
+            "Institution_acronym": "IFRN"
           },
           {
-            "Name": "Rodrigo Santos",
-            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
-            "Institution_acronym": "UNIRIO",
-            "State": "RJ",
-            "Author_id": 54
+            "Name": "Francisca Aparecida P. Pinto",
+            "Institution": "Universidade Federal Rural do Semi-Árido (UFERSA)",
+            "State": "RN",
+            "Author_id": 83,
+            "Institution_acronym": "UFERSA"
           },
           {
-            "Name": "Arilo Claudio Dias-Neto",
-            "Institution": "Instituto de Computação – Universidade Federal do Amazonas (UFAM)",
-            "Institution_acronym": "UFAM",
-            "State": "AM",
-            "Author_id": 51
+            "Name": "Yann-Gae¨l Guéhéneuc",
+            "Institution": "Universidade de Montreal",
+            "State": "CA",
+            "Author_id": 84,
+            "Institution_acronym": "Universidade de Montreal"
           }
         ]
       },
       {
-        "Paper_id": 16,
-        "Award": "2° Lugar",
-        "Title": "[Placeholder]Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
-        "Year": 2017,
-        "Keywords": "Communication, Maturity Models, Distributed Software Development",
-        "Type": "Full paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6234",
+        "Paper_id": 26,
+        "Award": "-",
+        "Title": "How Much Does It Cost? A Simulation-Based Method for Cost Prediction in Systems-of-Systems Acquisition Processes",
         "Language": "en",
+        "Year": 2018,
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/3473",
         "Authors": [
           {
-            "Name": "Nelson G. de Sá Leitão Junior",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 55
+            "Name": "Valdemar V. Graciano Neto",
+            "Institution": "Universidade Federal de Goiás (UFG)",
+            "State": "GO",
+            "Author_id": 85,
+            "Institution_acronym": "UFG"
           },
           {
-            "Name": "Ivaldir H. de Farias Junior",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 56
+            "Name": "Flávio E. A. Horita",
+            "Institution": "Universidade Federal do ABC (UFABC)",
+            "State": "SP",
+            "Author_id": 86,
+            "Institution_acronym": "UFABC"
           },
           {
-            "Name": "Sabrina Marczak",
-            "Institution": "Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)",
-            "Institution_acronym": "PUCRS",
-            "State": "RS",
-            "Author_id": 57
-          },
-          {
-            "Name": "Rodrigo Santos",
+            "Name": "Rodrigo P. dos Santos",
             "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
-            "Institution_acronym": "UNIRIO",
             "State": "RJ",
-            "Author_id": 54
+            "Author_id": 87,
+            "Institution_acronym": "UNIRIO"
           },
           {
-            "Name": "Felipe Furtado",
-            "Institution": "CESAR School",
-            "Institution_acronym": "Cesar School",
-            "State": "PE",
-            "Author_id": 58
+            "Name": "Davi Viana",
+            "Institution": "Universidade Federal do Maranhão (UFMA)",
+            "State": "MA",
+            "Author_id": 13,
+            "Institution_acronym": "UFMA"
           },
           {
-            "Name": "Hermano P. de Moura",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 59
+            "Name": "Mohamad Kassab",
+            "Institution": "Universidade Estadual da Pennsylvania",
+            "State": "EUA",
+            "Author_id": 88,
+            "Institution_acronym": "Universidade Estadual da Pennsylvania"
           }
         ]
       },
       {
-        "Paper_id": 16,
-        "Award": "3° Lugar",
-        "Title": "[Placeholder]Evaluation of a Preliminary Assessment Method for Identifying the Maturity of Communication in Distributed Software Development.",
-        "Year": 2017,
-        "Keywords": "Communication, Maturity Models, Distributed Software Development",
+        "Paper_id": 27,
+        "Award": "-",
+        "Title": "Análise da Percepção de Importância de Requisitos de Usabilidade no Desenvolvimento de um Sistema Web com Scrum",
+        "Language": "pt",
+        "Year": 2018,
         "Type": "Full paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/6234",
-        "Language": "en",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/3472",
         "Authors": [
           {
-            "Name": "Nelson G. de Sá Leitão Junior",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
+            "Name": "Críssia Marcelino",
+            "Institution": "Universidade Federal de Pernambuco(UFPE)",
             "State": "PE",
-            "Author_id": 55
+            "Author_id": 89,
+            "Institution_acronym": "UFPE"
           },
           {
-            "Name": "Ivaldir H. de Farias Junior",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
+            "Name": "Francisco Nascimento",
+            "Institution": "Instituto Federal de Pernambuco(IFPE)",
             "State": "PE",
-            "Author_id": 56
-          },
-          {
-            "Name": "Sabrina Marczak",
-            "Institution": "Pontifícia Universidade Católica do Rio Grande do Sul (PUCRS)",
-            "Institution_acronym": "PUCRS",
-            "State": "RS",
-            "Author_id": 57
-          },
-          {
-            "Name": "Rodrigo Santos",
-            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
-            "Institution_acronym": "UNIRIO",
-            "State": "RJ",
-            "Author_id": 54
-          },
-          {
-            "Name": "Felipe Furtado",
-            "Institution": "CESAR School",
-            "Institution_acronym": "Cesar School",
-            "State": "PE",
-            "Author_id": 58
-          },
-          {
-            "Name": "Hermano P. de Moura",
-            "Institution": "Universidade Federal de Pernambuco (UFPE)",
-            "Institution_acronym": "UFPE",
-            "State": "PE",
-            "Author_id": 59
+            "Author_id": 90,
+            "Institution_acronym": "IFPE"
           }
         ]
       }
