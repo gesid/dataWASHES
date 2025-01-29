@@ -1,5 +1,5 @@
 from enum import Enum
-from .database import papers_db
+from .dataset import papers_db
 from .entity_db import EntityDB
 
 

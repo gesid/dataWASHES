@@ -1,17 +1,12 @@
 {% extends 'root_layout.html' %}
-{% block content %}
+
+{% block header %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/dashboard.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-wordcloud"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo"></script>
-    <script src="https://d3js.org/topojson.v1.min.js"></script>
-    <script src="{{ url_for('static', filename='javascript/graphs_generator.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='javascript/graphs_generator.js') }}"></script>
+{% endblock %}
 
-    <header>
-
-    </header>
-
+{% block content %}
     <main>
         <div class="dashboard">
             <h1 id="dash-title">Dashboard</h1>
@@ -20,122 +15,267 @@
                 <div class="artigos_premiados">
                     <div class="graph-header">
                         <span class="title">Artigos premiados</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Esta tabela lista os artigos premiados<br>
+                                em cada edição do WASHES, exibindo o título,<br>
+                                autores, premiação e um link para acesso aos artigos.
+                            </div>
+                        </div>
                     </div>
                     <table class="paper-table">
                         <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Autores</th>
-                                <th>Link para o artigo</th>
-                            </tr>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autores</th>
+                            <th>Premiação</th>
+                            <th>Link para o artigo</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Uma Reflexão sobre as Dimensões do Ambiente de Aprendizagem em Organizações de Software</td>
-                                <td>José Jorge Lima Dias Júnior (UFPB)</td>
-                                <td>Link</td>
-                            </tr>
-                            <tr>
-                                <td>Uma Abordagem para a Implementação da Gerência do Fornecedor usando Metodologias Ágeis</td>
-                                <td>Olavo Barbosa (ATI), Rodrigo Pereira dos Santos (UNIRIO) e Davi Viana (UFMA)</td>
-                                <td>Link</td>
-                            </tr>
-                            <tr>
-                                <td>Percepção docente sobre o uso do WhatsApp como ferramenta de comunicação no ensino remoto emergencial</td>
-                                <td>Ivanilse Calderon (UFAM) et al.</td>
-                                <td>Link</td>
-                            </tr>
-
+                        {% for edition_papers in statistics.award_winning_papers %}
+                            {% for paper in edition_papers['Papers'] %}
+                                <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
+                                    <td>{{ paper['Title'] }}</td>
+                                    {% if paper['Authors'] | length > 2 %}
+                                        <td>{{ paper['Authors'][0]['Name'] }}
+                                            ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                            <div class="tooltip">
+                                                <i>et al.</i> ℹ️
+                                                <div class="tooltip-text">
+                                                    <ul>
+                                                        {% for author in paper['Authors'][1:] %}
+                                                            <li>{{ author['Name'] }}
+                                                                ({{ author['Institution_acronym'] }})
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    {% elif paper['Authors'] | length == 2 %}
+                                        <td>{{ paper['Authors'][0]['Name'] }}
+                                            ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                            e {{ paper['Authors'][1]['Name'] }}
+                                            ({{ paper['Authors'][1]['Institution_acronym'] }})
+                                        </td>
+                                    {% else %}
+                                        <td>{{ paper['Authors'][0]['Name'] }}
+                                            ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                        </td>
+                                    {% endif %}
+                                    <td>{{ paper['Award'] }}</td>
+                                    <td><a target="_blank" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
                         </tbody>
                     </table>
+                    <div class="pagination-section">
+                        <!-- <span style="cursor: pointer" onclick="table_before_page()" id="before"><</span> -->
+                        {% for edition in statistics.award_winning_papers %}
+                            <button onclick="paginate_papers_table(this, {{ edition['Year'] }})"
+                                    class="pag-year-button"
+                                    id="button-{{ edition['Year'] }}">{{ edition['Year'] }}</button>
+                        {% endfor %}
+                        <!-- <span style="cursor: pointer" onclick="table_next_page()" id="next">>></span> -->
+                    </div>
                 </div>
                 <div class="artigos_por_edicao">
                     <div class="graph-header">
-                        <span class="title">Artigos por edição</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <span class="title">Artigos por ano (edição)</span>
+                        <div class="tooltip">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico mostra a quantidade de<br>
+                                artigos publicados em cada edição do<br>
+                                WASHES ao longo dos anos.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="artigos-por-edicao"></canvas>
                 </div>
                 <div class="artigos_por_idioma">
                     <div class="graph-header">
                         <span class="title">Artigos por idioma</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico mostra a evolução do número<br>
+                                de artigos escritos em português e em inglês<br>
+                                ao longo dos anos nas edições do WASHES.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="artigos-por-idioma"></canvas>
                 </div>
                 <div class="ranking_instituicoes">
                     <div class="graph-header">
                         <span class="title">Ranking de instituições</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico mostra um ranking das instituições dos<br>
+                                participantes do WASHES, organizado pela quantidade de<br>
+                                artigos publicados em cada edição do evento. Para cada artigo<br>
+                                foi considerando a instituição do primeiro autor.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="raking-institutions"></canvas>
                 </div>
                 <div class="ranking_autore">
                     <div class="graph-header">
                         <span class="title">Ranking de autores</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <div class="tooltip">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico exibe um ranking dos autores com<br>
+                                maior número de artigos publicados nas edições<br>
+                                do WASHES.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="raking-authors"></canvas>
                 </div>
                 <div class="nuvem_palavras">
                     <div class="graph-header">
-                        <span class="title">Palavras-chave por edição</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <span class="title">Nuvem de palavras-chave dos artigos publicado</span>
+                        <div class="tooltip">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Esta nuvem de palavras destaca as palavras-chave<br>
+                                mais frequentes, considerando todas as edição do<br>
+                                WASHES, extraídas das palavras-chave dos artigos<br>
+                                publicados.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="nuvem-de-palavras"></canvas>
                 </div>
                 <div class="artigos_por_estado">
                     <div class="graph-header">
-                        <span class="title">Artigos publicados por estado</span>
-                        <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
+                        <span class="title">Quantidade de artigos publicados por estado</span>
+                        <div class="tooltip">
+                            <img class="info-icon" alt="Ícone de informação"
+                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
+                            <div class="tooltip-text">
+                                Este gráfico apresenta a quantidade de artigos<br>
+                                publicados por estado, considerando o estado<br>
+                                do primeiro autor de cada artigo nas edições<br>
+                                do WASHES.
+                            </div>
+                        </div>
                     </div>
                     <canvas id="papers_per_state"></canvas>
                 </div>
+
                 <div class="artigos_por_categorias">
                     <div class="donnuts">
-                      <div class="abordagem">
-                          <div class="graph-header">
-                            <span class="title">Artigos por abordagem</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-abordagem"></canvas>
-                      </div>
-                      <div class="objetivo">
-                          <div class="graph-header">
-                            <span class="title">Artigos por objetivo</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-objetivo"></canvas>
-                      </div>
-                      <div class="procedimentos">
-                          <div class="graph-header">
-                            <span class="title">Artigos por procedimentos</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-procedimentos"></canvas>
-                      </div>
-                      <div class="coleta-de-dados">
-                          <div class="graph-header">
-                            <span class="title">Artigos por método de coleta de dados</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-coleta-dados"></canvas>
-                      </div>
-                      <div class="dados-quantitativos">
-                          <div class="graph-header">
-                            <span class="title">Artigos por método de análise de dados quantitativos</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-quantitativos"></canvas>
-                      </div>
-                      <div class="dados-qualitativos">
-                          <div class="graph-header">
-                            <span class="title">Artigos por método de análise de dados qualitativos</span>
-                            <img class="info-icon" src="{{ url_for('static', filename='images/info-icon.png') }}">
-                          </div>
-                          <canvas id="artigos-por-qualitativos"></canvas>
-                      </div>
+                        <div class="abordagem">
+                            <div class="graph-header">
+                                <span class="title">Artigos por abordagem</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        por abordagem: <b>qualitativa</b>, que explora<br>
+                                        significados e contextos; <b>quantitativa</b>, baseada<br>
+                                        em dados numéricos e estatísticas; e <b>mista</b>, que<br>
+                                        combina ambas para uma análise mais abrangente.
+                                    </div>
+                                </div>
+                            </div>
+                            <canvas id="artigos-por-abordagem"></canvas>
+                        </div>
+                        <div class="objetivo">
+                            <div class="graph-header">
+                                <span class="title">Artigos por objetivo</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        segundo seus objetivos, indicando como cada<br>
+                                        estudo foi estruturado para alcançar seus propósitos.
+                                    </div>
+                                </div>
+                            </div>
+                            <canvas id="artigos-por-objetivo"></canvas>
+                        </div>
+                        <div class="procedimentos">
+                            <div class="graph-header">
+                                <span class="title">Artigos por procedimentos</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        conforme seus procedimentos, destacando<br>
+                                        as metodologias utilizadas para conduzir os estudos
+                                    </div>
+                                </div>
+                            </div>
+                            <canvas id="artigos-por-procedimentos"></canvas>
+                        </div>
+                        <div class="coleta-de-dados">
+                            <div class="graph-header">
+                                <span class="title">Artigos por método de coleta de dados</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        conforme o método de coleta de dados, evidenciando<br>
+                                        as técnicas utilizadas para obtenção das informações<br>
+                                        nos estudos.
+                                    </div>
+                                </div>
+                            </div>
+                            <canvas id="artigos-por-coleta-dados"></canvas>
+                        </div>
+                        <div class="dados-quantitativos">
+                            <div class="graph-header">
+                                <span class="title">Artigos por método de análise de dados quantitativos</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        conforme o método de análise de dados<br>
+                                        quantitativos, destacando as abordagens<br>
+                                        estatísticas e técnicas utilizadas para<br>
+                                        interpretar os dados numéricos.
+                                    </div>
+                                </div>
+                            </div>
+                            <canvas id="artigos-por-quantitativos"></canvas>
+                        </div>
+                        <div class="dados-qualitativos">
+                            <div class="graph-header">
+                                <span class="title">Artigos por método de análise de dados qualitativos</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Este gráfico mostra a proporção de artigos<br>
+                                        conforme o método de análise de dados<br>
+                                        qualitativos, destacando as abordagens<br>
+                                        interpretativas e técnicas usadas para<br>
+                                        entender os dados não numéricos.
+                                    </div>
+                                </div>
+                            </div>
+                            <canvas id="artigos-por-qualitativos"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,41 +283,162 @@
     </main>
 
     <script>
-        const papers_editions = document.getElementById("artigos-por-edicao")
-        const papers_languages = document.getElementById("artigos-por-idioma")
-        const institutions_ranking = document.getElementById("raking-institutions")
-        const authors_ranking = document.getElementById("raking-authors")
-        const paper_per_approach = document.getElementById("artigos-por-abordagem")
-        const paper_per_objective = document.getElementById("artigos-por-objetivo")
-        const paper_per_procedure = document.getElementById("artigos-por-procedimentos")
-        const paper_per_data_collection = document.getElementById("artigos-por-coleta-dados")
-        const paper_per_quantitative = document.getElementById("artigos-por-quantitativos")
-        const paper_per_qualitative = document.getElementById("artigos-por-qualitativos")
-        const cloud_words = document.getElementById("nuvem-de-palavras")
-        const publications_per_state = document.getElementById("papers_per_state")
+        let active_edition = 0
+        let active_button = null
 
-        insert_horizontal_bar_chart(papers_editions, {
-            'labels': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
-            'data': [65, 59, 80, 81, 56, 55, 40, 32, 32],
+        function paginate_papers_table(button, edition) {
+            if (edition === active_edition) {
+                return
+            }
+
+            const new_tables_lines = document.getElementsByClassName(`paper-from-${edition}`)
+            const old_table_lines = document.getElementsByClassName(`paper-from-${active_edition}`)
+            for (const table_row of old_table_lines) {
+                table_row.style.display = 'none'
+                if (active_button)
+                    active_button.style.backgroundColor = '#0595FD'
+            }
+            for (const table_row of new_tables_lines) {
+                table_row.style.display = ''
+                button.style.backgroundColor = '#2662F0'
+            }
+            active_edition = edition
+            active_button = button
+        }
+
+        function table_next_page() {
+            const e = document.getElementById(`button-${active_edition + 1}`)
+            if (e)
+                paginate_papers_table(e, active_edition + 1)
+        }
+
+        function table_before_page() {
+            const e = document.getElementById(`button-${active_edition - 1}`)
+            if (e)
+                paginate_papers_table(e, active_edition - 1)
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            paginate_papers_table(
+                document.getElementById('button-{{ statistics.award_winning_papers[0]['Year'] }}'),
+                {{ statistics.award_winning_papers[0]['Year'] }}
+            )
+
+            const papers_editions = document.getElementById("artigos-por-edicao")
+            const papers_languages = document.getElementById("artigos-por-idioma")
+            const institutions_ranking = document.getElementById("raking-institutions")
+            const authors_ranking = document.getElementById("raking-authors")
+            const paper_per_approach = document.getElementById("artigos-por-abordagem")
+            const paper_per_objective = document.getElementById("artigos-por-objetivo")
+            const paper_per_procedure = document.getElementById("artigos-por-procedimentos")
+            const paper_per_data_collection = document.getElementById("artigos-por-coleta-dados")
+            const paper_per_quantitative = document.getElementById("artigos-por-quantitativos")
+            const paper_per_qualitative = document.getElementById("artigos-por-qualitativos")
+            const cloud_words = document.getElementById("nuvem-de-palavras")
+            const publications_per_state = document.getElementById("papers_per_state")
+
+            const editions = {{ statistics.publications_by_years()[:10] | tojson }}
+            insert_vertical_bar_chart(papers_editions, {
+                'labels': editions.map((edition, index) => `${edition.year} (${index + 1}°)`),
+                'data': editions.map(edition => edition.publications),
+            })
+
+            const languages = {{ statistics.publications_by_years_by_languages() | tojson }}
+            insert_line_chart(papers_languages, {
+                'labels': languages.data.map((language, index) => `${language.year} (${index + 1}°)`),
+                'langs': languages.langs,
+                'data': languages.data,
+            })
+
+            const authors = {{ statistics.authors_rank()[:10] | tojson }};
+            insert_horizontal_bar_chart(authors_ranking, {
+                'labels': authors.map(author => author.Name),
+                'data': authors.map(author => author.Papers.length),
+                'rank': true,
+            })
+
+            const institutions = {{ statistics.institution_rank()[:10] | tojson }}
+            insert_horizontal_bar_chart(institutions_ranking, {
+                'labels': institutions.map(institution => institution.institution),
+                'data': institutions.map(institution => institution.publications),
+                'rank': true,
+            })
+
+            const papers_by_approach = {{ statistics.papers_by_approach() | tojson }}
+            insert_doughnut_chart(paper_per_approach, {
+                'labels': papers_by_approach.map(approachs => approachs.class),
+                'data': papers_by_approach.map(approachs => approachs.count)
+            })
+
+            const papers_by_objective = {{ statistics.papers_by_objetive() | tojson }}
+            insert_doughnut_chart(paper_per_objective, {
+                'labels': papers_by_objective.map(objectives => objectives.class),
+                'data': papers_by_objective.map(objectives => objectives.count)
+            })
+
+            const papers_by_procedure = {{ statistics.papers_by_procedures() | tojson }}
+            insert_doughnut_chart(paper_per_procedure, {
+                'labels': papers_by_procedure.map(procedures => procedures.class),
+                'data': papers_by_procedure.map(procedures => procedures.count)
+            })
+
+            const papers_by_data_collection = {{ statistics.papers_by_data_collection() | tojson }}
+            insert_doughnut_chart(paper_per_data_collection, {
+                'labels': papers_by_data_collection.map(data_collections => data_collections.class),
+                'data': papers_by_data_collection.map(data_collections => data_collections.count)
+            })
+
+            const papers_by_quanti_analy = {{ statistics.papers_by_quanti_data_analy() | tojson }}
+            insert_doughnut_chart(paper_per_quantitative, {
+                'labels': papers_by_quanti_analy.map(quanti_analys => quanti_analys.class),
+                'data': papers_by_quanti_analy.map(quanti_analys => quanti_analys.count)
+            })
+
+            const papers_by_quali_analy = {{ statistics.papers_by_quali_data_analy() | tojson }}
+            insert_doughnut_chart(paper_per_qualitative, {
+                'labels': papers_by_quali_analy.map(quali_analys => quali_analys.class),
+                'data': papers_by_quali_analy.map(quali_analys => quali_analys.count)
+            })
+
+            const states = {{ statistics.states_rank() | tojson }}
+            insert_brazil_map_chart(publications_per_state, states.reduce((acc, item) => {
+                acc[item.state] = item.publications;
+                return acc;
+            }, {}))
+
+            const words = {{ statistics.keywords_cloud() | tojson }}
+            insert_cloud_word_chart(cloud_words, {
+                'labels': words.map(word => word.keyword),
+                'data': words.map(word => (parseInt(word.count) * 5)),
+            })
+
+            document.querySelectorAll('.tooltip').forEach(tooltip => {
+                tooltip.addEventListener('mouseover', function () {
+                    const tooltipText = this.querySelector('.tooltip-text');
+                    const rect = tooltipText.getBoundingClientRect();
+
+                    // Verifica se o tooltip ultrapassa a borda direita da página
+                    if (rect.right > window.innerWidth) {
+                        tooltipText.style.left = 'auto';
+                        tooltipText.style.right = '0';
+                        tooltipText.style.transform = 'translateX(0)';
+                    }
+
+                    // Verifica se o tooltip ultrapassa a borda esquerda da página
+                    if (rect.left < 0) {
+                        tooltipText.style.left = '0';
+                        tooltipText.style.right = 'auto';
+                        tooltipText.style.transform = 'translateX(0)';
+                    }
+                });
+
+                tooltip.addEventListener('mouseout', function () {
+                    const tooltipText = this.querySelector('.tooltip-text');
+                    tooltipText.style.left = '50%';
+                    tooltipText.style.right = 'auto';
+                    tooltipText.style.transform = 'translateX(-50%)';
+                });
+            });
         })
-        insert_horizontal_bar_chart(institutions_ranking, {
-            'labels': ['UFCA', 'UFRJ', 'UFC', 'UNIRO', 'IFCE', 'UFMA', 'UFPE', 'UFAC'],
-            'data': [16, 14, 11, 8, 8, 6, 4, 2],
-            'rank': true,
-        })
-        insert_horizontal_bar_chart(authors_ranking, {
-            'labels': ['João', 'Pedro', 'Henrique', 'Matheus', 'Fernando', 'Rafael'],
-            'data': [10, 6, 4, 3, 3, 2],
-            'rank': true,
-        })
-        insert_line_chart(papers_languages)
-        insert_doughnut_chart(paper_per_approach)
-        insert_doughnut_chart(paper_per_objective)
-        insert_doughnut_chart(paper_per_procedure)
-        insert_doughnut_chart(paper_per_data_collection)
-        insert_doughnut_chart(paper_per_quantitative)
-        insert_doughnut_chart(paper_per_qualitative)
-        insert_cloud_word_chart(cloud_words)
-        insert_brazil_map_chart(publications_per_state)
     </script>
 {% endblock %}

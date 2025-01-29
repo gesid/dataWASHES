@@ -1,4 +1,4 @@
-from .database import authors_db
+from .dataset import authors_db
 from .entity_db import EntityDB
 from .paper_db import PaperDB
 

@@ -2,6 +2,7 @@ from flask import make_response, render_template
 from controllers import authors_ns, editions_ns, papers_ns, statistics_ns
 from server import server
 from api_utils import convert_to_csv
+from resources import StatisticsCalc
 
 def main() -> None:
     server.api.add_namespace(editions_ns)
@@ -20,7 +21,10 @@ def data_csv(data, code, headers):
 
 @server.app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template(
+        'dashboard.html',
+        statistics=StatisticsCalc(),
+    )
 
 if __name__ == '__main__':
     main()
