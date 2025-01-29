@@ -361,6 +361,17 @@ function insert_brazil_map_chart(element, infos) {
                     legend: {
                         display: false
                     },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const value = tooltipItem.raw || '';
+                                if (value.value === 1){
+                                    return `${value.feature.properties.name}: ${value.value} artigo`;
+                                }
+                                return `${value.feature.properties.name}: ${value.value} artigos`;
+                            }
+                        },
+                    }
                 },
                 scales: {
                     projection: {
