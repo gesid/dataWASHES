@@ -4,6 +4,7 @@ from server import server
 from api_utils import convert_to_csv
 from resources import StatisticsCalc
 
+
 def main() -> None:
     server.api.add_namespace(editions_ns)
     server.api.add_namespace(papers_ns)
@@ -19,12 +20,14 @@ def data_csv(data, code, headers):
     resp.headers.extend(headers)
     return resp
 
+
 @server.app.route('/dashboard')
 def dashboard():
     return render_template(
         'dashboard.html',
         statistics=StatisticsCalc(),
     )
+
 
 if __name__ == '__main__':
     main()
