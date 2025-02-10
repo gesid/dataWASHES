@@ -1,48 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt">
-  <head>
-        <meta charset="UTF-8">
-        <title>dataWASHES</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swagger_ui.css') }}">
-        <meta name="viewport" content="width=device-width">
-        {% block header %}
+<head>
+    <meta charset="UTF-8">
+    <title>dataWASHES</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swagger_ui.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.ico') }}">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width">
+    {% block header %}
 
-        {% endblock %}
-  </head>
-    <body>
-        <!-- Navbar -->
-        <nav>
-            <div id="menu-icon" onclick="toggleMenu()">&#9776;</div> <!-- Ícone do menu hambúrguer -->
-            <ul id="navbar">
-                <li id="logo-conteiner">
-                    <a href="{{ url_for('swagger_template') }}">
-                        <img id="logo-api" alt="Logo do dataWASHES API"
-                             src="{{ url_for('static', filename='images/logo.png') }}">
-                    </a>
-                </li>
-                <li><a href="#motivation" class="nav-link">API</a></li>
-                <li><a href="https://youtu.be/KXjFx9ddqPQ" class="nav-link" target="_blank">Tutorial</a></li>
-                <li><a href="https://github.com/gesid/dataWASHES/" class="nav-link" target="_blank">GitHub</a></li>
-                <li><a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a></li>
-                <li><a href="https://sites.google.com/view/washes-series/?authuser=1" class="nav-link" target="_blank">WASHES</a></li>
-            </ul>
-        </nav>
+    {% endblock %}
+</head>
+<body>
+<!-- Navbar -->
+<nav>
+    <div id="menu-icon" onclick="toggleMenu()">&#9776;</div> <!-- Ícone do menu hambúrguer -->
+    <ul id="navbar">
+        <li id="logo-conteiner">
+            <a href="{{ url_for('swagger_template') }}">
+                <img id="logo-api" alt="Logo do dataWASHES API"
+                     src="{{ url_for('static', filename='images/logo.png') }}">
+            </a>
+        </li>
+        {% if request.endpoint == 'dashboard' %}
+            <li><a href="{{ url_for('swagger_template') }}" class="nav-link">API</a></li>
+        {% else %}
+            <li><a href="#motivation" class="nav-link">API</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a></li>
+        <li><a href="https://youtu.be/KXjFx9ddqPQ" class="nav-link" target="_blank">Tutorial</a></li>
+        <li><a href="https://github.com/gesid/dataWASHES/" class="nav-link" target="_blank">GitHub</a></li>
+        <li><a href="https://sites.google.com/view/washes-series/?authuser=1" class="nav-link"
+               target="_blank">WASHES</a></li>
+    </ul>
+</nav>
 
-        {% block content %}
+{% block content %}
 
-        {% endblock %}
+{% endblock %}
 
-        <footer>
-            <div class="footer-content">
-                <p>
-                    <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>
-                </p>
-                <p>&copy; 2024</p>
-                <div class="footer-logo-container">
-                    <img class="footer-logo" alt="Logo do dataWASHES API"
-                        src="{{ url_for('static', filename='images/logo.png') }}">
-                </div>
-            </div>
-        </footer>
-    </body>
+<footer>
+    <div class="footer-content">
+        <p>
+            <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>
+        </p>
+        <p>&copy; 2025</p>
+        <div class="footer-logo-container">
+            <a href="https://github.com/gesid/dataWASHES/" target="_blank">
+                <img class="footer-logo" alt="Logo do dataWASHES API"
+                     src="{{ url_for('static', filename='images/github-logo-2-small.png') }}">
+            </a>
+        </div>
+        <div class="footer-logo-container">
+            <a href="{{ url_for('swagger_template') }}">
+                <img class="footer-logo" alt="Logo do dataWASHES API"
+                     src="{{ url_for('static', filename='images/logo.png') }}">
+            </a>
+        </div>
+    </div>
+</footer>
+</body>
 </html>

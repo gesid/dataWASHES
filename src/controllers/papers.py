@@ -21,7 +21,7 @@ class PapersList(Resource):
         "list_papers",
         params={
             "year": "The year of publication",
-            "type": "The type of the paper",
+            "type": f"The type of the paper ({PaperDB.paper_types_str()})",
             "author": "The name of at least one of the authors",
             "institution": "The institution name of at least one of the authors",
             "state": "The state acronym of at least one of the authors",

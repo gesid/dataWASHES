@@ -802,5 +802,148 @@
         ]
       }
     ]
+  },
+  {
+    "Year": 2024,
+    "Papers": [
+      {
+        "Paper_id": 87,
+        "Award": "1° Lugar",
+        "Title": "Uma Proposta de Framework Multimodal para Avaliação de Experiência de Usuário em Sistemas Web Interativos",
+        "Language": "pt",
+        "Year": 2024,
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/29445",
+        "Authors": [
+          {
+            "Name": "Rodrigo Zacarias",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State": "RJ",
+            "Author_id": 282,
+            "Institution_acronym": "UNIRIO"
+          },
+          {
+            "Name": "Thiago Parracho",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State": "RJ",
+            "Author_id": 283,
+            "Institution_acronym": "UNIRIO"
+          },
+          {
+            "Name": "Flávio Moura",
+            "Institution": "Universidade Federal do Pará (UFPA)",
+            "State": "PA",
+            "Author_id": 284,
+            "Institution_acronym": "UFPA"
+          },
+          {
+            "Name": "Danilo Lima",
+            "Institution": "Universidade Federal do Pará (UFPA)",
+            "State": "PA",
+            "Author_id": 285,
+            "Institution_acronym": "UFPA"
+          },
+          {
+            "Name": "Suzane Santos",
+            "Institution": "Universidade de São Paulo (USP)",
+            "State": "SP",
+            "Author_id": 286,
+            "Institution_acronym": "USP"
+          },
+          {
+            "Name": "Kamila Rodrigues",
+            "Institution": "Universidade de São Paulo (USP)",
+            "State": "SP",
+            "Author_id": 287,
+            "Institution_acronym": "USP"
+          },
+          {
+            "Name": "Marcos Seruffo",
+            "Institution": "Universidade Federal do Pará (UFPA)",
+            "State": "PA",
+            "Author_id": 288,
+            "Institution_acronym": "UFPA"
+          },
+          {
+            "Name": "Rodrigo Pereira dos Santos",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State": "RJ",
+            "Author_id": 10,
+            "Institution_acronym": "UNIRIO"
+          }
+        ]
+      },
+      {
+        "Paper_id": 85,
+        "Award": "2° Lugar",
+        "Title": "Caracterizando Condutores de Carga Cognitiva na Prática de Testes Unitários",
+        "Language": "pt",
+        "Year": 2024,
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/29443",
+        "Authors": [
+          {
+            "Name": "Bruno Barroso",
+            "Institution": "Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State": "RJ",
+            "Author_id": 274,
+            "Institution_acronym": "UFRJ"
+          },
+          {
+            "Name": "Leonardo da Silva",
+            "Institution": "Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State": "RJ",
+            "Author_id": 275,
+            "Institution_acronym": "UFRJ"
+          },
+          {
+            "Name": "Rafael de Mello",
+            "Institution": "Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State": "RJ",
+            "Author_id": 251,
+            "Institution_acronym": "UFRJ"
+          }
+        ]
+      },
+      {
+        "Paper_id": 90,
+        "Award": "3° Lugar",
+        "Title": "Um Estudo Comparativo entre a Visão de Líderes e Liderados sobre a Importância de Soft Skills em Desenvolvimento de Software",
+        "Language": "pt",
+        "Year": 2024,
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/29448",
+        "Authors": [
+          {
+            "Name": "Murilo Coelho",
+            "Institution": "Universidade Estadual do Ceará (UECE)",
+            "State": "CE",
+            "Author_id": 293,
+            "Institution_acronym": "UECE"
+          },
+          {
+            "Name": "Allysson Allex Araújo",
+            "Institution": "Universidade Federal do Cariri (UFCA)",
+            "State": "CE",
+            "Author_id": 149,
+            "Institution_acronym": "UFCA"
+          },
+          {
+            "Name": "Sávio Freire",
+            "Institution": "Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE)",
+            "State": "CE",
+            "Author_id": 294,
+            "Institution_acronym": "IFCE"
+          },
+          {
+            "Name": "Matheus Paixao",
+            "Institution": "Universidade Estadual do Ceará (UECE)",
+            "State": "CE",
+            "Author_id": 295,
+            "Institution_acronym": "UECE"
+          }
+        ]
+      }
+    ]
   }
 ]

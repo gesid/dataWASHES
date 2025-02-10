@@ -8,9 +8,9 @@ import {
     ProjectionScale,
     ColorScale,
 } from 'https://esm.sh/chartjs-chart-geo';
+import ChartDataLabels from 'https://esm.sh/chartjs-plugin-datalabels';
 
-
-Chart.register(WordCloudController, WordElement, ChoroplethController, GeoFeature, ProjectionScale, ColorScale, ...registerables);
+Chart.register(ChartDataLabels, WordCloudController, WordElement, ChoroplethController, GeoFeature, ProjectionScale, ColorScale, ...registerables);
 
 
 const BRAZIL_GEOJSON_PATH = 'static/javascript/geo_info_Brazil/br-states.min.json'
@@ -53,22 +53,36 @@ function insert_horizontal_bar_chart(element, infos) {
         data,
         options: {
             indexAxis: 'y',
+            layout: {
+                padding: {
+                    right: 30 // Ajuste esse valor para aumentar o espaço no topo
+                }
+            },
             plugins: {
                 legend: {
                     display: false
                 },
+                datalabels: {
+                    anchor: "end",
+                    align: "right",
+                    font: {
+                        //weight: "bold",
+                        size: 14
+                    },
+                    color: "#000"
+                }
             },
             scales: {
                 x: {
                     grid: {
-                        display: true
+                        display: false
                     },
                     border: {
                         display: false,
                     },
                     ticks: {
                         callback: function (value, index, ticks) {
-                            return ticks_data.has(value) ? value : null;
+                            //return ticks_data.has(value) ? value : null;
                         },
                         stepSize: 1,
                     }
@@ -117,22 +131,36 @@ function insert_vertical_bar_chart(element, infos) {
         type: 'bar',
         data,
         options: {
+            layout: {
+                padding: {
+                    top: 30 // Ajuste esse valor para aumentar o espaço no topo
+                }
+            },
             plugins: {
                 legend: {
                     display: false
                 },
+                datalabels: {
+                    anchor: "end",
+                    align: "top",
+                    font: {
+                        //weight: "regular",
+                        size: 14
+                    },
+                    color: "#000"
+                }
             },
             scales: {
                 y: {
                     grid: {
-                        display: true
+                        display: false
                     },
                     border: {
                         display: false,
                     },
                     ticks: {
                         callback: function (value, index, ticks) {
-                            return ticks_data.has(value) ? value : null;
+                            //return ticks_data.has(value) ? value : null;
                         },
                         stepSize: 1,
                     }
@@ -171,8 +199,9 @@ function insert_line_chart(element, infos) {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'left'
+                    position: 'top'
                 },
+                datalabels: false
             },
             scales: {
                 x: {
@@ -239,10 +268,11 @@ function insert_doughnut_chart(element, infos) {
                             const label = tooltipItem.label || '';
                             const value = tooltipItem.raw || '';
 
-                            return `${label}: ${value} (${(value / data_sum) * 100 | 0}%)`;
+                            return `${label}: ${value} (${((value / data_sum) * 100).toFixed(1)}%)`;
                         }
                     },
-                }
+                },
+                datalabels: false
             },
         },
     }
@@ -323,6 +353,7 @@ function insert_cloud_word_chart(element, infos) {
                 legend: {
                     display: false
                 },
+                datalabels: false
             },
             elements: {
                 word: {
@@ -353,6 +384,13 @@ function insert_brazil_map_chart(element, infos) {
                 }
             ]
         };
+
+        // Obtém as dimensões do contêiner
+        const containerWidth = element.parentElement.offsetWidth;
+        const containerHeight = element.parentElement.offsetHeight;
+        // Calcula o deslocamento com base nas dimensões do contêiner
+        const projectionOffset = [containerWidth / 2 + 40, -containerHeight / 2 + 80];
+        console.log(projectionOffset)
         const config = {
             type: ChoroplethController.id,
             data: data,
@@ -361,11 +399,12 @@ function insert_brazil_map_chart(element, infos) {
                     legend: {
                         display: false
                     },
+                    datalabels: false,
                     tooltip: {
                         callbacks: {
                             label: function (tooltipItem) {
                                 const value = tooltipItem.raw || '';
-                                if (value.value === 1){
+                                if (value.value === 1) {
                                     return `${value.feature.properties.name}: ${value.value} artigo`;
                                 }
                                 return `${value.feature.properties.name}: ${value.value} artigos`;
@@ -378,7 +417,7 @@ function insert_brazil_map_chart(element, infos) {
                         axis: 'x',
                         projection: 'geoMercator',
                         projectionScale: 8,
-                        projectionOffset: [320, -100],
+                        projectionOffset: projectionOffset,
                     },
                     color: {
                         axis: 'x',

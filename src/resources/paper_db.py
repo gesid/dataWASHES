@@ -10,6 +10,7 @@ class PaperTypes(Enum):
     SHORT_PAPER = "Short paper"
     POSTER = "Poster"
     FULL_PAPER = "Full paper"
+    GRANDASHES_BR = "GranDASHES-BR"
 
 
 class PaperDB(EntityDB):
@@ -24,6 +25,10 @@ class PaperDB(EntityDB):
     def __init__(self) -> None:
         super().__init__()
         self._set_database(papers_db)
+
+    @staticmethod
+    def paper_types_str():
+        return ', '.join(paper.value for paper in PaperTypes)
 
     # Overriding
     def get_by_id(self, entity_id: int) -> dict | None:

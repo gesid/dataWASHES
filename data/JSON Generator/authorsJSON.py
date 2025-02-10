@@ -7,10 +7,12 @@ def main():
 
     authorJSON = []
     authors = {}
-    paper_counter = 0
+    paper_counter = -1
     author_counter = 0
 
     for i in range(len(df.index)):
+        if pd.notna(df.loc[i, "Paper's title"]):
+            paper_counter += 1
 
         if df.loc[i, "Authors"] in authors:
             author_id = authors[df.loc[i, "Authors"]]
@@ -28,9 +30,6 @@ def main():
             authorJSON.append(author)
             authors[df.loc[i, "Authors"]] = author_id
             author_counter += 1
-
-        if pd.notna(df.loc[i, "Paper's title"]):
-            paper_counter += 1
 
     with open('authors.json', 'w', encoding='utf-8') as json_file:
         json.dump(authorJSON, json_file, sort_keys=False)

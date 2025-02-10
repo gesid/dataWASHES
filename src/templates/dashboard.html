@@ -2,7 +2,6 @@
 
 {% block header %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/dashboard.css') }}">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script type="module" src="{{ url_for('static', filename='javascript/graphs_generator.js') }}"></script>
 {% endblock %}
 
@@ -25,54 +24,56 @@
                             </div>
                         </div>
                     </div>
-                    <table class="paper-table">
-                        <thead>
-                        <tr>
-                            <th>Título</th>
-                            <th>Autores</th>
-                            <th>Premiação</th>
-                            <th>Link para o artigo</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for edition_papers in statistics.award_winning_papers %}
-                            {% for paper in edition_papers['Papers'] %}
-                                <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
-                                    <td>{{ paper['Title'] }}</td>
-                                    {% if paper['Authors'] | length > 2 %}
-                                        <td>{{ paper['Authors'][0]['Name'] }}
-                                            ({{ paper['Authors'][0]['Institution_acronym'] }})
-                                            <div class="tooltip">
-                                                <i>et al.</i> ℹ️
-                                                <div class="tooltip-text">
-                                                    <ul>
-                                                        {% for author in paper['Authors'][1:] %}
-                                                            <li>{{ author['Name'] }}
-                                                                ({{ author['Institution_acronym'] }})
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
+                    <div id="table-container">
+                        <table class="paper-table">
+                            <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Autores</th>
+                                <th>Premiação</th>
+                                <th>Link para o artigo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for edition_papers in statistics.award_winning_papers %}
+                                {% for paper in edition_papers['Papers'] %}
+                                    <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
+                                        <td>{{ paper['Title'] }}</td>
+                                        {% if paper['Authors'] | length > 2 %}
+                                            <td>{{ paper['Authors'][0]['Name'] }}
+                                                ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                                <div class="tooltip">
+                                                    <i>et al.</i> ℹ️
+                                                    <div class="tooltip-text">
+                                                        <ul>
+                                                            {% for author in paper['Authors'][1:] %}
+                                                                <li>{{ author['Name'] }}
+                                                                    ({{ author['Institution_acronym'] }})
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    {% elif paper['Authors'] | length == 2 %}
-                                        <td>{{ paper['Authors'][0]['Name'] }}
-                                            ({{ paper['Authors'][0]['Institution_acronym'] }})
-                                            e {{ paper['Authors'][1]['Name'] }}
-                                            ({{ paper['Authors'][1]['Institution_acronym'] }})
-                                        </td>
-                                    {% else %}
-                                        <td>{{ paper['Authors'][0]['Name'] }}
-                                            ({{ paper['Authors'][0]['Institution_acronym'] }})
-                                        </td>
-                                    {% endif %}
-                                    <td>{{ paper['Award'] }}</td>
-                                    <td><a target="_blank" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
-                                </tr>
+                                            </td>
+                                        {% elif paper['Authors'] | length == 2 %}
+                                            <td>{{ paper['Authors'][0]['Name'] }}
+                                                ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                                e {{ paper['Authors'][1]['Name'] }}
+                                                ({{ paper['Authors'][1]['Institution_acronym'] }})
+                                            </td>
+                                        {% else %}
+                                            <td>{{ paper['Authors'][0]['Name'] }}
+                                                ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                            </td>
+                                        {% endif %}
+                                        <td>{{ paper['Award'] }}</td>
+                                        <td><a target="_blank" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
+                                    </tr>
+                                {% endfor %}
                             {% endfor %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="pagination-section">
                         <!-- <span style="cursor: pointer" onclick="table_before_page()" id="before"><</span> -->
                         {% for edition in statistics.award_winning_papers %}
@@ -85,7 +86,7 @@
                 </div>
                 <div class="artigos_por_edicao">
                     <div class="graph-header">
-                        <span class="title">Artigos por ano (edição)</span>
+                        <span class="title">Artigos publicados por ano (edição) no WASHES</span>
                         <div class="tooltip">
                             <img class="info-icon" alt="Ícone de informação"
                                  src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -100,7 +101,7 @@
                 </div>
                 <div class="artigos_por_idioma">
                     <div class="graph-header">
-                        <span class="title">Artigos por idioma</span>
+                        <span class="title">Artigos publicados por idioma ao longo dos anos (edições) no WASHES</span>
                         <div class="tooltip">
                             <img class="info-icon" alt="Ícone de informação"
                                  src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -115,7 +116,7 @@
                 </div>
                 <div class="ranking_instituicoes">
                     <div class="graph-header">
-                        <span class="title">Ranking de instituições</span>
+                        <span class="title">Ranking das instituições dos autores participantes do WASHES</span>
                         <div class="tooltip">
                             <img class="info-icon" alt="Ícone de informação"
                                  src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -131,7 +132,7 @@
                 </div>
                 <div class="ranking_autore">
                     <div class="graph-header">
-                        <span class="title">Ranking de autores</span>
+                        <span class="title">Ranking dos autores participantes do WASHES</span>
                         <div class="tooltip">
                             <img class="info-icon" alt="Ícone de informação"
                                  src="{{ url_for('static', filename='images/info-icon.png') }}">

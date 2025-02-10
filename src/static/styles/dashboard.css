@@ -1,6 +1,5 @@
 body {
     background-color: #F5F5F5;
-    font-family: "Poppins", sans-serif;
     color: #353535;
     overflow-x: hidden;
 
@@ -25,12 +24,12 @@ canvas {
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1.3fr 1fr 1fr 1fr;
-    gap: 50px 50px;
+    grid-template-rows: 1fr 1fr 1fr 1.3fr .8fr .8fr 1fr;
+    gap: 20px 20px;
     grid-auto-flow: row;
     grid-template-areas:
         "artigos_por_edicao artigos_por_idioma"
-        "ranking_instituicoes ranking_autore"
+        "ranking_autore ranking_instituicoes"
         "nuvem_palavras artigos_por_estado"
         "artigos_premiados artigos_premiados"
         "artigos_por_categorias artigos_por_categorias"
@@ -43,6 +42,7 @@ canvas {
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .artigos_por_edicao {
@@ -50,6 +50,7 @@ canvas {
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .artigos_por_idioma {
@@ -57,6 +58,7 @@ canvas {
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .ranking_instituicoes {
@@ -64,6 +66,7 @@ canvas {
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .ranking_autore {
@@ -71,6 +74,7 @@ canvas {
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .nuvem_palavras {
@@ -78,6 +82,7 @@ canvas {
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .artigos_por_estado {
@@ -85,6 +90,7 @@ canvas {
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .artigos_por_categorias {
@@ -109,9 +115,17 @@ canvas {
     cursor: pointer;
 }
 
+#table-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 75%;
+}
+
 .paper-table {
     border-collapse: collapse;
     width: 100%;
+    flex: 1;
 }
 
 .paper-table thead {
@@ -167,7 +181,9 @@ canvas {
 
 .pagination-section {
     display: flex;
+    position: relative;
     width: 100%;
+    height: 10%;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
@@ -206,6 +222,7 @@ canvas {
     background-color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .abordagem {
