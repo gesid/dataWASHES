@@ -41,20 +41,19 @@
 
 <footer>
     <div class="footer-content">
-        <p>
-            <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>
-        </p>
-        <p>&copy; 2025</p>
-        <div class="footer-logo-container">
-            <a href="https://github.com/gesid/dataWASHES/" target="_blank">
-                <img class="footer-logo" alt="Logo do dataWASHES API"
-                     src="{{ url_for('static', filename='images/github-logo-2-small.png') }}">
-            </a>
-        </div>
         <div class="footer-logo-container">
             <a href="{{ url_for('swagger_template') }}">
                 <img class="footer-logo" alt="Logo do dataWASHES API"
                      src="{{ url_for('static', filename='images/logo.png') }}">
+            </a>
+        </div>
+        <div class="footer-logo-container">
+            <p><a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a> &copy; 2025</p>
+        </div>
+        <div class="footer-logo-container">
+            <a href="https://github.com/gesid/dataWASHES/" target="_blank">
+                <img class="footer-logo-git" alt="Logo do dataWASHES API"
+                     src="{{ url_for('static', filename='images/github-logo-2-small.png') }}">
             </a>
         </div>
     </div>

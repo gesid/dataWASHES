@@ -190,6 +190,7 @@ footer {
 .footer-content {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -200,12 +201,19 @@ footer {
 }
 
 .footer-logo-container {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-left: 10px;
 }
 
 .footer-logo {
+    height: 50px;
+    width: auto;
+}
+
+.footer-logo-git {
     height: 30px;
     width: auto;
 }
