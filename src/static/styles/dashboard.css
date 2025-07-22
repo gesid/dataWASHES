@@ -135,11 +135,40 @@ canvas {
     flex-direction: column;
     height: 75%;
     min-width: 768px;
-}
-#table-scroll-wrapper {
     width: 100%;
+    overflow: visible;
+}
+
+@media (max-width: 768px) {
+  #table-scroll-wrapper {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch; /* Scroll suave em dispositivos móveis */
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Adiciona sombra para indicar conteúdo oculto */
+  #table-scroll-wrapper:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background: linear-gradient(to right, transparent, rgba(0,0,0,0.1));
+    pointer-events: none;
+  }
+  
+  .paper-table {
+    min-width: 600px; /* Largura mínima para forçar scroll */
+  }
+  
+  /* Melhora a visualização das células */
+  .paper-table td {
+    padding: 8px 4px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
 }
 
 .paper-table {
