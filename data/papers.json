@@ -2874,14 +2874,14 @@
       "Authors":[
          {
             "Name":"Alex Calado",
-            "Institution":"Programa de Pós-Graduação em Informática Aplicada (PPGIA) - Departamento de Computação (DC) - Universidade Federal Rural de Pernambuco (UFRPE)",
+            "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
             "State":"PE",
             "Author_id":139,
             "Institution_acronym":"UFRPE"
          },
          {
             "Name":"Ricardo de Souza",
-            "Institution":"Programa de Pós-Graduação em Informática Aplicada (PPGIA) - Departamento de Computação (DC) - Universidade Federal Rural de Pernambuco (UFRPE)",
+            "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
             "State":"PE",
             "Author_id":140,
             "Institution_acronym":"UFRPE"
@@ -5989,7 +5989,7 @@
       "Language":"en",
       "Year":2024,
       "Abstract":"Software Economics concentrates on enhancing the value derived from investments in software development and utilization, making it a critical aspect of decision-making in Software Engineering (SE). As such, this paper delves into the economic aspects of SE through a scope review on the Workshop on Social, Human, and Economic Aspects of Software (WASHES) proceedings. Following Boehm’s seminal roadmap from 2000, we aim to portray advancements, identify emerging trends, and highlight challenges found in the WASHES research landscape over the past nine years. More specifically, this study contributes to academia by consolidating existing knowledge and suggesting future directions for software economics. Our findings offer industry stakeholders a forward-looking perspective on the current state, trends, and challenges in software development processes, enabling proactive strategies to enhance economic efficiency and strategic decisions.",
-      "Resumo":"NaN",
+      "Resumo":"#",
       "Keywords":"#",
       "Type":"Full paper",
       "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/29447",
@@ -6728,5 +6728,1168 @@
       "Data_collection":"Análise documental",
       "Quantitative_Data_Analysis":"#",
       "Qualitative_Data_Analysis":"Análise de conteúdo"
+   },
+   {
+      "Paper_id":100,
+      "Title":"Trabalho Remoto no Pós-Pandemia: Benefícios e Desafios no Setor de TI do Estado do Pará",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"This paper investigates the benefits and challenges in the post- pandemic period of Covid-19 through a Systematic Literature Review (SLR) and an empirical study in the Information Technology (IT) sector in the state of Par´a. The SLR analyzed 13 studies from four databases, indicating increased produc- tivity and challenges such as balancing professional and personal life. The em- pirical study, conducted with managers and employees, revealed that flexibility and time savings were the main benefits, while social isolation and adaptation to new management approaches were the most cited challenges. The findings provide insights for future research on hybrid work models and organizational policies in the IT sector.",
+      "Resumo":"Este artigo investiga os benefícios e desafios enfrentados no período pós-pandemia da Covid-19, por meio de um Mapeamento Sistemático da Literatura (MSL) e de um estudo empírico realizado no setor de Tecnologia da Informação (TI) do estado do Pará. O MSL analisou 13 estudos provenientes de quatro bases de dados, apontando aumento da produtividade, além de desafios como o equilíbrio entre vida profissional e pessoal. Já o estudo empírico, conduzido com gestores e colaboradores, destacou a flexibilidade e a economia de tempo como os principais benefícios, enquanto o isolamento social e a adaptação às novas formas de gestão foram os desafios mais recorrentes. Os resultados oferecem subsídios relevantes para futuras investigações sobre modelos híbridos de trabalho e políticas organizacionais no setor de TI.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35915",
+      "References":[
+         "Althoff, L., Eckert, F., Ganapati, S., and Walsh, C. (2022). The geography of remote work. Regional Science and Urban Economics, 93:103770.",
+         "Bao, L., Li, T., Xia, X., Zhu, K., Li, H., and Yang, X. (2020). How does working from home affect developer productivity? - a case study of baidu during covid-19 pandemic. ArXiv, abs/2005.13167.",
+         "Bezerra, C. I. M., de Souza Filho, J. C., Coutinho, E. F., Gama, A., Ferreira, A. L., de Andrade, G. L. a., and Feitosa, C. E. (2020). How human and organizational factors influence software teams productivity in covid-19 pandemic: A brazilian survey. In Proceedings of the XXXIV Brazilian Symposium on Software Engineering, SBES ’20, page 606–615, New York, NY, USA. Association for Computing Machinery.",
+         "Christian, A. (2023). As razões das empresas que decidiram manter trabalho 100% remoto.",
+         "da Silva, D. P., Costa, B. R. L., and Araújo, R. M. (2022). Home office e qualidade de vida no trabalho: Desafios enfrentados pelo segmento da tecnologia da informação na pandemia do covid-19. Pensar Acadêmico, 20(3):724–748.",
+         "Durães, B., Bridi, M. A. d. C., and Dutra, R. Q. (2021). O teletrabalho na pandemia da covid-19: uma nova armadilha do capital? Sociedade e Estado, 36:945–966.",
+         "Hooshyar, H., Guerra, E., Melegati, J., Khanna, D., Aldaeej, A., Matturro, G., Zaina, L., Greer, D., Rafiq, U., Chanin, R., Wang, X., Garbajosa, J., Abrahamsson, P., Khomh, F., and Nguyen-Duc, A. (2023). Impact in software engineering activities after one year of covid-19 restrictions for startups and established companies. IEEE Access, 11:55178–55203.",
+         "Lisbôa, D. A., da Rocha, T. A., Machado, L. S., Caldeira, C. M., and de Souza, C. R. (2021). Um estudo observacional sobre as adaptações ao trabalho remoto no contexto da pandemia de covid-19. In Anais do XVI Simpósio Brasileiro de Sistemas Colaborativos, pages 95–106. SBC.",
+         "Lund, S., Madgavkar, A., Manyika, J., and Smit, S. (2020). What’s next for remote work: An analysis of 2,000 tasks, 800 jobs, and nine countries.",
+         "Lupton, R. and Allwood, J. (2017). Hybrid sankey diagrams: Visual analysis of multi-dimensional data for understanding resource use. Resources, Conservation and Recycling, 124:141–151.",
+         "Machado, L. S., Caldeira, C., Gattermann Perin, M., and de Souza, C. R. (2021). Gendered experiences of software engineers during the covid-19 crisis. IEEE Software, 38(2):38–44.",
+         "Mendonça, W. L. M., Costa, P. H. T., Cançado, E. C. R., Lima, F., Canedo, E. D., Bonifácio, R., and Amaral, L. H. V. (2020). From dusk till dawn: Reflections on the impact of covid-19 on the development practices of a rd project. In Proceedings of the XXXIV Brazilian Symposium on Software Engineering, SBES ’20, page 596–605, New York, NY, USA. Association for Computing Machinery.",
+         "Neto, P. A. d. M. S., Mannan, U. A., de Almeida, E. S., Nagappan, N., Lo, D., Singh Kochhar, P., Gao, C., and Ahmed, I. (2022). A deep dive into the impact of covid-19 on software development. IEEE Transactions on Software Engineering, 48(9):3342–3360.",
+         "Oliveira, E., Leal, G., Valente, M. T., Morandini, M., Prikladnicki, R., Pompermaier, L., Chanin, R., Caldeira, C., Machado, L., and de Souza, C. (2020). Surveying the impacts of covid-19 on the perceived productivity of brazilian software developers. In Proceedings of the XXXIV Brazilian Symposium on Software Engineering, SBES ’20, page 586–595, New York, NY, USA. Association for Computing Machinery.",
+         "Ortega, S. M., dos Santos Mariano, T., and de Carvalho, D. L. (2023). Viabilidade do home office para profissionais da área da tecnologia da informação: vantagens e desvantagens em adotar esse modelo de trabalho. Refas-Revista Fatec Zona Sul, 9(5):1–18.",
+         "Ozimek, A. (2020). The Future of Remote Work.",
+         "Patrão, R. L., da Silva, C. S., da Luz, G. P., de Caldas Filho, F. L., de Mendonca, F. L., and de Sousa, R. T. (2020). Technological solution development during the covid-19 pandemic: a case study in an iot lab. In 2020 IEEE Global Conference on Artificial Intelligence and Internet of Things (GCAIoT), pages 1–6.",
+         "Petersen, K., Vakkalanka, S., and Kuzniarz, L. (2015). Guidelines for conducting systematic mapping studies in software engineering: An update. Information and Software Technology, 64:1–18.",
+         "Pontes, A. L., Hirata, L. C., and Neves, D. L. F. (2021). O home office na pandemia de covid-19: uma perspectiva da eficiência dos profissionais de tecnologia da informação. Revista FATEC Zona Sul, 7(5):1–16.",
+         "Ralph, P. et al. (2020). Pandemic programming: How covid-19 affects software developers and how their organizations can help. Empirical Software Engineering, 25(6):4927–4961.",
+         "Silva, S. L. F. d. C., Pereira dos Santos, R., Fornazin, M., and Gonçalves, A. A. (2020). A estratÉgia de tecnologia da informaÇÃo e os sistemas emergentes no plano de gerenciamento de crise da covid-19 no instituto nacional de cÂncer. RAHIS. Revista de Administração Hospitalar e Inovação em Saúde, 17(2):1–12."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-19",
+      "Authors":[
+         {
+            "Name":"Eliezer Coelho",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":311,
+            "Institution_acronym":"UFPA"
+         },
+         {
+            "Name":"César Lobato",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":312,
+            "Institution_acronym":"UFPA"
+         },
+         {
+            "Name":"Carlos Portela",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":313,
+            "Institution_acronym":"UFPA"
+         },
+         {
+            "Name":"Rodrigo Lisbôa",
+            "Institution":"Universidade Federal Rural da Amazônia (UFRA)",
+            "State":"PA",
+            "Author_id":314,
+            "Institution_acronym":"UFRA"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":101,
+      "Title":"Liderança Servidora e Segurança Psicológica como Antecedentes do Desempenho em Equipes Ágeis",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"Considering that leadership styles directly influence team perfor- mance, challenges related to leadership remain a critical factor in the failure of agile projects. Servant leadership has emerged as a promising style, particu- larly due to its effectiveness in fostering psychological safety. This study investi- gates the relationship between servant leadership and team performance in ag- ile contexts. Based on an exploratory literature review and data collected from 47 professionals working in agile teams in Recife, Brazil, the findings suggest that servant leadership can contribute to strengthening trust and collaboration, promoting psychological safety, and potentially improving team performance. These findings reinforce the relevance of servant leadership as a strategic factor in agile environments.",
+      "Resumo":"Considerando que os estilos de liderança influenciam diretamente o desempenho das equipes, desafios relacionados à liderança permanecem como um fator crítico para o insucesso de projetos ágeis. A liderança servidora tem se mostrado um estilo promissor, especialmente por sua eficácia na promoção da segurança psicológica. Este estudo investiga a relação entre esse estilo de liderança e o desempenho de equipes ágeis. Com base em uma revisão exploratória da literatura e na análise de dados obtidos junto a 47 profissionais que atuam em equipes ágeis em Recife, Brasil, os resultados sugerem que a liderança servidora pode contribuir para o fortalecimento da confiança e da colaboração, promovendo a segurança psicológica e, potencialmente, a melhoria do desempenho das equipes. Esses achados reforçam a importância da liderança servidora como um fator estratégico no contexto ágil.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35916",
+      "References":[
+         "Alami, A., Zahedi, M., and Krancher, O. (2024). The role of psychological safety in promoting software quality in agile teams. Empirical Software Engineering, 29(5):119.",
+         "Bilal, A., Siddiquei, A., Asadullah, M. A., Awan, H. M., and Asmi, F. (2021). Servant leadership: a new perspective to explore project leadership and team effectiveness. International Journal of Organizational Analysis, 29(3):699–715.",
+         "Brohi, N. A., Jantan, A. H., Qureshi, M. A., Bin Jaffar, A. R., Bin Ali, J., and Bin Ab Hamid, K. (2018). The impact of servant leadership on employees attitudinal and behavioural outcomes. Cogent Business & Management, 5(1):1542652.",
+         "Buvik, M. P. and Tkalich, A. (2021). Psychological safety in agile software development teams: Work design antecedents and performance consequences. arXiv preprint arXiv:2109.15034.",
+         "Edmondson, A. (1999). Psychological safety and learning behavior in work teams. Administrative science quarterly, 44(2):350–383.",
+         "Ellahi, A., Rehman, M., Javed, Y., Sultan, F., and Rehman, H. M. (2022). Impact of servant leadership on project success through mediating role of team motivation and effectiveness: a case of software industry. SAGE Open, 12(3):21582440221122747.",
+         "Greenleaf, R. K. (2008). The servant as leader.",
+         "Harwardt, M. (2020). Servant leadership and its effects on it project success. Journal of Project Management, 5(1):59–78.",
+         "Hennel, P. and Rosenkranz, C. (2021). Investigating the “socio” in socio-technical development: The case for psychological safety in agile information systems development. Project Management Journal, 52(1):11–30.",
+         "Holtzhausen, N. and de Klerk, J. J. (2018). Servant leadership and the scrum team’s effectiveness. Leadership & Organization Development Journal, 39(7):873–882.",
+         "Lee, A., Lyubovnikova, J., Tian, A. W., and Knight, C. (2020). Servant leadership: A meta-analytic examination of incremental contribution, moderation, and mediation. Journal of Occupational and Organizational Psychology, 93(1):1–44.",
+         "Li, W. (2024). A comparison of the effectiveness of agile leadership and servant leader-ship in project management. International Journal of Applied Business and Management Studies, 9(2):10.",
+         "Lindsjørn, Y., Sjøberg, D. I., Dingsøyr, T., Bergersen, G. R., and Dybå, T. (2016). Team-work quality and project success in software development: A survey of agile development teams. Journal of Systems and Software, 122:274–286.",
+         "Maroukian, K. and Gulliver, S. R. (2020). The link between transformational and servant leadership in devops-oriented organizations. In Proceedings of the 2020 European Symposium on Software Engineering, pages 21–29.",
+         "Palmiero, A. (2022). The Relationship of Servant Leadership and Psychological Safety on Team Performance in Healthcare. PhD thesis, Walden University.",
+         "Peeters, T., Van De Voorde, K., and Paauwe, J. (2022). The effects of working agile on team performance and engagement. Team Performance Management: An International Journal, 28(1/2):61–78.",
+         "Russell, R. F. and Stone, A. G. (2002). A review of servant leadership attributes: Developing a practical model. Leadership & organization development journals, 23(3):145–157.",
+         "Schein, E. and Bennis, W. (1965). Personal and Organizational Change Through Group Methods: The Laboratory Approach. Wiley.",
+         "Sendjaya, S., Eva, N., Butar Butar, I., Robin, M., and Castles, S. (2019). Slbs-6: Validation of a short form of the servant leadership behavior scale. Journal of Business Ethics, 156:941–956.",
+         "Spears, L. C. (2010). Character and servant leadership: Ten characteristics of effective, caring leaders. The journal of virtues & leadership, 1(1):25–30.",
+         "Steegh, R., Van De Voorde, K., Paauwe, J., and Peeters, T. (2025). The agile way of working and team adaptive performance: A goal-setting perspective. Journal of Business Research, 189:115163."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-19",
+      "Authors":[
+         {
+            "Name":"Gabriel Albuquerque de Oliveira",
+            "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
+            "State":"PE",
+            "Author_id":315,
+            "Institution_acronym":"UFRPE"
+         },
+         {
+            "Name":"Suzana Sampaio",
+            "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
+            "State":"PE",
+            "Author_id":316,
+            "Institution_acronym":"UFRPE"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":102,
+      "Title":"10 years of Workshop on Social, Human, and Economics Aspects of Software (WASHES): Results of a Scoping Review",
+      "Language":"en",
+      "Year":2025,
+      "Abstract":"The Workshop on Social, Human, and Economic Aspects of Soft- ware Engineering (WASHES), established in 2016, serves as an interdisci- plinary venue for the Software Engineering research community. As WASHES approaches its tenth anniversary, this study presents a scoping review of its contributions. We systematically analyze publication trends, thematic evolu- tion, influential authors, institutional participation, and geographic distribution across nine editions. Our findings reveal that WASHES has published 100 pa- pers to date, with the social perspective being the most frequently addressed. The workshop has fostered a diverse network of over 300 researchers from 70 institutions across 19 Brazilian states and 4 countries. Our contribution in- cludes a synthesis of WASHES research, analyzing publication distribution by year, citation patterns, and language preferences. We also map the thematic evolution of WASHES and identify emerging research trends over time. Finally, we highlight the most prolific authors and institutions contributing to WASHES.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35917",
+      "References":[
+         "Ampatzoglou, A., Bibi, S., Avgeriou, P., Verbeek, M., and Chatzigeorgiou, A. (2019). Identifying, categorizing and mitigating threats to validity in software engineering secondary studies. Information and Software Technology, 106:201–230.",
+         "Araújo, A. A., Farias, I., Gonçalves, V., Santos, R., Viana, D., and Steinmacher, I. (2024a). dataWASHES - Towards an Application Programming Interface of WASHES proceedings data. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software, pages 158–162. SBC.",
+         "Araújo, A. A., Gonçalves, V., Farias, I., Santos, R., and Viana, D. (2024b). What has the washes community discussed about software economics in the last years? In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES), pages 118–129. SBC.",
+         "Boehm, B. W. (2002). Software engineering economics. Springer.",
+         "Gomes, O., Miranda, E., e Silva, G. B., and Araújo, A. A. (2024). Supporting dataset. DOI: 10.5281/zenodo.15051497.",
+         "Hyrynsalmi, S. M., Liebel, G., Santos, R., and Baltes, S. (2025). Not real or too soft? On the challenges of publishing interdisciplinary software engineering research. arXiv:2501.06523.",
+         "Lenberg, P., Feldt, R., and Wallgren, L. G. (2015). Behavioral software engineering: A definition and systematic literature review. Journal of Systems and software, 107:15–37.",
+         "Menolli, A., Coleti, T. A., and Morandini, M. (2023). Impact of remote work on software teams: A qualitative study. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES), pages 51–60. SBC.",
+         "Motta, T. V. A., Braga, G., et al. (2022). Analise quali-quantitativa sobre a influência da diversidade na produtividade de equipes ágeis: um estudo na indústria. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES), pages 31–40. SBC.",
+         "Munn, Z., Peters, M. D., Stern, C., Tufanaru, C., McArthur, A., and Aromataris, E. (2018). Systematic review or scoping review? Guidance for authors when choosing between a systematic or scoping review approach. BMC medical research methodology, 18:1–7.",
+         "Peters, M., Marnie, C., Tricco, A., Pollock, D., Munn, Z., Alexander, L., Mcinerney, P., Godfrey, C., and Khalil, H. (2020). Updated methodological guidance for the conduct of scoping reviews. JBI evidence implementation, 19:3–10.",
+         "Santos, A., da Silva, E., and Zaina, L. (2024). Kanban board guide for startups: introduzindo boas práticas para melhorar a experiência do desenvolvedor. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES), pages 23–34. SBC.",
+         "Smith, S. A. and Duncan, A. A. (2022). Systematic and scoping reviews: A comparison and overview. In Seminars in Vascular Surgery, volume 35, pages 464–469. Elsevier.",
+         "Valderramas, E. (2020). A ética como um dos desafios da inteligência artificial. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES), pages 71–80. SBC."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-19",
+      "Authors":[
+         {
+            "Name":"Otávio Santos Gomes",
+            "Institution":"Universidade Federal de Viçosa (UFV) ",
+            "State":"MG",
+            "Author_id":238,
+            "Institution_acronym":"UFV"
+         },
+         {
+            "Name":"Estela Miranda Batista",
+            "Institution":"Universidade Federal de Viçosa (UFV) ",
+            "State":"MG",
+            "Author_id":317,
+            "Institution_acronym":"UFV"
+         },
+         {
+            "Name":"Gláucia Braga e Silva",
+            "Institution":"Universidade Federal de Viçosa (UFV) ",
+            "State":"MG",
+            "Author_id":200,
+            "Institution_acronym":"UFV"
+         },
+         {
+            "Name":"Allysson Allex Araújo",
+            "Institution":"Universidade Federal do Cariri (UFCA)",
+            "State":"CE",
+            "Author_id":149,
+            "Institution_acronym":"UFCA"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":103,
+      "Title":"Evaluating the Development Experience in Open Science Tools: A Case Study of the dataWASHES API",
+      "Language":"en",
+      "Year":2025,
+      "Abstract":"Open science has gained prominence in Software Engineering re- search, yet Developer Experience (DX) in open science tools remains an under- explored topic. Recognizing this relevance, this study investigates developers’ perceptions of DX when using dataWASHES, an open source API that facili- tates access to WASHES proceedings data. A qualitative study was conducted with 13 participants performing scenario-based tasks using the API, followed by a questionnaire inspired by the SPACE framework. Results indicate a posi- tive DX, with 84.6% of participants rating their experience at the highest level. While satisfaction and efficiency were strengths, minor usability issues suggest areas for improvement. Analyzing DX in tools like dataWASHES advances our understanding of the relationship between open science tools and DX, providing important lessons towards the engineering of open science solutions.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35918",
+      "References":[
+         "Araújo, A. A., Farias, I., Gonçalves, V., Santos, R., Viana, D., and Steinmacher, I. (2024) dataWASHES - Towards an Application Programming Interface of WASHES proceedings data. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES), pages 158–162. SBC.",
+         "Bevan, N., Barnum, C., Cockton, G., Nielsen, J., Spool, J., and Wixon, D. (2003). The “magic number 5” is it enough for web testing? In CHI’03 extended abstracts on Human factors in computing systems, pages 698–699.",
+         "Fagerholm, F. and Münch, J. (2012). Developer experience: Concept and definition. In 2012 international conference on software and system process (ICSSP), pages 73–77. IEEE.",
+         "Fernández, D. M., Monperrus, M., Feldt, R., and Zimmermann, T. (2019). The open science initiative of the empirical software engineering journal. Empirical Software Engineering, 24:1057–1060.",
+         "Forsgren, N., Kalliamvakou, E., Noda, A., Greiler, M., Houck, B., and Storey, M.-A. (2024). Devex in action. Communications of the ACM, 67(6):42–51.",
+         "Forsgren, N., Storey, M.-A., Maddila, C., Zimmermann, T., Houck, B., and Butler, J. (2021). The space of developer productivity: There’s more to it than you think. Queue, 19(1):20–48.",
+         "Greiler, M., Storey, M.-A., and Noda, A. (2022). An actionable framework for understanding and improving developer experience. IEEE Transactions on Software Engineering, 49(4):1411–1425.",
+         "Guenes, P., Tomaz, R., Kalinowski, M., Baldassarre, M. T., and Storey, M.-A. (2024). Impostor phenomenon in software engineers. In Proceedings of the 46th International Conference on Software Engineering: Software Engineering in Society, pages 96–106.",
+         "Guest, G., Bunce, A., and Johnson, L. (2006). How many interviews are enough? an experiment with data saturation and variability. Field methods, 18(1):59–82.",
+         "Hicks, C. M. (2024). Psychological affordances can provide a missing explanatory layer for why interventions to improve developer experience take hold or fail. Preprint. DOI: 10.31234/osf.io/qz43x.",
+         "Kags, A. (2023). Building community driven open infrastructure. In Open Infrastructure Fund/Fondo de Infraestructura Abierta.",
+         "Mendez, D., Graziotin, D., Wagner, S., and Seibold, H. (2020). Open science in software engineering. Contemporary empirical methods in software engineering, pages 477–501.",
+         "Mikkonen, T. (2016). Flow, intrinsic motivation, and developer experience in software engineering. Agile processes in software engineering and extreme programming, 104.",
+         "Nylund, A. (2020). A multivocal literature review on developer experience. Master’s thesis, Aalto University.",
+         "Persic, A., Beigel, F., Hodson, S., and Oti-Boateng, P. (2021). The time for open science is now. UNESCO Science Report: the race against time for smarter development. Paris: UNESCO Publishing, pages 12–16.",
+         "Peršić, A. and Straza, T. (2023). Open science for all: Implementing the unesco recommendation on open science for an equitable and just transition to open science. College & Research Libraries News, 84(10):377.",
+         "Razzaq, A., Buckley, J., Lai, Q., Yu, T., and Botterweck, G. (2024). A systematic literature review on the influence of enhanced developer experience on developers’ productivity: Factors, practices, and recommendations. ACM Computing Surveys, 57(1):1–46.",
+         "Runeson, P. and Höst, M. (2009). Guidelines for conducting and reporting case study research in software engineering. Empirical software engineering, 14:131–164.",
+         "Sellanga, J. (2023). Accelerating adoption and investment in open infrastructure world-wide through collaboration with networks. Invest in Open. Accessed: 2024-03-14.",
+         "Sikand, S., Phokela, K. K., Sharma, V. S., Singi, K., Kaulgud, V., Tung, T., Sharma, P., and Burden, A. P. (2024). How much space do metrics have in genai assisted software development? In Proceedings of the 17th Innovations in Software Engineering Conference, pages 1–5.",
+         "Souza, A., Viana, D., Santos, R., and Araújo, A. A. (2024). Supporting dataset. DOI: 10.5281/zenodo.15061563.",
+         "UNESCO (2021). UNESCO Recommendation on Open Science. United Nations Educational, Scientific and Cultural Organization.",
+         "Ziegler, A., Kalliamvakou, E., Li, X. A., Rice, A., Rifkin, D., Simister, S., Sittampalam, G., and Aftandilian, E. (2024). Measuring github copilot’s impact on productivity. Communications of the ACM, 67(3):54–63."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-19",
+      "Authors":[
+         {
+            "Name":"Antônio Souza",
+            "Institution":"Universidade Federal do Cariri (UFCA)",
+            "State":"CE",
+            "Author_id":318,
+            "Institution_acronym":"UFCA"
+         },
+         {
+            "Name":"Davi Viana",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":13,
+            "Institution_acronym":"UNIRIO"
+         },
+         {
+            "Name":"Rodrigo Pereira dos Santos",
+            "Institution":"Universidade Federal do Maranhão (UFMA)",
+            "State":"MA",
+            "Author_id":10,
+            "Institution_acronym":"UFMA"
+         },
+         {
+            "Name":"Allysson Allex Araújo",
+            "Institution":"Universidade Federal do Cariri (UFCA)",
+            "State":"CE",
+            "Author_id":149,
+            "Institution_acronym":"UFCA"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":104,
+      "Title":"Bridging Open Science and Data Visualization: Evaluating the Usability of dataWASHES Dashboard",
+      "Language":"en",
+      "Year":2025,
+      "Abstract":"[Context] Open Science has gained traction in Software Engineering in recent years, driven by the growing need to promote transparency and collaboration. The dataWASHES initiative exemplifies this perspective by providing an API for accessing WASHES proceedings. [Problem] Despite its contributions, dataWASHES lacks an interactive data visualization tool, limiting its accessibility to a broader audience. [Objective] This paper presents and evaluates a dashboard for dataWASHES to enhance data analysis and usability. [Method] We conducted a qualitative inspection based on Tufte’s principles and usability testing with 28 participants using the System Usability Scale (SUS). [Results] The dashboard adhered strongly to Tufte’s principles, particularly minimizing non-essential elements. The SUS yielded a score of 91.25, with 96.4% of participants reporting high satisfaction and 100% willing to recommend the tool. [Contributions] This work contributes by (1) applying Tufte’s principles in Open Science dashboards, (2) emphasizing the importance of user-centered design and data visualization in the engineering of Open Science tools, and (3) improving dataWASHES with a dashboard that turns data into actionable insights.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35919",
+      "References":[
+         "Araújo, A. A., Farias, I., Gonçalves, V., Santos, R., Viana, D., and Steinmacher, I. (2024). dataWASHES - Towards an Application Programming Interface of WASHES proceedings data. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES), pages 158–162. SBC.",
+         "Bangor, A., Kortum, P., and Miller, J. (2009). Determining what individual sus scores mean: Adding an adjective rating scale. Journal of usability studies, 4(3):114–123.",
+         "Bevan, N., Barnum, C., Cockton, G., Nielsen, J., Spool, J., and Wixon, D. (2003). The “magic number 5” is it enough for web testing? In CHI’03 extended abstracts on Human factors in computing systems, pages 698–699.",
+         "Brooke, J. et al. (1996). SUS - A quick and dirty usability scale. Usability evaluation in industry, 189(194):4–7.",
+         "Fekete, J.-D., Van Wijk, J. J., Stasko, J. T., and North, C. (2008). The value of information visualization. Information visualization: human-centered issues and perspectives, pages 1–18.",
+         "Few, S. (2009). Now you see it: simple visualization techniques for quantitative analysis. Analytics Press.",
+         "Gonçalves, V., Viana, D., Santos, R., and Araújo, A. A. (2024). Supporting dataset. DOI: 10.5281/zenodo.15061857.",
+         "Grier, R. A., Bangor, A., Kortum, P., and Peres, S. C. (2013). The system usability scale: Beyond standard usability testing. In Proceedings of the human factors and ergonomics society annual meeting, volume 57, pages 187–191. SAGE Publications Sage CA: Los Angeles, CA.",
+         "Laubheimer, P. (2017). Dashboards: Making charts and graphs easier to understand. Accessed: 2025-02-22.",
+         "Mendez, D., Graziotin, D., Wagner, S., and Seibold, H. (2020). Open science in software engineering. Contemporary empirical methods in software engineering, pages 477–501.",
+         "Nielsen, J. et al. (2012). Usability 101: Introduction to usability.",
+         "Tufte, E. R. (2001). The visual display of quantitative information, volume 2. Graphics Press Cheshire, CT.",
+         "UNESCO (2021). UNESCO Recommendation on Open Science. United Nations Educational, Scientific and Cultural Organization.",
+         "Wang, R., Perez-Riverol, Y., Hermjakob, H., and Vizcaíno, J. A. (2015). Open source libraries and frameworks for biological data visualisation: A guide for developers. Proteomics, 15(8):1356–1374.",
+         "Wilkinson, L. (2011). The grammar of graphics. In Handbook of computational statistics: Concepts and methods, pages 375–414. Springer."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-19",
+      "Authors":[
+         {
+            "Name":"Victor Gonçalves",
+            "Institution":"Universidade Federal do Cariri (UFCA)",
+            "State":"CE",
+            "Author_id":291,
+            "Institution_acronym":"UFCA"
+         },
+         {
+            "Name":"Davi Viana",
+            "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State":"RJ",
+            "Author_id":13,
+            "Institution_acronym":"UNIRIO"
+         },
+         {
+            "Name":"Rodrigo Pereira dos Santos",
+            "Institution":"Universidade Federal do Maranhão (UFMA)",
+            "State":"MA",
+            "Author_id":10,
+            "Institution_acronym":"UFMA"
+         },
+         {
+            "Name":"Allysson Allex Araújo",
+            "Institution":"Universidade Federal do Cariri (UFCA)",
+            "State":"CE",
+            "Author_id":149,
+            "Institution_acronym":"UFCA"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":105,
+      "Title":"Conformidade com os Requisitos Legais de Privacidade de Dados: Um Estudo sobre Técnicas de Anonimização",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"The protection of personal data has become a central topic in soft- ware development, especially with the implementation of the General Data Pro- tection Law (LGPD) in Brazil and the General Data Protection Regulation (GDPR) in the European Union. With the enforcement of these laws, certain software quality criteria have become mandatory, such as data anonymization, which is one of the main aspects addressed by these regulations. The aim of this article is to analyze data anonymization techniques and assess their effec- tiveness in ensuring compliance with legal requirements and the utility of the data for its intended purpose. Techniques such as aggregation, generalization, perturbation, and k-anonymity were investigated and applied to datasets contai- ning personal and sensitive data. The analysis revealed significant variations in the effectiveness of each method, highlighting the need to balance privacy and data utility.",
+      "Resumo":"A proteção de dados pessoais tornou-se um tema central no desenvolvimento de software, especialmente com a implementação da Lei Geral de Proteção de Dados (LGPD) no Brasil e do Regulamento Geral de Proteção de Dados (GDPR) na União Europeia. Com a entrada em vigor dessas legislações, certos critérios, como a privacidade dos dados, tornaram-se aspectos fundamentais dessas normas. Este artigo tem como objetivo implementar uma abordagem computacional para anonimização, utilizando diferentes técnicas, e analisar seus resultados, além de investigar como essas técnicas se alinham aos requisitos da LGPD. Foram exploradas e aplicadas estratégias como agregação, generalização, perturbação e k-anonimato a conjuntos de dados contendo informações pessoais e sensíveis. A análise revelou variações significativas na eficácia de cada método, destacando a necessidade de equilibrar privacidade e utilidade dos dados.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35920",
+      "References":[
+         "Baez, J. C., Fritz, T., and Leinster, T. (2011). A characterization of entropy in terms of information loss. Entropy, 13(11):1945–1957.",
+         "Brasil (2018). Lei nº 13.709, de 14 de agosto de 2018. lei geral de proteção de dados pessoais (lgpd). Disponível em: [link]. Acesso em: 12 fev. 2025.",
+         "Ciriani, V., De Capitani di Vimercati, S., Foresti, S., and Samarati, P. (2009). Theory of privacy and anonymity. Disponível em: [link]. Acesso em: 18 nov. 2024.",
+         "Ghinita, G., Karras, P., Kalnis, P., and Mamoulis, N. (2007). Fast data anonymization with low information loss. In Proceedings of the VLDB Endowment (VLDB), pages 758–769, Vienna, Austria. ACM.",
+         "Kateifides, A., Bates, J., Papageorgiou, N., Ramsey, R., van der Geest, B., Marini, A., Arguinarena, P., and Ashcroft, V. (2020). Comparing privacy laws: GDPR vs. LGPD. OneTrust DataGuidance.",
+         "Li, T. and Li, N. (2014). Publicação de dados com privacidade preservada: Uma abordagem baseada em slicing. arXiv preprint.",
+         "Liew, C. K., Choi, U. J., and Liew, C. J. (1985). A data distortion by probability distribution. ACM Transactions on Database Systems (TODS), 10(3):395–411.",
+         "Maldonado, V. N. and Blum, R. O. (2020). LGPD Lei Geral de Proteção de Dados comentada. Thomson Reuters Brasil, 2 edition.",
+         "Marques, J. F. and Bernardino, J. (2020). Analysis of data anonymization techniques. In KEOD, pages 235–241.",
+         "Martin, B. (2020). GDPR for startups and scaleups: a practical guide. Library.",
+         "Mogre, N. V., Agarwal, G., and Patil, P. (2012). A review on data anonymization technique for data publishing. International Journal of Engineering Research & Technology (IJERT), 1(10):2278–0181.",
+         "Muntés-Mulero, V. and Nin, J. (2009). Privacy and anonymization for very large datasets. In Proceedings of the 18th ACM conference on Information and knowledge management, pages 2117–2118.",
+         "Ramos, F. (2019). Técnicas de Anonimização de Dados: Aplicações Práticas e Teóricas.",
+         "Ramos, F. and Oliveira, S. (2018). Manual Prático de Anonimização de Dados de Pesquisa com o R.",
+         "Ramos, F. and Oliveira, S. (2020). Anonimização e Dado: Fundamentos e Práticas.",
+         "Rana, M. E., Jayabalan, M., and Aasif, M. A. (2016). Privacy preserving anonymization techniques for patient data: An overview. In Third International Congress on Technology, Communication and Knowledge (ICTCK 2016).",
+         "Ranjan, A. and Ranjan, P. (2016). Two-phase entropy based approach to big data anonymization. In 2016 International Conference on Computing, Communication and Automation (ICCCA), pages 76–81. IEEE.",
+         "Sáinz-Pardo Díaz, J. and López García, Á. (2022). A python library to check the level of anonymity of a dataset. sci data 9.",
+         "Samarati, P. and Sweeney, L. (1998). Protecting privacy when disclosing information: k-anonymity and its enforcement through generalization and suppression.",
+         "Senigaglia, R. et al. (2020). Privacidade e proteção de dados em serviços de software. In Services and Business Process Reengineering.",
+         "Smith, J. and Chang, E. (2021). Anonimização e Dados: Abordagens e Técnicas.",
+         "Union, E. (2016). Regulation (eu) 2016/679 of the european parliament and of the council of 27 april 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data (general data protection regulation). Available at: [link]. Accessed: 12 Feb. 2025.",
+         "Xu, Q. (2007). Measuring information content from observations for data assimilation: relative entropy versus shannon entropy difference. Tellus A: Dynamic Meteorology and Oceanography, 59(2):198–209."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"André Menolli",
+            "Institution":"Universidade Estadual do Norte do Paraná (UENP)",
+            "State":"PR",
+            "Author_id":231,
+            "Institution_acronym":"UENP"
+         },
+         {
+            "Name":"Luiz Fernando Nunes",
+            "Institution":"Unversidade Estadual de Londrina (UEL)",
+            "State":"PR",
+            "Author_id":319,
+            "Institution_acronym":"UEL"
+         },
+         {
+            "Name":"Thiago A. Coleti",
+            "Institution":"Universidade Estadual do Norte do Paraná (UENP)",
+            "State":"PR",
+            "Author_id":232,
+            "Institution_acronym":"UENP"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":106,
+      "Title":"Como a comunidade brasileira de pesquisa em requisitos aborda o direito à privacidade de dados pessoais?",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"Several primary studies investigate how to implement the legal pre- cepts of the General Data Protection Law (LGPD) in Requirements Engineering (RE) activities. However, analyzing and contrasting the results of these studies builds a more comprehensive understanding of how the RE research community approaches the right to data privacy. Through a systematic mapping protocol, this paper maps 20 primary studies in terms of RE products and activities, ex- perimentation, and challenges in the adoption of LGPD in the RE process.",
+      "Resumo":"Vários estudos primários investigam como implementar os preceitos legais da Lei Geral de Proteção de Dados (LGPD) em atividades de Engenharia de Requisitos (ER). No entanto, analisar e contrastar os resultados desses estudos constrói uma compreensão mais abrangente de como a comunidade de pesquisa de ER aborda o direito à privacidade de dados pessoais. Por meio de um protocolo de mapeamento sistemático, este artigo mapeia 20 estudos primários quanto a produtos e atividades de ER, experimentação e desafios na adoção da LGPD no processo de ER.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35921",
+      "References":[
+         "Alves, C. and Neves, M. (2021). Especificação de requisitos de privacidade em conformidade com a LGPD: Resultados de um estudo de caso. In Workshop on Requirements Engineering, pages 1–14.",
+         "Andrade, V. C. et al. (2023). Personal data privacy in software development processes: A practitioner’s point of view. In IEEE 22nd International Conference on Trust, Security and Privacy in Computing and Communications, pages 2727–2734. IEEE.",
+         "Andrade, V. C. et al. (2024). Privacy in practice: Exploring concrete relationships between privacy patterns and privacy by design principles in software engineering. In Congresso Ibero-Americano em Engenharia de Software, pages 271–285.",
+         "Basili, V. R. and Weiss, D. M. (1984). A methodology for collecting valid software engineering data. IEEE Transactions on software engineering, (6):728–738.",
+         "Brasil (2018). Lei nº 13.709 de 14 de agosto de 2018. Diário Oficial da República Federativa do Brasil.",
+         "Camêlo, M. N. and Alves, C. (2023). G-priv: Um guia para apoiar a especificação de requisitos de privacidade em conformidade com a LGPD. iSys - Brazilian Journal of Information Systems, 16(1):2–1.",
+         "Cançado, E. C. R. et al. (2022). Exploring user-centered requirements validation and verification techniques in a social inclusion context. In 24th International Conference on Enterprise Information Systems - Volume 1: ICEIS, pages 85–92.",
+         "Canedo, E. D. et al. (2021). Agile teams’ perception in privacy requirements elicitation: LGPD’s compliance in brazil. In 29th International Requirements Engineering Conference, pages 58–69. IEEE.",
+         "Canedo, E. D. et al. (2022). Guidelines adopted by agile teams in privacy requirements elicitation after the brazilian general data protection law (LGPD) implementation. Requirements Engineering, 27(4):545–567.",
+         "Carneiro, C. G. d. M. et al. (2024a). Evaluating privacy requirement patterns based on the brazilian general personal data protection law. In XXIII Brazilian Symposium on Software Quality, pages 114–124.",
+         "Carneiro, C. G. d. M. et al. (2024b). Um método para transformação de requisitos legais em padrões de requisitos de software: Um estudo com a LGPD. In Congresso Ibero-Americano em Engenharia de Software (CIbSE), pages 348–355.",
+         "Castro, E. T. V. d. et al. (2022). Ensuring privacy in the application of the brazilian general data protection law (LGPD). In 37th ACM/SIGAPP Symposium on Applied Computing, pages 1228–1235.",
+         "Elger, E. and Santander, V. A. (2024). A engenharia de requisitos e a lei geral de proteção de dados (LGPD): Uma revisão sistemática da literatura. In Congresso Latino-Americano de Software Livre e Tecnologias Abertas (Latinoware), pages 1–10.",
+         "Ferrão, S. É. R. et al. (2024). Towards a taxonomy of privacy requirements based on the LGPD and iso/iec 29100. Information and Software Technology, 168:107396.",
+         "Frej, M. et al. (2024). Um sistema web para auxiliar soluções na conformidade com a LGPD. In XXXVIII Simpósio Brasileiro de Engenharia de Software, pages 713–719.",
+         "Kitchenham, B. A. and Charters, S. (2007). Guidelines for performing systematic literature reviews in software engineering. Technical Report EBSE 2007-001, Keele University and Durham University Joint Report.",
+         "Moura, L. V. d. and Coutinho, E. (2024). LGPD e requisitos de software: Desafios e oportunidades de pesquisa. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software, pages 169–174.",
+         "Neitzke, C. et al. (2023). Enhancing LGPD compliance: Evaluating a checklist for LGPD quality attributes within a government office. In XXII Brazilian Symposium on Software Quality, pages 218–227.",
+         "Oliveira, S. K. M. d. et al. (2024). LGPD e guias de adequação à lei: uma revisão sistemática da literatura. Repositório IFPE, pages 1–32.",
+         "Parlamento Europeu and Conselho da União Europeia (2016). General data protection regulation. COM/2012/010 final – 2012/0010 (COD).",
+         "Petersen, K. et al. (2015). Guidelines for conducting systematic mapping studies in software engineering. Inf. Softw. Technol., 64(C):1–18.",
+         "Ribeiro, J. P. and Garcés, L. (2023). Especificação de requisitos de design de software para sistemas de iot conforme a LGPD: Resultados de aplicação em um sistema de assistência para pacientes com diabetes mellitus. In Simpósio Brasileiro de Computação Aplicada à Saúde, pages 37–42.",
+         "Saraiva, J. et al. (2024a). Desafios de compliance da LGPD: Implantação na indústria de software brasileira. In IX Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software, pages 193–198.",
+         "Saraiva, J. et al. (2024b). Ensino da adequação à LGPD no desenvolvimento de software através da aprendizagem ativa e centrada no discente. In Simpósio Brasileiro de Educação em Computação, pages 204–213.",
+         "Saraiva, J. and Soares, S. (2023a). Adoption of the LGPD inventory in the user stories and bdd scenarios creation. In XXXVII Brazilian Symposium on Software Engineering, pages 416–421.",
+         "Saraiva, J. and Soares, S. (2023b). Privacy and security documents for agile software engineering: An experiment of LGPD inventory adoption. In ACM/IEEE International Symposium on Empirical Software Engineering and Measurement, pages 1–9.",
+         "Silva, M. d. et al. (2023). Applying semiotic engineering in game pre-production to promote reflection on player privacy. In International Conference on Information Technology & Systems, pages 159–169. Springer.",
+         "Silva, P. H. d. et al. (2022a). Framework for the development of computational solutions for the support of requirements engineering with a focus on data protection. In XXXVI Brazilian Symposium on Software Engineering, pages 419–424.",
+         "Silva, P. H. d. et al. (2022b). How has requirements engineering supported data protection? In 2022 XVLIII Latin American Computer Conference (CLEI), pages 1–8. IEEE.",
+         "Washizaki, H. (2024). Guide to the software engineering body of knowledge (swebok guide), version 4.0. IEEE Computer Society, Waseda University, Japan.",
+         "Wohlin, C. et al. (2012). Experimentation in software engineering, volume 236. Springer."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Filipe J. Portilho",
+            "Institution":"Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":320,
+            "Institution_acronym":"UFG"
+         },
+         {
+            "Name":"Valdemar V. G. Neto",
+            "Institution":"Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":321,
+            "Institution_acronym":"UFG"
+         },
+         {
+            "Name":"Cinara G. M. Carneiro",
+            "Institution":"Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":322,
+            "Institution_acronym":"UFG"
+         },
+         {
+            "Name":"Renato F. Bulcão-Neto",
+            "Institution":"Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":323,
+            "Institution_acronym":"UFG"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":107,
+      "Title":"Como a experiência dos testadores influencia no processo de realização de testes em Sistemas Web",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"Software quality is intrinsically related to the testing methods’ effici- ency and effectiveness employed during the software development process. This study investigates the relationship between the tester’s experience and their abi- lity to expand test coverage in web-based systems. We analyzed, from the test analysts’ point of view, how accumulated experience and knowledge influence fault detection, test scenario selection, and process efficiency through a questi- onnaire applied to professionals. The results indicated that more experienced testers identify defects with greater accuracy, improve test prioritization, and collaborate more effectively with developers. This study reinforces the impor- tance of testers’ continuous qualification to greater reliability of the generated software product.",
+      "Resumo":"A qualidade de software está intrinsecamente relacionada à eficiência e eficácia dos testes empregados durante o processo de desenvolvimento de software. Este estudo investiga a relação entre a experiência do testador e sua capacidade de ampliação na cobertura de testes em sistemas baseados na web. Analisamos, do ponto de vista de analistas de teste, como a experiência e conhecimento acumulados influenciam na detecção de defeitos, seleção de cenários de teste e na eficiência do processo por meio de um questionário aplicado a profissionais. Os resultados indicaram que testadores mais experientes identificam defeitos com maior acurácia, aperfeiçoam a priorização de testes e colaboram de forma mais efetiva com os desenvolvedores. Este estudo reforça a importância da qualificação contínua dos testadores, levando à maior confiabilidade do produto de software gerado.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35922",
+      "References":[
+         "(2024). ISO/IEC 25002:2024: systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — Quality model overview and usage. ISO. Acesso em: 5 mar. 2025.",
+         "Bach, J. (2003). Exploratory testing explained.",
+         "Bach, J., Pettichord, B., and Kaner, C. (2011). Lessons Learned in Software Testing: A Context-Driven Approach. Wiley Sons, Incorporated, John.",
+         "Badgett, T., Myers, G. J., and Sandler, C. (2012). Art of Software Testing. Wiley Sons, Incorporated, John.",
+         "Beer, A. and Ramler, R. (2008). The role of experience in software testing practice. In 2008 34th Euromicro Conference Software Engineering and Advanced Applications (SEAA). IEEE. Acesso em: 28 fev. 2025.",
+         "C. S. Coutinho, J., L. Andrade, W., and D. L. Machado, P. (2023). Insights from the application of exploratory tests in the daily life of distributed teams: an experience report. Journal of Software Engineering Research and Development, 11(1):6:1 – 6:19.",
+         "Delamaro, E., Maldonado, J. C., and Jino, M. (2007). Introdução ao Teste de Software, chapter Conceitos Básicos, pages 1–7. Elsevier.",
+         "Ekwoge, O. M., Fontão, A., and Dias-Neto, A. C. (2017). Tester experience: Concept, issues and definition. In 2017 IEEE 41st Annual Computer Software and Applications Conference (COMPSAC), volume 1, pages 208–213.",
+         "Itkonen, Juha; Mantyla, M. V. L. C. (2013). The role of the tester’s knowledge in exploratory software testing. IEEE Transactions on Software Engineering, v. 39, n. 5, p. 707-724.",
+         "Myers, G. J., Sandler, C., Badgett, T., and Thomas, T. R. (2004). The Art of Software Testing. John Wiley & Sons.",
+         "Sommerville, I. (2007). Engenharia de Software. PEARSON, 8 edition."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Pedro Antônio M. de Freitas",
+            "Institution":"Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":324,
+            "Institution_acronym":"UFG"
+         },
+         {
+            "Name":"Sofia Larissa da Costa Paiva",
+            "Institution":"Universidade Federal de Goiás (UFG)",
+            "State":"GO",
+            "Author_id":306,
+            "Institution_acronym":"UFG"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":108,
+      "Title":"Um catálogo de auxílio ao suporte organizacional percebido para o turnover em desenvolvimento distribuído de software",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"The competitiveness and dynamism of the technology sector require organizations to implement strategies for retaining qualified professionals, especially in distributed software development. Employees' perception of organizational support directly impacts their satisfaction and intention to stay. This study explores this relationship and proposes a best practices guide for this context. The research included a Systematic Literature Review and two surveys with professionals and experts in the field. The findings were organized into three dimensions, 16 aspects, 103 practices, and 138 subcategories, along with 300 suggested tools and artifacts. The results provide valuable insights for talent acquisition and retention professionals, guiding practices that enhance employee satisfaction and engagement while synthesizing the literature on organizational support and turnover in distributed development.",
+      "Resumo":"A competitividade e o dinamismo do setor de tecnologia demandam ações das organizações para reter profissionais qualificados, especialmente no desenvolvimento distribuído de software. A percepção de suporte organizacional impacta diretamente a satisfação e a intenção de permanência dos funcionários. Este estudo investiga essa relação e propõe um guia de boas práticas para esse contexto. A pesquisa incluiu uma Revisão Sistemática da Literatura e dois surveys com profissionais e especialistas da área. Os achados foram organizados em três dimensões, 16 aspectos, 103 práticas e 138 subcategorizações, com 300 sugestões de ferramentas e artefatos. Os resultados oferecem insights para profissionais de seleção e retenção, orientando práticas que promovem satisfação e engajamento, além de sintetizar a literatura sobre suporte organizacional e turnover em desenvolvimento distribuído.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35923",
+      "References":[
+         "AL-DALAHMEH, Maha; HÉDER-RIMA, Mária. The effect of talent management practices on employee turnover intention in the information and communication technologies (ICTs) sector: Case of Jordan. Problems and Perspectives in Management, v. 18, n. 4, p. 59, 2021.",
+         "ALZOUBI, Y. I.; GILL, A. Q.; AL-ANI, A. Empirical studies of geographically distributed agile development communication challenges: A systematic review. Information & Management, v. 53, n. 1, p. 22–37, jan. 2016",
+         "ARMSTRONG, Deborah J.; RIEMENSCHNEIDER, Cynthia K.; GIDDENS, Laurie G. The advancement and persistence of women in the information technology profession: An extension of Ahuja's gendered theory of IT career stages. Information Systems Journal, v. 28, n. 6, p. 1082-1124, 2018.",
+         "BASS, Julian M. et al. Employee retention and turnover in global software development. Proceedings Of The 13Th International Conference On Global Software Engineering, [S.L.], v. 18, n. 18, p. 1-10, 27 maio 2018.",
+         "CHAMAKIOTIS, Petros; PANTELI, Niki; DAVISON, Robert M. Reimagining e-leadership for reconfigured virtual teams due to Covid-19. International Journal of Information Management, v. 60, p. 102381, 2021.",
+         "EISENBERG, Robert et al. Perceived organizacional support. Jounal of Applied Psychology, v. 71, n. 3, p. 500-507, 1986.",
+         "EISENBERGER, Robert; RHOADES SHANOCK, Linda; WEN, Xueqi. Perceived organizational support: Why caring about employees counts. Annual Review of Organizational Psychology and Organizational Behavior, v. 7, p. 101-124, 2020.",
+         "ERTÜRK, Alper; VURGUN, Levent. Retention of IT professionals: Examining the influence of empowerment, social exchange, and trust. Journal of Business Research, v. 68, n. 1, p. 34-46, 2015.",
+         "HERBLEB, J. D., & MOITRA, D. (2001). Global software development. IEEE Software, 18(2), 16-20.",
+         "KITCHENHAM, B.A., CHARTERS, S., Guidelines for performing systematic literature reviews in software engineering. Tech. Rep. EBSE-2007-01, Keele University, 2007.",
+         "LOTFI, Mojgan et al. Turnover intention among operating room nurses during the COVID-19 outbreak and its association with perceived safety climate. Perioperative Care and Operating Room Management, v. 26, p. 100233, 2022.",
+         "QI, Lei et al. Impact of inclusive leadership on employee innovative behavior: Perceived organizational support as a mediator. PloS one, v. 14, n. 2, p. e0212091, 2019.",
+         "RAMESH, V.; DENNIS, A. R. The object-oriented team: Lessons for virtual teams from global software development. Proceedings of the 35th Annual Hawaii International Conference on System Sciences. Anais...IEEE Comput. Soc, 2003.",
+         "SHARMA, Gaurav G.; STOL, Klaas-Jan. Exploring onboarding success, organizational fit, and turnover intention of software professionals. Journal of Systems and Software, v. 159, p. 110442, 2020.",
+         "SHORE, Lynn M.; WAYNE, Sandy J. Commitment and employee behavior: Comparison of affective commitment and continuance commitment with perceived organizational support. Journal of applied psychology, v. 78, n. 5, p. 774, 1993.",
+         "SUÁREZ-ALBANCHEZ, Julio et al. Occupational health and safety, organisational commitment, and turnover intention in the Spanish IT consultancy sector. International journal of environmental research and public health, v. 18, n. 11, 2021"
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Karla Thais Chaves",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":325,
+            "Institution_acronym":"UPE"
+         },
+         {
+            "Name":"Ivaldir Honório de Farias Junior",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":326,
+            "Institution_acronym":"UPE"
+         },
+         {
+            "Name":"Wylliams Barbosa Santos",
+            "Institution":"Universidade de Pernambuco (UPE)",
+            "State":"PE",
+            "Author_id":327,
+            "Institution_acronym":"UPE"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":109,
+      "Title":"Investigando a Percepção de Desenvolvedores de Software sobre a Adoção de LLMs na Refatoração de Code Smells",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"This paper investigates developers’ perceptions of refactoring code smells using Large Language Models (LLMs). Through a study with 48 Java de- velopers, we analyzed (i) their opinions on the use of these tools, (ii) which fac- tors affect the prioritization of the refactoring order, and (iii) their perceptions about the quality of the code generated for refactorings. Our results indicate the benefits of using LLMs in refactoring and in the software development proces- ses, including improvement in quality attributes, productivity, learning, and sup- port during development. However, possible short- and long-term maladaptive tendencies were also highlighted, such as using low-quality code, counterpro- ductive decision-making, and dependence on LLMs for development activities.",
+      "Resumo":"Este artigo investiga a percepção de desenvolvedores sobre a refatoração de code smells por meio de Large Language Models (LLMs). Através de um estudo com 48 desenvolvedores Java, analisamos (i) a opinião sobre o uso dessas ferramentas, (ii) quais fatores afetam a priorização da ordem de refatoração e (iii) a percepção sobre a qualidade do código gerado para as refatorações. Nossos resultados indicam os benefícios do uso de LLMs tanto na refatoração quanto no processo de desenvolvimento de software, incluindo melhoria em atributos de qualidade, produtividade, aprendizado e apoio durante o desenvolvimento. Porém, também foram evidenciadas possíveis tendências desadaptativas a curto e longo prazo, como o uso de códigos de baixa qualidade, a tomada de decisões contraproducentes e a dependência nos LLMs para as atividades de desenvolvimento.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35924",
+      "References":[
+         "Ahmed, I., Mannan, U. A., Gopinath, R., and Jensen, C. (2015). An empirical study of design degradation: How software projects get worse over time. In 2015 ACM/IEEE International Symposium on Empirical Software Engineering and Measurement (ESEM), pages 1–10.",
+         "AlOmar, E. A., Venkatakrishnan, A., Mkaouer, M. W., Newman, C., and Ouni, A. (2024). How to refactor this code? an exploratory study on developer-chatgpt refactoring conversations. In Proceedings of the 21st International Conference on Mining Software Repositories, MSR ’24, page 202–206, New York, NY, USA. Association for Computing Machinery.",
+         "Chang, Y., Wang, X., Wang, J., Wu, Y., Yang, L., Zhu, K., Chen, H., Yi, X., Wang, C., Wang, Y., Ye, W., Zhang, Y., Chang, Y., Yu, P. S., Yang, Q., and Xie, X. (2024). A survey on evaluation of large language models. ACM Trans. Intell. Syst. Technol., 15(3).",
+         "Corbin, J. and Strauss, A. (2014). Basics of Qualitative Research: Techniques and Procedures for Developing Grounded Theory. SAGE Publications, USA, 4th. edition.",
+         "Cordeiro, J., Noei, S., and Zou, Y. (2024). An empirical study on the code refactoring capability of large language models.",
+         "Danphitsanuphan, P. and Suwantada, T. (2012). Code smell detecting tool and code smell-structure bug relationship. In 2012 Spring congress on engineering and technology, pages 1–5. IEEE.",
+         "dos Santos, H. M., Durelli, V. H., Souza, M., Figueiredo, E., da Silva, L. T., and Durelli, R. S. (2019). Cleangame: Gamifying the identification of code smells. In Proceedings of the XXXIII Brazilian Symposium on Software Engineering, pages 437–446.",
+         "Fan, A., Gokkaya, B., Harman, M., Lyubarskiy, M., Sengupta, S., Yoo, S., and Zhang, J. M. (2023). Large language models for software engineering: Survey and open problems. In 2023 IEEE/ACM International Conference on Software Engineering: Future of Software Engineering (ICSE-FoSE), pages 31–53.",
+         "Fowler, M. (2018). Refactoring: Improving the Design of Existing Code. Addison-Wesley Professional.",
+         "GitHub (2024). What is github copilot? Disponível em: [link]. Acesso em: 11 mar. 2025.",
+         "Google (2023). Introducing gemini: our largest and most capable ai model. Disponível em: [link]. Acesso em: 11 mar. 2025.",
+         "Kerievsky, J. (2005). Refactoring to Patterns. Addison-Wesley, Boston.",
+         "Kruchten, P., Nord, R. L., and Ozkaya, I. (2012). Technical debt: From metaphor to theory and practice. IEEE Software, 29(6):18–21.",
+         "Lacerda, G., Petrillo, F., Pimenta, M., and Guéhéneuc, Y. G. (2020). Code smells and refactoring: A tertiary systematic review of challenges and observations. Journal of Systems and Software, 167:110610.",
+         "Li, Z., Wang, C., Liu, Z., Wang, H., Chen, D., Wang, S., and Gao, C. (2023). Cctest: Testing and repairing code completion systems. In Proceedings of the 45th International Conference on Software Engineering (ICSE). IEEE/ACM.",
+         "Liu, P., Yuan, W., Fu, J., Jiang, Z., Hayashi, H., and Neubig, G. (2023). Pre-train, prompt, and predict: A systematic survey of prompting methods in natural language processing. ACM Comput. Surv., 55(9).",
+         "Madeyski, L. and Lewowski, T. (2020). Mlcq: Industry-relevant code smell data set. In Proceedings of the 24th International Conference on Evaluation and Assessment in Software Engineering, EASE ’20, page 342–347, New York, NY, USA. Association for Computing Machinery.",
+         "Martins, J., Bezerra, C., Uchôa, A., and Garcia, A. (2021). How do code smell co-occurrences removal impact internal quality attributes? a developers’ perspective. In Proceedings of the XXXV Brazilian Symposium on Software Engineering, SBES ’21, page 54–63, New York, NY, USA. Association for Computing Machinery.",
+         "Menolli, A., Strik, B., and Rodrigues, L. (2024). Teaching refactoring to improve code quality with chatgpt: An experience report in undergraduate lessons. In Proceedings of the XXIII Brazilian Symposium on Software Quality, SBQS ’24, page 563–574, New York, NY, USA. Association for Computing Machinery.",
+         "OpenAI (2024). Openai api documentation. Disponível em: [link]. Acesso em: 11 mar. 2025.",
+         "Pan, S., Luo, L., Wang, Y., Chen, C., Wang, J., and Wu, X. (2024). Unifying large language models and knowledge graphs: A roadmap. IEEE Transactions on Knowledge and Data Engineering, 36(7):3580–3599.",
+         "Pomian, D., Bellur, A., Dilhara, M., Kurbatova, Z., Bogomolov, E., Bryksin, T., and Dig, D. (2024). Next-generation refactoring: Combining llm insights and ide capabilities for extract method. In 2024 IEEE International Conference on Software Maintenance and Evolution (ICSME), pages 275–287.",
+         "Sergeyuk, A., Lvova, O., Titov, S., Serova, A., Bagirov, F., Kirillova, E., and Bryksin, T. (2024). Reassessing java code readability models with a human-centered approach. In Proceedings of the 32nd IEEE/ACM International Conference on Program Comprehension, ICPC ’24, page 225–235, New York, NY, USA. Association for Computing Machinery.",
+         "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L. u., and Polosukhin, I. (2017). Attention is all you need. In Guyon, I., Luxburg, U. V., Bengio, S., Wallach, H., Fergus, R., Vishwanathan, S., and Garnett, R., editors, Advances in Neural Information Processing Systems, volume 30. Curran Associates, Inc.",
+         "Zhang, B., Liang, P., Feng, Q., Fu, Y., and Li, Z. (2024). Copilot-in-the-loop: Fixing code smells in copilot-generated python code using copilot. In Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering, ASE ’24, page 2230–2234, New York, NY, USA. Association for Computing Machinery."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Javel Freitas",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":328,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Guilherme Pereira",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":329,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Lara Lima",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":330,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Caio Sousa",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":331,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Edivar Filho",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":332,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"José Cezar de Souza Filho",
+            "Institution":"Univ. Polytechnique Hauts-de-France",
+            "State":"FR",
+            "Author_id":333,
+            "Institution_acronym":"Univ. Polytechnique Hauts-de-France"
+         },
+         {
+            "Name":"Carla Bezerra",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":307,
+            "Institution_acronym":"UFC"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":110,
+      "Title":"Apadrinhamento - Juntos na Missão: Uma Abordagem baseada na Mentoria e Aprendizado em um Projeto de Extensão, Pesquisa, Ensino e Desenvolvimento",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"With the high dropout rate of students in Computer Science courses, extension projects have developed activities that aim to encourage retention and practical teaching. The LearningLab, an extension, teaching, research and software development project, structured a sponsorship system that promotes direct interaction between new members and veterans. Thus, the most experienced member (sponsor or godmother) facilitates adaptation to the project context, providing guidance on processes, tools and aspects of organizational culture. As a result, 88% of the sponsees said they had improved their use of tools such as Canva and Trello.",
+      "Resumo":"Com a alta evasão de estudantes dos cursos da área da Computação, projetos de extensão têm desenvolvido atividades que visam incentivar a permanência e o ensino prático. O LearningLab, projeto de extensão, ensino, pesquisa e desenvolvimento de software, estruturou um sistema de Apadrinhamento que promove a interação direta entre novos membros e veteranos. Assim, o membro mais experiente (padrinho ou madrinha) facilita a adaptação ao contexto do projeto, orientando sobre processos, ferramentas e aspectos da cultura organizacional. Como resultado, 88% dos afilhados afirmaram ter aprimorado o uso de ferramentas como Canva e Trello.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35925",
+      "References":[
+         "Bona, F., Chanin, R., Nascimento, N., & Sales, A. (2023). A Importância dos Cursos Complementares na Formação dos Profissionais da Área de Tecnologia da Informação. In Anais do XXXI Workshop sobre Educação em Computação (pp. 420-431). SBC.",
+         "Canon, C. A. S., & Pelegrinelli, G. (2019). Extensão universitária: o impacto de um projeto de extensão na formação profissional dos discentes na educação superior. Revista UFG, 19.",
+         "Fortunato, W., Calvosa, M., Pinheiro, J. L. A., Predes Junior, A., & Valdevino, M. M. (2024). Estratégias de atração e engajamento de estudantes da modalidade EaD: relato técnico de um projeto de extensão universitária. In EMPRAD-Encontro dos Programas de Pós-Graduação Profissionais em Administração. FEA/USP.",
+         "Holanda, M., Mandelli, M., Ishikawa, E., & Silva, D. (2021). Um relato de experiência do acolhimento d@s calour@s do Departamento de Ciência da Computação da Universidade de Brasília. In Anais do 29º Workshop sobre Educação em Computação (WEI). Evento Online.",
+         "Lima, I., Andrade, A., Sousa, J., Rodrigues, R., Rocha, M., Dias, G., & Rabelo, J. (2024). LearningLab: uma trajetória de quatro anos de sucesso nas ações de permanência e formação dos estudantes de Computação do interior cearense. Anais do 29º Workshop sobre Educação em Computação (WEI), 127–138.",
+         "Pereira, A. P., & Ferreira, R. M. (2020). The impact of academic mentorship on student transition: A case study in higher education. Educational Research and Reviews, 15(5), 345-357.",
+         "Ramos, M. B., Acioly Filho, L. V., da Silva Melo, J., de Oliveira, F. D. V. R., Reis, J. D. S. S., da Paixão, A. G. S., ... & Dias, L. A. (2023). Extensão e Formação Humana: as experiências do Laboratório de Informática para Educação. Anais dos Encontros Nacionais de Engenharia e Desenvolvimento Social-ISSN 2594-7060, 18(1).",
+         "Santos, J. M., Silva, F. S., & Almeida, T. R. (2022). Effectiveness of mentoring programs in engineering courses: A comprehensive review. International Journal of Engineering Education, 38(4), 1203-1215. [link]",
+         "Souza, A., Santos, F., Santos, L., Belém, P., Silva, S., Vivacqua, A., & Mello, R. (2023). Investigando a percepção de feedback em times de desenvolvimento de software: Um estudo inicial. In Anais do 8º Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES). João Pessoa/PB."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Raí da Silva Rodrigues",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":334,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Israely Lima",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":335,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Sufia Rios",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":336,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Pedro C. Chaaban",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":337,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Anny Oliveira",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":338,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Emídio Barbosa",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":339,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Jacilane de H. Rabelo",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":340,
+            "Institution_acronym":"UFC"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":111,
+      "Title":"Diversidade e Design Thinking em pauta: como equipes mais diversas podem colaborar no desenvolvimento de soluções de software",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"The aim of this study is to see how levels of diversity contribute to the creation of software solutions. To this end, a controlled experiment was con- ducted with Computer Science students, divided into groups with high and low levels of diversity. In the experiment, participants were instructed to use Design Thinking (DT) to develop software solutions. DT, as a user-centered approach, benefits from collaboration in diverse teams, where multiple perspectives can drive the generation of innovative solutions. The results indicate that the more diverse teams employed a greater number of DT techniques. However, when assessing the relevance of the requirements developed, there were no significant differences between the groups, suggesting that diversity impacts more on the creative process than on the final quality of the deliverables.",
+      "Resumo":"O presente trabalho tem como objetivo observar como níveis de diversidade contribuem para a criação de soluções de software. Para isso, foi conduzido um experimento controlado com estudantes de Computação, divididos em grupos com altos e baixos níveis de diversidade. No experimento, os participantes foram orientados a utilizar Design Thinking (DT) para desenvolver soluções de software. O DT, como abordagem centrada no usuário, beneficia-se da colaboração em equipes diversas, onde múltiplas perspectivas podem impulsionar a geração de soluções inovadoras. Os resultados indicam que as equipes mais diversas empregaram um maior número de técnicas de DT. No entanto, ao avaliar a relevância dos requisitos elaborados, não houve diferenças significativas entre os grupos, sugerindo que a diversidade impacta mais o processo criativo do que a qualidade final das entregas.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35926",
+      "References":[
+         "Batista, E. M., Braga, G., Silva, T. R. d. M. B., et al. (2022). Diversidade de gênero em projetos open source: um estudo da relevância dos comentários postados em issues do github. In Women in Information Technology (WIT), pages 197–202. SBC.",
+         "Brown, T. (2009). How design thinking transforms organizations and inspires innovation. In Library of Congress.",
+         "Brown, T. (2020). Design Thinking – Edição Comemorativa 10 anos. Rio de Janeiro: Editora Alta Books.",
+         "Brown, T. et al. (2008). Design thinking. Harvard business review, 86(6):84.",
+         "de Souza, A. F. B., Ferreira, B. M., and Conte, T. (2017). Aplicando design thinking em engenharia de software: um mapeamento sistemático. In Ibero-American Conference on Software Engineering: Experimental Software Engineering Latin America Workshop (CıbSE-ESELAW), pages 719–732.",
+         "Desidério, S. B., Lelis, M. R. L., Rodrigues, M. E., and Marques, A. B. (2024). How ready for hci? a qualitative analysis of the practice of soft skills related to hci by women involved in the digital girls program partners projects. Journal on Interactive Systems, 15(1):504–516.",
+         "do Outao, J. C. S. and dos Santos, R. P. (2022). Investigando fatores da diversidade de gênero nos ecossistemas de software. In Simpósio Brasileiro de Sistemas de Informação (SBSI), pages 53–58. SBC.",
+         "Doise, W. (1984). On the social development of the intellect. In The future of Piagetian theory: The neo-Piagetians, pages 95–121. Springer.",
+         "Garton, A. (1995). Social interaction and the development of language and cognition. Psychology Press.",
+         "Jehn, K. A., Northcraft, G. B., and Neale, M. A. (1999). Why differences make a difference: A field study of diversity, conflict and performance in workgroups. Administrative science quarterly, 44(4):741–763.",
+         "Kolko, J. (2015). Design thinking comes of age. harvard business review, 93 (9), 66-69.",
+         "Liedtka, J. and Ogilvie, T. (2011). Designing for growth: A design thinking tool kit for managers. Columbia University Press.",
+         "Marques, A. B., Bezerra, C., Rocha, M., and Viana, D. (2024). Grandes desafios para diversidade, equidade e inclusão (dei) no desenvolvimento de software. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES), pages 187–192. SBC.",
+         "Meireles, M. A. C., Conte, T. U., and Maldonado, J. C. (2021). Uma contribuição à tomada de decisão na elicitação de requisitos: organizando a caixa de ferramentas do design thinking.",
+         "Michaelis (2024). Diversidade. [link]. Acesso em: 03/02/25.",
+         "Motta, T. V. A., Braga, G., et al. (2022). Analise quali-quantitativa sobre a influência da diversidade na produtividade de equipes ágeis: um estudo na indústria. In Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES), pages 31–40. SBC.",
+         "Motta, T. V. A., Braga, G., et al. (2023). Diversidade e produtividade em times ágeis: percepções individuais versus dados. iSys-Brazilian Journal of Information Systems, 16(1):11–1.",
+         "Müller-Roterberg, C. (2021). Design Thinking Para Leigos. Rio de Janeiro: Editora Alta Books.",
+         "Ortu, M., Destefanis, G., Counsell, S., Swift, S., Tonelli, R., and Marchesi, M. (2017). How diverse is your team? investigating gender and nationality diversity in github teams. Journal of Software Engineering Research and Development, 5:1–18.",
+         "Parizi, R., Prestes, M., Marczak, S., and Conte, T. (2022). How has design thinking being used and integrated into software development activities? a systematic mapping. Journal of Systems and Software, 187:111217.",
+         "Perret-Clermont, A.-N., Perret, J.-F., and Bell, N. (1991). The social construction of meaning and cognitive activity in elementary school children. American Psychological Association.",
+         "Resende, D. G. et al. (2022). A diversidade de gênero, sociabilidade e personalidade em cursos de computação: como estes fatores podem afetar o desempenho em equipes? Master’s thesis, Universidade Tecnológica Federal do Paraná.",
+         "Rodríguez-Pérez, G., Nadri, R., and Nagappan, M. (2021). Perceived diversity in software engineering: a systematic literature review. Empirical Software Engineering, 26:1–38.",
+         "Sampaio, S. S., Lima, M. S., de Souza, E. R., Meireles, M. A., Pessoa, M. S., and Conte, T. U. (2024). Exploring the use of large language models in requirements engineering education: An experience report with chatgpt 3.5. In Proceedings of the XXIII Brazilian Symposium on Software Quality, pages 624–634.",
+         "Schlott, C. K. (2024). Design thinking and teamwork—measuring impact: a systematic literature review. Journal of Organization Design, pages 1–34.",
+         "Sommerville, I. (2011). Engenharia de software, 9a. São Palo, SP, Brasil, page 63.",
+         "Stasser, G. and Stewart, D. (1992). Discovery of hidden profiles by decision-making groups: Solving a problem versus making a judgment. Journal of personality and social psychology, 63(3):426.",
+         "Vasilescu, B., Yu, Y., Wang, H., Devanbu, P., and Filkov, V. (2015). Quality and productivity outcomes relating to continuous integration in github. In Proceedings of the 2015 10th joint meeting on foundations of software engineering, pages 805–816."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Sofia Bento Desidério",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":341,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Simires Costa",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":342,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Deusiane Kaylane Moreira",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":343,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Carol Lima Fonseca",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":344,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Anna Beatriz Marques",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":125,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Valéria da Silva Pinheiro",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":345,
+            "Institution_acronym":"UFC"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":112,
+      "Title":"Desenvolvimento de um Chatbot Inteligente para auxílio de atividades organizacionais durante o período de Processos Seletivos da UFPA",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"This study proposes the creation of an intelligent chatbot to optimize the management of selection processes at an Anonymous Institution. By us- ing artificial intelligence and natural language processing, the tool facilitates communication between applicants and the administration, automates repetitive tasks, and reduces the workload of staff. The results indicate that the chatbot helped reduce recurring questions, improve institutional communication, and make the selection process more transparent and efficient.",
+      "Resumo":"Este estudo propõe a criação de um chatbot inteligente para otimizar a gestão dos processos seletivos na Universidade Federal do Pará. Utilizando inteligência artificial e processamento de linguagem natural, a ferramenta facilita a comunicação entre candidatos e administração, automatiza tarefas repetitivas e reduz a sobrecarga das equipes. Os resultados indicam que o chatbot contribuiu para diminuir dúvidas recorrentes, melhorar a comunicação institucional e tornar o processo mais transparente e eficiente.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35927",
+      "References":[
+         "de Carvalho, A. d. S. M., da Silva, L., Ribeiro Filho, A. C. S., and Cellin, J. (2024). As tendências da inteligência artificial para a educação. Lecturas: Educación Física y Deportes, 29(311).",
+         "Dias, V. L. (2023). Desenvolvimento de um sistema para submissão de candidaturas ao processo seletivo do programa de pós-graduação em computação da ufu.",
+         "Falqueto, J. M. Z. and Farias, J. S. (2013). A trajetória e a funcionalidade da universidade pública brasileira.",
+         "FARIA, K., PEREIRA, M., and Barbosa, P. W. V. (2018). Desenvolvimento de um chatbot para otimizar o atendimento aos clientes da empresa km produções e eventos em uma rede social utilizando a ferramenta ibm watson.",
+         "Freire, A. A. d. A. (2024). Ifpbbot: um chatbot acadêmico. B.S. thesis.",
+         "Heck, F. R., Drebes, A. A., Guerra, D. C., and Silveira, F. E. d. (2018). Ampliando os serviços de entrega de documentação on-line para ingresso em concursos de graduação na universidade federal do rio grande do sul/ufrgs. In Workshop de Tecnologia da Informação e Comunicação das IFES (12: 2018: Foz do Iguaçu).[Anais..][recurso eletrônico]. Foz do Iguaçu.",
+         "Kaufman, D. (2022). Desmistificando a inteligência artificial. Autêntica Editora.",
+         "Lavigne, F. C. (2024). Comportamento informacional humano em instituições universitárias: uma análise da ansiedade informacional do profissional de Secretariado Executivo da Ufba. Editora CRV.",
+         "Madhavan, G., Mythily, M., Sharon, R., et al. (2023). Chatbots embracing artificial intelligence solutions to assist institutions in improving student interactions. In 2023 International Conference on Circuit Power and Computing Technologies (ICCPCT), pages 912–916. IEEE.",
+         "Martorell, J. R., Tirado, F., Blasco, J. L., and Gálvez, A. (2024). How does artificial intelligence work in organisations? algorithmic management, talent and dividuation processes. AI & society, pages 1–11.",
+         "Molnár, G. and Szüts, Z. (2018). The role of chatbots in formal education. In 2018 IEEE 16th international symposium on intelligent systems and informatics (SISY), pages 000197–000202. IEEE.",
+         "Prade, A. M. et al. (2023). Requisitos para a preservação da memória institucional: uma análise sob a perspectiva dos editais de ingresso e reingresso de alunos na ufsm.",
+         "Raza, A., Latif, M., Farooq, M. U., Baig, M. A., Akhtar, M. A., et al. (2023). Enabling context-based ai in chatbots for conveying personalized interdisciplinary knowledge to users. Engineering, Technology & Applied Science Research, 13(6):12231–12236.",
+         "Resende, R. S. d. (2024). Criação de um chatbot para responder dúvidas sobre editais de concursos com processamento de linguagem natural e python.",
+         "Rosa, J. M. d. (2024). Gestão de processos na administração pública: estudo sobre a recepção de documentação de calouros na universidade federal do rio grande do sul.",
+         "Silva, M. H. d. (2022). Chatbot como ferramenta para facilitar o acesso a informações das instituições federais de ensino.",
+         "Souza, D. B. M. d. (2024). O impacto da aplicação da inteligência artificial nas empresas: o caso dos Chatbots. PhD thesis.",
+         "Tai, A. G. (2019). Palbot: a plug& (almost) play chatbot. Master’s thesis, ISCTE-Instituto Universitario de Lisboa (Portugal).",
+         "Trindade, L. (2024). Ferramenta para agendamento de consultas médicas através do uso de chatbot. page 13."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Aridan Silva Pantoja",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":346,
+            "Institution_acronym":"UFPA"
+         },
+         {
+            "Name":"Karol Wojtyla Sousa Nascimento",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":347,
+            "Institution_acronym":"UFPA"
+         },
+         {
+            "Name":"Geovane de Lima Duarte",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":348,
+            "Institution_acronym":"UFPA"
+         },
+         {
+            "Name":"Ana Beatriz Abreu Silva",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":349,
+            "Institution_acronym":"UFPA"
+         },
+         {
+            "Name":"Yago de Jesus Martins",
+            "Institution":"Universidade Federal do Pará (UFPA)",
+            "State":"PA",
+            "Author_id":350,
+            "Institution_acronym":"UFPA"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":113,
+      "Title":"DevOps na Prática: Explorando a Compreensão e os Desafios da Adoção em Projetos Acadêmicos",
+      "Language":"pt",
+      "Year":2025,
+      "Abstract":"The adoption of DevOps is a growing movement in organizations that seek to increase the efficiency and reliability of their software development and operation processes. This study analyzes the perception of professionals in the field about the adoption of DevOps, exploring the main challenges faced and the strategies used for its implementation. Through a questionnaire applied to 32 participants, we investigated their knowledge about DevOps, the use of tools, the frequency of deployments and the difficulties reported. The results indicate that, despite the recognition of the benefits, there are significant barriers related to training, organizational culture and tool integration. The study highlights the need for structured training and a gradual approach to facilitate the transition to DevOps.",
+      "Resumo":"A adoção de DevOps é um movimento crescente nas organizações que buscam aumentar a eficiência e confiabilidade de seus processos de desenvolvimento e operação de software. Este estudo analisa a percepção de profissionais da área sobre a adoção de DevOps, explorando os principais desafios enfrentados e as estratégias utilizadas para sua implementação. Por meio de um questionário aplicado a 32 participantes, investigamos o conhecimento sobre DevOps, o uso de ferramentas, a frequência de deploys e as dificuldades relatadas. Os resultados indicam que, apesar do reconhecimento dos benefícios, há barreiras significativas relacionadas à capacitação, cultura organizacional e integração de ferramentas. O estudo destaca a necessidade de treinamentos estruturados e uma abordagem gradual para facilitar a transição para DevOps.",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35928",
+      "References":[
+         "Capozucca, A., Guelfi, N., and Ries, B. (2019). Design of a (yet another?) devops course. In Software Engineering Aspects of Continuous Development and New Paradigms of Software Production and Deployment: First International Workshop, DEVOPS 2018, Chateau de Villebrumier, France, March 5-6, 2018, Revised Selected Papers 1, pages 1–18. Springer.",
+         "Cardoso, C. A. (2024). Análise do uso de práticas e ferramentas devops por empresas brasileiras. Monografia (Graduação em Sistemas de Informação) – Instituto de Ciências Exatas e Aplicadas, Universidade Federal de Ouro Preto. Acessado em: 8 maio 2025.",
+         "da Silva, F., Amaral, A. M., and Colanzi, T. E. (2020). Políticas de gerência de configuração de software para grupos de pesquisa. In Anais da IV Escola Regional de Engenharia de Software, pages 275–284, Porto Alegre, RS, Brasil. SBC.",
+         "Fernandes, M., Ferino, S., Kulesza, U., and Aranha, E. (2020). Challenges and recommendations in devops education: A systematic literature review. In Proceedings of the XXXIV Brazilian Symposium on Software Engineering, pages 648–657.",
+         "Humble, J. and Farley, D. (2010). Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation. Addison-Wesley.",
+         "Kim, G., Humble, J., Debois, P., and Willis, J. (2016). The DevOps Handbook. IT Revolution Press.",
+         "Leite, L., Rocha, C., Kon, F., Milojicic, D., and Meirelles, P. (2019). A survey of devops concepts and challenges. ACM computing surveys (CSUR), 52(6):1–35.",
+         "Levita, F. and Neto, J. (2018a). DevOps: Culture and Practice in Agile Development. Springer.",
+         "Levita, Z. and Neto, W. (2018b). Monitoramento contínuo de desempenho em ambientes de devops. Journal of DevOps Engineering, 3(2):55–68.",
+         "Neubrand, T. and Haendler, T. (2020). Development of a gqm-based technique for assessing devops maturity. In KMIS, pages 117–129.",
+         "Pressman, R. S. (2011). Engenharia de Software: Uma Abordagem Profissional. McGraw-Hill.",
+         "Rato, A. and Silva, B. (2017). Práticas devops: Integração contínua. Revista de Desenvolvimento de Software, 10(3):45–56."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Rayan Victor",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":351,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Renato Vasconcelos",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":352,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Maria Elanne Rodrigues",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":353,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Fernanda Ferreira do Nascimento",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":354,
+            "Institution_acronym":"UFC"
+         },
+         {
+            "Name":"Valéria da Silva Pinheiro",
+            "Institution":"Universidade Federal do Ceará (UFC)",
+            "State":"CE",
+            "Author_id":345,
+            "Institution_acronym":"UFC"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":114,
+      "Title":"Aligning Soft Skills in Requirements Engineering Between Academia and Industry: A Pilot Study",
+      "Language":"en",
+      "Year":2025,
+      "Abstract":"The Requirements Engineering (RE) process is crucial for the success of software projects, as it establishes the foundation for developing efficient systems aligned with the needs of end users and stakeholders. In this context, soft skills play a fundamental role, being as valued as technical skills due to their impact on the success of software projects. This article aims to map and categorize the soft skills commonly cited in academia and industry concerning the RE process in software development in light of the perspectives of the CHAOS Report: Beyond Infinity. For this, a pilot study was carried out to validate the interview protocol that will be conducted. The main contributions of this study were identifying essential soft skills for RE practices, analyzing soft skills concerning CHAOS Report: Beyond Infinity, and categorizing the mapped skills.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"Full paper",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35929",
+      "References":[
+         "Ahmed, F. (2012). Software requirements engineer: An empirical study about non-technical skills. J. Softw., 7(2):389–397.",
+         "Ahmed, F., Capretz, L. F., Bouktif, S., and Campbell, P. (2015). Soft skills and software development: A reflection from the software industry. arXiv preprint arXiv:1507.06873.",
+         "Basili, V. and Weiss, D. (1984). A methodology for collecting valid software engineering data. IEEE Transactions on Software Engineering, 10(6):728–738.",
+         "Bora, B. (2015). The essence of soft skills. International Journal of Innovative Research and Practices, 3(12):7–22.",
+         "Borges, G. G. and Gratão de Souza, R. C. (2024). Skills development for software engineers: Systematic literature review. Information and Software Technology, 168:107395.",
+         "Calazans, A. T. S., Paldês, R. Á., Masson, E. T. S., Brito, I. S., Rezende, K. F., Braosi, E., and Pereira, N. (2017). Software requirements analyst profile: A descriptive study of brazil and mexico. In 2017 IEEE 25th International Requirements Engineering Conference (RE), pages 204–212. IEEE.",
+         "Daneva, M., Herrmann, A., Condori-Fernandez, N., and Wang, C. (2019). Understanding the most in-demand soft skills in requirements engineering practice: Insights from two focus groups. In Proceedings of the Evaluation and Assessment on Software Engineering, pages 284–290. ACM.",
+         "Herrmann, A. (2013). Requirements engineering in practice: There is no requirements engineer position. In Requirements Engineering: Foundation for Software Quality: 19th International Working Conference, REFSQ 2013, Essen, Germany, April 8-11, 2013. Proceedings 19, pages 347–361. Springer.",
+         "Herrmann, A., Hoffmann, A., Landes, D., and Weißbach, R. (2014). Experience-oriented approaches for teaching and training requirements engineering: An experience report. In Requirements Engineering: Foundation for Software Quality: 20th International Working Conference, REFSQ 2014, Essen, Germany, April 7-10, 2014. Proceedings 20, pages 254–267. Springer.",
+         "Hidellaarachchi, D., Grundy, J., Hoda, R., and Mueller, I. (2021). The influence of human aspects on requirements engineering-related activities: Software practitioners perspective. arXiv preprint arXiv:2109.07868.",
+         "Johnson, J. (2020). Chaos report: Beyond Infinity. The Standish Group International, Inc., Boston, USA.",
+         "Laplante, P. A. and Kassab, M. (2022). Requirements engineering for software and systems. Auerbach Publications.",
+         "Penzenstadler, B., Haller, G., Schlosser, T., and Frenzel, G. (2009). Soft skills required: A practical approach for empowering soft skills in the engineering world. In 2009 Collaboration and Intercultural Issues on Requirements: Communication, Understanding and Softskills, pages 31–36. IEEE.",
+         "Pohl, K. (2016). Requirements engineering fundamentals: a study guide for the certified professional for requirements engineering exam-foundation level-IREB compliant. Rocky Nook, Inc.",
+         "Vale, L., Albuquerque, A. B., and Beserra, P. V. (2011). The importance of professional quality of requirements analysts for success of software development projects: a study to identify the most relevant skills. In 2011 25th Brazilian Symposium on Software Engineering, pages 253–262. IEEE.",
+         "Wohlin, C., Runeson, P., Höst, M., Ohlsson, M. C., Regnell, B., and Wesslén, A. (2012). Experimentation in Software Engineering: An Introduction. Springer-Verlag Berlin Heidelberg, 1st edition.",
+         "Yousef, Y. A., Elzamly, A., Doheir, M., and Yaacob, N. M. (2021). Assessing soft skills for software requirements engineering processes. Journal of computing and information technology, 29(4):209–218."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Rômulo Antônio Valle",
+            "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":355,
+            "Institution_acronym":"UTFPR"
+         },
+         {
+            "Name":"Alinne Cristinne Corrêa Souza",
+            "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":356,
+            "Institution_acronym":"UTFPR"
+         },
+         {
+            "Name":"Pedro Henrique Dias Valle",
+            "Institution":"Universidade de São Paulo (USP)",
+            "State":"SP",
+            "Author_id":290,
+            "Institution_acronym":"USP"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
+   },
+   {
+      "Paper_id":115,
+      "Title":"Ethical issues are not exclusive to AI systems",
+      "Language":"en",
+      "Year":2025,
+      "Abstract":"The increasing integration of software into daily life underscores the urgency of addressing ethical issues in software development. While signifi- cant attention has been given to Artificial Intelligence (AI), ethical concerns are equally relevant to other types of software due to their widespread presence and societal impact. This position paper highlights the importance of considering the social, human, and ethical aspects of software systems already embedded in our daily lives. To achieve this, we examine ethics from a philosophical per- spective and argue why software developers must adopt an ethical perspective throughout the development process. Additionally, we explore the mirage of software neutrality and discuss perspectives of the field.",
+      "Resumo":"#",
+      "Keywords":"#",
+      "Type":"GranDASHES-BR",
+      "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35930",
+      "References":[
+         "Aberkane, A.-J. (2018). Exploring ethics in requirements engineering. Master’s thesis, Utrecht University.",
+         "Almeida, V., Mendonça, R. F., and Filgueiras, F. (2024). Thinking of algorithms as institutions. Commun. ACM, 68(1):20–23.",
+         "Ananny, M. (2016). Toward an ethics of algorithms: Convening, observation, probability, and timeliness. Science, Technology, & Human Values, 41(1):93–117.",
+         "Arora, N. and Zinolabedini, D. (2019). The ethical implications of the 2018 facebook-cambridge analytica data scandal. Journal or Repository Name.",
+         "Gotterbarn, D. (2001). Informatics and professional responsibility. Science and Engineering Ethics, 7:221–230.",
+         "Gustavsson, J. L. and Penzenstadler, B. (2020). Blinded by simplicity: Locating the social dimension in software development process literature. In Proceedings of the 7th International Conference on ICT for Sustainability, ICT4S2020, page 116–127, New York, NY, USA. Association for Computing Machinery.",
+         "Johnson, B. and Smith, J. (2021). Towards ethical data-driven software: Filling the gaps in ethics research practice. In 2021 IEEE/ACM 2nd International Workshop on Ethics in Software Engineering Research and Practice (SEthics), pages 18–25.",
+         "Marturano, A. (2002). The role of metaethics and the future of computer ethics. Ethics and Information Technology, 4:71–78.",
+         "McNamara, A., Smith, J., and Murphy-Hill, E. (2018). Does acm’s code of ethics change ethical decision making in software development? In Proceedings of the 2018 26th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering, ESEC/FSE 2018, page 729–733, New York, NY, USA. Association for Computing Machinery.",
+         "Mitchell, A., Balasubramaniam, D., and Fletcher, J. (2022). Incorporating ethics in software engineering: Challenges and opportunities. In 2022 29th Asia-Pacific Software Engineering Conference (APSEC), pages 90–98.",
+         "Mowshowitz, A. (1984). Computers and the myth of neutrality. In Proceedings of the ACM 12th Annual Computer Science Conference on SIGCSE Symposium, CSC ’84, page 85–92, New York, NY, USA. Association for Computing Machinery.",
+         "Oriogun, P., Akinbule, O., Ibecheozor, C., and Nyako, Z. (2012). Software engineering ethical decision making and professional responsibility. In 2012 African Conference for Sofware Engineering and Applied Computing, pages 7–14.",
+         "Rosenbaum, H. (2020). Algorithmic neutrality, algorithmic assemblages, and the life-world. 26th Americas Conference on Information Systems, AMCIS 2020.",
+         "Shafer-Landau, R. (2018). The Fundamentals of Ethics, 4Th Edition. Oxford University Press.",
+         "Stahl, B. C., Timmermans, J., and Mittelstadt, B. D. (2016). The ethics of computing: A survey of the computing-oriented literature. ACM Comput. Surv., 48(4).",
+         "Young, S. (2021). Zoombombing your toddler: User experience and the communication of zoom’s privacy crisis. Journal of Business and Technical Communication, 35(1):147–153."
+      ],
+      "Cited_by":[
+         "#"
+      ],
+      "Updated_in":"2025-07-21",
+      "Authors":[
+         {
+            "Name":"Otávio Santos Gomes",
+            "Institution":"Universidade Federal de Viçosa (UFV) ",
+            "State":"MG",
+            "Author_id":238,
+            "Institution_acronym":"UFV"
+         },
+         {
+            "Name":"Glaúcia Braga e Silva",
+            "Institution":"Universidade Federal de Viçosa (UFV) ",
+            "State":"MG",
+            "Author_id":357,
+            "Institution_acronym":"UFV"
+         },
+         {
+            "Name":"Érica Ferreira de Souza",
+            "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State":"PR",
+            "Author_id":239,
+            "Institution_acronym":"UTFPR"
+         }
+      ],
+      "Approach":"#",
+      "Objective":"#",
+      "Procedures":"#",
+      "Data_collection":"#",
+      "Quantitative_Data_Analysis":"#",
+      "Qualitative_Data_Analysis":"#"
    }
 ]

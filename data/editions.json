@@ -326,5 +326,42 @@
       98,
       99
     ]
+  },
+  {
+    "Year": 2025,
+    "Edition_id": 9,
+    "Title": "Anais do X Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
+    "Location": "Maceió - AL",
+    "Date": "22/07/2025",
+    "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/1530",
+    "Chairs": [
+      {
+        "Name": "Allysson Allex Araújo",
+        "Instituition": "Universidade Federal do Cariri (UFCA), Campus Juazeiro do Norte",
+        "State": "CE"
+      },
+      {
+        "Name": "Luciana Zaina",
+        "Instituition": "Universidade Federal de São Carlos (UFScar), Campus de Sorocaba",
+        "State": "SP"
+      }
+    ],
+    "Papers": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114
+    ]
   }
 ]

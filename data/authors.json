@@ -120,7 +120,9 @@
          69,
          87,
          89,
-         93
+         93,
+         103,
+         104
       ]
    },
    {
@@ -156,7 +158,9 @@
          34,
          89,
          93,
-         98
+         98,
+         103,
+         104
       ]
    },
    {
@@ -1296,7 +1300,8 @@
       "Papers":[
          39,
          55,
-         98
+         98,
+         111
       ]
    },
    {
@@ -1431,7 +1436,7 @@
    },
    {
       "Name":"Alex Calado",
-      "Institution":"Programa de Pós-Graduação em Informática Aplicada (PPGIA) - Departamento de Computação (DC) - Universidade Federal Rural de Pernambuco (UFRPE)",
+      "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
       "State":"PE",
       "Author_id":139,
       "Institution_acronym":"UFRPE",
@@ -1441,7 +1446,7 @@
    },
    {
       "Name":"Ricardo de Souza",
-      "Institution":"Programa de Pós-Graduação em Informática Aplicada (PPGIA) - Departamento de Computação (DC) - Universidade Federal Rural de Pernambuco (UFRPE)",
+      "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
       "State":"PE",
       "Author_id":140,
       "Institution_acronym":"UFRPE",
@@ -1543,7 +1548,10 @@
          89,
          90,
          93,
-         96
+         96,
+         102,
+         103,
+         104
       ]
    },
    {
@@ -2056,7 +2064,8 @@
       "Institution_acronym":"UFV",
       "Papers":[
          63,
-         74
+         74,
+         102
       ]
    },
    {
@@ -2368,7 +2377,8 @@
       "Author_id":231,
       "Institution_acronym":"UENP",
       "Papers":[
-         72
+         72,
+         105
       ]
    },
    {
@@ -2378,7 +2388,8 @@
       "Author_id":232,
       "Institution_acronym":"UEL",
       "Papers":[
-         72
+         72,
+         105
       ]
    },
    {
@@ -2439,7 +2450,9 @@
       "Author_id":238,
       "Institution_acronym":"UFV",
       "Papers":[
-         74
+         74,
+         102,
+         115
       ]
    },
    {
@@ -2449,7 +2462,8 @@
       "Author_id":239,
       "Institution_acronym":"UTFPR",
       "Papers":[
-         74
+         74,
+         115
       ]
    },
    {
@@ -2961,7 +2975,8 @@
       "Author_id":290,
       "Institution_acronym":"UTFPR",
       "Papers":[
-         88
+         88,
+         114
       ]
    },
    {
@@ -2972,7 +2987,8 @@
       "Institution_acronym":"UFCA",
       "Papers":[
          89,
-         93
+         93,
+         104
       ]
    },
    {
@@ -3124,7 +3140,8 @@
       "Author_id":306,
       "Institution_acronym":"UFG",
       "Papers":[
-         97
+         97,
+         107
       ]
    },
    {
@@ -3134,7 +3151,8 @@
       "Author_id":307,
       "Institution_acronym":"UFC",
       "Papers":[
-         98
+         98,
+         109
       ]
    },
    {
@@ -3165,6 +3183,477 @@
       "Institution_acronym":"UFPE",
       "Papers":[
          99
+      ]
+   },
+   {
+      "Name":"Eliezer Coelho",
+      "Institution":"Universidade Federal do Pará (UFPA)",
+      "State":"PA",
+      "Author_id":311,
+      "Institution_acronym":"UFPA",
+      "Papers":[
+         100
+      ]
+   },
+   {
+      "Name":"César Lobato",
+      "Institution":"Universidade Federal do Pará (UFPA)",
+      "State":"PA",
+      "Author_id":312,
+      "Institution_acronym":"UFPA",
+      "Papers":[
+         100
+      ]
+   },
+   {
+      "Name":"Carlos Portela",
+      "Institution":"Universidade Federal do Pará (UFPA)",
+      "State":"PA",
+      "Author_id":313,
+      "Institution_acronym":"UFPA",
+      "Papers":[
+         100
+      ]
+   },
+   {
+      "Name":"Rodrigo Lisbôa",
+      "Institution":"Universidade Federal Rural da Amazônia (UFRA)",
+      "State":"PA",
+      "Author_id":314,
+      "Institution_acronym":"UFRA",
+      "Papers":[
+         100
+      ]
+   },
+   {
+      "Name":"Gabriel Albuquerque de Oliveira",
+      "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
+      "State":"PE",
+      "Author_id":315,
+      "Institution_acronym":"UFRPE",
+      "Papers":[
+         101
+      ]
+   },
+   {
+      "Name":"Suzana Sampaio",
+      "Institution":"Universidade Federal Rural de Pernambuco (UFRPE)",
+      "State":"PE",
+      "Author_id":316,
+      "Institution_acronym":"UFRPE",
+      "Papers":[
+         101
+      ]
+   },
+   {
+      "Name":"Estela Miranda Batista",
+      "Institution":"Universidade Federal de Viçosa (UFV) ",
+      "State":"MG",
+      "Author_id":317,
+      "Institution_acronym":"UFV",
+      "Papers":[
+         102
+      ]
+   },
+   {
+      "Name":"Antônio Souza",
+      "Institution":"Universidade Federal do Cariri (UFCA)",
+      "State":"CE",
+      "Author_id":318,
+      "Institution_acronym":"UFCA",
+      "Papers":[
+         103
+      ]
+   },
+   {
+      "Name":"Luiz Fernando Nunes",
+      "Institution":"Unversidade Estadual de Londrina (UEL)",
+      "State":"PR",
+      "Author_id":319,
+      "Institution_acronym":"UEL",
+      "Papers":[
+         105
+      ]
+   },
+   {
+      "Name":"Filipe J. Portilho",
+      "Institution":"Universidade Federal de Goiás (UFG)",
+      "State":"GO",
+      "Author_id":320,
+      "Institution_acronym":"UFG",
+      "Papers":[
+         106
+      ]
+   },
+   {
+      "Name":"Valdemar V. G. Neto",
+      "Institution":"Universidade Federal de Goiás (UFG)",
+      "State":"GO",
+      "Author_id":321,
+      "Institution_acronym":"UFG",
+      "Papers":[
+         106
+      ]
+   },
+   {
+      "Name":"Cinara G. M. Carneiro",
+      "Institution":"Universidade Federal de Goiás (UFG)",
+      "State":"GO",
+      "Author_id":322,
+      "Institution_acronym":"UFG",
+      "Papers":[
+         106
+      ]
+   },
+   {
+      "Name":"Renato F. Bulcão-Neto",
+      "Institution":"Universidade Federal de Goiás (UFG)",
+      "State":"GO",
+      "Author_id":323,
+      "Institution_acronym":"UFG",
+      "Papers":[
+         106
+      ]
+   },
+   {
+      "Name":"Pedro Antônio M. de Freitas",
+      "Institution":"Universidade Federal de Goiás (UFG)",
+      "State":"GO",
+      "Author_id":324,
+      "Institution_acronym":"UFG",
+      "Papers":[
+         107
+      ]
+   },
+   {
+      "Name":"Karla Thais Chaves",
+      "Institution":"Universidade de Pernambuco (UPE)",
+      "State":"PE",
+      "Author_id":325,
+      "Institution_acronym":"UPE",
+      "Papers":[
+         108
+      ]
+   },
+   {
+      "Name":"Ivaldir Honório de Farias Junior",
+      "Institution":"Universidade de Pernambuco (UPE)",
+      "State":"PE",
+      "Author_id":326,
+      "Institution_acronym":"UPE",
+      "Papers":[
+         108
+      ]
+   },
+   {
+      "Name":"Wylliams Barbosa Santos",
+      "Institution":"Universidade de Pernambuco (UPE)",
+      "State":"PE",
+      "Author_id":327,
+      "Institution_acronym":"UPE",
+      "Papers":[
+         108
+      ]
+   },
+   {
+      "Name":"Javel Freitas",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":328,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         109
+      ]
+   },
+   {
+      "Name":"Guilherme Pereira",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":329,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         109
+      ]
+   },
+   {
+      "Name":"Lara Lima",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":330,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         109
+      ]
+   },
+   {
+      "Name":"Caio Sousa",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":331,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         109
+      ]
+   },
+   {
+      "Name":"Edivar Filho",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":332,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         109
+      ]
+   },
+   {
+      "Name":"José Cezar de Souza Filho",
+      "Institution":"Univ. Polytechnique Hauts-de-France",
+      "State":"FR",
+      "Author_id":333,
+      "Institution_acronym":"Univ. Polytechnique Hauts-de-France",
+      "Papers":[
+         109
+      ]
+   },
+   {
+      "Name":"Raí da Silva Rodrigues",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":334,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         110
+      ]
+   },
+   {
+      "Name":"Israely Lima",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":335,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         110
+      ]
+   },
+   {
+      "Name":"Sufia Rios",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":336,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         110
+      ]
+   },
+   {
+      "Name":"Pedro C. Chaaban",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":337,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         110
+      ]
+   },
+   {
+      "Name":"Anny Oliveira",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":338,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         110
+      ]
+   },
+   {
+      "Name":"Emídio Barbosa",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":339,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         110
+      ]
+   },
+   {
+      "Name":"Jacilane de H. Rabelo",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":340,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         110
+      ]
+   },
+   {
+      "Name":"Sofia Bento Desidério",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":341,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         111
+      ]
+   },
+   {
+      "Name":"Simires Costa",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":342,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         111
+      ]
+   },
+   {
+      "Name":"Deusiane Kaylane Moreira",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":343,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         111
+      ]
+   },
+   {
+      "Name":"Carol Lima Fonseca",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":344,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         111
+      ]
+   },
+   {
+      "Name":"Valéria da Silva Pinheiro",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":345,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         111,
+         113
+      ]
+   },
+   {
+      "Name":"Aridan Silva Pantoja",
+      "Institution":"Universidade Federal do Pará (UFPA)",
+      "State":"PA",
+      "Author_id":346,
+      "Institution_acronym":"UFPA",
+      "Papers":[
+         112
+      ]
+   },
+   {
+      "Name":"Karol Wojtyla Sousa Nascimento",
+      "Institution":"Universidade Federal do Pará (UFPA)",
+      "State":"PA",
+      "Author_id":347,
+      "Institution_acronym":"UFPA",
+      "Papers":[
+         112
+      ]
+   },
+   {
+      "Name":"Geovane de Lima Duarte",
+      "Institution":"Universidade Federal do Pará (UFPA)",
+      "State":"PA",
+      "Author_id":348,
+      "Institution_acronym":"UFPA",
+      "Papers":[
+         112
+      ]
+   },
+   {
+      "Name":"Ana Beatriz Abreu Silva",
+      "Institution":"Universidade Federal do Pará (UFPA)",
+      "State":"PA",
+      "Author_id":349,
+      "Institution_acronym":"UFPA",
+      "Papers":[
+         112
+      ]
+   },
+   {
+      "Name":"Yago de Jesus Martins",
+      "Institution":"Universidade Federal do Pará (UFPA)",
+      "State":"PA",
+      "Author_id":350,
+      "Institution_acronym":"UFPA",
+      "Papers":[
+         112
+      ]
+   },
+   {
+      "Name":"Rayan Victor",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":351,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         113
+      ]
+   },
+   {
+      "Name":"Renato Vasconcelos",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":352,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         113
+      ]
+   },
+   {
+      "Name":"Maria Elanne Rodrigues",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":353,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         113
+      ]
+   },
+   {
+      "Name":"Fernanda Ferreira do Nascimento",
+      "Institution":"Universidade Federal do Ceará (UFC)",
+      "State":"CE",
+      "Author_id":354,
+      "Institution_acronym":"UFC",
+      "Papers":[
+         113
+      ]
+   },
+   {
+      "Name":"Rômulo Antônio Valle",
+      "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+      "State":"PR",
+      "Author_id":355,
+      "Institution_acronym":"UTFPR",
+      "Papers":[
+         114
+      ]
+   },
+   {
+      "Name":"Alinne Cristinne Corrêa Souza",
+      "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+      "State":"PR",
+      "Author_id":356,
+      "Institution_acronym":"UTFPR",
+      "Papers":[
+         114
+      ]
+   },
+   {
+      "Name":"Glaúcia Braga e Silva",
+      "Institution":"Universidade Federal de Viçosa (UFV) ",
+      "State":"MG",
+      "Author_id":357,
+      "Institution_acronym":"UFV",
+      "Papers":[
+         115
       ]
    }
 ]
