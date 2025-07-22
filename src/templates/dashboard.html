@@ -24,55 +24,57 @@
                             </div>
                         </div>
                     </div>
-                    <div id="table-container">
-                        <table class="paper-table">
-                            <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Autores</th>
-                                <th>Premiação</th>
-                                <th>Link para o artigo</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for edition_papers in statistics.award_winning_papers %}
-                                {% for paper in edition_papers['Papers'] %}
-                                    <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
-                                        <td>{{ paper['Title'] }}</td>
-                                        {% if paper['Authors'] | length > 2 %}
-                                            <td>{{ paper['Authors'][0]['Name'] }}
-                                                ({{ paper['Authors'][0]['Institution_acronym'] }})
-                                                <div class="tooltip">
-                                                    <i>et al.</i> ℹ️
-                                                    <div class="tooltip-text">
-                                                        <ul>
-                                                            {% for author in paper['Authors'][1:] %}
-                                                                <li>{{ author['Name'] }}
-                                                                    ({{ author['Institution_acronym'] }})
-                                                                </li>
-                                                            {% endfor %}
-                                                        </ul>
+                    <div id="table-scroll-wrapper">
+                        <div id="table-container">
+                            <table class="paper-table">
+                                <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Autores</th>
+                                    <th>Premiação</th>
+                                    <th>Link para o artigo</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for edition_papers in statistics.award_winning_papers %}
+                                    {% for paper in edition_papers['Papers'] %}
+                                        <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
+                                            <td>{{ paper['Title'] }}</td>
+                                            {% if paper['Authors'] | length > 2 %}
+                                                <td>{{ paper['Authors'][0]['Name'] }}
+                                                    ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                                    <div class="tooltip">
+                                                        <i>et al.</i> ℹ️
+                                                        <div class="tooltip-text">
+                                                            <ul>
+                                                                {% for author in paper['Authors'][1:] %}
+                                                                    <li>{{ author['Name'] }}
+                                                                        ({{ author['Institution_acronym'] }})
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        {% elif paper['Authors'] | length == 2 %}
-                                            <td>{{ paper['Authors'][0]['Name'] }}
-                                                ({{ paper['Authors'][0]['Institution_acronym'] }})
-                                                e {{ paper['Authors'][1]['Name'] }}
-                                                ({{ paper['Authors'][1]['Institution_acronym'] }})
-                                            </td>
-                                        {% else %}
-                                            <td>{{ paper['Authors'][0]['Name'] }}
-                                                ({{ paper['Authors'][0]['Institution_acronym'] }})
-                                            </td>
-                                        {% endif %}
-                                        <td>{{ paper['Award'] }}</td>
-                                        <td><a target="_blank" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
-                                    </tr>
+                                                </td>
+                                            {% elif paper['Authors'] | length == 2 %}
+                                                <td>{{ paper['Authors'][0]['Name'] }}
+                                                    ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                                    e {{ paper['Authors'][1]['Name'] }}
+                                                    ({{ paper['Authors'][1]['Institution_acronym'] }})
+                                                </td>
+                                            {% else %}
+                                                <td>{{ paper['Authors'][0]['Name'] }}
+                                                    ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                                </td>
+                                            {% endif %}
+                                            <td>{{ paper['Award'] }}</td>
+                                            <td><a target="_blank" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
+                                        </tr>
+                                    {% endfor %}
                                 {% endfor %}
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="pagination-section">
                         <!-- <span style="cursor: pointer" onclick="table_before_page()" id="before"><</span> -->
@@ -413,31 +415,44 @@
                 'data': words.map(word => (parseInt(word.count) * 5)),
             })
 
-            document.querySelectorAll('.tooltip').forEach(tooltip => {
-                tooltip.addEventListener('mouseover', function () {
-                    const tooltipText = this.querySelector('.tooltip-text');
-                    const rect = tooltipText.getBoundingClientRect();
-
-                    // Verifica se o tooltip ultrapassa a borda direita da página
-                    if (rect.right > window.innerWidth) {
-                        tooltipText.style.left = 'auto';
-                        tooltipText.style.right = '0';
-                        tooltipText.style.transform = 'translateX(0)';
+            const tooltips = document.querySelectorAll('.tooltip');
+            tooltips.forEach(tooltip => {
+                // Cria o elemento do tooltip se não existir
+                if (!tooltip.querySelector('.tooltip-text')) {
+                    const tooltipText = document.createElement('div');
+                    tooltipText.className = 'tooltip-text';
+                    tooltipText.textContent = tooltip.getAttribute('data-tooltip') || '';
+                    tooltip.appendChild(tooltipText);
+                }
+                
+                // Configura o posicionamento
+                const tooltipText = tooltip.querySelector('.tooltip-text');
+                
+                tooltip.addEventListener('mouseenter', function() {
+                    // Verifica se há espaço acima
+                    const rect = tooltip.getBoundingClientRect();
+                    const spaceAbove = rect.top;
+                    const tooltipHeight = 100; // Altura estimada do tooltip
+                    
+                    // Se não houver espaço suficiente acima, mostra abaixo
+                    if (spaceAbove < tooltipHeight) {
+                        tooltipText.classList.add('bottom');
+                    } else {
+                        tooltipText.classList.remove('bottom');
                     }
-
-                    // Verifica se o tooltip ultrapassa a borda esquerda da página
-                    if (rect.left < 0) {
-                        tooltipText.style.left = '0';
-                        tooltipText.style.right = 'auto';
-                        tooltipText.style.transform = 'translateX(0)';
+                    
+                    // Verifica posição na tela para mobile
+                    if (window.innerWidth <= 768) {
+                        const spaceRight = window.innerWidth - rect.right;
+                        
+                        if (spaceRight < 200) { // Se não houver espaço à direita
+                            tooltipText.classList.add('mobile-left');
+                            tooltipText.classList.remove('mobile-right');
+                        } else {
+                            tooltipText.classList.add('mobile-right');
+                            tooltipText.classList.remove('mobile-left');
+                        }
                     }
-                });
-
-                tooltip.addEventListener('mouseout', function () {
-                    const tooltipText = this.querySelector('.tooltip-text');
-                    tooltipText.style.left = '50%';
-                    tooltipText.style.right = 'auto';
-                    tooltipText.style.transform = 'translateX(-50%)';
                 });
             });
         })

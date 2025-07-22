@@ -237,19 +237,9 @@ function insert_doughnut_chart(element, infos) {
             label: '',
             data: infos['data'],
             backgroundColor: [
-                "#003D6A",
-                "#22CBE4",
-                "#2662F0",
-                "#005D94",
-                "#1A9BC6",
-                "#478BF4",
-                "#004E7F",
-                "#00A0C8",
-                "#1E5FB8",
-                "#3399FF",
-                "#004B85",
-                "#008DBD"
-            ],
+    "#003D6A", "#FFB347", "#7AE7C7", "#FF7675", "#74B9FF",
+    "#FDCB6E", "#55E6C1", "#FD79A8", "#0984E3", "#FFEAA7"
+],
             hoverOffset: 6
         }]
     }

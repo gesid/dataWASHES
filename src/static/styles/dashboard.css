@@ -1,8 +1,18 @@
 body {
     background-color: #F5F5F5;
     color: #353535;
-    overflow-x: hidden;
+}
 
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+main {
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 canvas {
@@ -17,8 +27,11 @@ canvas {
 }
 
 .dashboard {
-    width: 90vw;
+    width: 95vw;
     margin-left: 2.5vw;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .container {
@@ -98,13 +111,14 @@ canvas {
 }
 
 .graph-header {
-    display: flex;
-    width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    align-items: center;
 }
 
 .title {
-    font-size: large;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
 }
 
 .info-icon {
@@ -120,6 +134,12 @@ canvas {
     display: flex;
     flex-direction: column;
     height: 75%;
+    min-width: 768px;
+}
+#table-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .paper-table {
@@ -181,14 +201,12 @@ canvas {
 
 .pagination-section {
     display: flex;
-    position: relative;
-    width: 100%;
-    height: 10%;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 10px;
     margin-top: 15px;
+    width: 100%;
 }
 
 .pagination-section span {
@@ -199,12 +217,19 @@ canvas {
 .pag-year-button {
     background-color: #0595FD;
     color: #FFFFFF;
-    font-size: 12pt;
+    font-size: 0.9rem;
     padding: 10px;
     border: none;
     border-radius: 5px;
-    margin-left: 15px;
     cursor: pointer;
+    flex: 1 1 auto;
+    max-width: 100px;
+    transition: all 0.2s ease;
+}
+
+.pag-year-button:hover {
+    background-color: #2662F0;
+    transform: translateY(-2px);
 }
 
 .donnuts {
@@ -216,6 +241,48 @@ canvas {
     grid-template-areas:
     "abordagem objetivo procedimentos"
     "coleta-de-dados dados-quantitativos dados-qualitativos";
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 100%;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "artigos_por_edicao"
+            "artigos_por_idioma"
+            "ranking_autore"
+            "ranking_instituicoes"
+            "nuvem_palavras"
+            "artigos_por_estado"
+            "artigos_premiados"
+            "artigos_por_categorias"
+            "artigos_por_categorias"
+            "artigos_por_categorias";
+    }
+
+    .donnuts {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+        "abordagem"
+        "objetivo"
+        "procedimentos"
+        "coleta-de-dados"
+        "dados-quantitativos"
+        "dados-qualitativos";
+    }
+
+    .dashboard {
+        width: 98vw;
+        margin-left: 1vw;
+    }
+
+    .paper-table th,
+    .paper-table td {
+        font-size: 14px;
+        padding: 8px;
+        white-space: nowrap; 
+    }
 }
 
 .donnuts > div {
@@ -261,6 +328,7 @@ canvas {
 }
 
 .tooltip .tooltip-text {
+    font-size: 0.9rem;
     text-align: left;
     visibility: hidden;
     opacity: 0;
@@ -277,8 +345,32 @@ canvas {
     transition: opacity 0.1s, visibility 0.1s;
 }
 
+@media (max-width: 480px) {
+  .tooltip-text {
+    max-width: 200px;
+    left: 100% !important;
+    transform: none !important;
+    margin-left: 10px;
+  }
+}
+
 .tooltip:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
     z-index: 1000;
+}
+
+.graph-container {
+  position: relative;
+  height: 0;
+  padding-bottom: 75%; /* Proporção 4:3 */
+  overflow: hidden;
+}
+
+.graph-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
