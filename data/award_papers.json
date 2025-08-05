@@ -945,5 +945,120 @@
         ]
       }
     ]
+  },
+  {
+    "Year": 2025,
+    "Papers": [
+      {
+        "Paper_id":102,
+        "Award": "1° Lugar",
+        "Title":"10 years of Workshop on Social, Human, and Economics Aspects of Software (WASHES): Results of a Scoping Review",
+        "Language":"en",
+        "Year":2025,
+        "Type":"Full paper",
+        "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35917",
+        "Authors":[
+          {
+              "Name":"Otávio Santos Gomes",
+              "Institution":"Universidade Federal de Viçosa (UFV) ",
+              "State":"MG",
+              "Author_id":238,
+              "Institution_acronym":"UFV"
+          },
+          {
+              "Name":"Estela Miranda Batista",
+              "Institution":"Universidade Federal de Viçosa (UFV) ",
+              "State":"MG",
+              "Author_id":317,
+              "Institution_acronym":"UFV"
+          },
+          {
+              "Name":"Gláucia Braga e Silva",
+              "Institution":"Universidade Federal de Viçosa (UFV) ",
+              "State":"MG",
+              "Author_id":200,
+              "Institution_acronym":"UFV"
+          },
+          {
+              "Name":"Allysson Allex Araújo",
+              "Institution":"Universidade Federal do Cariri (UFCA)",
+              "State":"CE",
+              "Author_id":149,
+              "Institution_acronym":"UFCA"
+          }
+        ]
+      },
+      {
+        "Paper_id":114,
+        "Award": "2° Lugar",
+        "Title":"Aligning Soft Skills in Requirements Engineering Between Academia and Industry: A Pilot Study",
+        "Language":"en",
+        "Year":2025,
+        "Type":"Full paper",
+        "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35929",
+        "Authors":[
+          {
+              "Name":"Rômulo Antônio Valle",
+              "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+              "State":"PR",
+              "Author_id":355,
+              "Institution_acronym":"UTFPR"
+          },
+          {
+              "Name":"Alinne Cristinne Corrêa Souza",
+              "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
+              "State":"PR",
+              "Author_id":356,
+              "Institution_acronym":"UTFPR"
+          },
+          {
+              "Name":"Pedro Henrique Dias Valle",
+              "Institution":"Universidade de São Paulo (USP)",
+              "State":"SP",
+              "Author_id":290,
+              "Institution_acronym":"USP"
+          }
+        ]
+      },
+      {
+        "Paper_id":104,
+        "Award": "3° Lugar",
+        "Title":"Bridging Open Science and Data Visualization: Evaluating the Usability of dataWASHES Dashboard",
+        "Language":"en",
+        "Year":2025,
+        "Type":"Full paper",
+        "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35919",
+        "Authors":[
+          {
+              "Name":"Victor Gonçalves",
+              "Institution":"Universidade Federal do Cariri (UFCA)",
+              "State":"CE",
+              "Author_id":291,
+              "Institution_acronym":"UFCA"
+          },
+          {
+              "Name":"Davi Viana",
+              "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+              "State":"RJ",
+              "Author_id":13,
+              "Institution_acronym":"UNIRIO"
+          },
+          {
+              "Name":"Rodrigo Pereira dos Santos",
+              "Institution":"Universidade Federal do Maranhão (UFMA)",
+              "State":"MA",
+              "Author_id":10,
+              "Institution_acronym":"UFMA"
+          },
+          {
+              "Name":"Allysson Allex Araújo",
+              "Institution":"Universidade Federal do Cariri (UFCA)",
+              "State":"CE",
+              "Author_id":149,
+              "Institution_acronym":"UFCA"
+          }
+        ]
+      }
+    ]
   }
 ]

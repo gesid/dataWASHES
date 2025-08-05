@@ -133,7 +133,6 @@ canvas {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 75%;
     min-width: 768px;
     width: 100%;
     overflow: visible;
@@ -228,7 +227,13 @@ canvas {
     width: 20%;
 }
 
+.pagination-wrapper {
+
+}
+
 .pagination-section {
+    position: relative;
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -236,6 +241,7 @@ canvas {
     gap: 10px;
     margin-top: 15px;
     width: 100%;
+
 }
 
 .pagination-section span {

@@ -76,14 +76,16 @@
                             </table>
                         </div>
                     </div>
-                    <div class="pagination-section">
-                        <!-- <span style="cursor: pointer" onclick="table_before_page()" id="before"><</span> -->
-                        {% for edition in statistics.award_winning_papers %}
-                            <button onclick="paginate_papers_table(this, {{ edition['Year'] }})"
-                                    class="pag-year-button"
-                                    id="button-{{ edition['Year'] }}">{{ edition['Year'] }}</button>
-                        {% endfor %}
-                        <!-- <span style="cursor: pointer" onclick="table_next_page()" id="next">>></span> -->
+                    <div class="pagination-wrapper">
+                        <div class="pagination-section">
+                            <!-- <span style="cursor: pointer" onclick="table_before_page()" id="before"><</span> -->
+                            {% for edition in statistics.award_winning_papers %}
+                                <button onclick="paginate_papers_table(this, {{ edition['Year'] }})"
+                                        class="pag-year-button"
+                                        id="button-{{ edition['Year'] }}">{{ edition['Year'] }}</button>
+                            {% endfor %}
+                            <!-- <span style="cursor: pointer" onclick="table_next_page()" id="next">>></span> -->
+                        </div>
                     </div>
                 </div>
                 <div class="artigos_por_edicao">
