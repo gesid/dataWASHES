@@ -25,7 +25,7 @@ Given the importance of the WASHES workshop and its extensive archive of papers,
 O **dataWASHES** é uma API que:
 - Permite buscar programaticamente artigos, edições e autores;
 - Facilita análises secundárias e pesquisa de dados;
-- É open-source e colaborativo.:contentReference[oaicite:4]{index=4}
+- É open-source e colaborativo.
 
 ---
 

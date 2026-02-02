@@ -81,3 +81,64 @@ Caso ainda esteja sendo utilizado o método manual para preencher este campo, si
 
 ## Autor
 
+Um autor possui os seguintes campos:
+
+- **Author_id**: Identificador único do autor no sistema.
+- **Name**: Nome completo do autor.
+- **Institution**: Nome completo da instituição à qual o autor está vinculado.
+- **Institution_acronym**: Sigla da instituição do autor.
+- **State**: Estado brasileiro da instituição.
+- **Papers**: Lista de identificadores (**Paper_id**) dos artigos associados a este autor.
+
+Os campos **Author_id** e **Papers** são gerados automaticamente pelo script `authorsJSON.py`.  
+Os demais campos são preenchidos a partir dos dados inseridos na planilha.
+
+![image](../images/authors.png)
+
+Observe a forma de preenchimento da planilha:  
+na **primeira linha de cada artigo**, devem ser informados os dados do **primeiro autor**.  
+As informações dos **demais autores** devem ser preenchidas nas linhas seguintes. Nessas linhas, os campos relacionados ao artigo devem permanecer em branco.
+
+As informações dos autores podem ser facilmente encontradas nos anais da edição, mais especificamente na página individual de cada artigo.
+
+## Edições
+
+A atualização do arquivo `editions.json` pode ser feita manualmente. Para isso, basta adicionar um novo objeto à lista e preenchê-lo com os dados da nova edição.
+
+Uma edição possui os seguintes campos:
+
+- **Edition_id**: Identificador único da edição no sistema.
+- **Year**: Ano em que a edição do evento ocorreu.
+- **Title**: Título completo dos anais da edição.
+- **Location**: Local (cidade e estado) onde o evento foi realizado.
+- **Date**: Data de realização do evento.
+- **Proceedings**: Link para a página oficial dos anais da edição.
+- **Chairs**: Lista de coordenadores(as) da edição do evento.
+  - **Chairs.Name**: Nome completo do chair.
+  - **Chairs.Instituition**: Instituição de vínculo do chair.
+  - **Chairs.State**: Estado brasileiro da instituição do chair.
+- **Papers**: Lista de identificadores (**Paper_id**) dos artigos publicados na edição.
+
+Além do site dos anais do evento, cada edição costuma possuir um site próprio, no qual é possível obter informações como coordenadores, local e data do evento.
+
+Para o preenchimento do campo **Papers**, é importante notar que a atribuição dos identificadores dos artigos é feita de forma **sequencial**, o que facilita esse processo.
+
+## Artigos Premiados
+
+Os objetos do arquivos `award_papers.json` são cópias dos objetos de `papers.json`, onde alguns campos foram removidos e um novo campo adicionado.Um artigo premiado possui os seguintes campos:
+
+- **Paper_id**: Identificador único do artigo no sistema, correspondente ao mesmo identificador usado em `papers.json`.
+- **Award**: Classificação ou premiação recebida pelo artigo (ex.: 1º Lugar, 2º Lugar, 3º Lugar).
+- **Title**: Título completo do artigo.
+- **Language**: Idioma em que o artigo foi escrito.
+- **Year**: Ano de publicação do artigo.
+- **Type**: Tipo de publicação (ex.: Full paper, Short paper).
+- **Download_link**: Link para acesso ou download do artigo completo.
+- **Authors**: Lista de autores do artigo premiado.
+  - **Authors.Name**: Nome completo do autor.
+  - **Authors.Institution**: Instituição à qual o autor está vinculado.
+  - **Authors.Institution_acronym**: Sigla da instituição do autor.
+  - **Authors.State**: Estado brasileiro da instituição.
+  - **Authors.Author_id**: Identificador único do autor no sistema.
+
+Geralmete estes artigos premiados são divulgados na página de instagran do WASHES.
