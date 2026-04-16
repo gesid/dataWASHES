@@ -11,19 +11,25 @@ No projeto, existem quatro arquivos JSON que servem como base de dados. Sempre q
 - [authors.json](../../data/authors.json)
 - [award_papers.json](../../data/award_papers.json)
 
-O processo de atualização desses dados segue os seguintes passos:
+### ⚠️ Pré-requisito: Acesso à Planilha-Mestra
+A base de dados oficial do projeto reside em uma única planilha no Google Sheets.
+**Link Oficial:** [Planilha dataWASHES - Dataset](https://docs.google.com/spreadsheets/d/1ogR7v57DApDMSz2lZfG5ajf6s7ekIer7BPjczNZaVSo/edit)
+
+* **Atenção Mantenedor:** A planilha por padrão é "Somente Leitura". **Não faça uma cópia.** Solicite acesso de "Editor" ao administrador do projeto para garantir que todo o histórico seja mantido no mesmo arquivo.
+* Somente após ter acesso de edição, prossiga com os passos abaixo.
+
+### Passo a Passo da Atualização:
 
 1. Acessar os anais da nova edição do WASHES;
-2. A partir dos dados de cada artigo, atualizar a planilha onde ficam acumulados todos os dados. **IMPORTANTE:** deve-se seguir os padrões de preenchimento (por exemplo, usar `#` para sinalizar que um campo não possui dados);
-3. Levar a planilha atualizada para o caminho `data/JSON Generator`;
-4. Executar o script [data/JSON Generator/authorsJSON.py](../../data/JSON%20Generator/authorsJSON.py) para gerar um novo arquivo JSON de autores;
-5. Executar o script [data/JSON Generator/papersJSON.py](../../data/JSON%20Generator/papersJSON.py) para gerar um novo arquivo JSON de artigos;
-6. Ajustar as formatações dos JSONs gerados:
-   - No diretório `data/JSON Generator/` há um arquivo de [instruções](../../data/JSON%20Generator/instruções.md) com mais detalhes sobre a execução dos scripts e as ferramentas utilizadas para formatar os arquivos JSON gerados;
-7. Substituir os arquivos `authors.json` e `papers.json` pelos novos arquivos gerados pelos scripts;
+2. A partir dos dados de cada artigo, atualizar a planilha oficial. **IMPORTANTE:** deve-se seguir os padrões de preenchimento (por exemplo, usar `#` para sinalizar que um campo não possui dados);
+3. **Automatização de Citações:** Execute a ferramenta paralela **CitationMiner** para que o robô busque e preencha automaticamente a coluna de Citações na planilha oficial;
+4. **Exportação:** Faça o download da aba de dados da planilha no formato `.xlsx`. Renomeie o arquivo estritamente para `dataWASHES-data.xlsx` e mova-o para o diretório `data/JSON Generator/`;
+5. Executar o script [data/JSON Generator/authorsJSON.py](../../data/JSON%20Generator/authorsJSON.py) para gerar um novo arquivo JSON de autores;
+6. Executar o script [data/JSON Generator/papersJSON.py](../../data/JSON%20Generator/papersJSON.py) para gerar um novo arquivo JSON de artigos;
+7. Substituir os arquivos `authors.json` e `papers.json` originais (localizados na pasta raiz `/data`) pelos novos arquivos gerados pelos scripts;
 8. Atualizar manualmente o arquivo `editions.json`, adicionando a nova edição;
 9. Atualizar manualmente o arquivo `award_papers.json` com as informações dos artigos premiados;
-10. Realizar o deploy das mudanças.
+10. Realizar o deploy das mudanças (consulte o guia de [Deploy no PythonAnywhere](deploy.md)).
 
 ## Artigos
 
@@ -52,14 +58,16 @@ Um artigo possui os seguintes campos:
 Quando uma nova edição do WASHES é lançada, a maioria dos dados que precisam ser coletados sobre os artigos está disponível na página dos anais daquela edição. A maioria dos campos pode ser atualizada a partir das informações encontradas no site, exceto:
 
 - **Paper_id**: esse campo é gerado automaticamente pelo script `papersJSON.py`;
-- **Cited_by**: esse campo é atualizado manualmente a partir do [Google Acadêmico](https://scholar.google.com/);
+- **Cited_by**: esse campo é atualizado **automaticamente pelo CitationMiner**;
 - Os campos **Approach** (Quanto à abordagem), **Objective** (Quanto aos objetivos), **Procedures** (Quanto aos procedimentos), **Data_collection** (Método para coleta de dados), **Quantitative_Data_Analysis** (Método para análise de dados quantitativos) e **Qualitative_Data_Analysis** (Método para análise de dados qualitativos) são preenchidos com a categoria mais adequada para o artigo. Isso é feito manualmente, a partir do julgamento de quem está atualizando os dados. Como se tratam de categorias, ao preencher esses campos, deve-se atentar para a escrita exata de cada categoria, conforme utilizada anteriormente, e apenas adicionar uma nova categoria se realmente for necessário.
 
 **Obs.:** O campo **Referências** na planilha deve conter todas as referências usadas no artigo, com uma linha em branco entre cada referência. Já no campo **Citações**, essa linha em branco não é utilizada; apenas garanta que cada citação esteja em uma única linha.
 
 ### Citações
 
-Caso ainda esteja sendo utilizado o método manual para preencher este campo, siga os passos abaixo:
+Atualmente, o preenchimento deste campo foi automatizado pela aplicação **CitationMiner**. Recomendamos fortemente o uso do robô para evitar trabalho braçal. 
+
+Contudo, caso o robô falhe ou algum artigo específico precise de correção manual, siga os passos do método legado abaixo:
 
 1. Pesquisar o artigo pelo título no [Google Acadêmico](https://scholar.google.com/).
 
@@ -141,4 +149,4 @@ Os objetos do arquivos `award_papers.json` são cópias dos objetos de `papers.j
   - **Authors.State**: Estado brasileiro da instituição.
   - **Authors.Author_id**: Identificador único do autor no sistema.
 
-Geralmete estes artigos premiados são divulgados na página de instagran do WASHES.
+Geralmente estes artigos premiados são divulgados na página de instagram do WASHES.
