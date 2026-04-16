@@ -22,7 +22,7 @@ A base de dados oficial do projeto reside em uma única planilha no Google Sheet
 
 1. Acessar os anais da nova edição do WASHES;
 2. A partir dos dados de cada artigo, atualizar a planilha oficial. **IMPORTANTE:** deve-se seguir os padrões de preenchimento (por exemplo, usar `#` para sinalizar que um campo não possui dados);
-3. **Automatização de Citações:** Execute a ferramenta paralela **CitationMiner** para que o robô busque e preencha automaticamente a coluna de Citações na planilha oficial;
+3.  **Automatização de Citações:** Utilize a ferramenta [CitationMiner](https://github.com/gesid/CitationMiner). Este robô busca e preenche automaticamente a coluna de Citações na planilha oficial com base no Google Acadêmico;
 4. **Exportação:** Faça o download da aba de dados da planilha no formato `.xlsx`. Renomeie o arquivo estritamente para `dataWASHES-data.xlsx` e mova-o para o diretório `data/JSON Generator/`;
 5. Executar o script [data/JSON Generator/authorsJSON.py](../../data/JSON%20Generator/authorsJSON.py) para gerar um novo arquivo JSON de autores;
 6. Executar o script [data/JSON Generator/papersJSON.py](../../data/JSON%20Generator/papersJSON.py) para gerar um novo arquivo JSON de artigos;
@@ -58,7 +58,7 @@ Um artigo possui os seguintes campos:
 Quando uma nova edição do WASHES é lançada, a maioria dos dados que precisam ser coletados sobre os artigos está disponível na página dos anais daquela edição. A maioria dos campos pode ser atualizada a partir das informações encontradas no site, exceto:
 
 - **Paper_id**: esse campo é gerado automaticamente pelo script `papersJSON.py`;
-- **Cited_by**: esse campo é atualizado **automaticamente pelo CitationMiner**;
+- **Cited_by**: esse campo é atualizado **automaticamente** pela ferramenta [CitationMiner](https://github.com/gesid/CitationMiner);
 - Os campos **Approach** (Quanto à abordagem), **Objective** (Quanto aos objetivos), **Procedures** (Quanto aos procedimentos), **Data_collection** (Método para coleta de dados), **Quantitative_Data_Analysis** (Método para análise de dados quantitativos) e **Qualitative_Data_Analysis** (Método para análise de dados qualitativos) são preenchidos com a categoria mais adequada para o artigo. Isso é feito manualmente, a partir do julgamento de quem está atualizando os dados. Como se tratam de categorias, ao preencher esses campos, deve-se atentar para a escrita exata de cada categoria, conforme utilizada anteriormente, e apenas adicionar uma nova categoria se realmente for necessário.
 
 **Obs.:** O campo **Referências** na planilha deve conter todas as referências usadas no artigo, com uma linha em branco entre cada referência. Já no campo **Citações**, essa linha em branco não é utilizada; apenas garanta que cada citação esteja em uma única linha.
