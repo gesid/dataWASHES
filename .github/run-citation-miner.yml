@@ -1,0 +1,53 @@
+name: Scheduled CitationMiner Execution
+
+on:
+  # 1. Executa no 1º dia de cada mês às 03:00 UTC
+  schedule:
+    - cron: '0 3 1 * *'
+
+  # 2. Permite acionar manualmente pela aba "Actions" do GitHub
+  workflow_dispatch:
+
+jobs:
+  run-citation-miner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout CitationMiner Repository
+        uses: actions/checkout@v4
+        with:
+          repository: gesid/CitationMiner
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Create appsettings.json and credentials.json from Secrets
+        run: |
+          cat <<EOF > CitationMiner/appsettings.json
+          {
+            "Logging": {
+              "LogLevel": {
+                "Default": "Information",
+                "Microsoft.AspNetCore": "Warning"
+              },
+              "SpreadsheetId": "${{ secrets.GOOGLE_SPREADSHEET_ID }}",
+              "SheetName": "dataWASHES-data"
+            },
+            "Variables": {
+              "ScraperApiKey": "${{ secrets.SCRAPER_API_KEY }}"
+            },
+            "AllowedHosts": "*"
+          }
+          EOF
+
+          # Cria o arquivo de credenciais do Google a partir do Secret da nuvem
+          echo '${{ secrets.GOOGLE_CREDENTIALS_JSON }}' > CitationMiner/credentials.json
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run CitationMiner Bot
+        run: dotnet run --project CitationMiner

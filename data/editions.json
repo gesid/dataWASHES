@@ -363,5 +363,49 @@
       113,
       114
     ]
+  },
+  {
+    "Year": 2026,
+    "Edition_id": 10,
+    "Title": "Anais do XI Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software",
+    "Location": "Gramado - RS",
+    "Date": "19/07/2026",
+    "Proceedings": "https://sol.sbc.org.br/index.php/washes/issue/view/1696",
+    "Chairs": [
+      {
+        "Name": "Luciana Zaina",
+        "Instituition": "Universidade Federal de São Carlos (UFSCar)",
+        "State": "SP"
+      },
+      {
+        "Name": "Gláucia Braga e Silva",
+        "Instituition": "Universidade Federal de Viçosa (UFV)",
+        "State": "MG"
+      }
+    ],
+    "Papers": [
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136
+    ]
   }
 ]
