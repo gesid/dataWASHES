@@ -10,7 +10,6 @@ def main() -> None:
     server.api.add_namespace(papers_ns)
     server.api.add_namespace(authors_ns)
     server.api.add_namespace(statistics_ns)
-    server.run()  # Essa linha deve ser comentada ao realizar o deploy do projeto
 
 
 @server.api.representation('text/csv')
@@ -31,3 +30,4 @@ def dashboard():
 
 if __name__ == '__main__':
     main()
+    server.run()

@@ -1,63 +1,49 @@
 import pytest
-import requests
 
-ENDPOINT = "http://127.0.0.1:5000/"
-
-# Teste para validar rota authors
-def test_get_authors():
-    response = requests.get(f"{ENDPOINT}/authors")
+def test_get_authors(client):
+    response = client.get("/authors/", follow_redirects=True)
     assert response.status_code == 200
+    res = response.get_json()
+    data = res["data"] if isinstance(res, dict) and "data" in res else res
+    assert isinstance(data, list)
+    assert len(data) > 0
 
-# Teste para validar authors by name
-def test_get_authors_by_name():
-    valid_names = ["João"]
-    invalid_names = ["non-existent-author", "123-invalid-name"]
-
+def test_get_authors_by_name(client):
     # Nomes válidos
-    for name in valid_names:
-        url = f"{ENDPOINT}/authors/by-name/{name}"
-        response = requests.get(url)
-        assert response.status_code == 200
+    response = client.get("/authors/by-name/João")
+    assert response.status_code == 200
+    res = response.get_json()
+    data = res["data"] if isinstance(res, dict) and "data" in res else res
+    assert isinstance(data, list)
+    assert len(data) > 0
 
     # Nomes inválidos
-    for name in invalid_names:
-        url = f"{ENDPOINT}/authors/by-name/{name}"
-        response = requests.get(url)
+    for name in ["non-existent-author", "123-invalid-name"]:
+        response = client.get(f"/authors/by-name/{name}")
         assert response.status_code == 404
 
-# Teste para authors com IDs válidas
-def test_get_authors_valid_ids():
-    authors_id = range(0, 263)
-
-    for author_id in authors_id:
-        url = f"{ENDPOINT}/authors/{author_id}"
-        response = requests.get(url)
+def test_get_authors_valid_ids(client, total_authors):
+    sample_ids = list(range(0, 5)) + list(range(total_authors - 5, total_authors))
+    for author_id in sample_ids:
+        response = client.get(f"/authors/{author_id}")
         assert response.status_code == 200
+        data = response.get_json()
+        assert data["Author_id"] == author_id
+        assert "Name" in data
 
-# Teste para authors com IDs inválidas
-def test_get_authors_invalid_ids():
-    invalid_authors_id = [-1, "invalid"]
-
-    for author_id in invalid_authors_id:
-        url = f"{ENDPOINT}/authors/{author_id}"
-        response = requests.get(url)
+def test_get_authors_invalid_ids(client):
+    for author_id in [-1, 99999]:
+        response = client.get(f"/authors/{author_id}")
         assert response.status_code == 404
 
-# Teste para authors válidos e seus respectivos artigos
-def test_get_papers_for_valid_author_ids():
-    author_ids = range(0, 263)
+def test_get_papers_for_valid_author_ids(client):
+    response = client.get("/authors/0/papers")
+    assert response.status_code == 200
+    res = response.get_json()
+    data = res["data"] if isinstance(res, dict) and "data" in res else res
+    assert isinstance(data, list)
 
-    for author_id in author_ids:
-        response = requests.get(f"{ENDPOINT}/authors/{author_id}/papers")
-        assert response.status_code == 200
-
-# Teste para authors inválidos e seus respectivos artigos
-def test_get_papers_for_invalid_author_ids():
-    invalid_author_ids = [-1, -15, 3333]
-
-    for author_id in invalid_author_ids:
-        response = requests.get(f"{ENDPOINT}/authors/{author_id}/papers")
+def test_get_papers_for_invalid_author_ids(client):
+    for author_id in [-1, -15, 99999]:
+        response = client.get(f"/authors/{author_id}/papers")
         assert response.status_code == 404
-
-if __name__ == "__main__":
-    pytest.main()

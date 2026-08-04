@@ -1,4 +1,4 @@
-# Atualização dos dados
+# 🔄 Atualização dos dados
 
 Atualmente, o WASHES é um evento anual. A cada nova edição do evento, novos artigos são publicados e precisam ser analisados e inseridos no dataset do projeto.
 
@@ -11,142 +11,110 @@ No projeto, existem quatro arquivos JSON que servem como base de dados. Sempre q
 - [authors.json](../../data/authors.json)
 - [award_papers.json](../../data/award_papers.json)
 
-### ⚠️ Pré-requisito: Acesso à Planilha-Mestra
-A base de dados oficial do projeto reside em uma única planilha no Google Sheets.
-**Link Oficial:** [Planilha dataWASHES - Dataset](https://docs.google.com/spreadsheets/d/1ogR7v57DApDMSz2lZfG5ajf6s7ekIer7BPjczNZaVSo/edit)
+---
 
-* **Atenção Mantenedor:** A planilha por padrão é "Somente Leitura". **Não faça uma cópia.** Solicite acesso de "Editor" ao administrador do projeto para garantir que todo o histórico seja mantido no mesmo arquivo.
-* Somente após ter acesso de edição, prossiga com os passos abaixo.
+## ⚡ Fluxo de Atualização Automatizado (CI/CD)
 
-### Passo a Passo da Atualização:
+O **dataWASHES** conta com um pipeline de automação construído com **GitHub Actions, Python e IA**. A base de dados oficial reside diretamente no repositório no arquivo `data/JSON Generator/dataWASHES-data.xlsx`.
 
-1. Acessar os anais da nova edição do WASHES;
-2. A partir dos dados de cada artigo, atualizar a planilha oficial. **IMPORTANTE:** deve-se seguir os padrões de preenchimento (por exemplo, usar `#` para sinalizar que um campo não possui dados);
-3.  **Automatização de Citações:** Utilize a ferramenta [CitationMiner](https://github.com/gesid/CitationMiner). Este robô busca e preenche automaticamente a coluna de Citações na planilha oficial com base no Google Acadêmico;
-4. **Exportação:** Faça o download da aba de dados da planilha no formato `.xlsx`. Renomeie o arquivo estritamente para `dataWASHES-data.xlsx` e mova-o para o diretório `data/JSON Generator/`;
-5. Executar o script [data/JSON Generator/authorsJSON.py](../../data/JSON%20Generator/authorsJSON.py) para gerar um novo arquivo JSON de autores;
-6. Executar o script [data/JSON Generator/papersJSON.py](../../data/JSON%20Generator/papersJSON.py) para gerar um novo arquivo JSON de artigos;
-7. Substituir os arquivos `authors.json` e `papers.json` originais (localizados na pasta raiz `/data`) pelos novos arquivos gerados pelos scripts;
-8. Atualizar manualmente o arquivo `editions.json`, adicionando a nova edição;
-9. Atualizar manualmente o arquivo `award_papers.json` com as informações dos artigos premiados;
-10. Realizar o deploy das mudanças (consulte o guia de [Deploy no PythonAnywhere](deploy.md)).
+Todo dia 1º de cada mês, o GitHub Actions executa automaticamente a seguinte rotina:
+1. **Scraping:** Verifica se há uma nova edição do WASHES no SOL SBC. Se houver, baixa todos os metadados de artigos, resumos, autores e afiliações.
+2. **Inteligência Artificial:** Utiliza a API do **Groq (Llama-3.3 70B)** para ler os resumos e classificar automaticamente os 6 campos metodológicos dos artigos.
+3. **Citações:** Executa o minerador Python via **ScraperAPI** para buscar citações reais no Google Scholar.
+4. **Pull Request:** Atualiza a planilha `.xlsx`, regera os arquivos JSON e **abre um Pull Request (PR) automático** no GitHub.
 
-## Artigos
+### 🧑‍💻 O Papel do Mantenedor:
+Quando o robô abrir o Pull Request:
+1. Acesse a branch criada pelo bot (`auto-data-sync`).
+2. Abra a planilha `dataWASHES-data.xlsx` e **revise as colunas metodológicas** classificadas pela IA, ajustando se necessário.
+3. Se houver artigos premiados na edição (divulgados no Instagram/site do evento), atualize manualmente o arquivo `award_papers.json`.
+4. Aprove o Pull Request (Merge para a `main`).
+5. Faça o [Deploy no PythonAnywhere](deploy.md).
+
+---
+
+## 💻 Execução Manual Local (Avançado)
+
+Caso o mantenedor deseje forçar a atualização rodando os scripts localmente, é necessário configurar um arquivo `.env` na raiz do projeto com as chaves:
+```env
+GROQ_API_KEY=sua_chave_do_groq
+SCRAPER_API_KEY=sua_chave_da_scraperapi
+```
+
+Em seguida, execute os scripts:
+```bash
+# 1. Busca novas edições, usa a IA para classificar, atualiza a planilha e regera os JSONs
+python scripts/sync_washes_dataset.py
+
+# 2. Atualiza as citações dos artigos pendentes via Google Scholar
+python scripts/miner_citations.py
+```
+
+---
+
+## 📄 Estrutura dos Dados
+
+### Artigos (`papers.json`)
 
 Um artigo possui os seguintes campos:
-
-- **Paper_id**: Identificador único do artigo no sistema.
+- **Paper_id**: Identificador único numérico gerado automaticamente.
 - **Title**: Título completo do artigo.
 - **Language**: Idioma em que o artigo foi escrito.
 - **Year**: Ano de publicação.
 - **Abstract**: Resumo do artigo em inglês.
 - **Resumo**: Resumo do artigo em português.
-- **Keywords**: Palavras-chave que descrevem os principais temas do artigo.
-- **Type**: Tipo de publicação (ex.: Full paper, Short paper).
-- **Download_link**: Link para acesso ou download do artigo completo.
-- **References**: Lista de referências bibliográficas citadas no artigo.
-- **Cited_by**: Lista de trabalhos que citam este artigo.
-- **Updated_in**: Data da última atualização do registro.
+- **Keywords**: Palavras-chave do artigo.
+- **Type**: Tipo de publicação (`Full paper`, `Short paper`, `Poster`).
+- **Download_link**: Link oficial para o artigo no SOL SBC.
+- **References**: Lista de referências bibliográficas (com `#` se vazio).
+- **Cited_by**: Citações obtidas automaticamente via Google Scholar.
+- **Updated_in**: Data da última atualização.
 - **Authors**: Lista de autores do artigo.
-- **Approach**: Abordagem metodológica da pesquisa.
-- **Objective**: Objetivo principal do estudo.
-- **Procedures**: Procedimentos metodológicos adotados.
-- **Data_collection**: Forma como os dados foram coletados.
-- **Quantitative_Data_Analysis**: Métodos de análise quantitativa dos dados.
-- **Qualitative_Data_Analysis**: Métodos de análise qualitativa dos dados.
+- **Approach**: Abordagem metodológica (`Qualitativa`, `Quantitativa`, `Mista`).
+- **Objective**: Objetivo principal (`Exploratória`, `Descritiva`, `Explicativa`).
+- **Procedures**: Procedimentos (`Estudo de caso`, `Survey`, `Revisão de literatura`, etc.).
+- **Data_collection**: Método de coleta (`Questionário`, `Entrevista`, `Observação`, etc.).
+- **Quantitative_Data_Analysis**: Métodos quantitativos (`Estatística descritiva`, etc.).
+- **Qualitative_Data_Analysis**: Métodos qualitativos (`Análise de conteúdo`, `Análise temática`, etc.).
 
-Quando uma nova edição do WASHES é lançada, a maioria dos dados que precisam ser coletados sobre os artigos está disponível na página dos anais daquela edição. A maioria dos campos pode ser atualizada a partir das informações encontradas no site, exceto:
-
-- **Paper_id**: esse campo é gerado automaticamente pelo script `papersJSON.py`;
-- **Cited_by**: esse campo é atualizado **automaticamente** pela ferramenta [CitationMiner](https://github.com/gesid/CitationMiner);
-- Os campos **Approach** (Quanto à abordagem), **Objective** (Quanto aos objetivos), **Procedures** (Quanto aos procedimentos), **Data_collection** (Método para coleta de dados), **Quantitative_Data_Analysis** (Método para análise de dados quantitativos) e **Qualitative_Data_Analysis** (Método para análise de dados qualitativos) são preenchidos com a categoria mais adequada para o artigo. Isso é feito manualmente, a partir do julgamento de quem está atualizando os dados. Como se tratam de categorias, ao preencher esses campos, deve-se atentar para a escrita exata de cada categoria, conforme utilizada anteriormente, e apenas adicionar uma nova categoria se realmente for necessário.
-
-**Obs.:** O campo **Referências** na planilha deve conter todas as referências usadas no artigo, com uma linha em branco entre cada referência. Já no campo **Citações**, essa linha em branco não é utilizada; apenas garanta que cada citação esteja em uma única linha.
+> **Nota:** Todos os campos acima, incluindo a classificação metodológica, são atualmente pré-preenchidos de forma autônoma pela IA. O papel do mantenedor é apenas **revisar** a classificação gerada no Excel.
 
 ### Citações
-
-Atualmente, o preenchimento deste campo foi automatizado pela aplicação **CitationMiner**. Recomendamos fortemente o uso do robô para evitar trabalho braçal. 
-
-Contudo, caso o robô falhe ou algum artigo específico precise de correção manual, siga os passos do método legado abaixo:
-
-1. Pesquisar o artigo pelo título no [Google Acadêmico](https://scholar.google.com/).
-
-![image](../images/cited_by-1.png)
-
-2. Se houver a opção **"Citado por X"**, clique nela, pois o artigo possui citações. Caso contrário, o artigo não possui citações, e o campo pode ser preenchido com `#`.
-
-![image](../images/cited_by-2.png)
-
-3. Como mostrado na imagem, o exemplo possui duas citações. Para cada citação, clique na opção **"Citar"**.
-
-![image](../images/cited_by-3.png)
-
-4. Um pop-up será aberto com algumas opções de citação. A opção a ser escolhida é o padrão **"APA"**. Copie a citação e cole na planilha.
-
-5. Após repetir o processo para todas as citações, a planilha deve estar no seguinte formato:
+O preenchimento das citações (`Cited_by`) é automatizado pelo script `scripts/miner_citations.py`. Contudo, caso o robô falhe ou o mantenedor precise fazer uma correção manual legada:
+1. Pesquise o artigo pelo título no [Google Acadêmico](https://scholar.google.com/).
+2. Clique na opção **"Citado por X"**.
+3. Clique em **"Citar"** para cada trabalho, copie no padrão **"APA"** e cole na planilha.
 
 ![image](../images/cited_by-4.png)
 
-## Autor
+### Autor (`authors.json`)
 
 Um autor possui os seguintes campos:
-
 - **Author_id**: Identificador único do autor no sistema.
 - **Name**: Nome completo do autor.
 - **Institution**: Nome completo da instituição à qual o autor está vinculado.
 - **Institution_acronym**: Sigla da instituição do autor.
-- **State**: Estado brasileiro da instituição.
+- **State**: Estado brasileiro da instituição (inferido automaticamente).
 - **Papers**: Lista de identificadores (**Paper_id**) dos artigos associados a este autor.
 
-Os campos **Author_id** e **Papers** são gerados automaticamente pelo script `authorsJSON.py`.  
-Os demais campos são preenchidos a partir dos dados inseridos na planilha.
+Observe a forma de organização na planilha: na **primeira linha de cada artigo**, são informados os dados do artigo e do **primeiro autor**. Os **demais autores** são preenchidos nas linhas seguintes, deixando os campos relacionados ao artigo em branco.
 
 ![image](../images/authors.png)
 
-Observe a forma de preenchimento da planilha:  
-na **primeira linha de cada artigo**, devem ser informados os dados do **primeiro autor**.  
-As informações dos **demais autores** devem ser preenchidas nas linhas seguintes. Nessas linhas, os campos relacionados ao artigo devem permanecer em branco.
+### Edições (`editions.json`)
 
-As informações dos autores podem ser facilmente encontradas nos anais da edição, mais especificamente na página individual de cada artigo.
-
-## Edições
-
-A atualização do arquivo `editions.json` pode ser feita manualmente. Para isso, basta adicionar um novo objeto à lista e preenchê-lo com os dados da nova edição.
-
-Uma edição possui os seguintes campos:
-
-- **Edition_id**: Identificador único da edição no sistema.
+A atualização do arquivo `editions.json` é feita automaticamente pelo `sync_washes_dataset.py`, que calcula a sequência de `Paper_id`s. Uma edição possui:
+- **Edition_id**: Identificador único numérico da edição.
 - **Year**: Ano em que a edição do evento ocorreu.
 - **Title**: Título completo dos anais da edição.
 - **Location**: Local (cidade e estado) onde o evento foi realizado.
-- **Date**: Data de realização do evento.
+- **Date**: Data de publicação.
 - **Proceedings**: Link para a página oficial dos anais da edição.
-- **Chairs**: Lista de coordenadores(as) da edição do evento.
-  - **Chairs.Name**: Nome completo do chair.
-  - **Chairs.Instituition**: Instituição de vínculo do chair.
-  - **Chairs.State**: Estado brasileiro da instituição do chair.
-- **Papers**: Lista de identificadores (**Paper_id**) dos artigos publicados na edição.
+- **Chairs**: Lista de coordenadores(as) da edição.
+- **Papers**: Lista de identificadores (**Paper_id**) dos artigos publicados.
 
-Além do site dos anais do evento, cada edição costuma possuir um site próprio, no qual é possível obter informações como coordenadores, local e data do evento.
+### Artigos Premiados (`award_papers.json`)
 
-Para o preenchimento do campo **Papers**, é importante notar que a atribuição dos identificadores dos artigos é feita de forma **sequencial**, o que facilita esse processo.
+Os objetos do arquivo `award_papers.json` são cópias dos objetos de `papers.json`, onde alguns campos foram removidos e o campo **Award** (Classificação/Premiação: ex. 1º Lugar, 2º Lugar) foi adicionado.
 
-## Artigos Premiados
-
-Os objetos do arquivos `award_papers.json` são cópias dos objetos de `papers.json`, onde alguns campos foram removidos e um novo campo adicionado.Um artigo premiado possui os seguintes campos:
-
-- **Paper_id**: Identificador único do artigo no sistema, correspondente ao mesmo identificador usado em `papers.json`.
-- **Award**: Classificação ou premiação recebida pelo artigo (ex.: 1º Lugar, 2º Lugar, 3º Lugar).
-- **Title**: Título completo do artigo.
-- **Language**: Idioma em que o artigo foi escrito.
-- **Year**: Ano de publicação do artigo.
-- **Type**: Tipo de publicação (ex.: Full paper, Short paper).
-- **Download_link**: Link para acesso ou download do artigo completo.
-- **Authors**: Lista de autores do artigo premiado.
-  - **Authors.Name**: Nome completo do autor.
-  - **Authors.Institution**: Instituição à qual o autor está vinculado.
-  - **Authors.Institution_acronym**: Sigla da instituição do autor.
-  - **Authors.State**: Estado brasileiro da instituição.
-  - **Authors.Author_id**: Identificador único do autor no sistema.
-
-Geralmente estes artigos premiados são divulgados na página de instagram do WASHES.
+Geralmente, os artigos premiados são divulgados na página de Instagram do WASHES ou em anúncios da coordenação durante o evento. Esta é a única etapa que **permanece estritamente manual**, devendo o mantenedor editar o arquivo `award_papers.json` caso haja premiações no ano vigente.

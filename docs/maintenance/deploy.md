@@ -1,76 +1,45 @@
-# Deploy no PythonAnywhere
+# 🚀 Deploy no PythonAnywhere
+
+O **dataWASHES** está hospedado na plataforma PythonAnywhere. Com a atual automação de dados no repositório, o processo de deploy em produção tornou-se muito mais simples e seguro, eliminando a necessidade de uploads manuais.
 
 ### ⚠️ Pré-requisito: Credenciais de Produção
-Atualmente, o deploy é realizado de forma manual diretamente no painel do servidor. Para realizar esta etapa, você precisará:
-1. Solicitar o **Usuário e Senha** da conta PythonAnywhere do dataWASHES com o administrador do projeto.
-2. Garantir que os arquivos JSON gerados na sua máquina local (passos descritos em `update-data.md`) estejam devidamente validados antes de subí-los para produção.
+1. Solicite o **Usuário e Senha** da conta PythonAnywhere do dataWASHES com o administrador do projeto.
+2. Certifique-se de que os dados novos já foram aprovados via *Pull Request* e estão disponíveis na branch `main` do repositório no GitHub.
 
 ---
 
-Após realizar o login com a conta oficial do **dataWASHES**, o processo de deploy das mudanças é feito através da interface web do PythonAnywhere. Para realizar qualquer modificação nos arquivos do projeto, clique na opção **"Files"**, localizada no canto superior direito.
+## ⚡ Atualizando o servidor via Console (Método Recomendado)
 
-![image](../images/deploy-1.png)
+Como o repositório no GitHub é a fonte única da verdade, a maneira mais rápida de atualizar a API é sincronizar o servidor com o GitHub.
 
-## Estrutura dos arquivos no servidor
+1. Faça login na conta do [PythonAnywhere](https://www.pythonanywhere.com/).
+2. Na aba **Consoles**, clique em **Bash** para abrir o terminal na nuvem.
+3. Navegue até a pasta do projeto:
+   ```bash
+   cd /home/datawashes/mysite
+   ```
+4. Puxe as atualizações recentes da branch `main`:
+   ```bash
+   git pull origin main
+   ```
+*Pronto! Todos os arquivos JSON da pasta `data/` e códigos da pasta `src/` foram atualizados instantaneamente.*
 
-Os arquivos do dataWASHES encontram-se no diretório `/mysite`. Ao acessar esse diretório, você verá as pastas `/src` e `/data`, que são equivalentes aos diretórios de mesmo nome existentes no projeto local.
+---
 
-- **/src**: contém o código-fonte da aplicação (API, controllers, configurações etc.).
-- **/data**: contém os arquivos JSON utilizados como base de dados do sistema.
+## 🔄 Passo Final Obrigatório: Recarregar a API
 
-Sempre que houver **novos dados** (atualização anual) ou **alterações no código**, é necessário atualizar no servidor todos os arquivos que foram modificados localmente.
+Sempre que houver **novos dados JSON** ou **alterações no código**, é estritamente necessário reiniciar a aplicação web.
 
-![image](../images/deploy-2.png)
+1. Acesse a aba **Web** no painel superior do PythonAnywhere.
+2. Clique no botão verde **"Reload datawashes.pythonanywhere.com"**.
 
-## Atualizando arquivos no PythonAnywhere
+Isso forçará a API a limpar o cache e carregar os dados das edições e artigos recém-sincronizados. Sem o *Reload*, a API continuará exibindo os dados antigos mesmo com os arquivos atualizados no servidor.
 
-Para atualizar um arquivo, utilize a opção **"Upload a file"**, destacada em laranja na interface.
+---
 
-1. Navegue até a pasta correta (ex: `/mysite/data/` para os JSONs ou `/mysite/src/` para scripts);
-2. Clique em **"Upload a file"**;
-3. Selecione o arquivo novo ou modificado em seu computador;
-4. Certifique-se de que o arquivo possui **exatamente o mesmo nome** do arquivo já existente no servidor.
+## 🛠️ Configuração WSGI (Referência)
 
-Ao realizar o upload, o PythonAnywhere **substitui automaticamente** o arquivo antigo pelo novo.
-
-![image](../images/deploy-3.png)
-
-> ⚠️ **Atenção:** Caso o nome do arquivo seja diferente, o sistema criará um novo arquivo em vez de substituir o existente, o que impedirá a aplicação de ler os novos dados.
-
-## Diferença entre o projeto local e o projeto hospedado
-
-Ao navegar até o arquivo `src/app.py`, é possível notar uma diferença fundamental entre a versão que roda no seu computador e a versão que deve ficar no servidor.
-
-A estrutura do arquivo é a seguinte:
-
-```python
-def main() -> None:
-    server.api.add_namespace(editions_ns)
-    server.api.add_namespace(papers_ns)
-    server.api.add_namespace(authors_ns)
-    server.api.add_namespace(statistics_ns)
-    server.run()  # Essa linha deve ser comentada ao realizar o deploy do projeto
-
-[...]
-
-if __name__ == '__main__':
-    main()
-```
-
-### O ajuste obrigatório no `app.py`:
-
-- **Execução local**: Para rodar o projeto no seu computador, a função `server.run()` deve estar ativa (sem o `#`), pois ela inicia o servidor Flask.
-- **Execução no PythonAnywhere**: No ambiente hospedado, a chamada `server.run()` **deve obrigatoriamente estar comentada** (com o `#` na frente).
-
-Isso ocorre porque o PythonAnywhere utiliza um servidor interno (WSGI) que gerencia a inicialização da API. Se a linha não for comentada, a aplicação tentará iniciar um servidor dentro de outro, gerando um erro crítico que deixará a API fora do ar.
-
-## Configuração WSGI
-
-A execução da aplicação é gerenciada pelo arquivo **WSGI configuration file**, acessível pela aba **Web** no painel do PythonAnywhere.
-
-![image](../images/deploy-5.png)
-
-O conteúdo deste arquivo vincula o diretório `/mysite` à execução do Flask:
+A execução da aplicação é gerenciada pelo arquivo **WSGI configuration file** (acessível pela aba **Web**). O conteúdo deste arquivo vincula o diretório `/mysite` à execução do Flask:
 
 ```python
 import sys
@@ -80,18 +49,22 @@ project_home = '/home/datawashes/mysite'
 if project_home not in sys.path:
     sys.path = [project_home] + sys.path
 
-# Importa a aplicação Flask
+# Importa a aplicação Flask e inicializa as rotas
 from src import app
 app.main()
 application = app.server.app  # noqa
 ```
 
-> 🔄 **Passo Final Crucial:** Após atualizar qualquer arquivo (JSON ou código), você **deve** acessar a aba **Web** no painel do PythonAnywhere e clicar no botão verde **"Reload datawashes.pythonanywhere.com"**. 
->
-> Esse procedimento é obrigatório porque o servidor precisa reiniciar para ler os novos arquivos JSON e carregar as alterações no código Python. Sem o *Reload*, a API continuará exibindo os dados antigos.
+*(Nota: O código em `src/app.py` possui uma estrutura inteligente com `if __name__ == '__main__':` que impede o conflito entre o servidor de desenvolvimento local e o servidor WSGI de produção).*
 
-## Importante: Expiração da conta
+---
 
-A versão gratuita do PythonAnywhere mantém a aplicação ativa por **1 mês**. Após esse prazo, a API sairá do ar automaticamente. Para evitar isso, um administrador deve acessar o painel mensalmente e clicar no botão para estender o período de deploy (botão "Run until X").
+## ⏳ Importante: Expiração Mensal da Conta Gratuita
+
+A versão gratuita do PythonAnywhere mantém a aplicação ativa por ciclos de **1 mês**. Após esse prazo, a API sairá do ar automaticamente. 
+
+Para evitar a queda do serviço:
+1. O administrador deve acessar o painel do PythonAnywhere mensalmente.
+2. Clicar no botão amarelo **"Run until X"** na aba **Web** para renovar a hospedagem por mais 30 dias.
 
 ![image](../images/deploy-6.png)

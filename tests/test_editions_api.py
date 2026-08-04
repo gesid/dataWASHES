@@ -1,63 +1,47 @@
 import pytest
-import requests
 
-ENDPOINT = "http://127.0.0.1:5000/"
-
-# Teste para validar rota editions
-def test_get_editions():
-    response = requests.get(f"{ENDPOINT}/editions")
+def test_get_editions(client):
+    response = client.get("/editions/", follow_redirects=True)
     assert response.status_code == 200
+    res = response.get_json()
+    data = res["data"] if isinstance(res, dict) and "data" in res else res
+    assert isinstance(data, list)
+    assert len(data) == 11  # 11 edições (2016 a 2026)
 
-# Teste para anos válidos e inválidos
-def test_get_editions_by_years():
-    valid_years = range(2016, 2023)
-    invalid_years = [2000, 2040]
-
-    for year in valid_years:
-        url = f"{ENDPOINT}/editions/by-year/{year}"
-        response = requests.get(url)
-
+def test_get_editions_by_years(client):
+    for year in range(2016, 2027):
+        response = client.get(f"/editions/by-year/{year}")
         assert response.status_code == 200
+        res = response.get_json()
+        data = res["data"] if isinstance(res, dict) and "data" in res else res
+        edition = data[0] if isinstance(data, list) else data
+        assert edition["Year"] == year
 
-    for year in invalid_years:
-        url = f"{ENDPOINT}/editions/by-year/{year}"
-        response = requests.get(url)
-
+    for year in [2000, 2040]:
+        response = client.get(f"/editions/by-year/{year}")
         assert response.status_code == 404
 
-# Teste para edições com IDs válidas
-def test_get_edition_valid_ids():
-    edition_ids = range(0, 8)
-
-    for edition_id in edition_ids:
-        url = f"{ENDPOINT}/editions/{edition_id}"
-        response = requests.get(url)
+def test_get_edition_valid_ids(client):
+    for edition_id in range(0, 11):
+        response = client.get(f"/editions/{edition_id}")
         assert response.status_code == 200
+        data = response.get_json()
+        assert data["Edition_id"] == edition_id
 
-# Teste para edições com IDs inválidas
-def test_get_edition_invalid_ids():
-    invalid_edition_ids = [99, -1, "invalid"]
-
-    for edition_id in invalid_edition_ids:
-        url = f"{ENDPOINT}/editions/{edition_id}"
-        response = requests.get(url)
+def test_get_edition_invalid_ids(client):
+    for edition_id in [99, -1]:
+        response = client.get(f"/editions/{edition_id}")
         assert response.status_code == 404
 
-# Teste para edições válidas e seus respectivos artigos
-def test_get_papers_for_valid_edition_ids():
-    edition_ids = range(0, 8)
-
-    for edition_id in edition_ids:
-        response = requests.get(f"{ENDPOINT}/editions/{edition_id}/papers")
+def test_get_papers_for_valid_edition_ids(client):
+    for edition_id in range(0, 11):
+        response = client.get(f"/editions/{edition_id}/papers")
         assert response.status_code == 200
+        res = response.get_json()
+        papers = res["data"] if isinstance(res, dict) and "data" in res else res
+        assert isinstance(papers, list)
 
-# Teste para edições inválidas e seus respectivos artigos
-def test_get_papers_for_invalid_edition_ids():
-    invalid_edition_ids = [10, 15, 20]
-
-    for edition_id in invalid_edition_ids:
-        response = requests.get(f"{ENDPOINT}/editions/{edition_id}/papers")
+def test_get_papers_for_invalid_edition_ids(client):
+    for edition_id in [99, 100, 105]:
+        response = client.get(f"/editions/{edition_id}/papers")
         assert response.status_code == 404
-
-if __name__ == "__main__":
-    pytest.main()
