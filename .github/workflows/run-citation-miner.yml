@@ -1,53 +1,42 @@
-name: Scheduled CitationMiner Execution
+name: Scheduled Citation Miner
 
 on:
-  # 1. Executa no 1º dia de cada mês às 03:00 UTC
   schedule:
-    - cron: '0 3 1 * *'
-
-  # 2. Permite acionar manualmente pela aba "Actions" do GitHub
-  workflow_dispatch:
+    - cron: '0 3 1 * *'  # Todo dia 1 do mês às 03:00 UTC
+  workflow_dispatch:      # Permite rodar manualmente no GitHub
 
 jobs:
-  run-citation-miner:
+  update-citations:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout CitationMiner Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          repository: gesid/CitationMiner
-          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
 
-      - name: Setup .NET 8 SDK
-        uses: actions/setup-dotnet@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          dotnet-version: '8.0.x'
+          python-version: '3.11'
 
-      - name: Create appsettings.json and credentials.json from Secrets
+      - name: Install Dependencies
         run: |
-          cat <<EOF > CitationMiner/appsettings.json
-          {
-            "Logging": {
-              "LogLevel": {
-                "Default": "Information",
-                "Microsoft.AspNetCore": "Warning"
-              },
-              "SpreadsheetId": "${{ secrets.GOOGLE_SPREADSHEET_ID }}",
-              "SheetName": "dataWASHES-data"
-            },
-            "Variables": {
-              "ScraperApiKey": "${{ secrets.SCRAPER_API_KEY }}"
-            },
-            "AllowedHosts": "*"
-          }
-          EOF
+          python -m pip install --upgrade pip
+          pip install openpyxl requests beautifulsoup4
 
-          # Cria o arquivo de credenciais do Google a partir do Secret da nuvem
-          echo '${{ secrets.GOOGLE_CREDENTIALS_JSON }}' > CitationMiner/credentials.json
+      - name: Run Citation Miner
+        env:
+          SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
+        run: python scripts/miner_citations.py
 
-      - name: Restore dependencies
-        run: dotnet restore
+      - name: Regenerate JSONs if Excel changed
+        run: |
+          cd "data/JSON Generator"
+          python authorsJSON.py
+          python papersJSON.py
 
-      - name: Run CitationMiner Bot
-        run: dotnet run --project CitationMiner
+      - name: Commit and Push Changes if Any
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add "data/JSON Generator/dataWASHES-data.xlsx" data/authors.json data/papers.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(auto): update citations and datasets" && git push)
