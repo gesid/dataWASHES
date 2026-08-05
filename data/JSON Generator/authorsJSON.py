@@ -4,6 +4,8 @@ import json
 
 def main():
     df = pd.read_excel('dataWASHES-data.xlsx')
+    titles = df["Paper's title"]
+    df = df.fillna("#").replace([float("inf"), float("-inf")], "#")
 
     authorJSON = []
     authors = {}
@@ -11,7 +13,7 @@ def main():
     author_counter = 0
 
     for i in range(len(df.index)):
-        if pd.notna(df.loc[i, "Paper's title"]):
+        if pd.notna(titles.iloc[i]):
             paper_counter += 1
 
         if df.loc[i, "Authors"] in authors:
@@ -32,7 +34,7 @@ def main():
             author_counter += 1
 
     with open('authors.json', 'w', encoding='utf-8') as json_file:
-        json.dump(authorJSON, json_file, sort_keys=False)
+        json.dump(authorJSON, json_file, sort_keys=False, allow_nan=False)
 
 
 if __name__ == "__main__":

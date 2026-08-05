@@ -1,4 +1,4 @@
-from api_utils import memoize
+from functools import lru_cache
 from . import EditionDB
 from .author_db import AuthorDB
 from .paper_db import PaperDB
@@ -15,7 +15,7 @@ class StatisticsCalc:
         return self.__award_papers.data
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def authors_rank() -> list[dict[str, ...]]:
         author_db = AuthorDB()
         sorted_author_db = sorted(
@@ -26,7 +26,7 @@ class StatisticsCalc:
         return sorted_author_db
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def most_cited_papers() -> list[dict[str, ...]]:
         papers_db = PaperDB()
         sorted_papers_db = sorted(
@@ -37,7 +37,7 @@ class StatisticsCalc:
         return sorted_papers_db
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def institution_rank() -> list[dict[str, str | int]]:
         papers_db: PaperDB = PaperDB()
         institutions: dict[str, int] = {}
@@ -58,7 +58,7 @@ class StatisticsCalc:
         ]
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def states_rank() -> list[dict[str, str | int]]:
         papers_db: PaperDB = PaperDB()
         states: dict[str, int] = {}
@@ -79,7 +79,7 @@ class StatisticsCalc:
         ]
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def publications_by_years() -> list[dict[str, int]]:
         editions_db: EditionDB = EditionDB()
         publications_by_year: list[dict[str, int]] = []
@@ -90,7 +90,7 @@ class StatisticsCalc:
         return publications_by_year
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def keywords_cloud() -> list[dict]:
         key_words: dict[str, int] = {}
         paper_db = PaperDB()
@@ -115,7 +115,7 @@ class StatisticsCalc:
         ]
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def papers_by_languages() -> list[dict[str, str | int]]:
         paper_db: PaperDB = PaperDB()
         languages: dict[str, int] = {}
@@ -135,7 +135,7 @@ class StatisticsCalc:
         ]
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def publications_by_years_by_languages() -> dict:
         editions_db: EditionDB = EditionDB()
         languages = set()
@@ -172,31 +172,31 @@ class StatisticsCalc:
         ]
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def papers_by_approach():
         return StatisticsCalc.__papers_by_classification("Approach")
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def papers_by_objetive():
         return StatisticsCalc.__papers_by_classification("Objective")
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def papers_by_procedures():
         return StatisticsCalc.__papers_by_classification("Procedures")
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def papers_by_data_collection():
         return StatisticsCalc.__papers_by_classification("Data_collection")
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def papers_by_quanti_data_analy():
         return StatisticsCalc.__papers_by_classification("Quantitative_Data_Analysis")
 
     @staticmethod
-    @memoize
+    @lru_cache(maxsize=1)
     def papers_by_quali_data_analy():
         return StatisticsCalc.__papers_by_classification("Qualitative_Data_Analysis")

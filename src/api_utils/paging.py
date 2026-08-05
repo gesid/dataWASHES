@@ -1,5 +1,8 @@
 from math import ceil
+from urllib.parse import urlencode
+
 from flask import request
+
 from .constants import PAGE_PARAM, PER_PAGE_PARAM
 
 
@@ -7,7 +10,7 @@ class PaginateError(Exception):
     pass
 
 
-def paginate(data: list[dict], default_page: int = 1, default_per_page: int = 10) -> dict | None:
+def paginate(data: list[dict], default_page: int = 1, default_per_page: int = 10) -> dict:
     """
     Paginate the given data.
 
@@ -19,8 +22,11 @@ def paginate(data: list[dict], default_page: int = 1, default_per_page: int = 10
     Raises:
         PaginateError: When the paginate process fails
     """
-    page = int(request.args.get(PAGE_PARAM, default_page))
-    per_page = int(request.args.get(PER_PAGE_PARAM, default_per_page))
+    try:
+        page = int(request.args.get(PAGE_PARAM, default_page))
+        per_page = int(request.args.get(PER_PAGE_PARAM, default_per_page))
+    except (TypeError, ValueError):
+        raise PaginateError("Page and per_page must be positive integers") from None
 
     if page < 1 or per_page < 1:
         raise PaginateError("Page and per_page must be positive integers")
@@ -35,6 +41,19 @@ def paginate(data: list[dict], default_page: int = 1, default_per_page: int = 10
 
     paginated_data: list[dict] = data[start:end]
 
+    def build_link(page_number: int) -> str:
+        """
+        Build a pagination link preserving every query parameter except the
+        paging ones (which are recomputed from ``page_number``).
+        """
+        query_params = [(PAGE_PARAM, str(page_number)), (PER_PAGE_PARAM, str(per_page))]
+        query_params.extend(
+            (key, value)
+            for key, value in request.args.items()
+            if key not in (PAGE_PARAM, PER_PAGE_PARAM)
+        )
+        return f"{request.path}?{urlencode(query_params)}"
+
     return {
         "data": paginated_data,
         "paging": {
@@ -44,10 +63,10 @@ def paginate(data: list[dict], default_page: int = 1, default_per_page: int = 10
             "total_count": total_count,
         },
         "links": {
-            "self": f"{request.path}?page={page}&per_page={per_page}",
-            "first": f"{request.path}?page={1}&per_page={per_page}",
-            "previous": f"{request.path}?page={page - 1}&per_page={per_page}" if page > 1 else "",
-            "next": f"{request.path}?page={page + 1}&per_page={per_page}" if page < page_count else "",
-            "last": f"{request.path}?page={page_count}&per_page={per_page}",
-        }
+            "self": build_link(page),
+            "first": build_link(1),
+            "previous": build_link(page - 1) if page > 1 else "",
+            "next": build_link(page + 1) if page < page_count else "",
+            "last": build_link(page_count),
+        },
     }

@@ -2,6 +2,9 @@ import argparse
 import json
 import os
 import re
+import shutil
+import subprocess
+import sys
 import time
 import urllib.parse
 from datetime import datetime
@@ -26,6 +29,10 @@ EXCEL_PATH = os.path.join("data", "JSON Generator", "dataWASHES-data.xlsx")
 EDITIONS_PATH = os.path.join("data", "editions.json")
 PAPERS_PATH = os.path.join("data", "papers.json")
 ARCHIVE_URL = "https://sol.sbc.org.br/index.php/washes/issue/archive"
+
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+JSON_GENERATOR_DIR = os.path.join(DATA_DIR, "JSON Generator")
 
 KNOWN_STATES = {
     "UFC": "CE", "UFCA": "CE", "UECE": "CE", "IFCE": "CE", "UNIFOR": "CE",
@@ -97,16 +104,25 @@ def get_citation_from_scholar(title, retries=2):
         'render': 'true'
     }
 
-    for _ in range(retries):
+    for attempt in range(1, retries + 1):
         try:
             res = requests.get('https://api.scraperapi.com', params=payload, timeout=45)
             if res.status_code == 200:
                 soup = BeautifulSoup(res.text, "html.parser")
                 cited_by = soup.find("a", string=lambda t: t and ("Citado por" in t or "Cited by" in t))
                 return cited_by.text.strip() if cited_by else "#"
-        except Exception:
+            elif res.status_code in (401, 403):
+                print("   ❌ Chave ScraperAPI inválida ou limite de créditos atingido.")
+                return None
+            elif res.status_code == 429:
+                print(f"   ⏳ Rate limit da ScraperAPI. Aguardando 5s (tentativa {attempt}/{retries})...")
+                time.sleep(5)
+            else:
+                print(f"   ⚠️ Resposta inesperada da ScraperAPI: status {res.status_code}.")
+        except Exception as exc:
+            print(f"   ⚠️ Erro de rede na ScraperAPI: {exc}. Retentando em 2s...")
             time.sleep(2)
-    return "#"
+    return None
 
 def get_existing_years():
     if not os.path.exists(EDITIONS_PATH):
@@ -116,7 +132,7 @@ def get_existing_years():
     return {e["Year"] for e in editions}
 
 def scrape_archive_issues():
-    res = requests.get(ARCHIVE_URL)
+    res = requests.get(ARCHIVE_URL, timeout=30)
     soup = BeautifulSoup(res.text, "html.parser")
     issues = []
     for summary in soup.find_all("div", class_="obj_issue_summary"):
@@ -132,7 +148,7 @@ def scrape_archive_issues():
     return sorted(issues, key=lambda x: x["year"])
 
 def scrape_article(article_url):
-    res = requests.get(article_url)
+    res = requests.get(article_url, timeout=30)
     soup = BeautifulSoup(res.text, "html.parser")
 
     title_el = soup.find("h1", class_="page_title")
@@ -177,6 +193,25 @@ def scrape_article(article_url):
         "url": article_url
     }
 
+def regenerate_dataset_files() -> None:
+    """
+    Rebuild ``authors.json`` and ``papers.json`` from the updated spreadsheet.
+
+    The generators are executed with the working directory set to the JSON
+    Generator folder (they read ``dataWASHES-data.xlsx`` and write relative to
+    the current directory). The generated files are then moved to ``data/``,
+    which is the folder consumed by the API.
+    """
+    for script in ("authorsJSON.py", "papersJSON.py"):
+        subprocess.run([sys.executable, script], cwd=JSON_GENERATOR_DIR, check=True)
+
+    for json_name in ("authors.json", "papers.json"):
+        generated = os.path.join(JSON_GENERATOR_DIR, json_name)
+        destination = os.path.join(DATA_DIR, json_name)
+        if os.path.exists(generated):
+            shutil.move(generated, destination)
+
+
 def sync():
     if not os.path.exists(EXCEL_PATH):
         print(f"❌ Planilha principal não encontrada em: {EXCEL_PATH}")
@@ -196,13 +231,12 @@ def sync():
 
     wb = openpyxl.load_workbook(EXCEL_PATH)
     ws = wb.active
-    today_str = datetime.now().strftime("%d/%m/%Y")
 
     for issue in missing_issues:
         year = issue["year"]
         print(f"\n🚀 Ingerindo WASHES {year} ({issue['url']})...")
 
-        res = requests.get(issue["url"])
+        res = requests.get(issue["url"], timeout=30)
         soup = BeautifulSoup(res.text, "html.parser")
 
         count = 0
@@ -230,6 +264,9 @@ def sync():
                 # Mineração de Citações
                 print("   🔍 Checando citações no Google Scholar...")
                 citation = get_citation_from_scholar(art_meta["title"])
+                if citation is None:
+                    print("   ⏩ Citação não obtida por erro da ScraperAPI; registrando placeholder '#'.")
+                    citation = "#"
 
                 # Gravar no Excel
                 edition_num = len(get_existing_years()) + 1
@@ -242,6 +279,7 @@ def sync():
                     method.get("abordagem", "#"), method.get("objetivos", "#"), method.get("procedimentos", "#"),
                     method.get("coleta", "#"), method.get("quantitativa", "#"), method.get("qualitativa", "#")
                 ]
+                row_1[15] = datetime.now()
                 ws.append(row_1)
 
                 for co in art_meta["authors"][1:]:
@@ -251,11 +289,14 @@ def sync():
                         None, None, None, None, None, None, None, None, None, None, None, None, None, None
                     ])
 
-        update_editions_json(year, issue["url"])
+        print(f"✅ Edição {year} gravada na planilha.")
 
     wb.save(EXCEL_PATH)
     print("\n🔄 Atualizando 'authors.json' e 'papers.json'...")
-    os.system('cd "data/JSON Generator" && python authorsJSON.py && python papersJSON.py')
+    regenerate_dataset_files()
+    print("\n📌 Sincronizando 'editions.json' com os papers recém-gerados...")
+    for issue in missing_issues:
+        update_editions_json(issue["year"], issue["url"])
     print("\n🎉 Sincronização concluída com sucesso na planilha principal!")
 
 def update_editions_json(year, proceedings_url):

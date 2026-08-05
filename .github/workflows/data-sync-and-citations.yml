@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install openpyxl requests beautifulsoup4
+          pip install openpyxl requests beautifulsoup4 pandas
 
       - name: 🌐 Sync Dataset from SOL SBC with Groq & ScraperAPI
         env:

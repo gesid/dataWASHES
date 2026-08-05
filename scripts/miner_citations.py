@@ -113,11 +113,11 @@ def run_miner(target_year=None, force=False):
 
             time.sleep(1)
 
-    if updated_count > 0 and not force:
+    if updated_count > 0:
         wb.save(EXCEL_PATH)
         print(f"\n🎉 Sucesso! {updated_count} citações foram salvas em '{EXCEL_PATH}'.")
     else:
-        print(f"\n✨ Teste concluído ({checked_count} artigos analisados).")
+        print(f"\n✨ Nenhuma citação nova ({checked_count} artigos analisados).")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Minera citações do Google Scholar")
