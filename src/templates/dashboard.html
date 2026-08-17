@@ -342,7 +342,7 @@
             const cloud_words = document.getElementById("nuvem-de-palavras")
             const publications_per_state = document.getElementById("papers_per_state")
 
-            const editions = {{ statistics.publications_by_years()[:10] | tojson }}
+            const editions = {{ statistics.publications_by_years() | tojson }}
             insert_vertical_bar_chart(papers_editions, {
                 'labels': editions.map((edition, index) => `${edition.year} (${index + 1}°)`),
                 'data': editions.map(edition => edition.publications),
