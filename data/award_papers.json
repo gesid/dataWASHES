@@ -950,114 +950,465 @@
     "Year": 2025,
     "Papers": [
       {
-        "Paper_id":102,
+        "Paper_id": 102,
         "Award": "1° Lugar",
-        "Title":"10 years of Workshop on Social, Human, and Economics Aspects of Software (WASHES): Results of a Scoping Review",
-        "Language":"en",
-        "Year":2025,
-        "Type":"Full paper",
-        "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35917",
-        "Authors":[
+        "Title": "10 years of Workshop on Social, Human, and Economics Aspects of Software (WASHES): Results of a Scoping Review",
+        "Language": "en",
+        "Year": 2025,
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/35917",
+        "Authors": [
           {
-              "Name":"Otávio Santos Gomes",
-              "Institution":"Universidade Federal de Viçosa (UFV) ",
-              "State":"MG",
-              "Author_id":238,
-              "Institution_acronym":"UFV"
+            "Name": "Otávio Santos Gomes",
+            "Institution": "Universidade Federal de Viçosa (UFV) ",
+            "State": "MG",
+            "Author_id": 238,
+            "Institution_acronym": "UFV"
           },
           {
-              "Name":"Estela Miranda Batista",
-              "Institution":"Universidade Federal de Viçosa (UFV) ",
-              "State":"MG",
-              "Author_id":317,
-              "Institution_acronym":"UFV"
+            "Name": "Estela Miranda Batista",
+            "Institution": "Universidade Federal de Viçosa (UFV) ",
+            "State": "MG",
+            "Author_id": 317,
+            "Institution_acronym": "UFV"
           },
           {
-              "Name":"Gláucia Braga e Silva",
-              "Institution":"Universidade Federal de Viçosa (UFV) ",
-              "State":"MG",
-              "Author_id":200,
-              "Institution_acronym":"UFV"
+            "Name": "Gláucia Braga e Silva",
+            "Institution": "Universidade Federal de Viçosa (UFV) ",
+            "State": "MG",
+            "Author_id": 200,
+            "Institution_acronym": "UFV"
           },
           {
-              "Name":"Allysson Allex Araújo",
-              "Institution":"Universidade Federal do Cariri (UFCA)",
-              "State":"CE",
-              "Author_id":149,
-              "Institution_acronym":"UFCA"
+            "Name": "Allysson Allex Araújo",
+            "Institution": "Universidade Federal do Cariri (UFCA)",
+            "State": "CE",
+            "Author_id": 149,
+            "Institution_acronym": "UFCA"
           }
         ]
       },
       {
-        "Paper_id":114,
+        "Paper_id": 114,
         "Award": "2° Lugar",
-        "Title":"Aligning Soft Skills in Requirements Engineering Between Academia and Industry: A Pilot Study",
-        "Language":"en",
-        "Year":2025,
-        "Type":"Full paper",
-        "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35929",
-        "Authors":[
+        "Title": "Aligning Soft Skills in Requirements Engineering Between Academia and Industry: A Pilot Study",
+        "Language": "en",
+        "Year": 2025,
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/35929",
+        "Authors": [
           {
-              "Name":"Rômulo Antônio Valle",
-              "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
-              "State":"PR",
-              "Author_id":355,
-              "Institution_acronym":"UTFPR"
+            "Name": "Rômulo Antônio Valle",
+            "Institution": "Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State": "PR",
+            "Author_id": 355,
+            "Institution_acronym": "UTFPR"
           },
           {
-              "Name":"Alinne Cristinne Corrêa Souza",
-              "Institution":"Universidade Tecnológica Federal do Paraná (UTFPR)",
-              "State":"PR",
-              "Author_id":356,
-              "Institution_acronym":"UTFPR"
+            "Name": "Alinne Cristinne Corrêa Souza",
+            "Institution": "Universidade Tecnológica Federal do Paraná (UTFPR)",
+            "State": "PR",
+            "Author_id": 356,
+            "Institution_acronym": "UTFPR"
           },
           {
-              "Name":"Pedro Henrique Dias Valle",
-              "Institution":"Universidade de São Paulo (USP)",
-              "State":"SP",
-              "Author_id":290,
-              "Institution_acronym":"USP"
+            "Name": "Pedro Henrique Dias Valle",
+            "Institution": "Universidade de São Paulo (USP)",
+            "State": "SP",
+            "Author_id": 290,
+            "Institution_acronym": "USP"
           }
         ]
       },
       {
-        "Paper_id":104,
+        "Paper_id": 104,
         "Award": "3° Lugar",
-        "Title":"Bridging Open Science and Data Visualization: Evaluating the Usability of dataWASHES Dashboard",
-        "Language":"en",
-        "Year":2025,
-        "Type":"Full paper",
-        "Download_link":"https://sol.sbc.org.br/index.php/washes/article/view/35919",
-        "Authors":[
+        "Title": "Bridging Open Science and Data Visualization: Evaluating the Usability of dataWASHES Dashboard",
+        "Language": "en",
+        "Year": 2025,
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/35919",
+        "Authors": [
           {
-              "Name":"Victor Gonçalves",
-              "Institution":"Universidade Federal do Cariri (UFCA)",
-              "State":"CE",
-              "Author_id":291,
-              "Institution_acronym":"UFCA"
+            "Name": "Victor Gonçalves",
+            "Institution": "Universidade Federal do Cariri (UFCA)",
+            "State": "CE",
+            "Author_id": 291,
+            "Institution_acronym": "UFCA"
           },
           {
-              "Name":"Davi Viana",
-              "Institution":"Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
-              "State":"RJ",
-              "Author_id":13,
-              "Institution_acronym":"UNIRIO"
+            "Name": "Davi Viana",
+            "Institution": "Universidade Federal do Estado do Rio de Janeiro (UNIRIO)",
+            "State": "RJ",
+            "Author_id": 13,
+            "Institution_acronym": "UNIRIO"
           },
           {
-              "Name":"Rodrigo Pereira dos Santos",
-              "Institution":"Universidade Federal do Maranhão (UFMA)",
-              "State":"MA",
-              "Author_id":10,
-              "Institution_acronym":"UFMA"
+            "Name": "Rodrigo Pereira dos Santos",
+            "Institution": "Universidade Federal do Maranhão (UFMA)",
+            "State": "MA",
+            "Author_id": 10,
+            "Institution_acronym": "UFMA"
           },
           {
-              "Name":"Allysson Allex Araújo",
-              "Institution":"Universidade Federal do Cariri (UFCA)",
-              "State":"CE",
-              "Author_id":149,
-              "Institution_acronym":"UFCA"
+            "Name": "Allysson Allex Araújo",
+            "Institution": "Universidade Federal do Cariri (UFCA)",
+            "State": "CE",
+            "Author_id": 149,
+            "Institution_acronym": "UFCA"
           }
         ]
+      }
+    ]
+  },
+  {
+    "Year": 2026,
+    "Papers": [
+      {
+        "Paper_id": 119,
+        "Title": "Avaliação do Desenvolvimento de Competências em Engenharia de Software: Um Estudo de Caso em um Projeto Acadêmico de Desenvolvimento de Software",
+        "Language": "pt",
+        "Year": 2026,
+        "Abstract": "This study investigated the development of software engineering competencies through the participation of 10 students in an academic Research and Development (R&D) project. Interviews and an analysis of the Pedagogical Project of the Software Engineering Course at the Federal University of Ceará were used. The results indicated that communication, teamwork, and creativity were the most developed skills, followed by competencies in requirements, design, and software management. Furthermore, prior work experience positively influenced competency development, while project time and participation in other projects did not have a significant influence. Therefore, it was possible to conclude that specific academic projects provide relevant formative environments, but gaps such as entrepreneurship and new software production models still require attention in training.",
+        "Resumo": "Este estudo investigou o desenvolvimento de competências em Engenharia de Software a partir da participação de 10 estudantes em um projeto acadêmico de Pesquisa e Desenvolvimento (P&D). Para isso, utilizou-se entrevistas e a análise do Projeto Pedagógico do Curso (PPC) de Engenharia de Software da Universidade Federal do Ceará. Os resultados indicaram que comunicação, trabalho em equipe e criatividade foram as habilidades mais desenvolvidas, seguidas por competências em requisitos, projeto e gerência de software. Ademais, a experiência prévia no mercado de trabalho influenciou positivamente o desenvolvimento de competências, enquanto o tempo no projeto e a participação em outros projetos não apresentaram influência significativa. Com isso, foi possível concluir que projetos acadêmicos constituem ambientes formativos relevantes, mas lacunas como empreendedorismo e novos modelos de produção de software ainda necessitam de atenção na formação.",
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/43007",
+        "References": [
+          "Dantas, R. J., de Souza Silva, R. J., and Marinho, M. L. M. (2025). Alinhamento entre formac¸aõ acadeˆmica e as demandas do mercado de trabalho em tecnologia da informac¸aõ. Navus-Revista de Gestaõ e Tecnologia, 16:1–27.",
+          "de Abr, A. A. A. M., Barbosa, D. F., and Carneiro, A. P. (2021). Projeto de extensaõ como exercício interdisciplinar das tećnicas de anaĺise e desenvolvimento de sistemas: Estudo de caso. Anais do Computer on the Beach, 12:209–216.",
+          "de Paula, L., Sarkis, L., Soares, D., and Silva, D. (2024). Impactos de uma capacitac¸ao no desenvolvimento de habilidades socioemocionais, acadeˆmicas e profissionais de desende Software (WASHES), pages 12–22. SBC.",
+          "Dias, G. K., de Sousa, R. R., and Gonc¸alves, S. M. N. (2025). Desafios acadeˆmicos na formac¸aõ de profissionais de tecnologia da informac¸aõ para o mercado de trabalho: uma anaĺise das dificuldades sobre adaptac¸aõ a novas tecnologias, atuac¸aõ em projetos e desenvolvimento de habilidades profissionais e interpessoais. RECIMA21-Revista Científica Multidisciplinar-ISSN 2675-6218, 6(7):e676625–e676625.",
+          "Diniz, W., Valenc¸a, M., Franc¸a, C., Santos, A., and Pincovsky, M. (2024). The skill gap in software industry: A mapping study. In Simpośio Brasileiro de Engenharia de Software (SBES), pages 192–200. SBC.",
+          "Flores, L. F. and de Mello, D. T. (2020). O impacto da extensaõ na formac¸aõ discente, a experieˆncia como pra´tica formativa: um estudo no contexto de um instituto federal no rio grande do sul. Revista Conexaõ UEPG, 16(1):2014465.",
+          "Lima, T. and Porto, J. (2019). Anaĺise de soft skills na visaõ de profissionais da engenharia de Software, pages 31–40, Porto Alegre, RS, Brasil. SBC.",
+          "Teles, M. M. L. (2026). Feiras científicas e mostras integradas de projetos como espac¸o inovador de pesquisa, ensino e extensaõ: Um relato de experieˆncia com cursos de formac¸aõ profissional. Boletim de Conjuntura (BOCA), 25(74):e8079–e8079."
+        ],
+        "Cited_by": [
+          "#"
+        ],
+        "Updated_in": "2026-07-26",
+        "Authors": [
+          {
+            "Name": "Deusiane K. Moreira",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 371,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Simires M. Costa de Souza",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 372,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Pedro H. Colares Gadêlha",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 373,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Daniel V. O. Nascimento",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 374,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Maria E. Mendes Rodrigues",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 375,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Anna B. Marques",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 376,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Valéria M. Pinheiro",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 377,
+            "Institution_acronym": "UFC"
+          }
+        ],
+        "Approach": "Mista",
+        "Objective": "Exploratória",
+        "Procedures": "Estudo de caso",
+        "Data_collection": "Entrevista",
+        "Quantitative_Data_Analysis": "Teste de hipótese",
+        "Qualitative_Data_Analysis": "Análise de conteúdo",
+        "Award": "Mencao Honrosa"
+      },
+      {
+        "Paper_id": 124,
+        "Title": "Diagnóstico da Maturidade em Gestão do Conhecimento: Um Estudo em uma Empresa Desenvolvedora de Software de Pequeno Porte",
+        "Language": "pt",
+        "Year": 2026,
+        "Abstract": "This study evaluates the level of Knowledge Management (KM) maturity in a small software development company, based on an adaptation of the APO KM Assessment Tool. The results reveal a misalignment between organizational culture and structure: while knowledge sharing and innovation occur organically, strategic gaps remain, including the absence of KM indicators, lack of formal knowledge retention processes, and centralization of information. The findings indicate that KM maturity is predominantly supported by informal practices.",
+        "Resumo": "Este estudo avalia o grau de maturidade em Gestão do Conhecimento (GC) em uma empresa de desenvolvimento de software de pequeno porte, a partir de uma adaptação do APO KM Assessment Tool. Os resultados indicam um descompasso entre cultura e estrutura organizacional: enquanto o compartilhamento e a inovação ocorrem de forma orgânica, persistem lacunas estratégicas, como ausência de indicadores, falta de processos formais de retenção de conhecimento e centralização de informações. Conclui-se que a maturidade em GC é sustentada predominantemente por práticas informais.",
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/43012",
+        "References": [
+          "APO (2009). Knowledge Management. Asian Productivity Organization, Tokyo.",
+          "APO (2020). Knowledge management tools and techniques manual. APO Tokyo, JP.",
+          "Batista, F. F. (2016). Gestaõ do conhecimento na administrac¸aõ pu´blica: Resultados da pesquisa ipea 2014 - níveis de maturidade. Texto para discussaõ, IPEA.",
+          "Cahyono, F. and Tjakraatmadja, J. H. (2022). Digitalization in knowledge management systems for project and operational management in software development to increase International Journal of Management, Entrepreneurship, Social Science efficiency. and Humanities (IJMESH), 5(2):181–200.",
+          "Groeneveld, W., Luyten, L., Vennekens, J., and Aerts, K. (2021). Exploring the role of creativity in software engineering. arXiv preprint arXiv:2101.00837.",
+          "Kruger, T. C. and Pinto, M. D. S. (2020). Avaliac¸aõ da maturidade de gestaõ da informac¸aõ e do conhecimento: um estudo aplicado em treŝ editoras universitaŕias federais do sul do brasil. Perspectivas em Gestaõ & Conhecimento, 10(2):120–142.",
+          "Lorenc¸aõ, M. S. and Damian, I. P. M. (2024). Anaĺise crítica dos modelos de maturidade da gestaõ do conhecimento. Brazilian Journal of Information Science, (18):38. The Knowledge-Creating Company: How Japanese",
+          "Nonaka, I. and Takeuchi, H. (1995). companies create the dynamics of innovation. Oxford University Press, New York.",
+          "Strik, M. A. and Molina, L. G. (2020). Gestaõ do conhecimento em empresas de tecnologia da informac¸aõ e comunicac¸aõ: anaĺise do ambiente. Perspectivas em Gestaõ & Conhecimento, 10(3):167–188.",
+          "Yin, R. K. (2001). Estudo de caso: planejamento e me´todos. Bookman, Porto Alegre, 2 edition.",
+          "A. Apeˆndices",
+          "O conteu´do dos apeˆndices pode ser acessado atraveś do seguinte link:",
+          "https://doi.org/10.5281/zenodo.19340764"
+        ],
+        "Cited_by": [
+          "#"
+        ],
+        "Updated_in": "2026-07-26",
+        "Authors": [
+          {
+            "Name": "Vanessa de Oliveira Lima",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 394,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Jeferson Kenedy Morais Vieira",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 395,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Marcelo Martins da Silva",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 396,
+            "Institution_acronym": "UFC"
+          }
+        ],
+        "Approach": "Mista",
+        "Objective": "Exploratória e descritiva",
+        "Procedures": "Estudo de caso",
+        "Data_collection": "Questionário",
+        "Quantitative_Data_Analysis": "Estatística descritiva",
+        "Qualitative_Data_Analysis": "Análise de conteúdo",
+        "Award": "Mencao Honrosa"
+      },
+      {
+        "Paper_id": 127,
+        "Title": "Uma Revisão Rápida sobre Reuniões de Retrospectiva em Times Ágeis Remotos",
+        "Language": "pt",
+        "Year": 2026,
+        "Abstract": "Retrospective meetings are a central practice in agile software development, yet a consolidated body of evidence on how they are conducted and which challenges they face — particularly in remote contexts — remains absent from the literature. To address this gap, this study conducted a rapid review aimed at systematizing knowledge on retrospective practices and challenges in remote agile teams. Content analysis (Bardin, 2016) of 16 articles yielded 322 coded units across 31 categories. For RQ1, dominant categories were group dynamics techniques, continuous improvement culture, and action plan definition and management. For RQ2, prominent challenges were external barriers, failures in practice adoption, and from discussion to action. Results highlight the importance of structured facilitation, follow-up mechanisms, and psychological safety as key factors for effective retrospectives.",
+        "Resumo": "As reuniões de retrospectiva constituem uma prática central no desenvolvimento ágil de software, porém ainda carece de uma síntese consolidada sobre como são conduzidas e quais desafios enfrentam — especialmente em contextos remotos. Para preencher essa lacuna, este estudo realizou uma Revisão Rápida (do inglês rapid review) com o objetivo de sistematizar o conhecimento sobre práticas e desafios de retrospectivas em times ágeis remotos. A análise de conteúdo (Bardin, 2016) de 16 artigos resultou em 322 unidades de registro distribuídas em 31 categorias. Para a RQ1, as categorias dominantes foram técnicas de dinâmicas de grupo, cultura de melhoria contínua e definição e gestão de planos de ação. Para a RQ2, destacaram-se barreiras externas, falhas na adoção e padronização da prática e da discussão à ação. Os resultados evidenciam a importância da facilitação estruturada, dos mecanismos de follow-up e da segurança psicológica como fatores-chave para a efetividade das retrospectivas.",
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/43015",
+        "References": [
+          "Andriyani, Y., Hoda, R., and Amor, R. (2017). Reflection in agile retrospectives. In Agile Processes in Software Engineering and Extreme Programming: XP 2017 Workshops, pages 3–19.",
+          "Bardin, L. (2016). Anaĺise de Conteu´do. Edic¸oẽs 70, Saõ Paulo.",
+          "Cardoso Sampaio, R. and Lycariaõ, D. (2021). Anaĺise de conteu´do categorial: manual de aplicac¸aõ. Escola Nacional de Administrac¸aõ Pu´blica (ENAP), Brasília, DF, Brazil.",
+          "Cartaxo, B., Pinto, G., and Soares, S. (2018). The role of rapid reviews in supporting decision-making in software engineering practice. In Proceedings of the 22nd International Conference on Evaluation and Assessment in Software Engineering 2018, EASE ’18, page 24–34, New York, NY, USA. Association for Computing Machinery.",
+          "de Souza, A., dos Santos, F., dos Santos, L., Beleḿ, P., da Silva, S., Vivacqua, A., and de Mello, R. (2024). Investigating the perception of feedback in software development teams: An initial study. iSys - Journal of Information Systems, 17(1):10:1 – 10:25.",
+          "Deshpande, A., Sharp, H., Barroca, L., and Gregory, P. (2016). Remote working and collaboration in agile teams. In International Conference on Interaction Sciences.",
+          "Digital.ai (2021). 15th annual state of agile report. Technical report, Digital.ai.",
+          "Digital.ai (2025). 18th annual state of agile report. Technical report, Digital.ai.",
+          "Dingsøyr, T., Mikalsen, M., Solem, A., and Vestues, K. (2018). Learning in the large an exploratory study of retrospectives in large-scale agile development. In Garbajosa, J., Wang, X., and Aguiar, A., editors, Agile Processes in Software Engineering and Extreme Programming, pages 191–198, Cham. Springer International Publishing.",
+          "Erdog˘an, O., Pekkaya, M. E., and Go¨k, H. (2018). More effective sprint retrospective with statistical analysis. Journal of Software: Evolution and Process, 30(5):e1933. e1933 JSME-17-0071.R1.",
+          "Fawzy, A., Tahir, A., Galster, M., and Liang, P. (2025). Exploring data management challenges and solutions in agile software development: a literature review and practitioner survey. Empirical Software Engineering, 30:77.",
+          "Galeno, L., Mota, W., and de Mello, R. (2024). Investigating the participation of female software developers in retrospective meetings. In Anais do Workshop sobre Aspectos Sociais, Humanos e Econoˆmicos de Software (WASHES), Porto Alegre, RS, Brasil. Sociedade Brasileira de Computac¸aõ.",
+          "Gren, L., Goldman, A., and Jacobsson, C. (2020). Agile ways of working: a team maturity perspective. Journal of Software: Evolution and Process, 32(6):e2244.",
+          "Matthies, C., Dobrigkeit, F., and Ernst, A. (2019). Counteracting Agile Retrospective Problems with Retrospective Activities, pages 532–545. Springer International Publishing.",
+          "Milani, A. M. P., Storey, M.-A., Katial, V., and Peate, L. (2025). Exploring Retrospective Meeting Practices and the Use of Data in Agile Teams . In 2025 IEEE/ACM 18th International Conference on Cooperative and Human Aspects of Software Engineering (CHASE), pages 114–119, Los Alamitos, CA, USA. IEEE Computer Society.",
+          "Paasivaara, M. and Lassenius, C. (2016). Scaling scrum in a large globally distributed organization: A case study. In 2016 IEEE 11th International Conference on Global Software Engineering (ICGSE), pages 74–83.",
+          "Pena, C., Cartaxo, B., Steinmacher, I., Badampudi, D., da Silva, D., Ferreira, W., Almeida, A., Kamei, F., and Soares, S. (2025). Comparing the efficacy of rapid review with a systematic review in the software engineering field. Journal of Software: Evolution and Process, 37(1):e2748. e2748 smr.2748.",
+          "Przybyłek, A., Albecka, M., Springer, O., and Kowalski, W. (2022). Game-based sprint retrospectives: multiple action research. Empirical Software Engineering, 27(1):1–1.",
+          "Przybylek, A. and Kotecka, D. (2017). Making agile retrospectives more awesome. In Proceedings of the Federated Conference on Computer Science and Information Systems, pages 1211–1216.",
+          "Rizvi, B., Bagheri, E., and Gasevic, D. (2015). A systematic review of distributed agile software engineering. Journal of Software: Evolution and Process, 27.",
+          "Schwaber, K. and Sutherland, J. (2020). The scrum guide: The definitive guide to scrum: The rules of the game.",
+          "Scrum Alliance (2018). 2017-2018 state of scrum report. Technical report, Scrum Alliance.",
+          "O´ A˚ Conchuír, E., Holmstro¨m Olsson, H., gerfalk, P. J., and Fitzgerald, B. (2009). Benefits of global software development: exploring the unexplored. Software Process: Improvement and Practice, 14(4):201–212."
+        ],
+        "Cited_by": [
+          "#"
+        ],
+        "Updated_in": "2026-07-26",
+        "Authors": [
+          {
+            "Name": "Wesley Gomes",
+            "Institution": "Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State": "RJ",
+            "Author_id": 403,
+            "Institution_acronym": "UFRJ"
+          },
+          {
+            "Name": "Juliana França",
+            "Institution": "Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State": "RJ",
+            "Author_id": 404,
+            "Institution_acronym": "UFRJ"
+          },
+          {
+            "Name": "Rafael de Mello",
+            "Institution": "Universidade Federal do Rio de Janeiro (UFRJ)",
+            "State": "RJ",
+            "Author_id": 251,
+            "Institution_acronym": "UFRJ"
+          }
+        ],
+        "Approach": "Mista",
+        "Objective": "Exploratória",
+        "Procedures": "Revisão de literatura",
+        "Data_collection": "Análise documental",
+        "Quantitative_Data_Analysis": "Estatística descritiva",
+        "Qualitative_Data_Analysis": "Análise de conteúdo",
+        "Award": "Mencao Honrosa"
+      },
+      {
+        "Paper_id": 130,
+        "Title": "Um estudo exploratório sobre a Síndrome do Burnout no ambiente de desenvolvimento de software",
+        "Language": "pt",
+        "Year": 2026,
+        "Abstract": "This paper analyzes factors associated with Burnout Syndrome among software developers, considering organizational, professional, and psychosocial aspects that impact mental health. A mixed-methods approach was adopted, with data collected through an questionnaire applied to 70 professionals. Results indicate high levels of emotional exhaustion, moderate depersonalization, and reduced professional accomplishment, associated with workload, tight deadlines, long working hours, and lack of recognition. Productivity pressure, competitive culture, and work-life imbalance emerge as central factors. Suggested coping strategies include realistic planning, and leadership training. The findings highlight the need for organizational interventions to promote healthier and more sustainable work environments.",
+        "Resumo": "Este artigo analisa fatores associados à Síndrome de Burnout entre desenvolvedores de software, considerando aspectos organizacionais, profissionais e psicossociais que impactam a saúde mental. A pesquisa adota abordagem quali-quantitativa, de caráter descritivo, com coleta de dados por meio de questionário aplicado a 70 profissionais da área. Os resultados indicaram elevada prevalência de exaustão emocional, despersonalização moderada e redução da realização profissional, associadas à sobrecarga de tarefas, prazos reduzidos, jornadas prolongadas e falta de reconhecimento. A pressão por produtividade, a competitividade organizacional e o desequilíbrio entre vida pessoal e profissional constituem fatores centrais para o desenvolvimento do Burnout. Como estratégias de enfrentamento, destacam-se planejamento realista, comunicação organizacional eficaz e capacitação de lideranças. Conclui-se que a mitigação do Burnout requer ações estruturais e individuais, visando à promoção de ambientes de trabalho mais saudáveis e sustentáveis.",
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/43018",
+        "References": [
+          "Areosa, J. and Queiroś, C. (2020). Burnout: uma patologia social reconfigurada na era covid-19? International Journal on Working Conditions, 20:71–90. Disponível em https://ricot.com.pt/artigos/1/IJWC.20_Areosa& Queiros_p.71.90.pdf, Acesso em: 17 jan. 2026.",
+          "Bacellar, T. M., Pereira, R. M., and Basílio, L. S. (2023). Toṕicos especiais de administrac¸aõ. Saõ Luís: Editora Pascal.",
+          "Cabral, L. F., dos Santos, T. L., de Hipolito, D. D. C., and Vitor, T. S. (2021). Síndrome de burnout: ameac¸a a` sau´de do trabalhador. Revista Expressaõ Da Estaćio, 5(1):70–92. MAMERI-TREŚ,",
+          "CARVALHO, A. P. L. and L. M. A. (2023). Burnout na pra´tica clínica. Manole, Barueri.",
+          "Carvalho, V. S. d. (2022). Maslach burnout inventory (mbi–gs): uma aplicac¸aõ em profissionais no teletrabalho da aŕea de ti. Monografia (Bacharelado em Administrac¸aõ), Centro Universitaŕio de Brasília (UniCEUB). Disponível em https:// repositorio.uniceub.br/jspui/handle/prefix/15934, Acesso em: 18 jan. 2026. níveis",
+          "Costa, D. A. d. S. d. (2023). Os de stress ocupacional em profissionais da tecnologia: um estudo com desenvolvedores de software. Monografia (Graduac¸aõ em Secretariado Executivo), Universidade Federal do Ceara´. Disponível em: https: //repositorio.ufc.br/handle/riufc/77910, Acesso em: 18 jan. 2026.",
+          "de Aquino, R. L., Barbosa, D. A. F., Santos, L. P., Arau´jo, N. R. S., Silva, F. F. R., da Cunha Miguel, E., de Arau´jo, T. S., Fernandes, G. A., Nunes, A. F. S., and Tomaś, D. A. T. (2023). Anaĺise do presenteísmo, workaholic, burnout e boreout no contexto do trabalho. Revista Eletroˆnica Acervo Científico, 44:e12867–e12867. Disponível em https://doi.org/10.25248/reac.e12867.2023.",
+          "de Mello Aveiro, B. B. and Rodrigues, C. M. L. (2023). Burnout em desenvolvedores e a PROJEC¸AÕ, relac¸aõ com o trabalho remoto. TECNOLOGIAS EM 14(2):14–26.",
+          "de Oliveira, B. D., Lima, A. P. L., Silva, F. K., and Freitas, A. C. R. (2025). A enfermagem na prevenc¸aõ da síndrome de burnout em profissionais do atendimento pre´-hospitalar. https: Brazilian Journal of Health Review, 8(2):e78342–e78342. Disponível em //doi.org/10.34119/bjhrv8n2-085.",
+          "Dejours, C. (1991). A loucura do trabalho: estudo de psicopatologia do trabalho. Ed. Cortez.",
+          "Diniz, J. S., Vicente, G. F., de Sales, J. P., Marques, T. L., dos Santos, E. M., de Camargo Rezende, M. A., Junior, W. S. P., and Cardoso, G. A. (2024). Vício em trabalho x desenvolvimento da síndrome de burnout: uma revisaõ da literatura. In Tudo e´ Cieˆncia: Congresso Brasileiro de Cieˆncias e Saberes Multidisciplinares, number 3, pages 1–8. Disponível em https://doi.org/10.47385/tudoeciencia. 1915.2024.",
+          "Gaidzinski, J. V., Vieira, J. F., Teixeira, C. H., and Ferro, M. (2023). O crunch e seus impactos na sau´de dos desenvolvedores da induśtria de jogos. In Workshop sobre as Implicac¸oẽs da Computac¸aõ na Sociedade (WICS), pages 131–139. SBC. Disponível em https://doi.org/10.5753/wics.2023.230417.",
+          "Leite, L. S. (2020). Sau´de mental no trabalho e atitude empreendedora. Expressa, Rio de Janeiro.",
+          "Moreno, A. (2021). Home office e a reestruturac¸aõ do trabalho no contexto da pandemia de covid-19: uma anaĺise sobre o setor de ti na cidade de saõ paulo. Cieˆncias Sociais Unisinos, 57(3):311–323. Disponível em https://doi.org/10.4013/csu. 2021.57.3.05.",
+          "Nassar, L. M. and de Carvalho, J. P. (2021). Síndrome de burnout em estudantes de graduac¸aõ de medicina no brasil: uma revisaõ do panorama brasileiro. Espac¸o para a Sau´de, 22. Disponível em https://doi.org/10.22421/1517-7130/es. 2021v22.e721.",
+          "Novelli, C. O. and Jorge, N. C. S. B. (2017). Avaliac¸aõ de sintomas relacionados a` síndrome magisteŕio Trabalho de Conde burnout entre profissionais do superior. clusaõ de Curso, Universidade Federal do Espírito Santo.",
+          "Paula, A. C. M. d., Muakad, C. F. J., Freire, S., Spínola, R., and Mendonc¸a, M. (2024). Burnout in software projects: An analysis of stack exchange discussions. In Proceedings of the XXIII Brazilian Symposium on Software Quality, SBQS ’24, page 321–330, New York, NY, USA. Association for Computing Machinery.",
+          "Roseno, G. F., de Melo, K. S. A., Ferreira, L. L. d. L. R., Lins, A. C. S., Lima, A. P. S., de Melo, A. V. M. S., Bezerra, A. R., Othon, D. C., Pereira, D. K. F., de Sa´, D. L. A., et al. (2025). Síndrome de burnout ou síndrome do esgotamento profissional: uma Revista Universitaŕia Brasileira, revisaõ bibliogra´fica. 3(1).",
+          "Silveira, T. S. and Fraisoli, L. L. (2024). Sau´de mental no ambiente de trabalho. Trabalho de Conclusaõ de Curso (Curso Tećnico em Seguranc¸a do Trabalho), Escola Tećnica Estadual Rodrigues de Abreu. Disponível em https://ric.cps.sp.gov.br/ handle/123456789/21196, Acesso em: 29 jan. 2026.",
+          "Trinkenreich, B., Stol, K.-J., Steinmacher, I., Gerosa, M. A., Sarma, A., Lara, M., Feathers, M., Ross, N., and Bishop, K. (2023). A model for understanding and reducing developer burnout. In 2023 IEEE/ACM 45th International Conference on Software Engineering: Software Engineering in Practice (ICSE-SEIP), pages 48–60.",
+          "Tulili, T. R., Capiluppi, A., and Rastogi, A. (2023). Burnout in software engineering: A systematic mapping study. Information and Software Technology, 155:107116. Disponível em https://doi.org/10.1016/j.infsof.2022.107116."
+        ],
+        "Cited_by": [
+          "#"
+        ],
+        "Updated_in": "2026-07-26",
+        "Authors": [
+          {
+            "Name": "Carlos Aldrim Freitas Melo Filho",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 409,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Simone de Oliveira Santos",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 410,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Ítalo Mendes da Silva Ribeiro",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 411,
+            "Institution_acronym": "UFC"
+          }
+        ],
+        "Approach": "Mista",
+        "Objective": "Descritiva",
+        "Procedures": "Survey",
+        "Data_collection": "Questionário",
+        "Quantitative_Data_Analysis": "Estatística descritiva",
+        "Qualitative_Data_Analysis": "Análise de conteúdo",
+        "Award": "Mencao Honrosa"
+      },
+      {
+        "Paper_id": 131,
+        "Title": "What Does the Brazilian Industry Expect from Product Owners? An Analysis of Soft Skills in Job Postings",
+        "Language": "en",
+        "Year": 2026,
+        "Abstract": "The Product Owner (PO) plays a central role in agile software development by connecting stakeholders and development teams. This study identifies and analyzes the soft skills required of POs in the Brazilian software industry by analyzing 202 job postings published between July and October 2025 on LinkedIn, Gupy, and Glassdoor. The results indicate a predominance of skills related to communication, analytical abilities, collaboration, and negotiation. Notably, communication appears in 54% of the analyzed postings, making it the most frequently mentioned soft skill. The findings contribute to understanding the competencies valued by the industry and may support the development of professional resumes and academic curricula for PO training.",
+        "Resumo": "The Product Owner (PO) plays a central role in agile software development by connecting stakeholders and development teams. This study identifies and analyzes the soft skills required of POs in the Brazilian software industry by analyzing 202 job postings published between July and October 2025 on LinkedIn, Gupy, and Glassdoor. The results indicate a predominance of skills related to communication, analytical abilities, collaboration, and negotiation. Notably, communication appears in 54% of the analyzed postings, making it the most frequently mentioned soft skill. The findings contribute to understanding the competencies valued by the industry and may support the development of professional resumes and academic curricula for PO training.",
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/43019",
+        "References": [
+          "Ayas, H. M., Hebig, R., and Leitner, P. (2024). The Roles, Responsibilities, and Skills of Engineers in the Era of Microservices-Based Architectures. In Proceedings of the 2024 IEEE/ACM 17th International Conference on Cooperative and Human Aspects of Software Engineering, pages 13–23, Lisbon Portugal. ACM.",
+          "Bodrick, M. M., Almutairi, M. B., Aljuffali, L. A., Obaid, A. A., Albisher, A. K., Alsuhaim, M. I., Alhabib, I. M., and Alqarni, H. M. (2025). Amplifying learning development in human capability advancement through soft and hard skills. Journal of Learning and Development Studies.",
+          "Bo¨rner, K., Scrivner, O., Gallant, M., na Ma, S., Liu, X., Chewning, K., Wu, L., and Evans, J. A. (2018). Skill discrepancies between research, education, and jobs reveal Proceedings of the National the critical need to supply soft skills for the data economy. Academy of Sciences, 115:12630 – 12637.",
+          "Cavalcante, V., Costa, C., and Soares, D. (2024). Beyond code: the development of soft skills through training in software engineering. In Anais do XXXVIII Simpośio Brasileiro de Engenharia de Software, pages 521–531, Porto Alegre, RS, Brasil. SBC.",
+          "Coelho, M., Arau´jo, A., Freire, S., and Paixao, M. (2024). Um estudo comparativo entre a visaõ de líderes e liderados sobre a importaˆncia de soft skills em desenvolvimento de de Software, pages 130–140, Porto Alegre, RS, Brasil. SBC.",
+          "Diniz, W., Gadelha, B., Steinmacher, I., and Franc¸a, C. (2025). Habilidades colaborativas no mercado de ti: Uma investigac¸aõ sobre requisitos de soft skills. In Anais do XX Simpośio Brasileiro de Sistemas Colaborativos, pages 139–150, Porto Alegre, RS, Brasil. SBC.",
+          "Dutra, E., Cerdeiral, C., Lima, P., Escalfoni, R., Diirr, B., and Santos, G. (2023). Using an instrument to assess trust, knowledge, learning, and motivation of agile teams. iSysBrazilian Journal of Information Systems, 16(1):7–1.",
+          "Figueiredo, J. G. (2025). Metodologias aǵeis no desenvolvimento de software para INOVAC¸AÕ INVESTIGAC¸AÕ universidade digital. RICA-KIANDA: REVISTA DE E CIENTI´FICA DA UNIVERSIDADE DE LUANDA, 1(01):228–242.",
+          "Galster, M., Mitrovic, A., Malinen, S., Holland, J., and Peiris, P. (2023). Soft skills required from software professionals in new zealand. Inf. Softw. Technol., 160:107232.",
+          "Gonzaĺez-Morales, D., de Antonio, L. M. M., and García, J. L. R. (2011). Teaching “soft” skills in software engineering. 2011 IEEE Global Engineering Education Conference (EDUCON), pages 630–637.",
+          "Kadenic, M. D., de Jesus Pacheco, D. A., Koumaditis, K., Tjørnehøj, G., and Tambo, T. (2023). Investigating the role of product owner in scrum teams: Differentiation between organisational and individual impacts and opportunities. Journal of Systems and Software, 206:111841.",
+          "Lima, I. and Bezerra, C. (2026). Soft skills in agile culture: An analysis of literature, job vacancies, and survey evidence on the product owner in the information systems industry. Simpośio Brasileiro de Sistemas de Informac¸aõ (SBSI), pages 204–211.",
+          "Malinen, S., Galster, M., Mitrovic, A., Iyer, S., Peiris, P., and Clarke, A. (2025). Soft skills in software engineering: Insights from the trenches. 2025 IEEE/ACM 47th International Conference on Software Engineering: Software Engineering in Practice (ICSE-SEIP), pages 296–306.",
+          "Marinho, M., Bastos, T. A., and Sampaio, S. (2021). Soft skills for newborn software engineers in agile teams. International Journal of Agile Systems and Management, 14:27.",
+          "Matturro, G., Cordoveś, F., and Solari, M. (2018). Role of product owner from the practitioner’s perspective. an exploratory study. In Proceedings of the International Conference on Software Engineering Research and Practice (SERP), pages 113–118. The Steering Committee of The World Congress in Computer Science, Computer ....",
+          "Matturro, G., Fontań, C., and Raschetti, F. (2015). Soft skills in scrum teams. a survey of the most valued to have by product owners and scrum masters. In SEKE, pages 42–45.",
+          "Medvid, M., Medvid, Y. I., Mudra, S., Storosˇka, M., and Havryshchuk, M. (2024). Pedagogical conditions for soft skills development in future officers: evidence from the national guard of ukraine during wartime. Educational Dimension.",
+          "Polaḱova´, M., Suleimanova´, J. H., Madzík, P., Copusˇ, L., Molnaŕova´, I., and Polednova´, J. (2023). Soft skills and their importance in the labour market under the conditions of industry 5.0. Heliyon, 9.",
+          "Reis Lima, A. P. d. and Amaral, D. C. (2022). O que fazer quando naõ ha´ product owner? um estudo sobre a auseˆncia desse papel. Revista de Gestaõ e Projetos, 13(2):38–65.",
+          "Silva Farias, R., Ahmed, I., and De Almeida, E. S. (2025). What Makes a Great Software Quality Assurance Engineer? IEEE Transactions on Software Engineering, 51(4):1153–1172. Publisher: Institute of Electrical and Electronics Engineers (IEEE).",
+          "Toikkanen, T., Hyrynsalmi, S., and Paasivaara, M. (2023). How does the role of a product ICSPM 2023: Internaowner relate to the role of a software product manager? In tional Conference on Software Product Management. Lecture Notes in Informatics. Gesellschaft fu¨r Informatik eV.",
+          "Unger-Windeler, C., Klu¨nder, J. A.-C., Reuscher, T., and Schneider, K. (2021). Are product owners communicators? a multi-method research approach to provide a more comprehensive picture of product owners in practice. Journal of Software: Evolution and Process, 33(1):e2311.",
+          "Valle, R. A., Souza, A. C. C., and Valle, P. H. D. (2025). Aligning soft skills in requirements engineering between academia and industry: A pilot study. In Workshop sobre Aspectos Sociais, Humanos e Econoˆmicos de Software (WASHES), pages 166–177. SBC.",
+          "Wazlawick, P., Wazlawick, R. S., and Cassol, L. A. (2024). Competeˆncias humanas em ontologia para o futuro:: O desenvolvimento de uma revisaõ sistema´tica de literatura em tecnologia da informac¸aõ. In VI Congresso Internacional de Ontopsicologia e Desenvolvimento Humano, pages 6–22.",
+          "Wohlin, C., Runeson, P., Ho¨st, M., Ohlsson, M. C., Regnell, B., Wessleń, A., et al. (2012). Experimentation in software engineering, volume 236. Springer."
+        ],
+        "Cited_by": [
+          "#"
+        ],
+        "Updated_in": "2026-07-26",
+        "Authors": [
+          {
+            "Name": "Israely Lima",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 335,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Carla Bezerra",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 307,
+            "Institution_acronym": "UFC"
+          }
+        ],
+        "Approach": "Mista",
+        "Objective": "Descritiva",
+        "Procedures": "Pesquisa documental",
+        "Data_collection": "Análise documental",
+        "Quantitative_Data_Analysis": "Estatística descritiva",
+        "Qualitative_Data_Analysis": "Análise de conteúdo",
+        "Award": "1° Lugar"
       }
     ]
   }
