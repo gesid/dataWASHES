@@ -5,8 +5,10 @@
     <title>dataWASHES</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/swagger_ui.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.ico') }}">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <meta name="viewport" content="width=device-width">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block header %}
 
     {% endblock %}
@@ -14,12 +16,11 @@
 <body>
 <!-- Navbar -->
 <nav>
-    <div id="menu-icon" onclick="toggleMenu()">&#9776;</div> <!-- Ícone do menu hambúrguer -->
+    <div id="menu-icon" onclick="toggleMenu()">&#9776;</div>
     <ul id="navbar">
         <li id="logo-conteiner">
-            <a href="{{ url_for('swagger_template') }}">
-                <img id="logo-api" alt="Logo do dataWASHES API"
-                     src="{{ url_for('static', filename='images/logo.png') }}">
+            <a href="{{ url_for('swagger_template') }}" class="dw-text-logo">
+                <span class="dw-logo-data">data</span><span class="dw-logo-washes">WASHES</span>
             </a>
         </li>
         {% if request.endpoint == 'dashboard' %}
@@ -30,7 +31,7 @@
         <li><a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a></li>
         <li><a href="https://youtu.be/KXjFx9ddqPQ" class="nav-link" target="_blank">Tutorial</a></li>
         <li><a href="https://github.com/gesid/dataWASHES/" class="nav-link" target="_blank">GitHub</a></li>
-        <li><a href="https://sites.google.com/view/washes-series/?authuser=1" class="nav-link"
+        <li><a href="https://sites.google.com/view/washes-series/" class="nav-link"
                target="_blank">WASHES</a></li>
     </ul>
 </nav>
@@ -39,24 +40,33 @@
 
 {% endblock %}
 
+{% block footer %}
 <footer>
     <div class="footer-content">
-        <div class="footer-logo-container">
-            <a href="{{ url_for('swagger_template') }}">
-                <img class="footer-logo" alt="Logo do dataWASHES API"
-                     src="{{ url_for('static', filename='images/logo.png') }}">
+        <div class="footer-left">
+            <a href="{{ url_for('swagger_template') }}" class="dw-text-logo dw-text-logo-footer">
+                <span class="dw-logo-data">data</span><span class="dw-logo-washes">WASHES</span>
             </a>
+            <p class="footer-copy-text"><a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a> &copy; 2016 – 2026</p>
         </div>
-        <div class="footer-logo-container">
-            <p><a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a> &copy; 2025</p>
-        </div>
-        <div class="footer-logo-container">
-            <a href="https://github.com/gesid/dataWASHES/" target="_blank">
-                <img class="footer-logo-git" alt="Logo do dataWASHES API"
-                     src="{{ url_for('static', filename='images/github-logo-2-small.png') }}">
-            </a>
+        <div class="footer-right">
+            <a href="https://github.com/gesid/dataWASHES/" target="_blank">GitHub</a>
+            <a href="https://sol.sbc.org.br/index.php/washes" target="_blank">SBC OpenLib</a>
+            <a href="https://sites.google.com/view/washes-series/" target="_blank">WASHES</a>
+            <a href="https://gesid.github.io/" target="_blank">GESID</a>
         </div>
     </div>
 </footer>
+{% endblock %}
+<script>
+function toggleMenu() {
+    var navbar = document.getElementById("navbar");
+    if (navbar.style.display === "flex") {
+        navbar.style.display = "none";
+    } else {
+        navbar.style.display = "flex";
+    }
+}
+</script>
 </body>
 </html>
