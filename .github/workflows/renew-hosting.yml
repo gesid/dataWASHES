@@ -1,0 +1,30 @@
+name: Auto-Renew PythonAnywhere Hosting
+
+on:
+  schedule:
+    # Roda no dia 15 de cada mês às 04:00 UTC
+    - cron: '0 4 15 * *'
+  workflow_dispatch:
+
+jobs:
+  renew:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install chromium --with-deps
+
+      - name: Run Renewal Bot
+        env:
+          PYTHONANYWHERE_USERNAME: "datawashes"
+          PYTHONANYWHERE_PASSWORD: ${{ secrets.PYTHONANYWHERE_PASSWORD }}
+        run: python scripts/renew_pythonanywhere.py
