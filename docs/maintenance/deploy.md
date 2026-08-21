@@ -1,43 +1,19 @@
 # 🚀 Deploy no PythonAnywhere
 
-O **dataWASHES** está hospedado na plataforma PythonAnywhere. Com a atual automação de dados no repositório, o processo de deploy em produção tornou-se muito mais simples e seguro, eliminando a necessidade de uploads manuais.
-
-### ⚠️ Pré-requisito: Credenciais de Produção
-1. Solicite o **Usuário e Senha** da conta PythonAnywhere do dataWASHES com o administrador do projeto.
-2. Certifique-se de que os dados novos já foram aprovados via *Pull Request* e estão disponíveis na branch `main` do repositório no GitHub.
+O **dataWASHES** está hospedado na plataforma PythonAnywhere e todo o ciclo de vida da hospedagem é **100% automatizado via GitHub Actions**: o deploy em produção acontece sozinho a cada merge na `main`, e um robô de navegação renova a hospedagem gratuita mensalmente — sem uploads manuais, sem consoles e sem cliques.
 
 ---
 
-## ⚡ Atualizando o servidor via Console (Método Recomendado)
+## ⚡ Deploy Automatizado (`.github/workflows/deploy.yml`)
 
-Como o repositório no GitHub é a fonte única da verdade, a maneira mais rápida de atualizar a API é sincronizar o servidor com o GitHub.
+Sempre que um Pull Request é aprovado (ou qualquer commit chega à branch `main`), o workflow [`deploy.yml`](../../.github/workflows/deploy.yml) é disparado automaticamente e executa duas chamadas à **API do PythonAnywhere**, autenticadas com o token secreto `PYTHONANYWHERE_API_TOKEN`:
 
-1. Faça login na conta do [PythonAnywhere](https://www.pythonanywhere.com/).
-2. Na aba **Consoles**, clique em **Bash** para abrir o terminal na nuvem.
-3. Navegue até a pasta do projeto:
-   ```bash
-   cd /home/datawashes/mysite
-   ```
-4. Puxe as atualizações recentes da branch `main`:
-   ```bash
-   git pull origin main
-   ```
-*Pronto! Todos os arquivos JSON da pasta `data/` e códigos da pasta `src/` foram atualizados instantaneamente.*
+1. **`git pull origin main`:** envia o comando `cd /home/datawashes/mysite && git pull origin main` para o console remoto do PythonAnywhere (`/consoles/<id>/send_input/`), sincronizando o servidor com o repositório GitHub — que é a fonte única da verdade.
+2. **Reload da aplicação:** dispara `POST /webapps/datawashes.pythonanywhere.com/reload/`, reiniciando a aplicação web para que os novos arquivos JSON da pasta `data/` e o código de `src/` entrem no ar imediatamente.
 
----
+> Ou seja: **aprovou o PR → produção atualizada em segundos.** Não é necessário acessar o painel do PythonAnywhere.
 
-## 🔄 Passo Final Obrigatório: Recarregar a API
-
-Sempre que houver **novos dados JSON** ou **alterações no código**, é estritamente necessário reiniciar a aplicação web.
-
-1. Acesse a aba **Web** no painel superior do PythonAnywhere.
-2. Clique no botão verde **"Reload datawashes.pythonanywhere.com"**.
-
-Isso forçará a API a limpar o cache e carregar os dados das edições e artigos recém-sincronizados. Sem o *Reload*, a API continuará exibindo os dados antigos mesmo com os arquivos atualizados no servidor.
-
----
-
-## 🛠️ Configuração WSGI (Referência)
+### 🛠️ Configuração WSGI (Referência)
 
 A execução da aplicação é gerenciada pelo arquivo **WSGI configuration file** (acessível pela aba **Web**). O conteúdo deste arquivo vincula o diretório `/mysite` à execução do Flask:
 
@@ -59,12 +35,46 @@ application = app.server.app  # noqa
 
 ---
 
-## ⏳ Importante: Expiração Mensal da Conta Gratuita
+## 🤖 Robô de Renovação Mensal da Hospedagem (`renew-hosting.yml`)
 
-A versão gratuita do PythonAnywhere mantém a aplicação ativa por ciclos de **1 mês**. Após esse prazo, a API sairá do ar automaticamente. 
+A versão gratuita do PythonAnywhere mantém a aplicação ativa por ciclos de **30 dias**. Após esse prazo, a API sairia do ar automaticamente.
 
-Para evitar a queda do serviço:
-1. O administrador deve acessar o painel do PythonAnywhere mensalmente.
-2. Clicar no botão amarelo **"Run until X"** na aba **Web** para renovar a hospedagem por mais 30 dias.
+Para eliminar esse risco, o projeto conta com um **robô Playwright** ([`scripts/renew_pythonanywhere.py`](../../scripts/renew_pythonanywhere.py)) orquestrado pelo workflow [`renew-hosting.yml`](../../.github/workflows/renew-hosting.yml), que roda no **dia 15 de cada mês às 04:00 UTC**:
+
+1. Instala o **Playwright** com Chromium headless no runner do GitHub Actions.
+2. Faz **login seguro** na página do PythonAnywhere usando as credenciais injetadas como *secrets* (`PYTHONANYWHERE_USERNAME` / `PYTHONANYWHERE_PASSWORD`) — nenhuma senha fica exposta nos logs.
+3. Navega até a aba **Web** do web app.
+4. Localiza e clica no botão amarelo **"Run until X"**, estendendo a hospedagem gratuita por **mais 30 dias** automaticamente.
+
+O robô também pode ser executado manualmente pela aba **Actions → Auto-Renew PythonAnywhere Hosting → Run workflow**.
 
 ![image](../images/deploy-6.png)
+
+---
+
+## 🔑 GitHub Secrets Necessárias
+
+Para que toda a automação funcione, o repositório deve ter as seguintes secrets configuradas em **Settings → Secrets and variables → Actions**:
+
+| Secret | Utilizada por | Finalidade |
+|---|---|---|
+| `GROQ_API_KEY` | `data-sync-and-citations.yml` | Autenticação na API do Groq para classificação metodológica por IA (Llama-3.3 70B). |
+| `SCRAPER_API_KEY` | `data-sync-and-citations.yml` | Autenticação na ScraperAPI para mineração de citações no Google Scholar. |
+| `PYTHONANYWHERE_API_TOKEN` | `deploy.yml` | Token da API do PythonAnywhere usado para executar o `git pull` e recarregar a aplicação web. |
+| `PYTHONANYWHERE_PASSWORD` | `renew-hosting.yml` | Senha da conta usada pelo robô Playwright para renovar a hospedagem mensalmente. |
+
+> ⚠️ Nunca versione essas chaves no código. Elas devem existir apenas como *repository secrets* ou localmente no arquivo `.env` (ignorado pelo `.gitignore`).
+
+---
+
+## 💻 Método Manual (Fallback)
+
+Caso a automação falhe (ex.: indisponibilidade da API do PythonAnywhere), o deploy ainda pode ser feito manualmente:
+
+1. Faça login na conta do [PythonAnywhere](https://www.pythonanywhere.com/).
+2. Na aba **Consoles**, abra um terminal **Bash** e execute:
+   ```bash
+   cd /home/datawashes/mysite
+   git pull origin main
+   ```
+3. Na aba **Web**, clique no botão verde **"Reload datawashes.pythonanywhere.com"** para recarregar a aplicação.

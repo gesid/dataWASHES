@@ -13,15 +13,32 @@ No projeto, existem quatro arquivos JSON que servem como base de dados. Sempre q
 
 ---
 
+## 🏗️ Arquitetura de Ingestão de Dados
+
+O **dataWASHES** é 100% autônomo: um pipeline construído com **GitHub Actions, Python e IA** mantém a base de dados sem intervenção manual. A fonte oficial da verdade reside diretamente no repositório, na planilha `data/JSON Generator/dataWASHES-data.xlsx`, da qual todos os arquivos JSON são regenerados.
+
+O pipeline é composto por três etapas automatizadas:
+
+### 1. Scraping autônomo no SOL SBC (`scripts/sync_washes_dataset.py`)
+O script acessa o [arquivo de edições do WASHES no SOL SBC](https://sol.sbc.org.br/index.php/washes/issue/archive), detecta se existe uma edição ainda não registrada no dataset e, se houver, extrai automaticamente os metadados completos de cada artigo: título, resumos (EN/PT), palavras-chave, autores, afiliações, tipo de publicação e link de download.
+
+### 2. Classificação metodológica por IA (Groq — Llama-3.3 70B)
+Para cada artigo novo, o `sync_washes_dataset.py` envia título, resumo e palavras-chave à API do **Groq**, utilizando o modelo **Llama-3.3 70B (`llama-3.3-70b-versatile`)** em modo JSON estruturado. A IA lê o conteúdo e classifica automaticamente os **6 campos metodológicos**: `Approach`, `Objective`, `Procedures`, `Data_collection`, `Quantitative_Data_Analysis` e `Qualitative_Data_Analysis`. O resultado é gravado na planilha `.xlsx`.
+
+### 3. Mineração de citações no Google Scholar (`scripts/miner_citations.py`)
+O minerador consulta o Google Scholar via **ScraperAPI** (contornando bloqueios de rate-limit) para obter as citações reais (`Cited_by`) e a referência APA de cada artigo pendente, atualizando a planilha.
+
+---
+
 ## ⚡ Fluxo de Atualização Automatizado (CI/CD)
 
-O **dataWASHES** conta com um pipeline de automação construído com **GitHub Actions, Python e IA**. A base de dados oficial reside diretamente no repositório no arquivo `data/JSON Generator/dataWASHES-data.xlsx`.
+Todo dia 1º de cada mês (03:00 UTC), o workflow [`data-sync-and-citations.yml`](../../.github/workflows/data-sync-and-citations.yml) do GitHub Actions executa automaticamente a seguinte rotina:
+1. **Scraping:** executa `scripts/sync_washes_dataset.py`, que verifica se há uma nova edição do WASHES no SOL SBC. Se houver, baixa todos os metadados de artigos, resumos, autores e afiliações.
+2. **Inteligência Artificial:** utiliza a API do **Groq (Llama-3.3 70B)** para ler os resumos e classificar automaticamente os 6 campos metodológicos dos artigos.
+3. **Citações:** executa `scripts/miner_citations.py` via **ScraperAPI** para buscar citações reais no Google Scholar.
+4. **Pull Request:** atualiza a planilha `.xlsx`, regera os arquivos JSON e **abre um Pull Request (PR) automático** no GitHub (branch `auto-data-sync`) para revisão dos mantenedores.
 
-Todo dia 1º de cada mês, o GitHub Actions executa automaticamente a seguinte rotina:
-1. **Scraping:** Verifica se há uma nova edição do WASHES no SOL SBC. Se houver, baixa todos os metadados de artigos, resumos, autores e afiliações.
-2. **Inteligência Artificial:** Utiliza a API do **Groq (Llama-3.3 70B)** para ler os resumos e classificar automaticamente os 6 campos metodológicos dos artigos.
-3. **Citações:** Executa o minerador Python via **ScraperAPI** para buscar citações reais no Google Scholar.
-4. **Pull Request:** Atualiza a planilha `.xlsx`, regera os arquivos JSON e **abre um Pull Request (PR) automático** no GitHub.
+> O workflow também pode ser disparado manualmente pela aba **Actions → Automatic Dataset Sync & Citation Miner → Run workflow**.
 
 ### 🧑‍💻 O Papel do Mantenedor:
 Quando o robô abrir o Pull Request:
