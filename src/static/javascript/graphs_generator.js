@@ -12,6 +12,9 @@ import ChartDataLabels from 'https://esm.sh/chartjs-plugin-datalabels';
 
 Chart.register(ChartDataLabels, WordCloudController, WordElement, ChoroplethController, GeoFeature, ProjectionScale, ColorScale, ...registerables);
 
+Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+const PRIMARY_PALETTE = ['#0EA5E9', '#2563EB', '#7C3AED', '#059669', '#F59E0B', '#64748B'];
 
 const BRAZIL_GEOJSON_PATH = 'static/javascript/geo_info_Brazil/br-states.min.json'
 let brazil_geoJSON = null
@@ -25,10 +28,10 @@ async function loadGeoJSON() {
 
 function insert_horizontal_bar_chart(element, infos) {
     const labels = infos['labels'];
-    let color = ['rgba(5, 149, 253)']
+    let color = [PRIMARY_PALETTE[0]]
     if (infos['rank']) {
-        let rank_color = color[0]
-        let week_color = 'rgba(5, 149, 253, .5)'
+        let rank_color = PRIMARY_PALETTE[0]
+        let week_color = PRIMARY_PALETTE[0] + '66'
         for (let i = 1; i < infos['labels'].length; i++) {
             if (i <= 2)
                 color.push(rank_color)
@@ -46,6 +49,7 @@ function insert_horizontal_bar_chart(element, infos) {
             fill: false,
             backgroundColor: color,
             borderWidth: 0,
+            borderRadius: 6,
         }]
     };
     const config = {
@@ -55,7 +59,7 @@ function insert_horizontal_bar_chart(element, infos) {
             indexAxis: 'y',
             layout: {
                 padding: {
-                    right: 30 // Ajuste esse valor para aumentar o espaço no topo
+                    right: 30
                 }
             },
             plugins: {
@@ -66,10 +70,9 @@ function insert_horizontal_bar_chart(element, infos) {
                     anchor: "end",
                     align: "right",
                     font: {
-                        //weight: "bold",
                         size: 14
                     },
-                    color: "#000"
+                    color: "#1E293B"
                 }
             },
             scales: {
@@ -81,9 +84,6 @@ function insert_horizontal_bar_chart(element, infos) {
                         display: false,
                     },
                     ticks: {
-                        callback: function (value, index, ticks) {
-                            //return ticks_data.has(value) ? value : null;
-                        },
                         stepSize: 1,
                     }
                 },
@@ -93,7 +93,7 @@ function insert_horizontal_bar_chart(element, infos) {
                     },
                     border: {
                         width: 2,
-                        color: 'rgb(0, 0, 0)'
+                        color: '#E2E8F0'
                     },
                 },
             },
@@ -104,17 +104,14 @@ function insert_horizontal_bar_chart(element, infos) {
 
 function insert_vertical_bar_chart(element, infos) {
     const labels = infos['labels'];
-    let color = ['rgba(5, 149, 253)']
-    if (infos['rank']) {
-        let rank_color = color[0]
-        let week_color = 'rgba(5, 149, 253, .5)'
-        for (let i = 1; i < infos['labels'].length; i++) {
-            if (i <= 2)
-                color.push(rank_color)
-            else
-                color.push(week_color)
-        }
-    }
+    const count = labels.length;
+    const color = labels.map((_, i) => {
+        const t = count > 1 ? i / (count - 1) : 0;
+        const r = Math.round(14 + t * (37 - 14));
+        const g = Math.round(165 + t * (99 - 165));
+        const b = Math.round(233 + t * (235 - 233));
+        return `rgb(${r}, ${g}, ${b})`;
+    });
     const ticks_data = new Set(infos['data'])
     const data = {
         labels: labels,
@@ -125,6 +122,7 @@ function insert_vertical_bar_chart(element, infos) {
             fill: false,
             backgroundColor: color,
             borderWidth: 0,
+            borderRadius: 6,
         }]
     };
     const config = {
@@ -133,7 +131,7 @@ function insert_vertical_bar_chart(element, infos) {
         options: {
             layout: {
                 padding: {
-                    top: 30 // Ajuste esse valor para aumentar o espaço no topo
+                    top: 30
                 }
             },
             plugins: {
@@ -144,10 +142,9 @@ function insert_vertical_bar_chart(element, infos) {
                     anchor: "end",
                     align: "top",
                     font: {
-                        //weight: "regular",
                         size: 14
                     },
-                    color: "#000"
+                    color: "#1E293B"
                 }
             },
             scales: {
@@ -159,9 +156,6 @@ function insert_vertical_bar_chart(element, infos) {
                         display: false,
                     },
                     ticks: {
-                        callback: function (value, index, ticks) {
-                            //return ticks_data.has(value) ? value : null;
-                        },
                         stepSize: 1,
                     }
                 },
@@ -171,7 +165,7 @@ function insert_vertical_bar_chart(element, infos) {
                     },
                     border: {
                         width: 2,
-                        color: 'rgb(0, 0, 0)'
+                        color: '#E2E8F0'
                     },
                 },
             },
@@ -181,15 +175,21 @@ function insert_vertical_bar_chart(element, infos) {
 }
 
 function insert_line_chart(element, infos) {
-    const bg_colors = ['rgba(5, 149, 253)', '#2662F0']
+    const line_colors = [PRIMARY_PALETTE[1], PRIMARY_PALETTE[0]]
+    const fill_colors = [PRIMARY_PALETTE[1] + '20', PRIMARY_PALETTE[0] + '20']
     const data = {
         labels: infos['labels'],
         datasets: infos['langs'].map((language, index) => ({
             label: language,
             data: infos['data'].map(d => d[language] || 0),
-            fill: false,
-            backgroundColor: bg_colors[index % bg_colors.length],
-            borderColor: bg_colors[index % bg_colors.length],
+            fill: true,
+            backgroundColor: fill_colors[index % fill_colors.length],
+            borderColor: line_colors[index % line_colors.length],
+            tension: 0.4,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            borderWidth: 2.5,
+            pointBackgroundColor: line_colors[index % line_colors.length],
         }))
     };
     const config = {
@@ -210,7 +210,7 @@ function insert_line_chart(element, infos) {
                     },
                     border: {
                         width: 2,
-                        color: 'rgb(0, 0, 0)'
+                        color: '#E2E8F0'
                     },
                 },
                 y: {
@@ -236,26 +236,16 @@ function insert_doughnut_chart(element, infos) {
         datasets: [{
             label: '',
             data: infos['data'],
-            backgroundColor: [
-                "#003D6A",
-                "#FF5252",
-                "#00C8A0",
-                "#FF9E40",
-                "#4285F4", 
-                "#FFD600",
-                "#00BFA5",
-                "#FF4081",
-                "#536DFE",
-                "#AEEA00"
-            ],
-            hoverOffset: 6
+            backgroundColor: PRIMARY_PALETTE,
+            hoverOffset: 6,
+            borderWidth: 0,
         }]
     }
     const config = {
         type: 'doughnut',
         data: data,
         options: {
-            cutout: '60%',
+            cutout: '70%',
             responsive: false,
             maintainAspectRatio: true,
             plugins: {
@@ -277,6 +267,63 @@ function insert_doughnut_chart(element, infos) {
     new Chart(element, config)
 }
 
+function insert_horizontal_bar_categories(element, infos) {
+    const combined = infos['labels'].map((label, i) => ({label, value: infos['data'][i]}));
+    combined.sort((a, b) => b.value - a.value);
+
+    const gradient_colors = combined.map((_, i, arr) => {
+        const t = arr.length > 1 ? i / (arr.length - 1) : 0;
+        const r = Math.round(14 + t * (37 - 14));
+        const g = Math.round(165 + t * (99 - 165));
+        const b = Math.round(233 + t * (235 - 233));
+        return `rgb(${r}, ${g}, ${b})`;
+    });
+
+    const data = {
+        labels: combined.map(item => item.label),
+        datasets: [{
+            axis: 'y',
+            label: '',
+            data: combined.map(item => item.value),
+            fill: false,
+            backgroundColor: gradient_colors,
+            borderWidth: 0,
+            borderRadius: 6,
+        }]
+    };
+    const config = {
+        type: 'bar',
+        data,
+        options: {
+            indexAxis: 'y',
+            layout: {
+                padding: { right: 30 }
+            },
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: "end",
+                    align: "right",
+                    font: { size: 13 },
+                    color: "#1E293B"
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    border: { display: false },
+                    ticks: { stepSize: 1 }
+                },
+                y: {
+                    grid: { display: false },
+                    border: { width: 2, color: '#E2E8F0' },
+                },
+            },
+        }
+    };
+    new Chart(element, config)
+}
+
 function insert_radar_chart(element, infos) {
     const data = {
         labels: infos['labels'],
@@ -284,14 +331,14 @@ function insert_radar_chart(element, infos) {
             label: '',
             fill: true,
             data: infos['data'],
-            backgroundColor: 'rgba(38, 98, 240, .2)',
-            borderColor: 'rgb(38, 98, 240)',
-            pointBackgroundColor: '#2662F0',
+            backgroundColor: PRIMARY_PALETTE[1] + '33',
+            borderColor: PRIMARY_PALETTE[1],
+            pointBackgroundColor: PRIMARY_PALETTE[1],
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#2662F0'
+            pointHoverBorderColor: PRIMARY_PALETTE[1]
         }]
-    }
+    };
     const config = {
         type: 'radar',
         data: data,
@@ -319,9 +366,9 @@ function insert_radar_chart(element, infos) {
             scales: {
                 r: {
                     beginAtZero: false,
-                    pointLabels: { // Configurações dos rótulos das categorias
+                    pointLabels: {
                         font: {
-                            size: 11 // Define o tamanho da fonte (em pixels)
+                            size: 11
                         },
 
                     }
@@ -357,8 +404,7 @@ function insert_cloud_word_chart(element, infos) {
                 word: {
                     fontFamily: 'sans-serif',
                     color: (ctx) => {
-                        // Define uma cor para cada palavra com base no índice
-                        const colors = ['#003D6A', '#22CBE4', '#2662F0', '#333333'];
+                        const colors = [PRIMARY_PALETTE[0], PRIMARY_PALETTE[1], PRIMARY_PALETTE[2], '#1E293B'];
                         return colors[ctx.index % colors.length];
                     },
                     padding: 5,
@@ -383,12 +429,9 @@ function insert_brazil_map_chart(element, infos) {
             ]
         };
 
-        // Obtém as dimensões do contêiner
         const containerWidth = element.parentElement.offsetWidth;
         const containerHeight = element.parentElement.offsetHeight;
-        // Calcula o deslocamento com base nas dimensões do contêiner
         const projectionOffset = [containerWidth / 2 + 40, -containerHeight / 2 + 80];
-        console.log(projectionOffset)
         const config = {
             type: ChoroplethController.id,
             data: data,
@@ -432,6 +475,7 @@ function insert_brazil_map_chart(element, infos) {
 }
 
 window.insert_horizontal_bar_chart = insert_horizontal_bar_chart;
+window.insert_horizontal_bar_categories = insert_horizontal_bar_categories;
 window.insert_line_chart = insert_line_chart;
 window.insert_doughnut_chart = insert_doughnut_chart;
 window.insert_cloud_word_chart = insert_cloud_word_chart;

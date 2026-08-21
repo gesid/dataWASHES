@@ -19,8 +19,8 @@
     <div id="menu-icon" onclick="toggleMenu()">&#9776;</div>
     <ul id="navbar">
         <li id="logo-conteiner">
-            <a href="{{ url_for('swagger_template') }}" class="dw-text-logo">
-                <span class="dw-logo-data">data</span><span class="dw-logo-washes">WASHES</span>
+            <a href="{{ url_for('swagger_template') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" height="38px">
             </a>
         </li>
         {% if request.endpoint == 'dashboard' %}
@@ -44,8 +44,8 @@
 <footer>
     <div class="footer-content">
         <div class="footer-left">
-            <a href="{{ url_for('swagger_template') }}" class="dw-text-logo dw-text-logo-footer">
-                <span class="dw-logo-data">data</span><span class="dw-logo-washes">WASHES</span>
+            <a href="{{ url_for('swagger_template') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" height="30px">
             </a>
             <p class="footer-copy-text"><a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a> &copy; 2016 – 2026</p>
         </div>

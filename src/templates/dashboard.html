@@ -10,6 +10,41 @@
         <div class="dashboard">
             <h1 id="dash-title">Dashboard</h1>
 
+            <div class="kpi-grid">
+                {% set total_papers = statistics.publications_by_years() | map(attribute='publications') | sum %}
+                {% set total_editions = statistics.publications_by_years() | length %}
+                {% set total_authors = statistics.authors_rank() | length %}
+                {% set total_awards = statistics.award_winning_papers | map(attribute='Papers') | map('length') | sum %}
+                <div class="kpi-card kpi-cyan">
+                    <div class="kpi-icon">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                    <div class="kpi-value">{{ total_papers }}</div>
+                    <div class="kpi-label">Artigos publicados</div>
+                </div>
+                <div class="kpi-card kpi-cobalt">
+                    <div class="kpi-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </div>
+                    <div class="kpi-value">{{ total_editions }}</div>
+                    <div class="kpi-label">Edições WASHES</div>
+                </div>
+                <div class="kpi-card kpi-violet">
+                    <div class="kpi-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="kpi-value">{{ total_authors }}</div>
+                    <div class="kpi-label">Autores participantes</div>
+                </div>
+                <div class="kpi-card kpi-emerald">
+                    <div class="kpi-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                    </div>
+                    <div class="kpi-value">{{ total_awards }}</div>
+                    <div class="kpi-label">Artigos premiados</div>
+                </div>
+            </div>
+
             <div class="container">
                 <div class="artigos_premiados">
                     <div class="graph-header">
@@ -67,7 +102,18 @@
                                                     ({{ paper['Authors'][0]['Institution_acronym'] }})
                                                 </td>
                                             {% endif %}
-                                            <td>{{ paper['Award'] }}</td>
+                                            <td>
+                                                {% set award_text = paper['Award'] %}
+                                                {% if '1st' in award_text %}
+                                                    <span class="award-badge award-1st">{{ award_text }}</span>
+                                                {% elif '2nd' in award_text %}
+                                                    <span class="award-badge award-2nd">{{ award_text }}</span>
+                                                {% elif '3rd' in award_text %}
+                                                    <span class="award-badge award-3rd">{{ award_text }}</span>
+                                                {% else %}
+                                                    <span class="award-badge award-honorable">{{ award_text }}</span>
+                                                {% endif %}
+                                            </td>
                                             <td><a target="_blank" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
                                         </tr>
                                     {% endfor %}
@@ -183,8 +229,8 @@
                 </div>
 
                 <div class="artigos_por_categorias">
-                    <div class="donnuts">
-                        <div class="abordagem">
+                    <div class="method-grid">
+                        <div class="method-card abordagem">
                             <div class="graph-header">
                                 <span class="title">Artigos por abordagem</span>
                                 <div class="tooltip">
@@ -199,9 +245,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <canvas id="artigos-por-abordagem"></canvas>
+                            <div id="bar-abordagem"></div>
                         </div>
-                        <div class="objetivo">
+                        <div class="method-card objetivo">
                             <div class="graph-header">
                                 <span class="title">Artigos por objetivo</span>
                                 <div class="tooltip">
@@ -214,9 +260,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <canvas id="artigos-por-objetivo"></canvas>
+                            <div id="bar-objetivo"></div>
                         </div>
-                        <div class="procedimentos">
+                        <div class="method-card procedimentos">
                             <div class="graph-header">
                                 <span class="title">Artigos por procedimentos</span>
                                 <div class="tooltip">
@@ -229,9 +275,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <canvas id="artigos-por-procedimentos"></canvas>
+                            <div id="rank-procedimentos"></div>
                         </div>
-                        <div class="coleta-de-dados">
+                        <div class="method-card coleta-de-dados">
                             <div class="graph-header">
                                 <span class="title">Artigos por método de coleta de dados</span>
                                 <div class="tooltip">
@@ -245,9 +291,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <canvas id="artigos-por-coleta-dados"></canvas>
+                            <div id="rank-coleta-de-dados"></div>
                         </div>
-                        <div class="dados-quantitativos">
+                        <div class="method-card dados-quantitativos">
                             <div class="graph-header">
                                 <span class="title">Artigos por método de análise de dados quantitativos</span>
                                 <div class="tooltip">
@@ -262,9 +308,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <canvas id="artigos-por-quantitativos"></canvas>
+                            <div id="rank-quantitativos"></div>
                         </div>
-                        <div class="dados-qualitativos">
+                        <div class="method-card dados-qualitativos">
                             <div class="graph-header">
                                 <span class="title">Artigos por método de análise de dados qualitativos</span>
                                 <div class="tooltip">
@@ -279,7 +325,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <canvas id="artigos-por-qualitativos"></canvas>
+                            <div id="rank-qualitativos"></div>
                         </div>
                     </div>
                 </div>
@@ -288,6 +334,57 @@
     </main>
 
     <script>
+        const METHODOLOGY_PALETTE = ['#0EA5E9', '#2563EB', '#7C3AED', '#059669', '#F59E0B', '#64748B'];
+
+        function render_segmented_bar(container, items) {
+            const total = items.reduce((s, i) => s + i.count, 0);
+
+            const bar = document.createElement('div');
+            bar.className = 'segmented-bar';
+            items.forEach((item, idx) => {
+                const seg = document.createElement('div');
+                seg.className = 'segment';
+                seg.style.width = ((item.count / total) * 100) + '%';
+                seg.style.backgroundColor = METHODOLOGY_PALETTE[idx % METHODOLOGY_PALETTE.length];
+                bar.appendChild(seg);
+            });
+            container.appendChild(bar);
+
+            const badges = document.createElement('div');
+            badges.className = 'badge-grid';
+            items.forEach((item, idx) => {
+                const pct = ((item.count / total) * 100).toFixed(1);
+                const badge = document.createElement('span');
+                badge.className = 'method-badge';
+                badge.innerHTML =
+                    '<span class="badge-dot" style="background-color:' + METHODOLOGY_PALETTE[idx % METHODOLOGY_PALETTE.length] + '"></span>' +
+                    '<span class="badge-label">' + item.class + '</span>' +
+                    '<span class="badge-count">' + item.count + '</span>' +
+                    '<span class="badge-pct">(' + pct + '%)</span>';
+                badges.appendChild(badge);
+            });
+            container.appendChild(badges);
+        }
+
+        function render_ranked_list(container, items) {
+            const total = items.reduce((s, i) => s + i.count, 0);
+            const sorted = [...items].sort((a, b) => b.count - a.count);
+
+            const list = document.createElement('div');
+            list.className = 'rank-list';
+            sorted.forEach(item => {
+                const pct = ((item.count / total) * 100).toFixed(1);
+                const row = document.createElement('div');
+                row.className = 'rank-item';
+                row.innerHTML =
+                    '<span class="rank-name">' + item.class + '</span>' +
+                    '<span class="rank-stats">' + item.count + ' (' + pct + '%)</span>' +
+                    '<div class="rank-bar-track"><div class="rank-bar-fill" style="width:' + pct + '%"></div></div>';
+                list.appendChild(row);
+            });
+            container.appendChild(list);
+        }
+
         let active_edition = 0
         let active_button = null
 
@@ -300,13 +397,14 @@
             const old_table_lines = document.getElementsByClassName(`paper-from-${active_edition}`)
             for (const table_row of old_table_lines) {
                 table_row.style.display = 'none'
-                if (active_button)
-                    active_button.style.backgroundColor = '#0595FD'
+            }
+            if (active_button) {
+                active_button.classList.remove('active')
             }
             for (const table_row of new_tables_lines) {
                 table_row.style.display = ''
-                button.style.backgroundColor = '#2662F0'
             }
+            button.classList.add('active')
             active_edition = edition
             active_button = button
         }
@@ -333,12 +431,6 @@
             const papers_languages = document.getElementById("artigos-por-idioma")
             const institutions_ranking = document.getElementById("raking-institutions")
             const authors_ranking = document.getElementById("raking-authors")
-            const paper_per_approach = document.getElementById("artigos-por-abordagem")
-            const paper_per_objective = document.getElementById("artigos-por-objetivo")
-            const paper_per_procedure = document.getElementById("artigos-por-procedimentos")
-            const paper_per_data_collection = document.getElementById("artigos-por-coleta-dados")
-            const paper_per_quantitative = document.getElementById("artigos-por-quantitativos")
-            const paper_per_qualitative = document.getElementById("artigos-por-qualitativos")
             const cloud_words = document.getElementById("nuvem-de-palavras")
             const publications_per_state = document.getElementById("papers_per_state")
 
@@ -370,40 +462,22 @@
             })
 
             const papers_by_approach = {{ statistics.papers_by_approach() | tojson }}
-            insert_doughnut_chart(paper_per_approach, {
-                'labels': papers_by_approach.map(approachs => approachs.class),
-                'data': papers_by_approach.map(approachs => approachs.count)
-            })
+            render_segmented_bar(document.getElementById('bar-abordagem'), papers_by_approach)
 
             const papers_by_objective = {{ statistics.papers_by_objetive() | tojson }}
-            insert_doughnut_chart(paper_per_objective, {
-                'labels': papers_by_objective.map(objectives => objectives.class),
-                'data': papers_by_objective.map(objectives => objectives.count)
-            })
+            render_segmented_bar(document.getElementById('bar-objetivo'), papers_by_objective)
 
             const papers_by_procedure = {{ statistics.papers_by_procedures() | tojson }}
-            insert_doughnut_chart(paper_per_procedure, {
-                'labels': papers_by_procedure.map(procedures => procedures.class),
-                'data': papers_by_procedure.map(procedures => procedures.count)
-            })
+            render_ranked_list(document.getElementById('rank-procedimentos'), papers_by_procedure)
 
             const papers_by_data_collection = {{ statistics.papers_by_data_collection() | tojson }}
-            insert_doughnut_chart(paper_per_data_collection, {
-                'labels': papers_by_data_collection.map(data_collections => data_collections.class),
-                'data': papers_by_data_collection.map(data_collections => data_collections.count)
-            })
+            render_ranked_list(document.getElementById('rank-coleta-de-dados'), papers_by_data_collection)
 
             const papers_by_quanti_analy = {{ statistics.papers_by_quanti_data_analy() | tojson }}
-            insert_doughnut_chart(paper_per_quantitative, {
-                'labels': papers_by_quanti_analy.map(quanti_analys => quanti_analys.class),
-                'data': papers_by_quanti_analy.map(quanti_analys => quanti_analys.count)
-            })
+            render_ranked_list(document.getElementById('rank-quantitativos'), papers_by_quanti_analy)
 
             const papers_by_quali_analy = {{ statistics.papers_by_quali_data_analy() | tojson }}
-            insert_doughnut_chart(paper_per_qualitative, {
-                'labels': papers_by_quali_analy.map(quali_analys => quali_analys.class),
-                'data': papers_by_quali_analy.map(quali_analys => quali_analys.count)
-            })
+            render_ranked_list(document.getElementById('rank-qualitativos'), papers_by_quali_analy)
 
             const states = {{ statistics.states_rank() | tojson }}
             insert_brazil_map_chart(publications_per_state, states.reduce((acc, item) => {

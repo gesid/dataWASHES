@@ -45,9 +45,9 @@ a:hover { color: var(--dw-blue-600); }
 
 /* ===== Navbar ===== */
 nav {
-    background: rgba(10, 25, 47, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     padding: 10px 0;
     position: sticky;
     top: 0;
@@ -55,19 +55,18 @@ nav {
     width: 100%;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
 #menu-icon {
     display: none;
     font-size: 1.6rem;
-    color: #fff;
+    color: #334155;
     cursor: pointer;
     padding: 6px 16px;
     border-radius: var(--dw-radius-sm);
     transition: background .2s;
 }
-#menu-icon:hover { background: rgba(255,255,255,.15); }
+#menu-icon:hover { background: rgba(37,99,235,.08); }
 
 nav ul {
     list-style: none;
@@ -82,15 +81,15 @@ nav ul {
 nav li { margin: 0 10px; }
 
 nav li .nav-link {
-    color: #fff;
+    color: #334155;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: .95rem;
     padding: 7px 14px;
     border-radius: var(--dw-radius-sm);
     transition: background .2s, color .2s;
 }
-nav li .nav-link:hover { background: rgba(255,255,255,.18); color: #fff; }
+nav li .nav-link:hover { background: rgba(37,99,235,.08); color: #2563EB; }
 
 #logo-conteiner {
     padding: 6px;
@@ -138,9 +137,9 @@ nav li .nav-link:hover { background: rgba(255,255,255,.18); color: #fff; }
         top: 56px;
         left: 0;
         width: 100%;
-        background: rgba(10, 25, 47, 0.95);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        background: #FFFFFF;
+        border-bottom: 1px solid #E2E8F0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         z-index: 1001;
         padding: 8px 0;
     }
