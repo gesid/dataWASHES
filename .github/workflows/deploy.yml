@@ -18,10 +18,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Dependencies
-        run: pip install requests
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install chromium --with-deps
 
       - name: Execute Deploy & Reload
         env:
-          PYTHONANYWHERE_API_TOKEN: ${{ secrets.PYTHONANYWHERE_API_TOKEN }}
+          PYTHONANYWHERE_USERNAME: "datawashes"
+          PYTHONANYWHERE_PASSWORD: ${{ secrets.PYTHONANYWHERE_PASSWORD }}
         run: python scripts/deploy_pythonanywhere.py
