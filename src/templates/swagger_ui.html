@@ -13,11 +13,11 @@
         <!-- ===== HERO ===== -->
         <section class="dw-hero">
             <div class="dw-hero-inner">
-                <span class="dw-badge dw-badge-version">v1.0</span>
+                <span class="dw-badge dw-badge-version">v2.0</span>
                 <h1 class="dw-hero-title">data<span class="dw-hero-accent">WASHES</span> API</h1>
                 <p class="dw-hero-subtitle">
                     Open REST API para acesso programático aos dados acadêmicos do
-                    <strong>Workshop on Social, Human, and Economic Aspects of Software</strong>
+                    <strong>Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES)</strong>
                 </p>
 
                 <div class="dw-hero-badges">
@@ -48,7 +48,7 @@
                         <span>&#128187;</span> Repositório GitHub
                     </a>
                     <a href="https://sol.sbc.org.br/index.php/washes" target="_blank" class="dw-btn dw-btn-outline">
-                        <span>&#128218;</span> Anais no SOL SBC
+                        <span>&#128218;</span> Anais na SOL SBC
                     </a>
                 </div>
             </div>
@@ -69,13 +69,13 @@
                 <div class="dw-code-panel dw-panel-active" id="panel-curl">
                     <button class="dw-copy-btn" onclick="copyCode(this)">Copiar</button>
                     <pre><code><span class="dw-code-comment"># Listar todos os artigos de 2026</span>
-curl -X GET "https://datawashes.fly.dev/papers/by-year/2026"
+curl -X GET "https://datawashes.pythonanywhere.com/papers/by-year/2026"
 
 <span class="dw-code-comment"># Buscar autores por nome</span>
-curl -X GET "https://datawashes.fly.dev/authors/by-name/ana"
+curl -X GET "https://datawashes.pythonanywhere.com/authors/by-name/ana"
 
 <span class="dw-code-comment"># Listar todas as edições</span>
-curl -X GET "https://datawashes.fly.dev/editions/"</code></pre>
+curl -X GET "https://datawashes.pythonanywhere.com/editions/"</code></pre>
                 </div>
                 <div class="dw-code-panel" id="panel-python">
                     <button class="dw-copy-btn" onclick="copyCode(this)">Copiar</button>
@@ -83,7 +83,7 @@ curl -X GET "https://datawashes.fly.dev/editions/"</code></pre>
 
 <span class="dw-code-comment"># Listar todos os artigos de 2026</span>
 papers = requests.<span class="dw-code-func">get</span>(
-    <span class="dw-code-string">"https://datawashes.fly.dev/papers/by-year/2026"</span>
+    <span class="dw-code-string">"https://datawashes.pythonanywhere.com/papers/by-year/2026"</span>
 ).<span class="dw-code-func">json</span>()
 
 <span class="dw-code-keyword">for</span> paper <span class="dw-code-keyword">in</span> papers[<span class="dw-code-string">"data"</span>]:
@@ -93,7 +93,7 @@ papers = requests.<span class="dw-code-func">get</span>(
                     <button class="dw-copy-btn" onclick="copyCode(this)">Copiar</button>
                     <pre><code><span class="dw-code-comment">// Listar todos os artigos de 2026</span>
 <span class="dw-code-keyword">const</span> res = <span class="dw-code-keyword">await</span> <span class="dw-code-func">fetch</span>(
-  <span class="dw-code-string">"https://datawashes.fly.dev/papers/by-year/2026"</span>
+  <span class="dw-code-string">"https://datawashes.pythonanywhere.com/papers/by-year/2026"</span>
 );
 <span class="dw-code-keyword">const</span> papers = <span class="dw-code-keyword">await</span> res.<span class="dw-code-func">json</span>();
 
@@ -140,6 +140,12 @@ papers.data.<span class="dw-code-func">forEach</span>(p =&gt; {
                         Nossa meta é oferecer à comunidade uma ferramenta para acessar
                         <strong>sistematicamente e programaticamente</strong> dados de papers, autores e edições.
                     </p>
+                    <p class="dw-card-text" style="margin-top:12px;font-weight:600;color:var(--dw-gray-800);">Artigos publicados:</p>
+                    <ul class="dw-card-text" style="margin-top:4px;padding-left:18px;">
+                        <li><a href="https://sol.sbc.org.br/index.php/washes/article/view/29445" target="_blank">dataWASHES - Towards an Application Programming Interface of WASHES proceedings data</a> — WASHES 2024</li>
+                        <li><a href="https://sol.sbc.org.br/index.php/washes/article/view/35917" target="_blank">Bridging Open Science and Data Visualization: Evaluating the Usability of dataWASHES Dashboard</a> — WASHES 2025</li>
+                        <li><a href="https://sol.sbc.org.br/index.php/washes/article/view/43019" target="_blank">Integrating Usability and Data Visualization in Open Science: An Evaluation of the dataWASHES Dashboard</a> — Revista iSys 2026</li>
+                    </ul>
                 </div>
                 <div class="dw-card">
                     <div class="dw-card-icon">&#128218;</div>
@@ -148,9 +154,10 @@ papers.data.<span class="dw-code-func">forEach</span>(p =&gt; {
                         Os anais do WASHES estão disponíveis na
                         <a href="https://sol.sbc.org.br/index.php/washes" target="_blank">SBC OpenLib (SOL)</a>.
                         Todos os documentos publicados são disponibilizados sob a licença
-                        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons (CC BY 4.0)</a>,
-                        permitindo cópia e redistribuição em qualquer meio ou formato.
-                        O desenvolvimento é colaborativo sob <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>.
+                        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons (CC BY 4.0)</a>
+                        (SBC), permitindo cópia e redistribuição em qualquer meio ou formato.
+                        A API dataWASHES é desenvolvida de forma colaborativa sob
+                        <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a> (GESID).
                     </p>
                 </div>
             </div>
@@ -205,12 +212,12 @@ papers.data.<span class="dw-code-func">forEach</span>(p =&gt; {
                 <a href="{{ url_for('swagger_template') }}">
                     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" height="30px">
                 </a>
-                <p class="dw-footer-copy">MIT License &copy; 2016 – 2026</p>
+                <p class="dw-footer-copy">dataWASHES &bull; MIT License &copy; 2024 – 2026</p>
             </div>
             <div class="dw-footer-links">
                 <a href="https://github.com/gesid/dataWASHES/" target="_blank">GitHub</a>
                 <a href="https://sol.sbc.org.br/index.php/washes" target="_blank">SBC OpenLib</a>
-                <a href="https://sites.google.com/view/washes-series/" target="_blank">WASHES</a>
+                <a href="https://sol.sbc.org.br/index.php/washes" target="_blank">WASHES</a>
                 <a href="https://gesid.github.io/" target="_blank">GESID</a>
             </div>
         </div>

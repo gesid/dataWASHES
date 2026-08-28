@@ -75,7 +75,7 @@
                                     {% for paper in edition_papers['Papers'] %}
                                         <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
                                             <td>{{ paper['Title'] }}</td>
-                                            {% if paper['Authors'] | length > 2 %}
+                                            {% if paper['Authors'] | length >= 2 %}
                                                 <td>{{ paper['Authors'][0]['Name'] }}
                                                     ({{ paper['Authors'][0]['Institution_acronym'] }})
                                                     <div class="tooltip">
@@ -90,12 +90,6 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                </td>
-                                            {% elif paper['Authors'] | length == 2 %}
-                                                <td>{{ paper['Authors'][0]['Name'] }}
-                                                    ({{ paper['Authors'][0]['Institution_acronym'] }})
-                                                    e {{ paper['Authors'][1]['Name'] }}
-                                                    ({{ paper['Authors'][1]['Institution_acronym'] }})
                                                 </td>
                                             {% else %}
                                                 <td>{{ paper['Authors'][0]['Name'] }}
@@ -333,11 +327,76 @@
         </div>
     </main>
 
+    <div id="papers-modal" class="papers-modal" onclick="if(event.target===this)closePapersModal()">
+        <div class="papers-modal-content">
+            <button class="papers-modal-close" onclick="closePapersModal()">&times;</button>
+            <h3 id="papers-modal-title" class="papers-modal-title"></h3>
+            <div id="papers-modal-body" class="papers-modal-body"></div>
+        </div>
+    </div>
+
     <script>
         const METHODOLOGY_PALETTE = ['#0EA5E9', '#2563EB', '#7C3AED', '#059669', '#F59E0B', '#64748B'];
+        const allPapers = {{ statistics.papers_db | tojson }};
+
+        const FIELD_LABELS = {
+            'Approach': 'Abordagem',
+            'Objective': 'Objetivo',
+            'Procedures': 'Procedimentos',
+            'Data_collection': 'Coleta de Dados',
+            'Quantitative_Data_Analysis': 'Análise Quantitativa',
+            'Qualitative_Data_Analysis': 'Análise Qualitativa'
+        };
+
+        function openCategoryModal(field, value) {
+            const filtered = allPapers.filter(p => {
+                const v = p[field];
+                if (!v || v === '#') return false;
+                return v.split(',').map(s => s.trim()).includes(value);
+            });
+            const modal = document.getElementById('papers-modal');
+            const modalTitle = document.getElementById('papers-modal-title');
+            const modalBody = document.getElementById('papers-modal-body');
+            const label = FIELD_LABELS[field] || field;
+            modalTitle.textContent = label + ': ' + value + ' (' + filtered.length + ' artigo' + (filtered.length !== 1 ? 's' : '') + ')';
+            modalBody.innerHTML = '';
+            if (filtered.length === 0) {
+                modalBody.innerHTML = '<p style="color:var(--dw-text-secondary);text-align:center;padding:20px 0;">Nenhum artigo encontrado.</p>';
+            } else {
+                const ul = document.createElement('ul');
+                ul.className = 'papers-modal-list';
+                filtered.forEach(p => {
+                    const authorsStr = p.Authors.map(a => a.Name + ' (' + a.Institution_acronym + ')').join(', ');
+                    const li = document.createElement('li');
+                    li.className = 'papers-modal-card';
+                    li.innerHTML =
+                        '<div class="papers-modal-card-title">' + p.Title + '</div>' +
+                        '<div class="papers-modal-card-meta">' + p.Year + ' &middot; ' + authorsStr + '</div>' +
+                        '<a class="papers-modal-card-link" href="' + p.Download_link + '" target="_blank">🔍 Acessar na SOL SBC</a>';
+                    ul.appendChild(li);
+                });
+                modalBody.appendChild(ul);
+            }
+            modal.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePapersModal() {
+            const modal = document.getElementById('papers-modal');
+            modal.classList.remove('visible');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closePapersModal();
+        });
 
         function render_segmented_bar(container, items) {
             const total = items.reduce((s, i) => s + i.count, 0);
+            const fieldName = Object.keys(FIELD_LABELS).find(k => container.id.includes(k.toLowerCase().replace(/_/g, '')) || (
+                (container.id === 'bar-abordagem' && k === 'Approach') ||
+                (container.id === 'bar-objetivo' && k === 'Objective')
+            ));
 
             const bar = document.createElement('div');
             bar.className = 'segmented-bar';
@@ -346,6 +405,11 @@
                 seg.className = 'segment';
                 seg.style.width = ((item.count / total) * 100) + '%';
                 seg.style.backgroundColor = METHODOLOGY_PALETTE[idx % METHODOLOGY_PALETTE.length];
+                seg.style.cursor = 'pointer';
+                seg.title = item.class + ': ' + item.count + ' artigos';
+                if (fieldName) {
+                    seg.addEventListener('click', () => openCategoryModal(fieldName, item.class));
+                }
                 bar.appendChild(seg);
             });
             container.appendChild(bar);
@@ -356,6 +420,10 @@
                 const pct = ((item.count / total) * 100).toFixed(1);
                 const badge = document.createElement('span');
                 badge.className = 'method-badge';
+                badge.style.cursor = 'pointer';
+                if (fieldName) {
+                    badge.addEventListener('click', () => openCategoryModal(fieldName, item.class));
+                }
                 badge.innerHTML =
                     '<span class="badge-dot" style="background-color:' + METHODOLOGY_PALETTE[idx % METHODOLOGY_PALETTE.length] + '"></span>' +
                     '<span class="badge-label">' + item.class + '</span>' +
@@ -369,6 +437,13 @@
         function render_ranked_list(container, items) {
             const total = items.reduce((s, i) => s + i.count, 0);
             const sorted = [...items].sort((a, b) => b.count - a.count);
+            const fieldMap = {
+                'rank-procedimentos': 'Procedures',
+                'rank-coleta-de-dados': 'Data_collection',
+                'rank-quantitativos': 'Quantitative_Data_Analysis',
+                'rank-qualitativos': 'Qualitative_Data_Analysis'
+            };
+            const fieldName = fieldMap[container.id];
 
             const list = document.createElement('div');
             list.className = 'rank-list';
@@ -376,6 +451,10 @@
                 const pct = ((item.count / total) * 100).toFixed(1);
                 const row = document.createElement('div');
                 row.className = 'rank-item';
+                row.style.cursor = 'pointer';
+                if (fieldName) {
+                    row.addEventListener('click', () => openCategoryModal(fieldName, item.class));
+                }
                 row.innerHTML =
                     '<span class="rank-name">' + item.class + '</span>' +
                     '<span class="rank-stats">' + item.count + ' (' + pct + '%)</span>' +
@@ -422,9 +501,10 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            const lastEdition = {{ statistics.award_winning_papers[-1]['Year'] }};
             paginate_papers_table(
-                document.getElementById('button-{{ statistics.award_winning_papers[0]['Year'] }}'),
-                {{ statistics.award_winning_papers[0]['Year'] }}
+                document.getElementById('button-' + lastEdition),
+                lastEdition
             )
 
             const papers_editions = document.getElementById("artigos-por-edicao")

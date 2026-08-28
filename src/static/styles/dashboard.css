@@ -16,15 +16,15 @@
     --dw-border: #E2E8F0;
 }
 
+html, body {
+    width: 100%;
+    height: auto;
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--dw-bg);
     color: var(--dw-text);
-}
-
-html, body {
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
 }
 
 main {
@@ -35,7 +35,7 @@ main {
 
 canvas {
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 
 #dash-title {
@@ -140,7 +140,7 @@ canvas {
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1.3fr .8fr .8fr 1fr;
+    grid-template-rows: auto;
     gap: 20px;
     grid-auto-flow: row;
     grid-template-areas:
@@ -148,8 +148,6 @@ canvas {
         "ranking_autore ranking_instituicoes"
         "nuvem_palavras artigos_por_estado"
         "artigos_premiados artigos_premiados"
-        "artigos_por_categorias artigos_por_categorias"
-        "artigos_por_categorias artigos_por_categorias"
         "artigos_por_categorias artigos_por_categorias";
 }
 
@@ -543,8 +541,7 @@ canvas {
 
 .graph-container {
     position: relative;
-    height: 0;
-    padding-bottom: 75%;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -573,8 +570,6 @@ canvas {
             "nuvem_palavras"
             "artigos_por_estado"
             "artigos_premiados"
-            "artigos_por_categorias"
-            "artigos_por_categorias"
             "artigos_por_categorias";
     }
 
@@ -645,4 +640,152 @@ canvas {
         transform: none !important;
         margin-left: 10px;
     }
+}
+
+/* ── Papers Modal (Drill-down) ── */
+.papers-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 25, 47, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.papers-modal.visible {
+    display: flex;
+}
+
+.papers-modal-content {
+    background: var(--dw-card);
+    border-radius: 16px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+    max-width: 760px;
+    width: 100%;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    animation: papersModalIn 0.25s ease;
+}
+
+@keyframes papersModalIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.papers-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--dw-text-secondary);
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+    z-index: 1;
+}
+
+.papers-modal-close:hover {
+    background: #F1F5F9;
+    color: var(--dw-text);
+}
+
+.papers-modal-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dw-text);
+    padding: 20px 24px 14px;
+    margin: 0;
+    border-bottom: 1px solid var(--dw-border);
+    padding-right: 48px;
+}
+
+.papers-modal-body {
+    padding: 16px 24px 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.papers-modal-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.papers-modal-card {
+    background: #F8FAFC;
+    border: 1px solid var(--dw-border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.papers-modal-card:hover {
+    border-color: var(--dw-primary);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.12);
+    transform: translateY(-1px);
+}
+
+.papers-modal-card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dw-text);
+    margin-bottom: 6px;
+    line-height: 1.45;
+}
+
+.papers-modal-card-meta {
+    font-size: 0.78rem;
+    color: var(--dw-text-secondary);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.papers-modal-card-link {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--dw-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.papers-modal-card-link:hover {
+    color: var(--dw-cobalt);
+    text-decoration: underline;
+}
+
+/* ── Methodology clickable items ── */
+.rank-item:hover .rank-name {
+    color: var(--dw-primary);
+}
+
+.method-badge:hover {
+    border-color: var(--dw-primary);
+    background: #EFF6FF;
+}
+
+/* ── No forced heights, clean footer gap ── */
+.container, .dashboard {
+    height: auto !important;
+    min-height: auto !important;
+    padding-bottom: 32px !important;
+    margin-bottom: 0 !important;
+}
+
+main {
+    padding-bottom: 0;
+    margin-bottom: 0;
 }

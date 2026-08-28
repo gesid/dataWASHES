@@ -1065,6 +1065,71 @@
     "Year": 2026,
     "Papers": [
       {
+        "Paper_id": 131,
+        "Title": "What Does the Brazilian Industry Expect from Product Owners? An Analysis of Soft Skills in Job Postings",
+        "Language": "en",
+        "Year": 2026,
+        "Abstract": "The Product Owner (PO) plays a central role in agile software development by connecting stakeholders and development teams. This study identifies and analyzes the soft skills required of POs in the Brazilian software industry by analyzing 202 job postings published between July and October 2025 on LinkedIn, Gupy, and Glassdoor. The results indicate a predominance of skills related to communication, analytical abilities, collaboration, and negotiation. Notably, communication appears in 54% of the analyzed postings, making it the most frequently mentioned soft skill. The findings contribute to understanding the competencies valued by the industry and may support the development of professional resumes and academic curricula for PO training.",
+        "Resumo": "The Product Owner (PO) plays a central role in agile software development by connecting stakeholders and development teams. This study identifies and analyzes the soft skills required of POs in the Brazilian software industry by analyzing 202 job postings published between July and October 2025 on LinkedIn, Gupy, and Glassdoor. The results indicate a predominance of skills related to communication, analytical abilities, collaboration, and negotiation. Notably, communication appears in 54% of the analyzed postings, making it the most frequently mentioned soft skill. The findings contribute to understanding the competencies valued by the industry and may support the development of professional resumes and academic curricula for PO training.",
+        "Keywords": "#",
+        "Type": "Full paper",
+        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/43019",
+        "References": [
+          "Ayas, H. M., Hebig, R., and Leitner, P. (2024). The Roles, Responsibilities, and Skills of Engineers in the Era of Microservices-Based Architectures. In Proceedings of the 2024 IEEE/ACM 17th International Conference on Cooperative and Human Aspects of Software Engineering, pages 13–23, Lisbon Portugal. ACM.",
+          "Bodrick, M. M., Almutairi, M. B., Aljuffali, L. A., Obaid, A. A., Albisher, A. K., Alsuhaim, M. I., Alhabib, I. M., and Alqarni, H. M. (2025). Amplifying learning development in human capability advancement through soft and hard skills. Journal of Learning and Development Studies.",
+          "Bo¨rner, K., Scrivner, O., Gallant, M., na Ma, S., Liu, X., Chewning, K., Wu, L., and Evans, J. A. (2018). Skill discrepancies between research, education, and jobs reveal Proceedings of the National the critical need to supply soft skills for the data economy. Academy of Sciences, 115:12630 – 12637.",
+          "Cavalcante, V., Costa, C., and Soares, D. (2024). Beyond code: the development of soft skills through training in software engineering. In Anais do XXXVIII Simpośio Brasileiro de Engenharia de Software, pages 521–531, Porto Alegre, RS, Brasil. SBC.",
+          "Coelho, M., Arau´jo, A., Freire, S., and Paixao, M. (2024). Um estudo comparativo entre a visaõ de líderes e liderados sobre a importaˆncia de soft skills em desenvolvimento de de Software, pages 130–140, Porto Alegre, RS, Brasil. SBC.",
+          "Diniz, W., Gadelha, B., Steinmacher, I., and Franc¸a, C. (2025). Habilidades colaborativas no mercado de ti: Uma investigac¸aõ sobre requisitos de soft skills. In Anais do XX Simpośio Brasileiro de Sistemas Colaborativos, pages 139–150, Porto Alegre, RS, Brasil. SBC.",
+          "Dutra, E., Cerdeiral, C., Lima, P., Escalfoni, R., Diirr, B., and Santos, G. (2023). Using an instrument to assess trust, knowledge, learning, and motivation of agile teams. iSysBrazilian Journal of Information Systems, 16(1):7–1.",
+          "Figueiredo, J. G. (2025). Metodologias aǵeis no desenvolvimento de software para INOVAC¸AÕ INVESTIGAC¸AÕ universidade digital. RICA-KIANDA: REVISTA DE E CIENTI´FICA DA UNIVERSIDADE DE LUANDA, 1(01):228–242.",
+          "Galster, M., Mitrovic, A., Malinen, S., Holland, J., and Peiris, P. (2023). Soft skills required from software professionals in new zealand. Inf. Softw. Technol., 160:107232.",
+          "Gonzaĺez-Morales, D., de Antonio, L. M. M., and García, J. L. R. (2011). Teaching \"soft\" skills in software engineering. 2011 IEEE Global Engineering Education Conference (EDUCON), pages 630–637.",
+          "Kadenic, M. D., de Jesus Pacheco, D. A., Koumaditis, K., Tjørnehøj, G., and Tambo, T. (2023). Investigating the role of product owner in scrum teams: Differentiation between organisational and individual impacts and opportunities. Journal of Systems and Software, 206:111841.",
+          "Lima, I. and Bezerra, C. (2026). Soft skills in agile culture: An analysis of literature, job vacancies, and survey evidence on the product owner in the information systems industry. Simpośio Brasileiro de Sistemas de Informac¸aõ (SBSI), pages 204–211.",
+          "Malinen, S., Galster, M., Mitrovic, A., Iyer, S., Peiris, P., and Clarke, A. (2025). Soft skills in software engineering: Insights from the trenches. 2025 IEEE/ACM 47th International Conference on Software Engineering: Software Engineering in Practice (ICSE-SEIP), pages 296–306.",
+          "Marinho, M., Bastos, T. A., and Sampaio, S. (2021). Soft skills for newborn software engineers in agile teams. International Journal of Agile Systems and Management, 14:27.",
+          "Matturro, G., Cordoveś, F., and Solari, M. (2018). Role of product owner from the practitioner's perspective. an exploratory study. In Proceedings of the International Conference on Software Engineering Research and Practice (SERP), pages 113–118. The Steering Committee of The World Congress in Computer Science, Computer ....",
+          "Matturro, G., Fontań, C., and Raschetti, F. (2015). Soft skills in scrum teams. a survey of the most valued to have by product owners and scrum masters. In SEKE, pages 42–45.",
+          "Medvid, M., Medvid, Y. I., Mudra, S., Storosˇka, M., and Havryshchuk, M. (2024). Pedagogical conditions for soft skills development in future officers: evidence from the national guard of ukraine during wartime. Educational Dimension.",
+          "Polaḱova´, M., Suleimanova´, J. H., Madzík, P., Copusˇ, L., Molnaŕova´, I., and Polednova´, J. (2023). Soft skills and their importance in the labour market under the conditions of industry 5.0. Heliyon, 9.",
+          "Reis Lima, A. P. d. and Amaral, D. C. (2022). O que fazer quando naõ ha´ product owner? um estudo sobre a auseˆncia desse papel. Revista de Gestaõ e Projetos, 13(2):38–65.",
+          "Silva Farias, R., Ahmed, I., and De Almeida, E. S. (2025). What Makes a Great Software Quality Assurance Engineer? IEEE Transactions on Software Engineering, 51(4):1153–1172. Publisher: Institute of Electrical and Electronics Engineers (IEEE).",
+          "Toikkanen, T., Hyrynsalmi, S., and Paasivaara, M. (2023). How does the role of a product ICSPM 2023: Internaowner relate to the role of a software product manager? In tional Conference on Software Product Management. Lecture Notes in Informatics. Gesellschaft fu¨r Informatik eV.",
+          "Unger-Windeler, C., Klu¨nder, J. A.-C., Reuscher, T., and Schneider, K. (2021). Are product owners communicators? a multi-method research approach to provide a more comprehensive picture of product owners in practice. Journal of Software: Evolution and Process, 33(1):e2311.",
+          "Valle, R. A., Souza, A. C. C., and Valle, P. H. D. (2025). Aligning soft skills in requirements engineering between academia and industry: A pilot study. In Workshop sobre Aspectos Sociais, Humanos e Econoˆmicos de Software (WASHES), pages 166–177. SBC.",
+          "Wazlawick, P., Wazlawick, R. S., and Cassol, L. A. (2024). Competeˆncias humanas em ontologia para o futuro:: O desenvolvimento de uma revisaõ sistema´tica de literatura em tecnologia da informac¸aõ. In VI Congresso Internacional de Ontopsicologia e Desenvolvimento Humano, pages 6–22.",
+          "Wohlin, C., Runeson, P., Ho¨st, M., Ohlsson, M. C., Regnell, B., Wessleń, A., et al. (2012). Experimentation in software engineering, volume 236. Springer."
+        ],
+        "Cited_by": [
+          "#"
+        ],
+        "Updated_in": "2026-07-26",
+        "Authors": [
+          {
+            "Name": "Israely Lima",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 335,
+            "Institution_acronym": "UFC"
+          },
+          {
+            "Name": "Carla Bezerra",
+            "Institution": "Universidade Federal do Ceará (UFC)",
+            "State": "CE",
+            "Author_id": 307,
+            "Institution_acronym": "UFC"
+          }
+        ],
+        "Approach": "Mista",
+        "Objective": "Descritiva",
+        "Procedures": "Pesquisa documental",
+        "Data_collection": "Pesquisa documental",
+        "Quantitative_Data_Analysis": "Estatística descritiva",
+        "Qualitative_Data_Analysis": "Análise de conteúdo",
+        "Award": "1° Lugar"
+      },
+      {
         "Paper_id": 119,
         "Title": "Avaliação do Desenvolvimento de Competências em Engenharia de Software: Um Estudo de Caso em um Projeto Acadêmico de Desenvolvimento de Software",
         "Language": "pt",
@@ -1140,7 +1205,7 @@
           }
         ],
         "Approach": "Mista",
-        "Objective": "Exploratória",
+        "Objective": "Descritiva",
         "Procedures": "Estudo de caso",
         "Data_collection": "Entrevista",
         "Quantitative_Data_Analysis": "Teste de hipótese",
@@ -1200,7 +1265,7 @@
           }
         ],
         "Approach": "Mista",
-        "Objective": "Exploratória e descritiva",
+        "Objective": "Descritiva",
         "Procedures": "Estudo de caso",
         "Data_collection": "Questionário",
         "Quantitative_Data_Analysis": "Estatística descritiva",
@@ -1270,9 +1335,9 @@
           }
         ],
         "Approach": "Mista",
-        "Objective": "Exploratória",
+        "Objective": "Descritiva",
         "Procedures": "Revisão de literatura",
-        "Data_collection": "Análise documental",
+        "Data_collection": "Pesquisa documental",
         "Quantitative_Data_Analysis": "Estatística descritiva",
         "Qualitative_Data_Analysis": "Análise de conteúdo",
         "Award": "Mencao Honrosa"
@@ -1344,71 +1409,6 @@
         "Quantitative_Data_Analysis": "Estatística descritiva",
         "Qualitative_Data_Analysis": "Análise de conteúdo",
         "Award": "Mencao Honrosa"
-      },
-      {
-        "Paper_id": 131,
-        "Title": "What Does the Brazilian Industry Expect from Product Owners? An Analysis of Soft Skills in Job Postings",
-        "Language": "en",
-        "Year": 2026,
-        "Abstract": "The Product Owner (PO) plays a central role in agile software development by connecting stakeholders and development teams. This study identifies and analyzes the soft skills required of POs in the Brazilian software industry by analyzing 202 job postings published between July and October 2025 on LinkedIn, Gupy, and Glassdoor. The results indicate a predominance of skills related to communication, analytical abilities, collaboration, and negotiation. Notably, communication appears in 54% of the analyzed postings, making it the most frequently mentioned soft skill. The findings contribute to understanding the competencies valued by the industry and may support the development of professional resumes and academic curricula for PO training.",
-        "Resumo": "The Product Owner (PO) plays a central role in agile software development by connecting stakeholders and development teams. This study identifies and analyzes the soft skills required of POs in the Brazilian software industry by analyzing 202 job postings published between July and October 2025 on LinkedIn, Gupy, and Glassdoor. The results indicate a predominance of skills related to communication, analytical abilities, collaboration, and negotiation. Notably, communication appears in 54% of the analyzed postings, making it the most frequently mentioned soft skill. The findings contribute to understanding the competencies valued by the industry and may support the development of professional resumes and academic curricula for PO training.",
-        "Keywords": "#",
-        "Type": "Full paper",
-        "Download_link": "https://sol.sbc.org.br/index.php/washes/article/view/43019",
-        "References": [
-          "Ayas, H. M., Hebig, R., and Leitner, P. (2024). The Roles, Responsibilities, and Skills of Engineers in the Era of Microservices-Based Architectures. In Proceedings of the 2024 IEEE/ACM 17th International Conference on Cooperative and Human Aspects of Software Engineering, pages 13–23, Lisbon Portugal. ACM.",
-          "Bodrick, M. M., Almutairi, M. B., Aljuffali, L. A., Obaid, A. A., Albisher, A. K., Alsuhaim, M. I., Alhabib, I. M., and Alqarni, H. M. (2025). Amplifying learning development in human capability advancement through soft and hard skills. Journal of Learning and Development Studies.",
-          "Bo¨rner, K., Scrivner, O., Gallant, M., na Ma, S., Liu, X., Chewning, K., Wu, L., and Evans, J. A. (2018). Skill discrepancies between research, education, and jobs reveal Proceedings of the National the critical need to supply soft skills for the data economy. Academy of Sciences, 115:12630 – 12637.",
-          "Cavalcante, V., Costa, C., and Soares, D. (2024). Beyond code: the development of soft skills through training in software engineering. In Anais do XXXVIII Simpośio Brasileiro de Engenharia de Software, pages 521–531, Porto Alegre, RS, Brasil. SBC.",
-          "Coelho, M., Arau´jo, A., Freire, S., and Paixao, M. (2024). Um estudo comparativo entre a visaõ de líderes e liderados sobre a importaˆncia de soft skills em desenvolvimento de de Software, pages 130–140, Porto Alegre, RS, Brasil. SBC.",
-          "Diniz, W., Gadelha, B., Steinmacher, I., and Franc¸a, C. (2025). Habilidades colaborativas no mercado de ti: Uma investigac¸aõ sobre requisitos de soft skills. In Anais do XX Simpośio Brasileiro de Sistemas Colaborativos, pages 139–150, Porto Alegre, RS, Brasil. SBC.",
-          "Dutra, E., Cerdeiral, C., Lima, P., Escalfoni, R., Diirr, B., and Santos, G. (2023). Using an instrument to assess trust, knowledge, learning, and motivation of agile teams. iSysBrazilian Journal of Information Systems, 16(1):7–1.",
-          "Figueiredo, J. G. (2025). Metodologias aǵeis no desenvolvimento de software para INOVAC¸AÕ INVESTIGAC¸AÕ universidade digital. RICA-KIANDA: REVISTA DE E CIENTI´FICA DA UNIVERSIDADE DE LUANDA, 1(01):228–242.",
-          "Galster, M., Mitrovic, A., Malinen, S., Holland, J., and Peiris, P. (2023). Soft skills required from software professionals in new zealand. Inf. Softw. Technol., 160:107232.",
-          "Gonzaĺez-Morales, D., de Antonio, L. M. M., and García, J. L. R. (2011). Teaching “soft” skills in software engineering. 2011 IEEE Global Engineering Education Conference (EDUCON), pages 630–637.",
-          "Kadenic, M. D., de Jesus Pacheco, D. A., Koumaditis, K., Tjørnehøj, G., and Tambo, T. (2023). Investigating the role of product owner in scrum teams: Differentiation between organisational and individual impacts and opportunities. Journal of Systems and Software, 206:111841.",
-          "Lima, I. and Bezerra, C. (2026). Soft skills in agile culture: An analysis of literature, job vacancies, and survey evidence on the product owner in the information systems industry. Simpośio Brasileiro de Sistemas de Informac¸aõ (SBSI), pages 204–211.",
-          "Malinen, S., Galster, M., Mitrovic, A., Iyer, S., Peiris, P., and Clarke, A. (2025). Soft skills in software engineering: Insights from the trenches. 2025 IEEE/ACM 47th International Conference on Software Engineering: Software Engineering in Practice (ICSE-SEIP), pages 296–306.",
-          "Marinho, M., Bastos, T. A., and Sampaio, S. (2021). Soft skills for newborn software engineers in agile teams. International Journal of Agile Systems and Management, 14:27.",
-          "Matturro, G., Cordoveś, F., and Solari, M. (2018). Role of product owner from the practitioner’s perspective. an exploratory study. In Proceedings of the International Conference on Software Engineering Research and Practice (SERP), pages 113–118. The Steering Committee of The World Congress in Computer Science, Computer ....",
-          "Matturro, G., Fontań, C., and Raschetti, F. (2015). Soft skills in scrum teams. a survey of the most valued to have by product owners and scrum masters. In SEKE, pages 42–45.",
-          "Medvid, M., Medvid, Y. I., Mudra, S., Storosˇka, M., and Havryshchuk, M. (2024). Pedagogical conditions for soft skills development in future officers: evidence from the national guard of ukraine during wartime. Educational Dimension.",
-          "Polaḱova´, M., Suleimanova´, J. H., Madzík, P., Copusˇ, L., Molnaŕova´, I., and Polednova´, J. (2023). Soft skills and their importance in the labour market under the conditions of industry 5.0. Heliyon, 9.",
-          "Reis Lima, A. P. d. and Amaral, D. C. (2022). O que fazer quando naõ ha´ product owner? um estudo sobre a auseˆncia desse papel. Revista de Gestaõ e Projetos, 13(2):38–65.",
-          "Silva Farias, R., Ahmed, I., and De Almeida, E. S. (2025). What Makes a Great Software Quality Assurance Engineer? IEEE Transactions on Software Engineering, 51(4):1153–1172. Publisher: Institute of Electrical and Electronics Engineers (IEEE).",
-          "Toikkanen, T., Hyrynsalmi, S., and Paasivaara, M. (2023). How does the role of a product ICSPM 2023: Internaowner relate to the role of a software product manager? In tional Conference on Software Product Management. Lecture Notes in Informatics. Gesellschaft fu¨r Informatik eV.",
-          "Unger-Windeler, C., Klu¨nder, J. A.-C., Reuscher, T., and Schneider, K. (2021). Are product owners communicators? a multi-method research approach to provide a more comprehensive picture of product owners in practice. Journal of Software: Evolution and Process, 33(1):e2311.",
-          "Valle, R. A., Souza, A. C. C., and Valle, P. H. D. (2025). Aligning soft skills in requirements engineering between academia and industry: A pilot study. In Workshop sobre Aspectos Sociais, Humanos e Econoˆmicos de Software (WASHES), pages 166–177. SBC.",
-          "Wazlawick, P., Wazlawick, R. S., and Cassol, L. A. (2024). Competeˆncias humanas em ontologia para o futuro:: O desenvolvimento de uma revisaõ sistema´tica de literatura em tecnologia da informac¸aõ. In VI Congresso Internacional de Ontopsicologia e Desenvolvimento Humano, pages 6–22.",
-          "Wohlin, C., Runeson, P., Ho¨st, M., Ohlsson, M. C., Regnell, B., Wessleń, A., et al. (2012). Experimentation in software engineering, volume 236. Springer."
-        ],
-        "Cited_by": [
-          "#"
-        ],
-        "Updated_in": "2026-07-26",
-        "Authors": [
-          {
-            "Name": "Israely Lima",
-            "Institution": "Universidade Federal do Ceará (UFC)",
-            "State": "CE",
-            "Author_id": 335,
-            "Institution_acronym": "UFC"
-          },
-          {
-            "Name": "Carla Bezerra",
-            "Institution": "Universidade Federal do Ceará (UFC)",
-            "State": "CE",
-            "Author_id": 307,
-            "Institution_acronym": "UFC"
-          }
-        ],
-        "Approach": "Mista",
-        "Objective": "Descritiva",
-        "Procedures": "Pesquisa documental",
-        "Data_collection": "Análise documental",
-        "Quantitative_Data_Analysis": "Estatística descritiva",
-        "Qualitative_Data_Analysis": "Análise de conteúdo",
-        "Award": "1° Lugar"
       }
     ]
   }

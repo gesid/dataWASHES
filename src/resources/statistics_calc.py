@@ -14,6 +14,10 @@ class StatisticsCalc:
     def award_winning_papers(self) -> list[dict]:
         return self.__award_papers.data
 
+    @property
+    def papers_db(self) -> list[dict]:
+        return PaperDB().data
+
     @staticmethod
     @lru_cache(maxsize=1)
     def authors_rank() -> list[dict[str, ...]]:
