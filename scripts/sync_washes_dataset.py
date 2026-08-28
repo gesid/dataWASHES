@@ -50,9 +50,9 @@ Sua tarefa é analisar o Título, Abstract, Resumo e Palavras-chave de um artigo
 
 Opções permitidas por campo:
 1. "abordagem": Escolha entre ["Qualitativa", "Quantitativa", "Mista"]
-2. "objetivos": Escolha entre ["Exploratória", "Descritiva", "Explicativa"]
+2. "objetivos": Escolha ESTRITAMENTE entre ["Exploratória", "Descritiva", "Explicativa"] (apenas estas 3, sem combinações ou variações como "Exploratória descritiva", "Exploratória e descritiva" ou "Descritiva e Correlacional")
 3. "procedimentos": Escolha entre ["Estudo de caso", "Survey", "Experimento", "Revisão de literatura", "Pesquisa documental", "Pesquisa-Ação", "Experimental"]
-4. "coleta": Escolha entre ["Questionário", "Entrevista", "Observação", "Análise documental", "Coleta automatizada", "Experimento", "Questionário e Observação", "Observação e Entrevista"]
+4. "coleta": Escolha entre ["Questionário", "Pesquisa documental", "Entrevista", "Observação", "Coleta automatizada", "Múltiplos métodos"] (qualquer combinação de métodos deve ser classificada como "Múltiplos métodos")
 5. "quantitativa": Escolha entre ["Estatística descritiva", "Teste de hipótese", "#"]
 6. "qualitativa": Escolha entre ["Análise de conteúdo", "Análise temática", "Análise narrativa", "Análise comparativa", "Teoria fundamentada", "Análise de cenário", "Análise de discurso", "#"]
 

@@ -70,4 +70,4 @@ pytest
 - 🚀 [Hosting & Deploy Guide](docs/maintenance/deploy.md) — automated deployment to PythonAnywhere via GitHub Actions and the monthly hosting auto-renewal bot.
 
 # References
-The WASHES proceedings are openly available and well-maintained through SBC OpenLib ([SOL](https://sol.sbc.org.br)). Currently, all documents published in [SOL](https://sol.sbc.org.br/index.php/indice/faq) are made available under the [Creative Commons license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.en), allowing for copying and redistribution of the material in any medium or format for any purpose.
+Os anais do WASHES estão disponíveis na SBC OpenLib ([SOL](https://sol.sbc.org.br/index.php/washes)). Todos os documentos publicados na SOL são disponibilizados sob a licença [Creative Commons (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) (SBC), permitindo cópia e redistribuição em qualquer meio ou formato. A plataforma dataWASHES é desenvolvida de forma colaborativa sob [MIT License](https://choosealicense.com/licenses/mit/).
