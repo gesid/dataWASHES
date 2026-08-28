@@ -40,6 +40,7 @@ function insert_horizontal_bar_chart(element, infos) {
         }
     }
     const ticks_data = new Set(infos['data'])
+    const onClick = infos['onClick'] || null;
     const data = {
         labels: labels,
         datasets: [{
@@ -61,6 +62,15 @@ function insert_horizontal_bar_chart(element, infos) {
                 padding: {
                     right: 30
                 }
+            },
+            onClick: onClick ? (evt, elements) => {
+                if (elements.length > 0) {
+                    const idx = elements[0].index;
+                    onClick(labels[idx]);
+                }
+            } : undefined,
+            onHover: (event, elements) => {
+                event.native.target.style.cursor = (elements && elements.length > 0) ? 'pointer' : 'default';
             },
             plugins: {
                 legend: {
@@ -113,6 +123,7 @@ function insert_vertical_bar_chart(element, infos) {
         return `rgb(${r}, ${g}, ${b})`;
     });
     const ticks_data = new Set(infos['data'])
+    const onClick = infos['onClick'] || null;
     const data = {
         labels: labels,
         datasets: [{
@@ -133,6 +144,15 @@ function insert_vertical_bar_chart(element, infos) {
                 padding: {
                     top: 30
                 }
+            },
+            onClick: onClick ? (evt, elements) => {
+                if (elements.length > 0) {
+                    const idx = elements[0].index;
+                    onClick(labels[idx]);
+                }
+            } : undefined,
+            onHover: (event, elements) => {
+                event.native.target.style.cursor = (elements && elements.length > 0) ? 'pointer' : 'default';
             },
             plugins: {
                 legend: {
@@ -177,11 +197,15 @@ function insert_vertical_bar_chart(element, infos) {
 function insert_line_chart(element, infos) {
     const line_colors = [PRIMARY_PALETTE[1], PRIMARY_PALETTE[0]]
     const fill_colors = [PRIMARY_PALETTE[1] + '20', PRIMARY_PALETTE[0] + '20']
+    const onClick = infos['onClick'] || null;
+    const langs = infos['langs'];
+    const years = infos['labels'];
+    const rawData = infos['data'];
     const data = {
-        labels: infos['labels'],
-        datasets: infos['langs'].map((language, index) => ({
+        labels: years,
+        datasets: langs.map((language, index) => ({
             label: language,
-            data: infos['data'].map(d => d[language] || 0),
+            data: rawData.map(d => d[language] || 0),
             fill: true,
             backgroundColor: fill_colors[index % fill_colors.length],
             borderColor: line_colors[index % line_colors.length],
@@ -196,6 +220,17 @@ function insert_line_chart(element, infos) {
         type: 'line',
         data,
         options: {
+            onClick: onClick ? (evt, elements) => {
+                if (elements.length > 0) {
+                    const el = elements[0];
+                    const yearLabel = years[el.index];
+                    const lang = langs[el.datasetIndex];
+                    onClick(yearLabel, lang);
+                }
+            } : undefined,
+            onHover: (event, elements) => {
+                event.native.target.style.cursor = (elements && elements.length > 0) ? 'pointer' : 'default';
+            },
             plugins: {
                 legend: {
                     display: true,
@@ -380,10 +415,14 @@ function insert_radar_chart(element, infos) {
 }
 
 function insert_cloud_word_chart(element, infos) {
+    const onClick = infos['onClick'] || null;
+    const wordLabels = infos['labels'];
+    const wordItems = infos['wordItems'] || null;
+    const realCounts = infos['counts'] || null;
     const config = {
         type: "wordCloud",
         data: {
-            labels: infos['labels'],
+            labels: wordLabels,
             datasets: [
                 {
                     label: '',
@@ -394,9 +433,29 @@ function insert_cloud_word_chart(element, infos) {
         options: {
             responsive: false,
             maintainAspectRatio: true,
+            onClick: onClick ? (evt, elements) => {
+                if (elements.length > 0) {
+                    const idx = elements[0].index;
+                    const item = wordItems ? wordItems[idx] : {text: wordLabels[idx], paper_ids: []};
+                    onClick(item);
+                }
+            } : undefined,
+            onHover: (event, elements) => {
+                event.native.target.style.cursor = (elements && elements.length > 0) ? 'pointer' : 'default';
+            },
             plugins: {
                 legend: {
                     display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            const idx = tooltipItem.dataIndex;
+                            const count = realCounts ? realCounts[idx] : tooltipItem.raw;
+                            const unit = count === 1 ? ' artigo' : ' artigos';
+                            return tooltipItem.label + ': ' + count + unit;
+                        }
+                    }
                 },
                 datalabels: false
             },
@@ -417,6 +476,7 @@ function insert_cloud_word_chart(element, infos) {
 }
 
 function insert_brazil_map_chart(element, infos) {
+    const onClick = infos['onClick'] || null;
     loadGeoJSON().then(geoJson => {
         const states = topojson.feature(brazil_geoJSON, brazil_geoJSON.objects.states).features;
         const data = {
@@ -436,6 +496,16 @@ function insert_brazil_map_chart(element, infos) {
             type: ChoroplethController.id,
             data: data,
             options: {
+                onClick: onClick ? (evt, elements) => {
+                    if (elements.length > 0) {
+                        const idx = elements[0].index;
+                        const stateName = states[idx].properties.name;
+                        onClick(stateName);
+                    }
+                } : undefined,
+                onHover: (event, elements) => {
+                    event.native.target.style.cursor = (elements && elements.length > 0) ? 'pointer' : 'default';
+                },
                 plugins: {
                     legend: {
                         display: false

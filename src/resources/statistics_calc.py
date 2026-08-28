@@ -96,26 +96,28 @@ class StatisticsCalc:
     @staticmethod
     @lru_cache(maxsize=1)
     def keywords_cloud() -> list[dict]:
-        key_words: dict[str, int] = {}
+        key_words: dict[str, set] = {}
         paper_db = PaperDB()
         for paper in paper_db:
+            paper_id = paper["Paper_id"]
             keys = paper["Keywords"].split(', ')
             for word in keys:
                 for key in word.split():
                     if key == 'de' or key == 'e' or key == 'do':
                         continue
-                    if key.lower() in key_words:
-                        key_words[key.lower()] += 1
-                    elif key != '#':
-                        key_words[key.lower()] = 1
+                    if key != '#':
+                        normalized = key.lower()
+                        if normalized not in key_words:
+                            key_words[normalized] = set()
+                        key_words[normalized].add(paper_id)
         sorted_key_words = sorted(
             key_words.items(),
             reverse=True,
-            key=lambda x: x[1]
+            key=lambda x: len(x[1])
         )
         return [
-            {"keyword": key, "count": count}
-            for key, count in sorted_key_words
+            {"keyword": key, "count": len(ids), "paper_ids": sorted(ids)}
+            for key, ids in sorted_key_words
         ]
 
     @staticmethod

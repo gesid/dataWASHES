@@ -348,24 +348,18 @@
             'Qualitative_Data_Analysis': 'Análise Qualitativa'
         };
 
-        function openCategoryModal(field, value) {
-            const filtered = allPapers.filter(p => {
-                const v = p[field];
-                if (!v || v === '#') return false;
-                return v.split(',').map(s => s.trim()).includes(value);
-            });
+        function renderModalPapers(title, papers) {
             const modal = document.getElementById('papers-modal');
             const modalTitle = document.getElementById('papers-modal-title');
             const modalBody = document.getElementById('papers-modal-body');
-            const label = FIELD_LABELS[field] || field;
-            modalTitle.textContent = label + ': ' + value + ' (' + filtered.length + ' artigo' + (filtered.length !== 1 ? 's' : '') + ')';
+            modalTitle.textContent = title + ' (' + papers.length + ' artigo' + (papers.length !== 1 ? 's' : '') + ')';
             modalBody.innerHTML = '';
-            if (filtered.length === 0) {
+            if (papers.length === 0) {
                 modalBody.innerHTML = '<p style="color:var(--dw-text-secondary);text-align:center;padding:20px 0;">Nenhum artigo encontrado.</p>';
             } else {
                 const ul = document.createElement('ul');
                 ul.className = 'papers-modal-list';
-                filtered.forEach(p => {
+                papers.forEach(p => {
                     const authorsStr = p.Authors.map(a => a.Name + ' (' + a.Institution_acronym + ')').join(', ');
                     const li = document.createElement('li');
                     li.className = 'papers-modal-card';
@@ -379,6 +373,21 @@
             }
             modal.classList.add('visible');
             document.body.style.overflow = 'hidden';
+        }
+
+        function openCategoryModal(field, value) {
+            const filtered = allPapers.filter(p => {
+                const v = p[field];
+                if (!v || v === '#') return false;
+                return v.split(',').map(s => s.trim()).includes(value);
+            });
+            const label = FIELD_LABELS[field] || field;
+            renderModalPapers(label + ': ' + value, filtered);
+        }
+
+        function openModalByFilter(title, filterFn) {
+            const filtered = allPapers.filter(filterFn);
+            renderModalPapers(title, filtered);
         }
 
         function closePapersModal() {
@@ -518,6 +527,10 @@
             insert_vertical_bar_chart(papers_editions, {
                 'labels': editions.map((edition, index) => `${edition.year} (${index + 1}°)`),
                 'data': editions.map(edition => edition.publications),
+                'onClick': (label) => {
+                    const year = parseInt(label.split(' ')[0]);
+                    openModalByFilter('Artigos publicados em ' + year, p => p.Year == year);
+                },
             })
 
             const languages = {{ statistics.publications_by_years_by_languages() | tojson }}
@@ -525,6 +538,10 @@
                 'labels': languages.data.map((language, index) => `${language.year} (${index + 1}°)`),
                 'langs': languages.langs,
                 'data': languages.data,
+                'onClick': (yearLabel, lang) => {
+                    const year = parseInt(yearLabel.split(' ')[0]);
+                    openModalByFilter('Artigos em ' + lang + ' em ' + year, p => p.Year == year && p.Language === lang);
+                },
             })
 
             const authors = {{ statistics.authors_rank()[:10] | tojson }};
@@ -532,6 +549,9 @@
                 'labels': authors.map(author => author.Name),
                 'data': authors.map(author => author.Papers.length),
                 'rank': true,
+                'onClick': (name) => {
+                    openModalByFilter('Artigos de ' + name, p => p.Authors.some(a => a.Name === name));
+                },
             })
 
             const institutions = {{ statistics.institution_rank()[:10] | tojson }}
@@ -539,6 +559,9 @@
                 'labels': institutions.map(institution => institution.institution),
                 'data': institutions.map(institution => institution.publications),
                 'rank': true,
+                'onClick': (inst) => {
+                    openModalByFilter('Artigos de ' + inst, p => p.Authors.some(a => a.Institution_acronym === inst));
+                },
             })
 
             const papers_by_approach = {{ statistics.papers_by_approach() | tojson }}
@@ -560,15 +583,23 @@
             render_ranked_list(document.getElementById('rank-qualitativos'), papers_by_quali_analy)
 
             const states = {{ statistics.states_rank() | tojson }}
-            insert_brazil_map_chart(publications_per_state, states.reduce((acc, item) => {
-                acc[item.state] = item.publications;
-                return acc;
-            }, {}))
+            insert_brazil_map_chart(publications_per_state, {
+                ...states.reduce((acc, item) => { acc[item.state] = item.publications; return acc; }, {}),
+                'onClick': (stateName) => {
+                    openModalByFilter('Artigos do estado ' + stateName, p => p.Authors[0] && p.Authors[0].State === stateName);
+                },
+            })
 
             const words = {{ statistics.keywords_cloud() | tojson }}
             insert_cloud_word_chart(cloud_words, {
                 'labels': words.map(word => word.keyword),
-                'data': words.map(word => (parseInt(word.count) * 5)),
+                'data': words.map(word => (word.count * 5)),
+                'counts': words.map(word => word.count),
+                'wordItems': words.map(word => ({text: word.keyword, paper_ids: word.paper_ids})),
+                'onClick': (wordItem) => {
+                    const matchedPapers = allPapers.filter(p => wordItem.paper_ids.includes(p.Paper_id));
+                    renderModalPapers('Artigos com a palavra-chave: ' + wordItem.text, matchedPapers);
+                },
             })
 
             const tooltips = document.querySelectorAll('.tooltip');
