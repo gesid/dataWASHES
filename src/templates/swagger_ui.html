@@ -14,7 +14,7 @@
         <section class="dw-hero">
             <div class="dw-hero-inner">
                 <span class="dw-badge dw-badge-version">v2.0</span>
-                <h1 class="dw-hero-title">data<span class="dw-hero-accent">WASHES</span> API</h1>
+                <h1 class="dw-hero-title">data<span class="dw-hero-accent">WASHES</span></h1>
                 <p class="dw-hero-subtitle">
                     Open REST API para acesso programático aos dados acadêmicos do
                     <strong>Workshop sobre Aspectos Sociais, Humanos e Econômicos de Software (WASHES)</strong>
@@ -44,10 +44,10 @@
                     <a href="{{ url_for('dashboard') }}" class="dw-btn dw-btn-primary">
                         <span>&#128202;</span> Ir para o Dashboard
                     </a>
-                    <a href="https://github.com/gesid/dataWASHES/" target="_blank" class="dw-btn dw-btn-outline">
+                    <a href="https://github.com/gesid/dataWASHES/" target="_blank" rel="noopener noreferrer" class="dw-btn dw-btn-outline">
                         <span>&#128187;</span> Repositório GitHub
                     </a>
-                    <a href="https://sol.sbc.org.br/index.php/washes" target="_blank" class="dw-btn dw-btn-outline">
+                    <a href="https://sol.sbc.org.br/index.php/washes" target="_blank" rel="noopener noreferrer" class="dw-btn dw-btn-outline">
                         <span>&#128218;</span> Anais na SOL SBC
                     </a>
                 </div>
@@ -113,7 +113,7 @@ papers.data.<span class="dw-code-func">forEach</span>(p =&gt; {
             </div>
         </section>
 
-        <!-- ===== CARDS (Motivation / Proposal / References) ===== -->
+        <!-- ===== CARDS (Motivation / Proposal / License) ===== -->
         <section class="dw-info-cards">
             <h2 class="dw-section-title">Sobre o Projeto</h2>
             <p class="dw-section-desc">dataWASHES é uma iniciativa colaborativa, open-source e sem fins lucrativos</p>
@@ -123,11 +123,12 @@ papers.data.<span class="dw-code-func">forEach</span>(p =&gt; {
                     <div class="dw-card-icon">&#128161;</div>
                     <h3 class="dw-card-title">Motivação</h3>
                     <p class="dw-card-text">
-                        Dada a importância do <strong>WASHES</strong> no panorama de pesquisa brasileira de
-                        Engenharia de Software, existe uma oportunidade de criar uma infraestrutura aberta para
-                        facilitar o acesso aos seus dados. Com um extenso acervo de artigos publicados ao longo
-                        de mais de uma década, o processo manual de acesso torna-se ineficiente para quem deseja
-                        conduzir estudos secundários ou análises robustas.
+                        Dada a relevância do WASHES no cenário brasileiro de pesquisa em Engenharia de Software,
+                        identifica-se uma oportunidade para o desenvolvimento de uma infraestrutura aberta que
+                        facilite o acesso, a organização e a exploração de seus dados. Com um acervo expressivo de
+                        artigos publicados ao longo de mais de uma década, a coleta e o processamento manual dessas
+                        informações tornam-se custosos e pouco escaláveis, especialmente para pesquisadores
+                        interessados na condução de estudos secundários ou análises bibliométricas, por exemplo.
                     </p>
                 </div>
                 <div class="dw-card">
@@ -135,29 +136,31 @@ papers.data.<span class="dw-code-func">forEach</span>(p =&gt; {
                     <h3 class="dw-card-title">Proposta</h3>
                     <p class="dw-card-text">
                         Apresentamos o <strong>dataWASHES</strong>, uma API pública, acadêmica e open source,
-                        projetada para facilitar o acesso programático aos anais do WASHES disponíveis na
-                        <a href="https://sol.sbc.org.br/index.php/washes" target="_blank">SBC OpenLib (SOL)</a>.
+                        projetada para facilitar o acesso programático aos anais do
+                        <a href="https://sol.sbc.org.br/index.php/washes" target="_blank" rel="noopener noreferrer">WASHES</a>
+                        disponíveis na
+                        <a href="https://sol.sbc.org.br/index.php/indice/faq" target="_blank" rel="noopener noreferrer">SBC OpenLib (SOL)</a>.
                         Nossa meta é oferecer à comunidade uma ferramenta para acessar
                         <strong>sistematicamente e programaticamente</strong> dados de papers, autores e edições.
                     </p>
                     <p class="dw-card-text" style="margin-top:12px;font-weight:600;color:var(--dw-gray-800);">Artigos publicados:</p>
                     <ul class="dw-card-text" style="margin-top:4px;padding-left:18px;">
-                        <li><a href="https://sol.sbc.org.br/index.php/washes/article/view/29445" target="_blank">dataWASHES - Towards an Application Programming Interface of WASHES proceedings data</a> — WASHES 2024</li>
-                        <li><a href="https://sol.sbc.org.br/index.php/washes/article/view/35917" target="_blank">Bridging Open Science and Data Visualization: Evaluating the Usability of dataWASHES Dashboard</a> — WASHES 2025</li>
-                        <li><a href="https://sol.sbc.org.br/index.php/washes/article/view/43019" target="_blank">Integrating Usability and Data Visualization in Open Science: An Evaluation of the dataWASHES Dashboard</a> — Revista iSys 2026</li>
+                        <li><a href="https://sol.sbc.org.br/index.php/washes/article/view/29445" target="_blank" rel="noopener noreferrer">dataWASHES - Towards an Application Programming Interface of WASHES proceedings data</a> — WASHES 2024</li>
+                        <li><a href="https://sol.sbc.org.br/index.php/washes/article/view/35917" target="_blank" rel="noopener noreferrer">Bridging Open Science and Data Visualization: Evaluating the Usability of dataWASHES Dashboard</a> — WASHES 2025</li>
+                        <li><a href="https://sol.sbc.org.br/index.php/washes/article/view/43019" target="_blank" rel="noopener noreferrer">Integrating Usability and Data Visualization in Open Science: An Evaluation of the dataWASHES Dashboard</a> — Revista iSys 2026</li>
                     </ul>
                 </div>
                 <div class="dw-card">
                     <div class="dw-card-icon">&#128218;</div>
-                    <h3 class="dw-card-title">Referências</h3>
+                    <h3 class="dw-card-title">Licença</h3>
                     <p class="dw-card-text">
                         Os anais do WASHES estão disponíveis na
-                        <a href="https://sol.sbc.org.br/index.php/washes" target="_blank">SBC OpenLib (SOL)</a>.
+                        <a href="https://sol.sbc.org.br/index.php/washes" target="_blank" rel="noopener noreferrer">SBC OpenLib (SOL)</a>.
                         Todos os documentos publicados na SOL são disponibilizados sob a licença
-                        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons (CC BY 4.0)</a>
+                        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons (CC BY 4.0)</a>
                         (SBC), permitindo cópia e redistribuição em qualquer meio ou formato.
                         A plataforma dataWASHES é desenvolvida de forma colaborativa sob
-                        <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT License</a>.
+                        <a href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener noreferrer">MIT License</a>.
                     </p>
                 </div>
             </div>
@@ -212,13 +215,12 @@ papers.data.<span class="dw-code-func">forEach</span>(p =&gt; {
                 <a href="{{ url_for('swagger_template') }}">
                     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" height="30px">
                 </a>
-                <p class="dw-footer-copy">dataWASHES &bull; MIT License &copy; 2024 – 2026</p>
+                <p class="dw-footer-copy">MIT License &copy; 2024 – 2026</p>
             </div>
             <div class="dw-footer-links">
-                <a href="https://github.com/gesid/dataWASHES/" target="_blank">GitHub</a>
-                <a href="https://sol.sbc.org.br/index.php/washes" target="_blank">SBC OpenLib</a>
-                <a href="https://sol.sbc.org.br/index.php/washes" target="_blank">WASHES</a>
-                <a href="https://gesid.github.io/" target="_blank">GESID</a>
+                <a href="https://github.com/gesid/dataWASHES/" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://sol.sbc.org.br/index.php/washes" target="_blank" rel="noopener noreferrer">SBC OpenLib</a>
+                <a href="https://sol.sbc.org.br/index.php/washes" target="_blank" rel="noopener noreferrer">WASHES</a>
             </div>
         </div>
     </footer>

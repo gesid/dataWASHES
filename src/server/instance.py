@@ -34,7 +34,7 @@ class Server:
 
         self.__api = Api(
             self.__app,
-            title='dataWASHES API',
+            title='dataWASHES',
             description='dataWASHES is an open source Application Programming Interface (API) that aims to facilitate '
                         'streamlined programmatic access to the Workshop on Social, Human, and Economic Aspects of '
                         'Software (WASHES) proceedings.',
