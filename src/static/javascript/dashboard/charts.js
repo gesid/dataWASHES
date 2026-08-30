@@ -20,7 +20,7 @@ import {
     destroyChart,
     resizeChart,
 } from '../graphs_generator.js';
-import { getYears, yearStats, classificationDist, filterPapers, getAllPapers } from './data.js';
+import { getYears, yearStats, classificationDist, filterPapers, getAllPapers, isBrazilianState, foreignCountryName } from './data.js';
 import { getState, toggleFilter } from './state.js';
 import { renderModalPapers } from './modal.js';
 import { openDrilldown } from './drilldown.js';
@@ -421,10 +421,14 @@ function buildLanguageLine(papers) {
 
 function buildInstitutionBar(papers) {
     const counts = {};
+    const countryByInst = {};
     (papers || []).forEach((p) => {
         const first = p.Authors && p.Authors[0];
         if (first && first.Institution_acronym) {
             counts[first.Institution_acronym] = (counts[first.Institution_acronym] || 0) + 1;
+            if (!isBrazilianState(first.State) && foreignCountryName(first.State)) {
+                countryByInst[first.Institution_acronym] = foreignCountryName(first.State);
+            }
         }
     });
     const entries = Object.entries(counts)
@@ -435,10 +439,11 @@ function buildInstitutionBar(papers) {
         (name) => openDrilldownWith({ institution: name })
     );
     insert_horizontal_bar_chart(document.getElementById('ranking-institutions'), {
-        labels: entries.map(([name]) => name),
+        labels: entries.map(([name]) => (countryByInst[name] ? `${name} (${countryByInst[name]})` : name)),
         data: entries.map(([, count]) => count),
         rank: true,
         selected: getState().institution,
+        labelsMap: new Map(entries.map(([name]) => [countryByInst[name] ? `${name} (${countryByInst[name]})` : name, name])),
         onClick: instClick.single,
         onDblClick: instClick.double,
     });
@@ -649,17 +654,23 @@ function buildWordCloud(papers) {
             openDrilldown(matched);
         }
     );
-    // Tamanho da fonte (em px, lido diretamente do valor do dataset): escala
-    // proporcional à frequência com teto de 38px, evitando qualquer palavra
-    // encostar no rodapé/corte do card .nuvem_palavras.
-    const counts = words.map((w) => w.count);
+    // Legibilidade global: limita aos 50 tópicos mais frequentes e usa escala
+    // Raiz Quadrada para o tamanho da fonte (o plugin chartjs-chart-wordcloud
+    // lê o fonte diretamente do valor do dataset, em px): a palavra mais
+    // frequente fica em 36px e as demais decaem suavemente até o mínimo de
+    // 13px, sem "gigante cercado de invisíveis".
+    words.sort((a, b) => b.count - a.count);
+    const topWords = words.slice(0, 50);
+    const counts = topWords.map((w) => w.count);
     const maxCount = Math.max(1, ...counts);
-    const fontScale = Math.min(5, 38 / maxCount);
+    const MIN_FONT = 13;
+    const MAX_FONT = 36;
+    const fontOf = (c) => Math.max(MIN_FONT, Math.min(MAX_FONT, Math.round(MIN_FONT + (MAX_FONT - MIN_FONT) * Math.sqrt(c / maxCount))));
     insert_cloud_word_chart(canvas, {
-        labels: words.map((w) => w.keyword),
-        data: counts.map((c) => Math.max(6, Math.round(c * fontScale))),
+        labels: topWords.map((w) => w.keyword),
+        data: counts.map(fontOf),
         counts,
-        wordItems: words,
+        wordItems: topWords,
         onClick: cloudClick.single,
         onDblClick: cloudClick.double,
     });

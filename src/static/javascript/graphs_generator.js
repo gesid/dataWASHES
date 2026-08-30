@@ -168,10 +168,15 @@ export function insert_horizontal_bar_chart(element, infos) {
     // `infos['selected']` coincide com o rótulo, a barra ganha Magenta cheio
     // e as restantes são rebaixadas (cross-filter com destaque visual).
     const selected = infos['selected'] || null;
+    // `labelsMap` (Map rótulo-exibido → chave de filtro) permite exibir um rótulo
+    // enriquecido (ex.: "Clemson (EUA)") mantendo o valor real usado no clique,
+    // no dblclick e no destaque de cross-filter.
+    const labelsMap = infos['labelsMap'] || null;
+    const mapLabel = (label) => (labelsMap && labelsMap.has(label) ? labelsMap.get(label) : label);
     let color = [PRIMARY_PALETTE[0]];
     if (infos['rank']) {
         color = labels.map((label, i) => {
-            if (selected && label === selected) return `rgba(231, 43, 120, 1)`;
+            if (selected && mapLabel(label) === selected) return `rgba(231, 43, 120, 1)`;
             if (selected) return `rgba(231, 43, 120, 0.12)`;
             const alpha = Math.max(0.3, 1 - i * 0.085);
             return `rgba(231, 43, 120, ${alpha.toFixed(2)})`;
@@ -207,7 +212,7 @@ export function insert_horizontal_bar_chart(element, infos) {
             onClick: onClick ? (evt, elements) => {
                 if (elements.length > 0) {
                     const idx = elements[0].index;
-                    onClick(labels[idx]);
+                    onClick(mapLabel(labels[idx]));
                 }
             } : undefined,
             onHover: (event, elements) => {
@@ -251,7 +256,7 @@ export function insert_horizontal_bar_chart(element, infos) {
         }
     };
     const chart = mountChart(element, config)
-    attachDoubleClick(element, chart, onDblClick, (idx) => labels[idx]);
+    attachDoubleClick(element, chart, onDblClick, (idx) => mapLabel(labels[idx]));
 }
 
 export function insert_vertical_bar_chart(element, infos) {
@@ -823,6 +828,54 @@ export function insert_cloud_word_chart(element, infos) {
                             const unit = count === 1 ? ' artigo' : ' artigos';
                             return tooltipItem.label + ': ' + count + unit;
                         }
+                    },
+                    // Tooltip próprio, fixado ao cursor e limitado aos limites do
+                    // card: nunca é cortado nas bordas nem sobreposto ao centro.
+                    external: (context) => {
+                        const { chart, tooltip } = context;
+                        const card = element && element.closest ? element.closest('.graph-card') : null;
+                        if (!card) return;
+                        let tooltipEl = card.querySelector('.wordcloud-tooltip');
+                        if (!tooltipEl) {
+                            tooltipEl = document.createElement('div');
+                            tooltipEl.className = 'wordcloud-tooltip';
+                            card.appendChild(tooltipEl);
+                        }
+                        if (!tooltip.opacity || !tooltip.dataPoints || !tooltip.dataPoints.length) {
+                            tooltipEl.style.opacity = '0';
+                            tooltipEl.style.pointerEvents = 'none';
+                            return;
+                        }
+                        const idx = tooltip.dataPoints[0].dataIndex;
+                        const count = realCounts ? realCounts[idx] : null;
+                        const label = wordLabels[idx] || '';
+                        const unit = count === 1 ? ' artigo' : ' artigos';
+                        tooltipEl.textContent = '';
+                        const strong = document.createElement('b');
+                        strong.textContent = label;
+                        tooltipEl.appendChild(strong);
+                        if (count !== null) {
+                            const value = document.createElement('span');
+                            value.textContent = count + unit;
+                            tooltipEl.appendChild(value);
+                        }
+
+                        const cardRect = card.getBoundingClientRect();
+                        const canvasRect = chart.canvas.getBoundingClientRect();
+                        const caretX = tooltip.caretX || 0;
+                        const caretY = tooltip.caretY || 0;
+                        const margin = 10;
+                        const relLeft = canvasRect.left - cardRect.left + caretX;
+                        const relTop = canvasRect.top - cardRect.top + caretY;
+                        let left = relLeft + margin + 6;
+                        let top = relTop - tooltipEl.offsetHeight - margin;
+                        if (top < margin) top = relTop + margin;
+                        left = Math.max(margin, Math.min(left, cardRect.width - tooltipEl.offsetWidth - margin));
+                        top = Math.max(margin, Math.min(top, cardRect.height - tooltipEl.offsetHeight - margin));
+                        tooltipEl.style.left = left + 'px';
+                        tooltipEl.style.top = top + 'px';
+                        tooltipEl.style.pointerEvents = 'none';
+                        tooltipEl.style.opacity = '1';
                     }
                 },
                 datalabels: false
@@ -836,7 +889,7 @@ export function insert_cloud_word_chart(element, infos) {
                         const colors = [PRIMARY_PALETTE[0], PRIMARY_PALETTE[1], PRIMARY_PALETTE[2], '#1E293B'];
                         return colors[ctx.index % colors.length];
                     },
-                    padding: 16,
+                    padding: 6,
                 }
             }
         },

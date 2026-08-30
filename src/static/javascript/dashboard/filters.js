@@ -8,7 +8,7 @@
  * Todos os controles alimentam o estado global e disparam re-renderização.
  */
 
-import { buildOptionLists, getYears, filterPapers, getAllPapers } from './data.js';
+import { buildOptionLists, getYears, filterPapers, getAllPapers, isBrazilianState } from './data.js';
 import { getState, setFilter, resetFilters, onStateChange } from './state.js';
 import { openDrilldown } from './drilldown.js';
 import { languageLabel, debounce } from './utils.js';
@@ -56,7 +56,7 @@ export function initFilters() {
         yearTo: years.map((y) => ({ value: y, label: `≤ ${y}` })),
         language: options.languages.map((l) => ({ value: l, label: languageLabel(l) })),
         institution: options.institutions.map((i) => ({ value: i, label: i })),
-        state: options.states.map((s) => ({ value: s, label: s })),
+        state: options.states.map((s) => ({ value: s, label: isBrazilianState(s) ? s : `${s} (Exterior)` })),
         award: AWARD_OPTIONS,
         approach: options.approaches.map((a) => ({ value: a, label: a })),
         objective: options.objectives.map((o) => ({ value: o, label: o })),
@@ -184,7 +184,7 @@ function renderActiveChips(container) {
     if (existingDd) existingDd.remove();
 
     const state = getState();
-    const valueLabel = { language: languageLabel };
+    const valueLabel = { language: languageLabel, state: (v) => (isBrazilianState(v) ? v : `${v} (Exterior)`) };
 
     const active = Object.entries(state)
         .filter(([key]) => key !== 'search')

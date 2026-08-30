@@ -62,7 +62,7 @@ def get_apa_citation_from_scholar(title, retries=3):
 
     return None
 
-def run_miner(target_year=None, force=False):
+def run_miner(target_year=None, force=False, limit=None, dry_run=False):
     if not os.path.exists(EXCEL_PATH):
         print(f"❌ Planilha não encontrada em: {EXCEL_PATH}")
         return
@@ -72,6 +72,8 @@ def run_miner(target_year=None, force=False):
         return
 
     print(f"📖 Lendo planilha em: {EXCEL_PATH}")
+    if dry_run:
+        print("🔍 Modo DRY-RUN: nenhuma alteração será gravada na planilha.")
     wb = openpyxl.load_workbook(EXCEL_PATH)
     ws = wb.active
 
@@ -84,6 +86,10 @@ def run_miner(target_year=None, force=False):
     checked_count = 0
 
     for row in range(2, ws.max_row + 1):
+        if limit is not None and checked_count >= limit:
+            print(f"⏹️ Limite de {limit} artigos analisados atingido. Encerrando.")
+            break
+
         year_val = ws.cell(row=row, column=col_year).value
         title = ws.cell(row=row, column=col_title).value
         current_cite = ws.cell(row=row, column=col_cites).value
@@ -102,9 +108,13 @@ def run_miner(target_year=None, force=False):
             citation = get_apa_citation_from_scholar(title)
 
             if citation is not None:
+                log_value = '0' if citation == '#' else citation
+                print(f"   [INFO] Artigo {checked_count}: {log_value} citações encontradas")
                 if citation != "#":
-                    print(f"   🎉 Citação capturada no Google Scholar: ➔  {citation}  ⬅️")
-                    ws.cell(row=row, column=col_cites).value = citation
+                    action = "[DRY-RUN] seria atualizado para:" if dry_run else "saved to:"
+                    print(f"   ℹ️ Citações capturadas → {action} {citation}")
+                    if not dry_run:
+                        ws.cell(row=row, column=col_cites).value = citation
                     updated_count += 1
                 else:
                     print("   ℹ️ Confirmado: 0 citações no Google Scholar.")
@@ -113,9 +123,15 @@ def run_miner(target_year=None, force=False):
 
             time.sleep(1)
 
+    if limit is not None and checked_count > 0:
+        print(f"⏹️ {checked_count} artigos analisados (limite: {limit}).")
+
     if updated_count > 0:
-        wb.save(EXCEL_PATH)
-        print(f"\n🎉 Sucesso! {updated_count} citações foram salvas em '{EXCEL_PATH}'.")
+        if dry_run:
+            print(f"\n[Dry-run] {updated_count} citações seriam atualizadas — planilha intacta.")
+        else:
+            wb.save(EXCEL_PATH)
+            print(f"\n🎉 Sucesso! {updated_count} citações foram salvas em '{EXCEL_PATH}'.")
     else:
         print(f"\n✨ Nenhuma citação nova ({checked_count} artigos analisados).")
 
@@ -123,6 +139,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Minera citações do Google Scholar")
     parser.add_argument("--year", type=int, help="Filtrar por ano específico (ex: --year 2016)")
     parser.add_argument("--force", action="store_true", help="Força re-checagem mesmo de artigos que já possuem citações")
+    parser.add_argument("--limit", type=int, default=None, help="Analisa no máximo N artigos (ex: --limit 3)")
+    parser.add_argument("--dry-run", action="store_true", help="Não grava na planilha: apenas reporta o que seria atualizado")
     args = parser.parse_args()
 
-    run_miner(target_year=args.year, force=args.force)
+    run_miner(target_year=args.year, force=args.force, limit=args.limit, dry_run=args.dry_run)

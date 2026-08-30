@@ -13,6 +13,34 @@
 
 import { includesAny } from './utils.js';
 
+/** UFs brasileiras oficiais — distinguem estados (BR) de instituições internacionais. */
+const BRAZIL_UFS = new Set([
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS',
+    'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC',
+    'SP', 'SE', 'TO',
+]);
+
+/** @returns {boolean} true se o valor corresponde a uma UF brasileira oficial. */
+export function isBrazilianState(state) {
+    return typeof state === 'string' && BRAZIL_UFS.has(state.trim().toUpperCase());
+}
+
+/** Códigos de State usados para identificar países estrangeiros (fora do BR). */
+const FOREIGN_COUNTRIES = {
+    'EUA': 'EUA',
+    'CA': 'Canadá',
+    'GER': 'Alemanha',
+    'FR': 'França',
+};
+
+/** @returns {string|undefined} nome do país para um State estrangeiro conhecido
+ *  (undefined para UFs BR, '#' ou códigos desconhecidos). */
+export function foreignCountryName(state) {
+    if (typeof state !== 'string') return undefined;
+    const key = state.trim().toUpperCase();
+    return FOREIGN_COUNTRIES[key];
+}
+
 /** @type {Object[]} papers completos (PaperDB) */
 let papers = [];
 /** @type {Object[]} agrupamento por ano dos premiados (AwardPapersDB) */
@@ -322,6 +350,8 @@ export function computeKpis(source) {
     const authors = new Set();
     const institutions = new Set();
     const states = new Set();
+    const brazilStates = new Set();
+    const foreignCountries = new Set();
     let english = 0;
     let qualitative = 0;
     let authorCount = 0;
@@ -330,11 +360,15 @@ export function computeKpis(source) {
         (p.Authors || []).forEach((a) => {
             authorCount += 1;
             if (a.Author_id !== undefined) authors.add(a.Author_id);
+            if (a.State && foreignCountryName(a.State)) foreignCountries.add(a.State.trim().toUpperCase());
         });
         const first = p.Authors && p.Authors[0];
         if (first) {
             if (first.Institution_acronym) institutions.add(first.Institution_acronym);
-            if (first.State) states.add(first.State);
+            if (first.State) {
+                states.add(first.State);
+                if (isBrazilianState(first.State)) brazilStates.add(first.State);
+            }
         }
         if (p.Language === 'en') english += 1;
         if (p.Approach === 'Qualitativa') qualitative += 1;
@@ -353,7 +387,10 @@ export function computeKpis(source) {
         totalAuthors: authors.size,
         totalAwards: awardCount,
         institutions: institutions.size,
-        states: states.size,
+        states: brazilStates.size,
+        brazilStatesCount: brazilStates.size,
+        foreignCountriesCount: foreignCountries.size,
+        hasInternational: states.size > brazilStates.size,
         avgAuthorsPerPaper: source.length ? +(authorCount / source.length).toFixed(1) : 0,
         englishPct: Boolean(source.length) ? +((english / source.length) * 100).toFixed(1) : 0,
         qualitativePct: Boolean(source.length) ? +((qualitative / source.length) * 100).toFixed(1) : 0,

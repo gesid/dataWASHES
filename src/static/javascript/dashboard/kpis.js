@@ -51,8 +51,14 @@ export function renderKpis(filteredPapers) {
             icon: ICONS.institution,
             value: fmt(kpis.institutions),
             label: 'Instituições participantes',
-            subtext: `Presentes em ${fmt(kpis.states)} ${kpis.states === 1 ? 'estado' : 'estados'}`,
-            subAria: `${fmt(kpis.institutions)} instituições presentes em ${fmt(kpis.states)} estados`,
+            subtext: kpis.foreignCountriesCount > 0
+                ? (kpis.brazilStatesCount > 0
+                    ? `${fmt(kpis.brazilStatesCount)} ${kpis.brazilStatesCount === 1 ? 'estado' : 'estados'} (BR) · ${fmt(kpis.foreignCountriesCount)} ${kpis.foreignCountriesCount === 1 ? 'país' : 'países'} no exterior 🌐`
+                    : `Somente exterior · ${fmt(kpis.foreignCountriesCount)} ${kpis.foreignCountriesCount === 1 ? 'país' : 'países'} 🌐`)
+                : `Presentes em ${fmt(kpis.brazilStatesCount)} ${kpis.brazilStatesCount === 1 ? 'estado' : 'estados'} (BR)`,
+            subAria: kpis.foreignCountriesCount > 0
+                ? `${fmt(kpis.institutions)} instituições presentes em ${fmt(kpis.brazilStatesCount)} estados brasileiros e ${fmt(kpis.foreignCountriesCount)} países no exterior`
+                : `${fmt(kpis.institutions)} instituições presentes em ${fmt(kpis.brazilStatesCount)} estados brasileiros`,
         },
         {
             tone: 'kpi-green',
