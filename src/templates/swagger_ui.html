@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -12,6 +12,11 @@
 
         <!-- ===== HERO ===== -->
         <section class="dw-hero">
+            <div class="dw-hero-strips" aria-hidden="true">
+                <i class="strip-cyan"></i>
+                <i class="strip-magenta"></i>
+                <i class="strip-green"></i>
+            </div>
             <div class="dw-hero-inner">
                 <span class="dw-badge dw-badge-version">v2.0</span>
                 <h1 class="dw-hero-title">data<span class="dw-hero-accent">WASHES</span></h1>
@@ -213,7 +218,7 @@ papers.data.<span class="dw-code-func">forEach</span>(p =&gt; {
         <div class="dw-footer-inner">
             <div class="dw-footer-brand">
                 <a href="{{ url_for('swagger_template') }}">
-                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" height="30px">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" height="40px">
                 </a>
                 <p class="dw-footer-copy">MIT License &copy; 2024 – 2026</p>
             </div>

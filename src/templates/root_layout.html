@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/images/favicon.ico') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block header %}
 
@@ -16,24 +16,31 @@
 <body>
 <!-- Navbar -->
 <nav>
-    <div id="menu-icon" onclick="toggleMenu()">&#9776;</div>
-    <ul id="navbar">
-        <li id="logo-conteiner">
-            <a href="{{ url_for('swagger_template') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" height="38px">
-            </a>
-        </li>
-        {% if request.endpoint == 'dashboard' %}
-            <li><a href="{{ url_for('swagger_template') }}" class="nav-link">API</a></li>
-        {% else %}
-            <li><a href="#motivation" class="nav-link">API</a></li>
-        {% endif %}
-        <li><a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a></li>
-        <li><a href="https://youtu.be/KXjFx9ddqPQ" class="nav-link" target="_blank" rel="noopener noreferrer">Tutorial</a></li>
-        <li><a href="https://github.com/gesid/dataWASHES/" class="nav-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-        <li><a href="https://washescommunity.github.io/" class="nav-link"
-               target="_blank" rel="noopener noreferrer">WASHES</a></li>
-    </ul>
+    <div class="dw-nav-inner">
+        <a href="{{ url_for('swagger_template') }}" class="dw-brand">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" class="dw-brand-logo" height="32">
+        </a>
+
+        <ul class="dw-nav-links" id="dwNavLinks">
+            {% if request.endpoint == 'dashboard' %}
+                <li><a href="{{ url_for('swagger_template') }}" class="dw-nav-link">API</a></li>
+            {% else %}
+                <li><a href="#motivation" class="dw-nav-link active">API</a></li>
+            {% endif %}
+            <li>
+                <a href="{{ url_for('dashboard') }}" class="dw-nav-link{% if request.endpoint == 'dashboard' %} active{% endif %}">Dashboard</a>
+            </li>
+            <li><a href="https://youtu.be/KXjFx9ddqPQ" class="dw-nav-link" target="_blank" rel="noopener noreferrer">Tutorial</a></li>
+            <li><a href="https://github.com/gesid/dataWASHES/" class="dw-nav-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://washescommunity.github.io/" class="dw-nav-link" target="_blank" rel="noopener noreferrer">WASHES</a></li>
+        </ul>
+
+        <button id="menu-icon" class="dw-menu-btn" onclick="toggleMenu()" aria-label="Abrir menu">
+            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>
+            </svg>
+        </button>
+    </div>
 </nav>
 
 {% block content %}
@@ -45,7 +52,7 @@
     <div class="footer-content">
         <div class="footer-left">
             <a href="{{ url_for('swagger_template') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" height="30px">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo dataWASHES" height="40px">
             </a>
             <p class="footer-copy-text"><a href="https://choosealicense.com/licenses/mit/" target="_blank" rel="noopener noreferrer">MIT License</a> &copy; 2024 – 2026</p>
         </div>
@@ -59,12 +66,8 @@
 {% endblock %}
 <script>
 function toggleMenu() {
-    var navbar = document.getElementById("navbar");
-    if (navbar.style.display === "flex") {
-        navbar.style.display = "none";
-    } else {
-        navbar.style.display = "flex";
-    }
+    var navbar = document.getElementById("dwNavLinks");
+    navbar.classList.toggle("open");
 }
 </script>
 </body>

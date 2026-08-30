@@ -2,327 +2,372 @@
 
 {% block header %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/dashboard.css') }}">
-    <script type="module" src="{{ url_for('static', filename='javascript/graphs_generator.js') }}"></script>
 {% endblock %}
 
 {% block content %}
     <main>
         <div class="dashboard">
-            <h1 id="dash-title">Dashboard</h1>
 
-            <div class="kpi-grid">
-                {% set total_papers = statistics.publications_by_years() | map(attribute='publications') | sum %}
-                {% set total_editions = statistics.publications_by_years() | length %}
-                {% set total_authors = statistics.authors_rank() | length %}
-                {% set total_awards = statistics.award_winning_papers | map(attribute='Papers') | map('length') | sum %}
-                <div class="kpi-card kpi-cyan">
-                    <div class="kpi-icon">
-                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                    </div>
-                    <div class="kpi-value">{{ total_papers }}</div>
-                    <div class="kpi-label">Artigos publicados</div>
+            <!-- ===== HERO ===== -->
+            <header class="dash-hero" aria-label="Apresentação do dashboard">
+                <div class="hero-title-row">
+                    <h1 id="dash-title">Dashboard Analítico dataWASHES</h1>
+                    <span class="hero-badge">2016 – 2026</span>
                 </div>
-                <div class="kpi-card kpi-cobalt">
-                    <div class="kpi-icon">
-                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    </div>
-                    <div class="kpi-value">{{ total_editions }}</div>
-                    <div class="kpi-label">Edições WASHES</div>
-                </div>
-                <div class="kpi-card kpi-violet">
-                    <div class="kpi-icon">
-                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </div>
-                    <div class="kpi-value">{{ total_authors }}</div>
-                    <div class="kpi-label">Autores participantes</div>
-                </div>
-                <div class="kpi-card kpi-emerald">
-                    <div class="kpi-icon">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                    </div>
-                    <div class="kpi-value">{{ total_awards }}</div>
-                    <div class="kpi-label">Artigos premiados</div>
+                <p class="hero-subtitle">
+                    11 anos de pesquisa sobre aspectos sociais, humanos e econômicos de software
+                    no Brasil.
+                </p>
+            </header>
+
+            <!-- ===== Controle Rápido ===== -->
+            <section class="quick-panel" aria-label="Controle rápido do dashboard">
+                <div id="year-pills" class="year-pills" aria-label="Filtrar por edição (ano)"></div>
+                <section id="filters-bar" class="filters-card" aria-label="Busca e filtros globais"></section>
+            </section>
+
+            <!-- ===== KPIs Estratégicos ===== -->
+            <div class="kpi-grid" id="kpi-grid"></div>
+
+            <!-- ===== Estado vazio ===== -->
+            <div id="empty-state" class="empty-state" hidden>
+                <div class="empty-state-content">
+                    <span class="empty-state-icon" aria-hidden="true">&#128269;</span>
+                    <p><strong>Nenhum resultado encontrado.</strong></p>
+                    <p class="empty-state-sub">Nenhum artigo corresponde aos filtros ativos. Ajuste ou limpe os filtros.</p>
+                    <button type="button" class="filter-reset-btn empty-reset">Limpar filtros</button>
                 </div>
             </div>
 
+            <!-- ===== Navegação por seções ===== -->
+            <nav id="section-tabs" class="section-tabs" role="tablist" aria-label="Seções do dashboard"></nav>
+
             <div class="container">
-                <div class="artigos_premiados">
-                    <div class="graph-header">
-                        <span class="title">Artigos premiados</span>
-                        <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação"
-                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
-                            <div class="tooltip-text">
-                                Esta tabela lista os artigos premiados<br>
-                                em cada edição do WASHES, exibindo o título,<br>
-                                autores, premiação e um link para acesso aos artigos.
+
+                <!-- ═══ VISÃO GERAL & EVOLUÇÃO ═══ -->
+                <section id="panel-visao" class="tab-panel" role="tabpanel" data-panel="visao" aria-labelledby="tab-visao">
+                    <div class="panel-grid">
+                        <div class="artigos_por_edicao graph-card">
+                            <div class="graph-header">
+                                <span class="title">Artigos por edição</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Evolução do número de artigos publicados em cada edição do
+                                        WASHES. Clique em uma barra para filtrar o dashboard pelo ano.
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="compare-controls" class="compare-controls" aria-label="Comparação entre anos"></div>
+                            <div class="chart-box chart-box-lg">
+                                <canvas id="artigos-por-edicao" aria-label="Gráfico de artigos publicados por ano" role="img"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="artigos_por_idioma graph-card">
+                            <div class="graph-header">
+                                <span class="title">Evolução de idiomas (Português × Inglês)</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Evolução do número de artigos em português e em inglês nas
+                                        edições do WASHES, evidenciando o avanço da internacionalização.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart-box chart-box-lg">
+                                <canvas id="artigos-por-idioma" aria-label="Gráfico de publicações por idioma" role="img"></canvas>
                             </div>
                         </div>
                     </div>
-                    <div id="table-scroll-wrapper">
-                        <div id="table-container">
-                            <table class="paper-table">
-                                <thead>
-                                <tr>
-                                    <th>Título</th>
-                                    <th>Autores</th>
-                                    <th>Premiação</th>
-                                    <th>Link para o artigo</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for edition_papers in statistics.award_winning_papers %}
-                                    {% for paper in edition_papers['Papers'] %}
-                                        <tr style="display: none" class="paper-from-{{ edition_papers['Year'] }}">
-                                            <td>{{ paper['Title'] }}</td>
-                                            {% if paper['Authors'] | length >= 2 %}
-                                                <td>{{ paper['Authors'][0]['Name'] }}
-                                                    ({{ paper['Authors'][0]['Institution_acronym'] }})
-                                                    <div class="tooltip">
-                                                        <i>et al.</i> ℹ️
-                                                        <div class="tooltip-text">
-                                                            <ul>
-                                                                {% for author in paper['Authors'][1:] %}
-                                                                    <li>{{ author['Name'] }}
-                                                                        ({{ author['Institution_acronym'] }})
-                                                                    </li>
-                                                                {% endfor %}
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            {% else %}
-                                                <td>{{ paper['Authors'][0]['Name'] }}
-                                                    ({{ paper['Authors'][0]['Institution_acronym'] }})
-                                                </td>
-                                            {% endif %}
-                                            <td>
-                                                {% set award_text = paper['Award'] %}
-                                                {% if '1st' in award_text %}
-                                                    <span class="award-badge award-1st">{{ award_text }}</span>
-                                                {% elif '2nd' in award_text %}
-                                                    <span class="award-badge award-2nd">{{ award_text }}</span>
-                                                {% elif '3rd' in award_text %}
-                                                    <span class="award-badge award-3rd">{{ award_text }}</span>
-                                                {% else %}
-                                                    <span class="award-badge award-honorable">{{ award_text }}</span>
-                                                {% endif %}
-                                            </td>
-                                            <td><a target="_blank" rel="noopener noreferrer" href="{{ paper['Download_link'] }}">🔍 Acessar artigo</a></td>
-                                        </tr>
-                                    {% endfor %}
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                </section>
+
+                <!-- ═══ COMUNIDADE & GEOGRAFIA ═══ -->
+                <section id="panel-comunidade" class="tab-panel" role="tabpanel" data-panel="comunidade" aria-labelledby="tab-comunidade" hidden>
+                    <div class="panel-grid community-grid">
+                        <div class="artigos_por_estado graph-card">
+                            <div class="graph-header">
+                                <span class="title">Publicações por estado</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Intensidade de publicações por estado, considerando o estado do primeiro
+                                        autor de cada artigo. Clique em um estado para filtrar.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart-box chart-box-lg">
+                                <canvas id="papers_per_state" aria-label="Mapa de publicações por estado" role="img"></canvas>
+                            </div>
+                            <div class="map-legend" aria-hidden="true">
+                                <span class="map-legend-label" id="map-legend-min">Menos artigos (1)</span>
+                                <div class="map-gradient-bar"></div>
+                                <span class="map-legend-label" id="map-legend-max">Mais artigos</span>
+                            </div>
+                        </div>
+
+                        <div class="ranking_social graph-card">
+                            <div class="graph-header">
+                                <span class="title">Ranking da comunidade</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Instituições ordenadas pela quantidade de artigos e autores mais
+                                        presentes. Clique em uma barra para explorar.
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="ranking-tabs" class="tab-bar" role="tablist" aria-label="Tipo de ranking"></div>
+                            <div id="ranking-body-institutions" class="ranking-body" role="tabpanel">
+                                <div class="chart-box chart-box-list">
+                                    <canvas id="ranking-institutions" aria-label="Ranking de instituições" role="img"></canvas>
+                                </div>
+                            </div>
+                            <div id="ranking-body-authors" class="ranking-body" role="tabpanel" hidden>
+                                <div class="chart-box chart-box-list">
+                                    <canvas id="ranking-authors" aria-label="Ranking de autores" role="img"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nuvem_palavras graph-card">
+                            <div class="graph-header">
+                                <span class="title">Nuvem de tópicos</span>
+                                <div class="tooltip">
+                                    <img class="info-icon" alt="Ícone de informação"
+                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                    <div class="tooltip-text">
+                                        Palavras-chave mais frequentes nas edições do WASHES.
+                                        Alterne entre Nuvem e Ranking e clique para abrir os artigos.
+                                    </div>
+                                </div>
+                                <div id="wordcloud-toggle" class="mode-toggle" role="group" aria-label="Modo de exibição da nuvem"></div>
+                            </div>
+                            <div id="cloud-mode" class="chart-box">
+                                <canvas id="nuvem-de-palavras" aria-label="Nuvem de palavras-chave" role="img"></canvas>
+                            </div>
+                            <div id="ranking-mode" hidden></div>
                         </div>
                     </div>
-                    <div class="pagination-wrapper">
-                        <div class="pagination-section">
-                            <!-- <span style="cursor: pointer" onclick="table_before_page()" id="before"><</span> -->
+                </section>
+
+                <!-- ═══ PERFIL METODOLÓGICO ═══ -->
+                <section id="panel-metodologico" class="tab-panel" role="tabpanel" data-panel="metodologico" aria-labelledby="tab-metodologico" hidden>
+                    <div class="artigos_por_categorias">
+                        <div class="method-hero-grid">
+                            <div class="method-card abordagem">
+                                <div class="graph-header">
+                                    <span class="title">Abordagem de pesquisa</span>
+                                    <div class="tooltip">
+                                        <img class="info-icon" alt="Ícone de informação"
+                                             src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                        <div class="tooltip-text">
+                                            Proporção de artigos por abordagem: <b>qualitativa</b>,
+                                            <b>quantitativa</b> e <b>mista</b>. Clique em uma parte para filtrar.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="bar-abordagem"></div>
+                            </div>
+                            <div class="method-card objetivo">
+                                <div class="graph-header">
+                                    <span class="title">Objetivo da pesquisa</span>
+                                    <div class="tooltip">
+                                        <img class="info-icon" alt="Ícone de informação"
+                                             src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                        <div class="tooltip-text">
+                                            Proporção de artigos segundo o objetivo: exploratório ou
+                                            descritivo. Clique em uma parte para filtrar.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="bar-objetivo"></div>
+                            </div>
+                        </div>
+
+                        <div class="method-cards-grid">
+                            <div class="method-card procedimentos" data-tone="cyan">
+                                <div class="graph-header">
+                                    <span class="title">Procedimentos</span>
+                                    <div class="tooltip">
+                                        <img class="info-icon" alt="Ícone de informação"
+                                             src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                        <div class="tooltip-text">
+                                            Procedimentos metodológicos utilizados para conduzir os
+                                            estudos. Clique em um item para filtrar.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="rank-procedimentos"></div>
+                            </div>
+                            <div class="method-card coleta-de-dados" data-tone="green">
+                                <div class="graph-header">
+                                    <span class="title">Coleta de dados</span>
+                                    <div class="tooltip">
+                                        <img class="info-icon" alt="Ícone de informação"
+                                             src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                        <div class="tooltip-text">
+                                            Métodos de coleta de dados empregados nos estudos.
+                                            Clique em um item para explorar.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="rank-coleta-de-dados"></div>
+                            </div>
+                            <div class="method-card dados-quantitativos" data-tone="cyan">
+                                <div class="graph-header">
+                                    <span class="title">Análise quantitativa</span>
+                                    <div class="tooltip">
+                                        <img class="info-icon" alt="Ícone de informação"
+                                             src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                        <div class="tooltip-text">
+                                            Métodos de análise de dados quantitativos, destacando
+                                            técnicas estatísticas e numéricas. Clique em um item para explorar.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="rank-quantitativos"></div>
+                            </div>
+                            <div class="method-card dados-qualitativos" data-tone="green">
+                                <div class="graph-header">
+                                    <span class="title">Análise qualitativa</span>
+                                    <div class="tooltip">
+                                        <img class="info-icon" alt="Ícone de informação"
+                                             src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                        <div class="tooltip-text">
+                                            Métodos de análise de dados qualitativos, destacando
+                                            abordagens interpretativas. Clique em um item para explorar.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="rank-qualitativos"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ═══ ARTIGOS PREMIADOS ═══ -->
+                <section id="panel-premiados" class="tab-panel" role="tabpanel" data-panel="premiados" aria-labelledby="tab-premiados" hidden>
+                    <div class="artigos_premiados graph-card">
+                        <div class="graph-header">
+                            <span class="title">Artigos Premiados por Edição</span>
+                            <div class="tooltip">
+                                <img class="info-icon" alt="Ícone de informação"
+                                     src="{{ url_for('static', filename='images/info-icon.png') }}">
+                                <div class="tooltip-text">
+                                    Registro histórico de trabalhos reconhecidos com premiações e
+                                    menções honrosas nas edições do WASHES.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="award-tabs" role="tablist" aria-label="Edições dos artigos premiados">
                             {% for edition in statistics.award_winning_papers %}
                                 <button onclick="paginate_papers_table(this, {{ edition['Year'] }})"
                                         class="pag-year-button"
-                                        id="button-{{ edition['Year'] }}">{{ edition['Year'] }}</button>
+                                        id="button-{{ edition['Year'] }}"
+                                        data-edition="{{ edition['Year'] }}"
+                                        role="tab"
+                                        aria-pressed="false">{{ edition['Year'] }}</button>
                             {% endfor %}
-                            <!-- <span style="cursor: pointer" onclick="table_next_page()" id="next">>></span> -->
                         </div>
-                    </div>
-                </div>
-                <div class="artigos_por_edicao">
-                    <div class="graph-header">
-                        <span class="title">Artigos publicados por ano (edição) no WASHES</span>
-                        <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação"
-                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
-                            <div class="tooltip-text">
-                                Este gráfico mostra a quantidade de<br>
-                                artigos publicados em cada edição do<br>
-                                WASHES ao longo dos anos.
-                            </div>
-                        </div>
-                    </div>
-                    <canvas id="artigos-por-edicao"></canvas>
-                </div>
-                <div class="artigos_por_idioma">
-                    <div class="graph-header">
-                        <span class="title">Artigos publicados por idioma ao longo dos anos (edições) no WASHES</span>
-                        <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação"
-                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
-                            <div class="tooltip-text">
-                                Este gráfico mostra a evolução do número<br>
-                                de artigos escritos em português e em inglês<br>
-                                ao longo dos anos nas edições do WASHES.
-                            </div>
-                        </div>
-                    </div>
-                    <canvas id="artigos-por-idioma"></canvas>
-                </div>
-                <div class="ranking_instituicoes">
-                    <div class="graph-header">
-                        <span class="title">Ranking das instituições dos autores participantes do WASHES</span>
-                        <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação"
-                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
-                            <div class="tooltip-text">
-                                Este gráfico mostra um ranking das instituições dos<br>
-                                participantes do WASHES, organizado pela quantidade de<br>
-                                artigos publicados em cada edição do evento. Para cada artigo<br>
-                                foi considerando a instituição do primeiro autor.
-                            </div>
-                        </div>
-                    </div>
-                    <canvas id="raking-institutions"></canvas>
-                </div>
-                <div class="ranking_autore">
-                    <div class="graph-header">
-                        <span class="title">Ranking dos autores participantes do WASHES</span>
-                        <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação"
-                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
-                            <div class="tooltip-text">
-                                Este gráfico exibe um ranking dos autores com<br>
-                                maior número de artigos publicados nas edições<br>
-                                do WASHES.
-                            </div>
-                        </div>
-                    </div>
-                    <canvas id="raking-authors"></canvas>
-                </div>
-                <div class="nuvem_palavras">
-                    <div class="graph-header">
-                        <span class="title">Nuvem de palavras-chave dos artigos publicado</span>
-                        <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação"
-                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
-                            <div class="tooltip-text">
-                                Esta nuvem de palavras destaca as palavras-chave<br>
-                                mais frequentes, considerando todas as edição do<br>
-                                WASHES, extraídas das palavras-chave dos artigos<br>
-                                publicados.
-                            </div>
-                        </div>
-                    </div>
-                    <canvas id="nuvem-de-palavras"></canvas>
-                </div>
-                <div class="artigos_por_estado">
-                    <div class="graph-header">
-                        <span class="title">Quantidade de artigos publicados por estado</span>
-                        <div class="tooltip">
-                            <img class="info-icon" alt="Ícone de informação"
-                                 src="{{ url_for('static', filename='images/info-icon.png') }}">
-                            <div class="tooltip-text">
-                                Este gráfico apresenta a quantidade de artigos<br>
-                                publicados por estado, considerando o estado<br>
-                                do primeiro autor de cada artigo nas edições<br>
-                                do WASHES.
-                            </div>
-                        </div>
-                    </div>
-                    <canvas id="papers_per_state"></canvas>
-                </div>
 
-                <div class="artigos_por_categorias">
-                    <div class="method-grid">
-                        <div class="method-card abordagem">
-                            <div class="graph-header">
-                                <span class="title">Artigos por abordagem</span>
-                                <div class="tooltip">
-                                    <img class="info-icon" alt="Ícone de informação"
-                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
-                                    <div class="tooltip-text">
-                                        Este gráfico mostra a proporção de artigos<br>
-                                        por abordagem: <b>qualitativa</b>, que explora<br>
-                                        significados e contextos; <b>quantitativa</b>, baseada<br>
-                                        em dados numéricos e estatísticas; e <b>mista</b>, que<br>
-                                        combina ambas para uma análise mais abrangente.
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="bar-abordagem"></div>
+                        <div class="table-toolbar">
+                            <label class="table-search-wrap">
+                                <span class="sr-only">Buscar artigo premiado por título, autor ou instituição</span>
+                                <input id="table-search" type="search" placeholder="Buscar título, autor ou instituição…"
+                                       autocomplete="off">
+                            </label>
+                            <button id="table-export" type="button" class="export-btn">Exportar CSV</button>
+                            <span id="table-info" class="table-info" aria-live="polite"></span>
                         </div>
-                        <div class="method-card objetivo">
-                            <div class="graph-header">
-                                <span class="title">Artigos por objetivo</span>
-                                <div class="tooltip">
-                                    <img class="info-icon" alt="Ícone de informação"
-                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
-                                    <div class="tooltip-text">
-                                        Este gráfico mostra a proporção de artigos<br>
-                                        segundo seus objetivos, indicando como cada<br>
-                                        estudo foi estruturado para alcançar seus propósitos.
-                                    </div>
-                                </div>
+
+                        <div id="table-scroll-wrapper">
+                            <div id="table-container">
+                                <table class="paper-table">
+                                    <thead>
+                                    <tr>
+                                        <th aria-sort="none">
+                                            <button type="button" class="th-sort" data-col="title" data-label="Título">Título</button>
+                                        </th>
+                                        <th aria-sort="none">
+                                            <button type="button" class="th-sort" data-col="authors" data-label="Autores">Autores</button>
+                                        </th>
+                                        <th aria-sort="none">
+                                            <button type="button" class="th-sort" data-col="award" data-label="Premiação">Premiação</button>
+                                        </th>
+                                        <th aria-sort="none">
+                                            <button type="button" class="th-sort" data-col="year" data-label="Ano">Ano</button>
+                                        </th>
+                                        <th>Artigo na SOL</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="award-tbody">
+                                    {% for edition_papers in statistics.award_winning_papers %}
+                                        {% for paper in edition_papers['Papers'] %}
+                                            <tr class="paper-from-{{ edition_papers['Year'] }}" data-paper-id="{{ paper['Paper_id'] }}">
+                                                <td>{{ paper['Title'] }}</td>
+                                                {% if paper['Authors'] | length >= 2 %}
+                                                    <td>{{ paper['Authors'][0]['Name'] }}
+                                                        ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                                        <div class="tooltip">
+                                                            <i>et al.</i> ℹ️
+                                                            <div class="tooltip-text">
+                                                                <ul>
+                                                                    {% for author in paper['Authors'][1:] %}
+                                                                        <li>{{ author['Name'] }}
+                                                                            ({{ author['Institution_acronym'] }})
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                {% else %}
+                                                    <td>{{ paper['Authors'][0]['Name'] }}
+                                                        ({{ paper['Authors'][0]['Institution_acronym'] }})
+                                                    </td>
+                                                {% endif %}
+                                                <td>
+                                                    {% set award_text = paper['Award'] | replace('Mencao', 'Menção') %}
+                                                    {% if award_text | first == '1' %}
+                                                        <span class="award-badge award-1st">{{ award_text }}</span>
+                                                    {% elif award_text | first == '2' %}
+                                                        <span class="award-badge award-2nd">{{ award_text }}</span>
+                                                    {% elif award_text | first == '3' %}
+                                                        <span class="award-badge award-3rd">{{ award_text }}</span>
+                                                    {% else %}
+                                                        <span class="award-badge award-honorable">{{ award_text }}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ edition_papers['Year'] }}</td>
+                                                <td>
+                                                    <a class="paper-link" target="_blank" rel="noopener noreferrer"
+                                                       href="{{ paper['Download_link'] }}">
+                                                        Acessar <span aria-hidden="true">↗</span>
+                                                        <span class="sr-only">(abre em nova aba)</span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    <tr id="table-empty" class="table-empty-row" hidden>
+                                        <td colspan="5">Nenhum artigo corresponde aos filtros ativos.</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div id="bar-objetivo"></div>
                         </div>
-                        <div class="method-card procedimentos">
-                            <div class="graph-header">
-                                <span class="title">Artigos por procedimentos</span>
-                                <div class="tooltip">
-                                    <img class="info-icon" alt="Ícone de informação"
-                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
-                                    <div class="tooltip-text">
-                                        Este gráfico mostra a proporção de artigos<br>
-                                        conforme seus procedimentos, destacando<br>
-                                        as metodologias utilizadas para conduzir os estudos
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="rank-procedimentos"></div>
-                        </div>
-                        <div class="method-card coleta-de-dados">
-                            <div class="graph-header">
-                                <span class="title">Artigos por método de coleta de dados</span>
-                                <div class="tooltip">
-                                    <img class="info-icon" alt="Ícone de informação"
-                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
-                                    <div class="tooltip-text">
-                                        Este gráfico mostra a proporção de artigos<br>
-                                        conforme o método de coleta de dados, evidenciando<br>
-                                        as técnicas utilizadas para obtenção das informações<br>
-                                        nos estudos.
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="rank-coleta-de-dados"></div>
-                        </div>
-                        <div class="method-card dados-quantitativos">
-                            <div class="graph-header">
-                                <span class="title">Artigos por método de análise de dados quantitativos</span>
-                                <div class="tooltip">
-                                    <img class="info-icon" alt="Ícone de informação"
-                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
-                                    <div class="tooltip-text">
-                                        Este gráfico mostra a proporção de artigos<br>
-                                        conforme o método de análise de dados<br>
-                                        quantitativos, destacando as abordagens<br>
-                                        estatísticas e técnicas utilizadas para<br>
-                                        interpretar os dados numéricos.
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="rank-quantitativos"></div>
-                        </div>
-                        <div class="method-card dados-qualitativos">
-                            <div class="graph-header">
-                                <span class="title">Artigos por método de análise de dados qualitativos</span>
-                                <div class="tooltip">
-                                    <img class="info-icon" alt="Ícone de informação"
-                                         src="{{ url_for('static', filename='images/info-icon.png') }}">
-                                    <div class="tooltip-text">
-                                        Este gráfico mostra a proporção de artigos<br>
-                                        conforme o método de análise de dados<br>
-                                        qualitativos, destacando as abordagens<br>
-                                        interpretativas e técnicas usadas para<br>
-                                        entender os dados não numéricos.
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="rank-qualitativos"></div>
+                        <div class="pagination-wrapper">
+                            <div id="table-pagination" class="table-pagination" aria-label="Paginação"></div>
                         </div>
                     </div>
-                </div>
+                </section>
+
             </div>
         </div>
     </main>
@@ -330,318 +375,34 @@
     <div id="papers-modal" class="papers-modal" onclick="if(event.target===this)closePapersModal()">
         <div class="papers-modal-content">
             <button class="papers-modal-close" onclick="closePapersModal()">&times;</button>
-            <h3 id="papers-modal-title" class="papers-modal-title"></h3>
+            <h3 id="papers-modal-title" class="papers-modal-title" tabindex="-1"></h3>
             <div id="papers-modal-body" class="papers-modal-body"></div>
         </div>
     </div>
 
-    <script>
-        const METHODOLOGY_PALETTE = ['#0EA5E9', '#2563EB', '#7C3AED', '#059669', '#F59E0B', '#64748B'];
-        const allPapers = {{ statistics.papers_db | tojson }};
+    <!-- Modal de drill-down: artigos correspondentes aos filtros ativos -->
+    <div id="drilldown-modal" class="papers-modal" role="dialog" aria-modal="true"
+         aria-labelledby="drilldown-title" onclick="if(event.target===this)closeDrilldownModal()">
+        <div class="papers-modal-content">
+            <button class="papers-modal-close" onclick="closeDrilldownModal()" aria-label="Fechar">&times;</button>
+            <h3 id="drilldown-title" class="papers-modal-title" tabindex="-1">Artigos correspondentes aos filtros</h3>
+            <div class="drilldown-toolbar">
+                <input id="drilldown-search" class="drilldown-search" type="search"
+                       placeholder="Buscar por título, autor ou instituição…"
+                       autocomplete="off" aria-label="Buscar nos artigos filtrados">
+                <span id="drilldown-count" class="drilldown-count" aria-live="polite"></span>
+            </div>
+            <div id="drilldown-body" class="papers-modal-body"></div>
+        </div>
+    </div>
 
-        const FIELD_LABELS = {
-            'Approach': 'Abordagem',
-            'Objective': 'Objetivo',
-            'Procedures': 'Procedimentos',
-            'Data_collection': 'Coleta de Dados',
-            'Quantitative_Data_Analysis': 'Análise Quantitativa',
-            'Qualitative_Data_Analysis': 'Análise Qualitativa'
-        };
-
-        function renderModalPapers(title, papers) {
-            const modal = document.getElementById('papers-modal');
-            const modalTitle = document.getElementById('papers-modal-title');
-            const modalBody = document.getElementById('papers-modal-body');
-            modalTitle.textContent = title + ' (' + papers.length + ' artigo' + (papers.length !== 1 ? 's' : '') + ')';
-            modalBody.innerHTML = '';
-            if (papers.length === 0) {
-                modalBody.innerHTML = '<p style="color:var(--dw-text-secondary);text-align:center;padding:20px 0;">Nenhum artigo encontrado.</p>';
-            } else {
-                const ul = document.createElement('ul');
-                ul.className = 'papers-modal-list';
-                papers.forEach(p => {
-                    const authorsStr = p.Authors.map(a => a.Name + ' (' + a.Institution_acronym + ')').join(', ');
-                    const li = document.createElement('li');
-                    li.className = 'papers-modal-card';
-                    li.innerHTML =
-                        '<div class="papers-modal-card-title">' + p.Title + '</div>' +
-                        '<div class="papers-modal-card-meta">' + p.Year + ' &middot; ' + authorsStr + '</div>' +
-                        '<a class="papers-modal-card-link" href="' + p.Download_link + '" target="_blank">🔍 Acessar na SOL SBC</a>';
-                    ul.appendChild(li);
-                });
-                modalBody.appendChild(ul);
-            }
-            modal.classList.add('visible');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function openCategoryModal(field, value) {
-            const filtered = allPapers.filter(p => {
-                const v = p[field];
-                if (!v || v === '#') return false;
-                return v.split(',').map(s => s.trim()).includes(value);
-            });
-            const label = FIELD_LABELS[field] || field;
-            renderModalPapers(label + ': ' + value, filtered);
-        }
-
-        function openModalByFilter(title, filterFn) {
-            const filtered = allPapers.filter(filterFn);
-            renderModalPapers(title, filtered);
-        }
-
-        function closePapersModal() {
-            const modal = document.getElementById('papers-modal');
-            modal.classList.remove('visible');
-            document.body.style.overflow = '';
-        }
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closePapersModal();
+    <script type="module">
+        import { initDashboard } from "{{ url_for('static', filename='javascript/dashboard/dashboard.js') }}";
+        window.addEventListener('DOMContentLoaded', () => {
+            initDashboard(
+                {{ statistics.papers_db | tojson }},
+                {{ statistics.award_winning_papers | tojson }}
+            );
         });
-
-        function render_segmented_bar(container, items) {
-            const total = items.reduce((s, i) => s + i.count, 0);
-            const fieldName = Object.keys(FIELD_LABELS).find(k => container.id.includes(k.toLowerCase().replace(/_/g, '')) || (
-                (container.id === 'bar-abordagem' && k === 'Approach') ||
-                (container.id === 'bar-objetivo' && k === 'Objective')
-            ));
-
-            const bar = document.createElement('div');
-            bar.className = 'segmented-bar';
-            items.forEach((item, idx) => {
-                const seg = document.createElement('div');
-                seg.className = 'segment';
-                seg.style.width = ((item.count / total) * 100) + '%';
-                seg.style.backgroundColor = METHODOLOGY_PALETTE[idx % METHODOLOGY_PALETTE.length];
-                seg.style.cursor = 'pointer';
-                seg.title = item.class + ': ' + item.count + ' artigos';
-                if (fieldName) {
-                    seg.addEventListener('click', () => openCategoryModal(fieldName, item.class));
-                }
-                bar.appendChild(seg);
-            });
-            container.appendChild(bar);
-
-            const badges = document.createElement('div');
-            badges.className = 'badge-grid';
-            items.forEach((item, idx) => {
-                const pct = ((item.count / total) * 100).toFixed(1);
-                const badge = document.createElement('span');
-                badge.className = 'method-badge';
-                badge.style.cursor = 'pointer';
-                if (fieldName) {
-                    badge.addEventListener('click', () => openCategoryModal(fieldName, item.class));
-                }
-                badge.innerHTML =
-                    '<span class="badge-dot" style="background-color:' + METHODOLOGY_PALETTE[idx % METHODOLOGY_PALETTE.length] + '"></span>' +
-                    '<span class="badge-label">' + item.class + '</span>' +
-                    '<span class="badge-count">' + item.count + '</span>' +
-                    '<span class="badge-pct">(' + pct + '%)</span>';
-                badges.appendChild(badge);
-            });
-            container.appendChild(badges);
-        }
-
-        function render_ranked_list(container, items) {
-            const total = items.reduce((s, i) => s + i.count, 0);
-            const sorted = [...items].sort((a, b) => b.count - a.count);
-            const fieldMap = {
-                'rank-procedimentos': 'Procedures',
-                'rank-coleta-de-dados': 'Data_collection',
-                'rank-quantitativos': 'Quantitative_Data_Analysis',
-                'rank-qualitativos': 'Qualitative_Data_Analysis'
-            };
-            const fieldName = fieldMap[container.id];
-
-            const list = document.createElement('div');
-            list.className = 'rank-list';
-            sorted.forEach(item => {
-                const pct = ((item.count / total) * 100).toFixed(1);
-                const row = document.createElement('div');
-                row.className = 'rank-item';
-                row.style.cursor = 'pointer';
-                if (fieldName) {
-                    row.addEventListener('click', () => openCategoryModal(fieldName, item.class));
-                }
-                row.innerHTML =
-                    '<span class="rank-name">' + item.class + '</span>' +
-                    '<span class="rank-stats">' + item.count + ' (' + pct + '%)</span>' +
-                    '<div class="rank-bar-track"><div class="rank-bar-fill" style="width:' + pct + '%"></div></div>';
-                list.appendChild(row);
-            });
-            container.appendChild(list);
-        }
-
-        let active_edition = 0
-        let active_button = null
-
-        function paginate_papers_table(button, edition) {
-            if (edition === active_edition) {
-                return
-            }
-
-            const new_tables_lines = document.getElementsByClassName(`paper-from-${edition}`)
-            const old_table_lines = document.getElementsByClassName(`paper-from-${active_edition}`)
-            for (const table_row of old_table_lines) {
-                table_row.style.display = 'none'
-            }
-            if (active_button) {
-                active_button.classList.remove('active')
-            }
-            for (const table_row of new_tables_lines) {
-                table_row.style.display = ''
-            }
-            button.classList.add('active')
-            active_edition = edition
-            active_button = button
-        }
-
-        function table_next_page() {
-            const e = document.getElementById(`button-${active_edition + 1}`)
-            if (e)
-                paginate_papers_table(e, active_edition + 1)
-        }
-
-        function table_before_page() {
-            const e = document.getElementById(`button-${active_edition - 1}`)
-            if (e)
-                paginate_papers_table(e, active_edition - 1)
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const lastEdition = {{ statistics.award_winning_papers[-1]['Year'] }};
-            paginate_papers_table(
-                document.getElementById('button-' + lastEdition),
-                lastEdition
-            )
-
-            const papers_editions = document.getElementById("artigos-por-edicao")
-            const papers_languages = document.getElementById("artigos-por-idioma")
-            const institutions_ranking = document.getElementById("raking-institutions")
-            const authors_ranking = document.getElementById("raking-authors")
-            const cloud_words = document.getElementById("nuvem-de-palavras")
-            const publications_per_state = document.getElementById("papers_per_state")
-
-            const editions = {{ statistics.publications_by_years() | tojson }}
-            insert_vertical_bar_chart(papers_editions, {
-                'labels': editions.map((edition, index) => `${edition.year} (${index + 1}°)`),
-                'data': editions.map(edition => edition.publications),
-                'onClick': (label) => {
-                    const year = parseInt(label.split(' ')[0]);
-                    openModalByFilter('Artigos publicados em ' + year, p => p.Year == year);
-                },
-            })
-
-            const languages = {{ statistics.publications_by_years_by_languages() | tojson }}
-            insert_line_chart(papers_languages, {
-                'labels': languages.data.map((language, index) => `${language.year} (${index + 1}°)`),
-                'langs': languages.langs,
-                'data': languages.data,
-                'onClick': (yearLabel, lang) => {
-                    const year = parseInt(yearLabel.split(' ')[0]);
-                    openModalByFilter('Artigos em ' + lang + ' em ' + year, p => p.Year == year && p.Language === lang);
-                },
-            })
-
-            const authors = {{ statistics.authors_rank()[:10] | tojson }};
-            insert_horizontal_bar_chart(authors_ranking, {
-                'labels': authors.map(author => author.Name),
-                'data': authors.map(author => author.Papers.length),
-                'rank': true,
-                'onClick': (name) => {
-                    openModalByFilter('Artigos de ' + name, p => p.Authors.some(a => a.Name === name));
-                },
-            })
-
-            const institutions = {{ statistics.institution_rank()[:10] | tojson }}
-            insert_horizontal_bar_chart(institutions_ranking, {
-                'labels': institutions.map(institution => institution.institution),
-                'data': institutions.map(institution => institution.publications),
-                'rank': true,
-                'onClick': (inst) => {
-                    openModalByFilter('Artigos de ' + inst, p => p.Authors.some(a => a.Institution_acronym === inst));
-                },
-            })
-
-            const papers_by_approach = {{ statistics.papers_by_approach() | tojson }}
-            render_segmented_bar(document.getElementById('bar-abordagem'), papers_by_approach)
-
-            const papers_by_objective = {{ statistics.papers_by_objetive() | tojson }}
-            render_segmented_bar(document.getElementById('bar-objetivo'), papers_by_objective)
-
-            const papers_by_procedure = {{ statistics.papers_by_procedures() | tojson }}
-            render_ranked_list(document.getElementById('rank-procedimentos'), papers_by_procedure)
-
-            const papers_by_data_collection = {{ statistics.papers_by_data_collection() | tojson }}
-            render_ranked_list(document.getElementById('rank-coleta-de-dados'), papers_by_data_collection)
-
-            const papers_by_quanti_analy = {{ statistics.papers_by_quanti_data_analy() | tojson }}
-            render_ranked_list(document.getElementById('rank-quantitativos'), papers_by_quanti_analy)
-
-            const papers_by_quali_analy = {{ statistics.papers_by_quali_data_analy() | tojson }}
-            render_ranked_list(document.getElementById('rank-qualitativos'), papers_by_quali_analy)
-
-            const states = {{ statistics.states_rank() | tojson }}
-            insert_brazil_map_chart(publications_per_state, {
-                ...states.reduce((acc, item) => { acc[item.state] = item.publications; return acc; }, {}),
-                'onClick': (stateName) => {
-                    openModalByFilter('Artigos do estado ' + stateName, p => p.Authors[0] && p.Authors[0].State === stateName);
-                },
-            })
-
-            const words = {{ statistics.keywords_cloud() | tojson }}
-            insert_cloud_word_chart(cloud_words, {
-                'labels': words.map(word => word.keyword),
-                'data': words.map(word => (word.count * 5)),
-                'counts': words.map(word => word.count),
-                'wordItems': words.map(word => ({text: word.keyword, paper_ids: word.paper_ids})),
-                'onClick': (wordItem) => {
-                    const matchedPapers = allPapers.filter(p => wordItem.paper_ids.includes(p.Paper_id));
-                    renderModalPapers('Artigos com a palavra-chave: ' + wordItem.text, matchedPapers);
-                },
-            })
-
-            const tooltips = document.querySelectorAll('.tooltip');
-            tooltips.forEach(tooltip => {
-                // Cria o elemento do tooltip se não existir
-                if (!tooltip.querySelector('.tooltip-text')) {
-                    const tooltipText = document.createElement('div');
-                    tooltipText.className = 'tooltip-text';
-                    tooltipText.textContent = tooltip.getAttribute('data-tooltip') || '';
-                    tooltip.appendChild(tooltipText);
-                }
-                
-                // Configura o posicionamento
-                const tooltipText = tooltip.querySelector('.tooltip-text');
-                
-                tooltip.addEventListener('mouseenter', function() {
-                    // Verifica se há espaço acima
-                    const rect = tooltip.getBoundingClientRect();
-                    const spaceAbove = rect.top;
-                    const tooltipHeight = 100; // Altura estimada do tooltip
-                    
-                    // Se não houver espaço suficiente acima, mostra abaixo
-                    if (spaceAbove < tooltipHeight) {
-                        tooltipText.classList.add('bottom');
-                    } else {
-                        tooltipText.classList.remove('bottom');
-                    }
-                    
-                    // Verifica posição na tela para mobile
-                    if (window.innerWidth <= 768) {
-                        const spaceRight = window.innerWidth - rect.right;
-                        
-                        if (spaceRight < 200) { // Se não houver espaço à direita
-                            tooltipText.classList.add('mobile-left');
-                            tooltipText.classList.remove('mobile-right');
-                        } else {
-                            tooltipText.classList.add('mobile-right');
-                            tooltipText.classList.remove('mobile-left');
-                        }
-                    }
-                });
-            });
-        })
     </script>
 {% endblock %}
