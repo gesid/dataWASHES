@@ -37,18 +37,35 @@
     --dw-gap: 20px;
 }
 
+/* Sticky Footer (Flexbox): html/body preenchem a viewport e o <main> cresce
+   para empurrar o rodapé ao fim, eliminando espaço branco fantasma abaixo dele. */
 html, body {
     width: 100%;
-    height: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh; /* Cálculo correto em navegadores mobile com barra dinâmica */
     background-color: var(--dw-bg);
     color: var(--dw-text);
     font-family: var(--dw-font-body);
     font-optical-sizing: auto;
     padding-top: 64px;
+}
+
+main, .dashboard, .container, #main-content {
+    flex: 1 0 auto; /* Empurra o footer sempre para o final da janela */
+}
+
+footer {
+    flex-shrink: 0;
+    margin-top: auto;
 }
 
 /* Todo elemento clicável exibe cursor de ponteiro (evita sensação de link morto). */
@@ -1773,20 +1790,28 @@ canvas {
     }
 
     .year-pills-group {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: 6px;
-        scrollbar-width: thin;
-        -webkit-overflow-scrolling: touch;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
     }
 
     .year-pill {
         flex-shrink: 0;
     }
 
+    .filters-card {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
     .quick-filters-row {
         flex-direction: column;
         align-items: stretch;
+        gap: 8px;
+        width: 100%;
     }
 
     .quick-search-wrap,
@@ -1795,8 +1820,17 @@ canvas {
         width: 100%;
     }
 
+    .quick-selects .filter-select {
+        width: 100%;
+    }
+
+    .quick-search {
+        width: 100%;
+    }
+
     .quick-actions {
-        justify-content: space-between;
+        justify-content: flex-start;
+        flex-wrap: wrap;
     }
 
     .section-tabs {
@@ -1877,6 +1911,53 @@ canvas {
         transform: none !important;
         margin-left: 10px;
         white-space: normal;
+    }
+}
+
+@media (max-width: 480px) {
+    .year-pills-group {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+
+    .filters-card {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .quick-filters-row {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .quick-search-wrap,
+    .quick-selects,
+    .quick-actions {
+        width: 100%;
+    }
+
+    .quick-search,
+    .quick-selects .filter-select {
+        width: 100%;
+    }
+
+    .quick-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .filters-advanced-toggle,
+    .filter-reset-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 

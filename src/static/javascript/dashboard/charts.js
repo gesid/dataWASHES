@@ -155,7 +155,7 @@ export function initRankingTabs(onChange) {
         btn.dataset.tab = tab;
         btn.setAttribute('role', 'tab');
         btn.setAttribute('aria-selected', String(tab === rankingTab));
-        btn.textContent = tab === 'institutions' ? 'Top Instituições' : 'Top Autores';
+        btn.textContent = tab === 'institutions' ? 'Instituições' : 'Autores';
         btn.addEventListener('click', () => {
             if (rankingTab === tab) return;
             setRankingTab(tab);

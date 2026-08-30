@@ -35,18 +35,39 @@
 /* ===== Reset & Base ===== */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Sticky Footer (Flexbox): html/body preenchem a viewport e o <main> cresce
+   para empurrar o rodapé ao fim, eliminando espaço branco fantasma abaixo dele. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     margin: 0;
     padding: 0;
     width: 100%;
     overflow-x: hidden;
     padding-top: 64px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh; /* Cálculo correto em navegadores mobile com barra dinâmica */
     background-color: var(--dw-gray-50);
     font-family: var(--dw-font-body);
     font-optical-sizing: auto;
     color: var(--dw-gray-800);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+}
+
+main, .dashboard, .container, #main-content {
+    flex: 1 0 auto; /* Empurra o footer sempre para o final da janela */
+}
+
+footer {
+    flex-shrink: 0;
+    margin-top: auto;
 }
 
 h1, h2, h3, h4 {
@@ -621,7 +642,7 @@ footer {
     background: var(--dw-dark);
     border-top: 1px solid rgba(255,255,255,.1);
     padding: 56px 24px;
-    margin-top: 0;
+    margin-top: auto;
     width: 100%;
 }
 .dw-footer-inner,
