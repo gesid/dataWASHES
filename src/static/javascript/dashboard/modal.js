@@ -3,10 +3,15 @@
  *
  * Extraído do template original para manter as funcionalidades existentes
  * (abrir lista de papers a partir de qualquer gráfico) de forma modular.
+ * Abre como caixa de diálogo acessível (role="dialog", foco travado dentro
+ * do modal e restaurado no gatilho ao fechar).
  */
+
+import { openModalAccessibly } from './utils.js';
 
 /** Elementos cacheados após o primeiro uso. */
 let els = null;
+let closeModal = null;
 
 function elements() {
     if (!els) {
@@ -29,7 +34,6 @@ export function renderModalPapers(title, papers) {
     const count = papers.length;
     titleEl.textContent = `${title} (${count} artigo${count !== 1 ? 's' : ''})`;
     body.innerHTML = '';
-
     if (count === 0) {
         const empty = document.createElement('p');
         empty.style.color = 'var(--dw-text-secondary)';
@@ -64,23 +68,26 @@ export function renderModalPapers(title, papers) {
         body.appendChild(ul);
     }
 
-    modal.classList.add('visible');
-    document.body.style.overflow = 'hidden';
-    titleEl.focus();
+    closeModal = openModalAccessibly('papers-modal', 'papers-modal-title');
 }
 
-/** Fecha o modal e restaura o scroll. */
+/** Fecha o modal e restaura o scroll e o foco anterior. */
 export function closePapersModal() {
     const { modal, body } = elements();
-    modal.classList.remove('visible');
-    document.body.style.overflow = '';
+    if (!modal.classList.contains('visible')) return;
+    if (closeModal) closeModal();
+    closeModal = null;
     body.innerHTML = '';
 }
 
-/** Atalho de teclado (Escape) para fechar o modal. */
+/** Atalho de teclado (Escape) para fechar o modal aberto. */
 export function initModalKeyboard() {
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') closePapersModal();
+        const modal = elements().modal;
+        if (event.key === 'Escape' && modal && modal.classList.contains('visible')) {
+            event.preventDefault();
+            closePapersModal();
+        }
     });
 }
 

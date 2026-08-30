@@ -108,11 +108,8 @@ export function includesAny(haystack, needles) {
 }
 
 /**
- * Remove os placeholders de carregamento de um container (ou do documento).
  * Descarrega a classe `chart-card-loading` e remove qualquer `.skeleton-overlay`
- * / `.skeleton-card` associado. Usada no bloco finally de cada componente para
- * que a falha em um render nunca trave o descarregamento dos demais.
- * @param {string|Element} [root='.dashboard'] - seletor ou elemento raiz
+ * / `.skeleton-card` associado.
  */
 export function hideLoading(root = '.dashboard') {
     const scope = typeof root === 'string' ? document.querySelector(root) : root;
@@ -136,4 +133,74 @@ export function hideLoading(root = '.dashboard') {
     } else {
         document.querySelectorAll('.skeleton-card').forEach((el) => el.remove());
     }
+}
+
+const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+/**
+ * Retorna os elementos focalizáveis visíveis dentro de um container.
+ * @param {HTMLElement} container
+ * @returns {HTMLElement[]}
+ */
+function focusablesIn(container) {
+    return [...container.querySelectorAll(FOCUSABLE_SELECTOR)]
+        .filter((el) => el.offsetParent !== null || el === document.activeElement);
+}
+
+/**
+ * Travador de foco de teclado para modais abertos.
+ * Registre como listener de `keydown` no container do modal:
+ * quando Tab chega ao fim da lista, ele volta ao início (e vice-versa).
+ * @param {HTMLElement} container
+ * @param {KeyboardEvent} event
+ */
+export function trapFocus(container, event) {
+    if (event.key !== 'Tab') return;
+    const list = focusablesIn(container);
+    if (!list.length) {
+        event.preventDefault();
+        container.focus();
+        return;
+    }
+    const first = list[0];
+    const last = list[list.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+    }
+}
+
+/**
+ * Abre um modal acessível: lembra o foco anterior, foca o primeiro elemento
+ * significativo e passa a travar Tab dentro do container até o close().
+ * @param {string} modalId
+ * @param {string} focusTargetId - id do elemento que recebe o foco ao abrir
+ * @returns {() => void} função de fechamento que restaura o foco anterior
+ */
+export function openModalAccessibly(modalId, focusTargetId) {
+    const modal = document.getElementById(modalId);
+    const lastFocus = document.activeElement;
+    if (!modal) return () => {};
+
+    const onKeydown = (e) => trapFocus(modal, e);
+    modal.classList.add('visible');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    modal.addEventListener('keydown', onKeydown);
+
+    const target = document.getElementById(focusTargetId) || modal;
+    target.focus();
+
+    return function close() {
+        modal.removeEventListener('keydown', onKeydown);
+        modal.classList.remove('visible');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (lastFocus && typeof lastFocus.focus === 'function') {
+            lastFocus.focus({ preventScroll: true });
+        }
+    };
 }

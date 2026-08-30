@@ -242,59 +242,6 @@ export function countByYear(source) {
         .map((year) => ({ year, publications: counts[year] }));
 }
 
-/** Contagem por idioma com histórico por ano (para o line chart). */
-export function countByLanguageSeries(source) {
-    const langs = new Set();
-    const perYear = {};
-    source.forEach((p) => {
-        if (p.Language) langs.add(p.Language);
-        (perYear[p.Year] ||= {})[p.Language] = (perYear[p.Year][p.Language] || 0) + 1;
-    });
-    const data = years
-        .filter((y) => perYear[y] !== undefined)
-        .map((year) => ({ year, ...perYear[year] }));
-    return { data, langs: [...langs] };
-}
-
-/** Ranking de instituições pela quantidade de artigos do primeiro autor. */
-export function institutionRank(source) {
-    const counts = {};
-    source.forEach((p) => {
-        const first = p.Authors && p.Authors[0];
-        if (first && first.Institution_acronym) {
-            counts[first.Institution_acronym] = (counts[first.Institution_acronym] || 0) + 1;
-        }
-    });
-    return Object.entries(counts)
-        .map(([institution, publications]) => ({ institution, publications }))
-        .sort((a, b) => b.publications - a.publications);
-}
-
-/** Ranking de autores pela quantidade de artigos. */
-export function authorRank(source) {
-    const counts = new Map();
-    source.forEach((p) => {
-        (p.Authors || []).forEach((a) => {
-            const key = a.Author_id !== undefined ? a.Author_id : a.Name;
-            if (!counts.has(key)) counts.set(key, { id: key, name: a.Name, count: 0 });
-            counts.get(key).count += 1;
-        });
-    });
-    return [...counts.values()].sort((a, b) => b.count - a.count);
-}
-
-/** Ranking de estados pela quantidade de artigos do primeiro autor. */
-export function stateRank(source) {
-    const counts = {};
-    source.forEach((p) => {
-        const first = p.Authors && p.Authors[0];
-        if (first && first.State) counts[first.State] = (counts[first.State] || 0) + 1;
-    });
-    return Object.entries(counts)
-        .map(([state, publications]) => ({ state, publications }))
-        .sort((a, b) => b.publications - a.publications);
-}
-
 /**
  * Distribuição de uma dimensão de classificação ({class, count}).
  * @param {Object[]} source
@@ -315,29 +262,50 @@ export function classificationDist(source, field) {
         .sort((a, b) => b.count - a.count);
 }
 
+/* ===== Nuvem de palavras-chave (tokenizador central) ===== */
+
+/** Palavras vazias do português e ruído para a nuvem de palavras. */
+const STOPWORDS = new Set([
+    'a', 'o', 'as', 'os', 'um', 'uma', 'uns', 'umas',
+    'de', 'do', 'da', 'dos', 'das',
+    'e', 'em', 'no', 'na', 'nos', 'nas',
+    'para', 'com', 'por', 'sobre', 'que',
+]);
+
+/**
+ * Extrai tokens de um campo de palavras-chave (ex.: "Engenharia de Software, Chatbot").
+ * Normaliza em minúsculas, remove pontuação/`#` e stopwords.
+ * @param {string} rawKeywords
+ * @returns {string[]}
+ */
+export function tokenizeKeywords(rawKeywords) {
+    if (!rawKeywords || rawKeywords === '#' || !String(rawKeywords).trim()) return [];
+    const tokens = [];
+    String(rawKeywords).split(',').forEach((kw) => {
+        String(kw).split(/\s+/).forEach((word) => {
+            const clean = word.trim().toLowerCase();
+            if (!clean || clean === '#' || clean.length <= 1 || STOPWORDS.has(clean)) return;
+            tokens.push(clean);
+        });
+    });
+    return tokens;
+}
+
 /** Nuvem de palavras-chave. @returns {[{keyword, count, paper_ids}]} */
 export function keywordsCloud(source) {
     const map = new Map();
     source.forEach((p) => {
-        if (!p.Keywords || p.Keywords === '#' || p.Keywords === '') return;
-        String(p.Keywords).split(',').forEach((kw) => {
-            String(kw).split(/\s+/).forEach((word) => {
-                const clean = word.trim();
-                if (!clean || clean === '#' || ['de', 'e', 'do'].includes(clean.toLowerCase())) return;
-                const key = clean.toLowerCase();
-                if (!map.has(key)) map.set(key, { keyword: key, count: 0, paper_ids: new Set() });
-                const entry = map.get(key);
-                entry.count += 1;
-                entry.paper_ids.add(p.Paper_id);
-            });
+        tokenizeKeywords(p.Keywords).forEach((keyword) => {
+            if (!map.has(keyword)) map.set(keyword, { keyword, count: 0, paper_ids: new Set() });
+            const entry = map.get(keyword);
+            entry.count += 1;
+            entry.paper_ids.add(p.Paper_id);
         });
     });
     return [...map.values()]
         .map((entry) => ({ keyword: entry.keyword, count: entry.count, paper_ids: [...entry.paper_ids] }))
         .sort((a, b) => b.count - a.count);
 }
-
-/** Palavras-chave como lista de palavras-chave completas (sem texto em p.Keywords) — não usado por ora. */
 
 /* ===== KPIs ===== */
 

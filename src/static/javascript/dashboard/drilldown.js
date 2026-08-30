@@ -7,10 +7,11 @@
  */
 
 import { matchesSearch, awardOf } from './data.js';
-import { classifyAward } from './utils.js';
+import { classifyAward, openModalAccessibly } from './utils.js';
 
 let papers = [];
 let els = null;
+let closeModal = null;
 
 function elements() {
     if (!els) {
@@ -35,19 +36,16 @@ export function openDrilldown(paperList) {
     if (search) search.value = '';
     body.innerHTML = '';
     renderDrilldown();
-    modal.classList.add('visible');
-    document.body.style.overflow = 'hidden';
-    const title = document.getElementById('drilldown-title');
-    if (title) title.focus();
+    closeModal = openModalAccessibly('drilldown-modal', 'drilldown-title');
     if (count) count.textContent = '';
 }
 
-/** Fecha o modal e restaura o scroll da página. */
+/** Fecha o modal e restaura o scroll e o foco do gatilho. */
 export function closeDrilldownModal() {
     const { modal, body } = elements();
-    if (!modal) return;
-    modal.classList.remove('visible');
-    document.body.style.overflow = '';
+    if (!modal || !modal.classList.contains('visible')) return;
+    if (closeModal) closeModal();
+    closeModal = null;
     body.innerHTML = '';
 }
 

@@ -8,6 +8,7 @@
 
 import { renderModalPapers } from './modal.js';
 import { pct } from './utils.js';
+import { keywordsCloud } from './data.js';
 
 const MODES = ['cloud', 'ranking'];
 
@@ -46,7 +47,7 @@ export function initWordCloudToggle(onModeChangeCb) {
  */
 export function update(papers) {
     latestPapers = papers;
-    latestWords = buildWords(papers);
+    latestWords = keywordsCloud(papers);
     if (mode === 'ranking') renderRanking();
 }
 
@@ -70,25 +71,6 @@ function setMode(next) {
 
     if (mode === 'ranking') renderRanking();
     else if (onModeChange) onModeChange();
-}
-
-function buildWords(papers) {
-    const map = new Map();
-    papers.forEach((p) => {
-        if (!p.Keywords || p.Keywords === '#') return;
-        String(p.Keywords).split(',').forEach((kw) => {
-            String(kw).split(/\s+/).forEach((word) => {
-                const clean = word.trim();
-                if (!clean || clean === '#' || ['de', 'e', 'do'].includes(clean.toLowerCase())) return;
-                const key = clean.toLowerCase();
-                if (!map.has(key)) map.set(key, { keyword: key, count: 0, paper_ids: [] });
-                const entry = map.get(key);
-                entry.count += 1;
-                entry.paper_ids.push(p.Paper_id);
-            });
-        });
-    });
-    return [...map.values()].sort((a, b) => b.count - a.count);
 }
 
 function renderRanking() {

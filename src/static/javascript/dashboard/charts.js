@@ -20,7 +20,7 @@ import {
     destroyChart,
     resizeChart,
 } from '../graphs_generator.js';
-import { getYears, yearStats, classificationDist, filterPapers, getAllPapers, isBrazilianState, foreignCountryName } from './data.js';
+import { getYears, yearStats, classificationDist, filterPapers, getAllPapers, isBrazilianState, foreignCountryName, keywordsCloud } from './data.js';
 import { getState, toggleFilter } from './state.js';
 import { renderModalPapers } from './modal.js';
 import { openDrilldown } from './drilldown.js';
@@ -199,10 +199,10 @@ const lastSignature = new Map();
 /**
  * Renderiza um visual apenas se a assinatura da última renderização mudou.
  */
-function renderOnce(id, signature, render) {
+async function renderOnce(id, signature, render) {
     if (lastSignature.get(id) === signature) return;
     lastSignature.set(id, signature);
-    render();
+    await render();
 }
 
 /**
@@ -210,9 +210,9 @@ function renderOnce(id, signature, render) {
  * Uma falha em um gráfico nunca impede o descarregamento dos skeletons nem
  * interrompe a renderização dos demais componentes.
  */
-function renderSafe(id, signature, render, cardSelector) {
+async function renderSafe(id, signature, render, cardSelector) {
     try {
-        renderOnce(id, signature, render);
+        await renderOnce(id, signature, render);
     } catch (err) {
         console.error(`Falha ao renderizar o gráfico "${id}":`, err);
     } finally {
@@ -230,9 +230,9 @@ function clear(id) {
  * visível. Em painéis ocultos o render é pulado (a assinatura permanece),
  * então o gráfico é construído sob demanda na primeira ativação da aba.
  */
-function renderActive(id, signature, render, cardSelector) {
+async function renderActive(id, signature, render, cardSelector) {
     if (!isPanelActive(PANEL_OF[id])) return;
-    renderSafe(id, signature, render, cardSelector);
+    await renderSafe(id, signature, render, cardSelector);
 }
 
 /** @returns {string[]} rótulos de ano no padrão atual: "YYYY (N°)" */
@@ -325,9 +325,9 @@ function compareEnabled() {
     return compare.enabled && compare.yearA !== null && compare.yearB !== null;
 }
 
-function buildYearArea(papers, stats) {
+async function buildYearArea(papers, stats) {
     if (compareEnabled()) {
-        buildCompareChart(papers);
+        await buildCompareChart(papers);
         return;
     }
     const data = {};
@@ -352,7 +352,7 @@ function buildYearArea(papers, stats) {
         (label) => toggleFilter('year', parseInt(String(label).split(' ')[0], 10)),
         (label) => openDrilldownWith({ year: parseInt(String(label).split(' ')[0], 10) })
     );
-    insert_vertical_bar_chart(document.getElementById('artigos-por-edicao'), {
+    await insert_vertical_bar_chart(document.getElementById('artigos-por-edicao'), {
         labels,
         data: values,
         selected: activeLabel,
@@ -364,7 +364,7 @@ function buildYearArea(papers, stats) {
 }
 
 /** Comparação anual por abordagem (dois anos lado a lado). */
-function buildCompareChart(papers) {
+async function buildCompareChart(papers) {
     const { yearA, yearB } = compare;
     const dist = (year) => classificationDist((papers || []).filter((p) => p.Year === year), 'Approach')
         .reduce((map, item) => { map[item.class] = item.count; return map; }, {});
@@ -379,7 +379,7 @@ function buildCompareChart(papers) {
         destroyChart(canvas);
         return;
     }
-    insert_compare_bar_chart(canvas, {
+    await insert_compare_bar_chart(canvas, {
         labels,
         series: [
             { label: `Ano ${yearA}`, data: labels.map((v) => distA[v] || 0) },
@@ -389,7 +389,7 @@ function buildCompareChart(papers) {
     });
 }
 
-function buildLanguageLine(papers) {
+async function buildLanguageLine(papers) {
     // Contagem por ano e idioma, sempre indexada pela chave explícita.
     const data = {};
     (papers || []).forEach((p) => {
@@ -411,7 +411,7 @@ function buildLanguageLine(papers) {
         (yearLabel, key) => toggleFilter('language', key),
         (yearLabel, key) => openDrilldownWith({ language: key })
     );
-    insert_line_chart(document.getElementById('artigos-por-idioma'), {
+    await insert_line_chart(document.getElementById('artigos-por-idioma'), {
         labels: yearLabels(),
         series,
         onClick: langClick.single,
@@ -419,7 +419,7 @@ function buildLanguageLine(papers) {
     });
 }
 
-function buildInstitutionBar(papers) {
+async function buildInstitutionBar(papers) {
     const counts = {};
     const countryByInst = {};
     (papers || []).forEach((p) => {
@@ -438,7 +438,7 @@ function buildInstitutionBar(papers) {
         (name) => toggleFilter('institution', name),
         (name) => openDrilldownWith({ institution: name })
     );
-    insert_horizontal_bar_chart(document.getElementById('ranking-institutions'), {
+    await insert_horizontal_bar_chart(document.getElementById('ranking-institutions'), {
         labels: entries.map(([name]) => (countryByInst[name] ? `${name} (${countryByInst[name]})` : name)),
         data: entries.map(([, count]) => count),
         rank: true,
@@ -449,7 +449,7 @@ function buildInstitutionBar(papers) {
     });
 }
 
-function buildAuthorBar(papers) {
+async function buildAuthorBar(papers) {
     const counts = new Map();
     (papers || []).forEach((p) => {
         (p.Authors || []).forEach((a) => {
@@ -458,7 +458,7 @@ function buildAuthorBar(papers) {
         });
     });
     const entries = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10);
-    insert_horizontal_bar_chart(document.getElementById('ranking-authors'), {
+    await insert_horizontal_bar_chart(document.getElementById('ranking-authors'), {
         labels: entries.map(([key]) => key.split('|')[0]),
         data: entries.map(([, count]) => count),
         rank: true,
@@ -469,7 +469,7 @@ function buildAuthorBar(papers) {
     });
 }
 
-function buildStateMap(papers) {
+async function buildStateMap(papers) {
     const counts = {};
     (papers || []).forEach((p) => {
         const first = p.Authors && p.Authors[0];
@@ -479,7 +479,7 @@ function buildStateMap(papers) {
         (stateName) => toggleFilter('state', stateName),
         (stateName) => openDrilldownWith({ state: stateName })
     );
-    insert_brazil_map_chart(document.getElementById('papers_per_state'), {
+    await insert_brazil_map_chart(document.getElementById('papers_per_state'), {
         ...counts,
         onClick: mapClick.single,
         onDblClick: mapClick.double,
@@ -621,29 +621,13 @@ function fieldKey(field) {
 }
 
 /** Nuvem de palavras (modo nuvem), mantendo o drill-down por palavra-chave. */
-function buildWordCloud(papers) {
+async function buildWordCloud(papers) {
     const canvas = document.getElementById('nuvem-de-palavras');
     if (!canvas) {
         console.warn('Canvas da nuvem de palavras não encontrado no DOM.');
         return;
     }
-    const words = [];
-    const map = new Map();
-    (papers || []).forEach((p) => {
-        if (!p.Keywords || p.Keywords === '#') return;
-        String(p.Keywords).split(',').forEach((kw) => {
-            String(kw).split(/\s+/).forEach((word) => {
-                const clean = word.trim();
-                if (!clean || clean === '#' || ['de', 'e', 'do'].includes(clean.toLowerCase())) return;
-                const key = clean.toLowerCase();
-                if (!map.has(key)) map.set(key, { keyword: key, count: 0, paper_ids: [] });
-                const entry = map.get(key);
-                entry.count += 1;
-                entry.paper_ids.push(p.Paper_id);
-            });
-        });
-    });
-    map.forEach((entry) => words.push({ keyword: entry.keyword, count: entry.count, paper_ids: entry.paper_ids }));
+    const words = keywordsCloud(papers);
     const cloudClick = deferClick(
         (wordItem) => {
             const matched = (papers || []).filter((p) => wordItem.paper_ids && wordItem.paper_ids.includes(p.Paper_id));
@@ -659,14 +643,13 @@ function buildWordCloud(papers) {
     // lê o fonte diretamente do valor do dataset, em px): a palavra mais
     // frequente fica em 36px e as demais decaem suavemente até o mínimo de
     // 13px, sem "gigante cercado de invisíveis".
-    words.sort((a, b) => b.count - a.count);
     const topWords = words.slice(0, 50);
     const counts = topWords.map((w) => w.count);
     const maxCount = Math.max(1, ...counts);
     const MIN_FONT = 13;
     const MAX_FONT = 36;
     const fontOf = (c) => Math.max(MIN_FONT, Math.min(MAX_FONT, Math.round(MIN_FONT + (MAX_FONT - MIN_FONT) * Math.sqrt(c / maxCount))));
-    insert_cloud_word_chart(canvas, {
+    await insert_cloud_word_chart(canvas, {
         labels: topWords.map((w) => w.keyword),
         data: counts.map(fontOf),
         counts,
@@ -682,37 +665,40 @@ function buildWordCloud(papers) {
  * bloqueia o descarregamento dos skeletons nem a renderização dos demais.
  * @param {Object} ctx - {papers, state}
  */
-export function renderAll(ctx) {
+export async function renderAll(ctx) {
     const papers = (ctx && ctx.papers) || [];
     const state = (ctx && ctx.state) || {};
     const stats = yearStats(papers);
     const gas = JSON.stringify(state || {});
 
-    renderActive('artigos-por-edicao', gas + compareSignature(), () => buildYearArea(papers, stats), CARD_FOR['artigos-por-edicao']);
-    renderActive('artigos-por-idioma', gas, () => buildLanguageLine(papers), CARD_FOR['artigos-por-idioma']);
+    await renderActive('artigos-por-edicao', gas + compareSignature(), () => buildYearArea(papers, stats), CARD_FOR['artigos-por-edicao']);
+    await renderActive('artigos-por-idioma', gas, () => buildLanguageLine(papers), CARD_FOR['artigos-por-idioma']);
 
     const rankSig = gas + `:${rankingTab}`;
-    renderActive('ranking-institutions', rankSig, () => {
-        if (rankingTab === 'institutions') buildInstitutionBar(papers);
+    await renderActive('ranking-institutions', rankSig, () => {
+        if (rankingTab === 'institutions') return buildInstitutionBar(papers);
+        return undefined;
     }, CARD_FOR['ranking-institutions']);
-    renderActive('ranking-authors', rankSig, () => {
-        if (rankingTab === 'authors') buildAuthorBar(papers);
+    await renderActive('ranking-authors', rankSig, () => {
+        if (rankingTab === 'authors') return buildAuthorBar(papers);
+        return undefined;
     }, CARD_FOR['ranking-authors']);
 
-    renderActive('papers_per_state', gas, () => buildStateMap(papers), CARD_FOR['papers_per_state']);
+    await renderActive('papers_per_state', gas, () => buildStateMap(papers), CARD_FOR['papers_per_state']);
 
     const approachDist = classificationDist(papers, 'Approach');
     const objectiveDist = classificationDist(papers, 'Objective');
-    renderActive('bar-abordagem', gas + JSON.stringify(approachDist), () => buildSegmented('bar-abordagem', 'Approach', approachDist), CARD_FOR['bar-abordagem']);
-    renderActive('bar-objetivo', gas + JSON.stringify(objectiveDist), () => buildSegmented('bar-objetivo', 'Objective', objectiveDist), CARD_FOR['bar-objetivo']);
+    await renderActive('bar-abordagem', gas + JSON.stringify(approachDist), () => buildSegmented('bar-abordagem', 'Approach', approachDist), CARD_FOR['bar-abordagem']);
+    await renderActive('bar-objetivo', gas + JSON.stringify(objectiveDist), () => buildSegmented('bar-objetivo', 'Objective', objectiveDist), CARD_FOR['bar-objetivo']);
     const pSig = proceduresSig(papers);
-    renderActive('rank-procedimentos', gas + pSig, () => buildRankedList('rank-procedimentos', 'Procedures', classificationDist(papers, 'Procedures'), papers), CARD_FOR['rank-procedimentos']);
-    renderActive('rank-coleta-de-dados', gas + pSig, () => buildRankedList('rank-coleta-de-dados', 'Data_collection', classificationDist(papers, 'Data_collection'), papers), CARD_FOR['rank-coleta-de-dados']);
-    renderActive('rank-quantitativos', gas + pSig, () => buildRankedList('rank-quantitativos', 'Quantitative_Data_Analysis', classificationDist(papers, 'Quantitative_Data_Analysis'), papers), CARD_FOR['rank-quantitativos']);
-    renderActive('rank-qualitativos', gas + pSig, () => buildRankedList('rank-qualitativos', 'Qualitative_Data_Analysis', classificationDist(papers, 'Qualitative_Data_Analysis'), papers), CARD_FOR['rank-qualitativos']);
+    await renderActive('rank-procedimentos', gas + pSig, () => buildRankedList('rank-procedimentos', 'Procedures', classificationDist(papers, 'Procedures'), papers), CARD_FOR['rank-procedimentos']);
+    await renderActive('rank-coleta-de-dados', gas + pSig, () => buildRankedList('rank-coleta-de-dados', 'Data_collection', classificationDist(papers, 'Data_collection'), papers), CARD_FOR['rank-coleta-de-dados']);
+    await renderActive('rank-quantitativos', gas + pSig, () => buildRankedList('rank-quantitativos', 'Quantitative_Data_Analysis', classificationDist(papers, 'Quantitative_Data_Analysis'), papers), CARD_FOR['rank-quantitativos']);
+    await renderActive('rank-qualitativos', gas + pSig, () => buildRankedList('rank-qualitativos', 'Qualitative_Data_Analysis', classificationDist(papers, 'Qualitative_Data_Analysis'), papers), CARD_FOR['rank-qualitativos']);
 
-    renderActive('nuvem-de-palavras', gas + `:${isCloudMode()}`, () => {
-        if (isCloudMode()) buildWordCloud(papers);
+    await renderActive('nuvem-de-palavras', gas + `:${isCloudMode()}`, () => {
+        if (isCloudMode()) return buildWordCloud(papers);
+        return undefined;
     }, CARD_FOR['nuvem-de-palavras']);
 }
 

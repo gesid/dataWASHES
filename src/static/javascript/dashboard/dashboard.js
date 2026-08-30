@@ -107,11 +107,9 @@ export function initDashboard(allPapers, awardData) {
         } catch (err) {
             console.error('Falha ao atualizar a nuvem de palavras:', err);
         }
-        try {
-            renderAll({ papers: filtered, state });
-        } catch (err) {
+        renderAll({ papers: filtered, state }).catch((err) => {
             console.error('Falha ao renderizar os gráficos:', err);
-        }
+        });
 
         if (!booted) {
             booted = true;

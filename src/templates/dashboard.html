@@ -49,7 +49,7 @@
                     <div class="panel-grid">
                         <div class="artigos_por_edicao graph-card">
                             <div class="graph-header">
-                                <span class="title">Artigos por edição</span>
+                                <h2 class="title">Artigos por edição</h2>
                                 <div class="tooltip">
                                     <img class="info-icon" alt="Ícone de informação"
                                          src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -67,7 +67,7 @@
 
                         <div class="artigos_por_idioma graph-card">
                             <div class="graph-header">
-                                <span class="title">Evolução de idiomas (Português × Inglês)</span>
+                                <h2 class="title">Evolução de idiomas (Português × Inglês)</h2>
                                 <div class="tooltip">
                                     <img class="info-icon" alt="Ícone de informação"
                                          src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -89,7 +89,7 @@
                     <div class="panel-grid community-grid">
                         <div class="artigos_por_estado graph-card">
                             <div class="graph-header">
-                                <span class="title">Publicações por estado</span>
+                                <h2 class="title">Publicações por estado</h2>
                                 <div class="tooltip">
                                     <img class="info-icon" alt="Ícone de informação"
                                          src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -111,7 +111,7 @@
 
                         <div class="ranking_social graph-card">
                             <div class="graph-header">
-                                <span class="title">Ranking da comunidade</span>
+                                <h2 class="title">Ranking da comunidade</h2>
                                 <div class="tooltip">
                                     <img class="info-icon" alt="Ícone de informação"
                                          src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -136,7 +136,7 @@
 
                         <div class="nuvem_palavras graph-card">
                             <div class="graph-header">
-                                <span class="title">Nuvem de tópicos</span>
+                                <h2 class="title">Nuvem de tópicos</h2>
                                 <div class="tooltip">
                                     <img class="info-icon" alt="Ícone de informação"
                                          src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -161,7 +161,7 @@
                         <div class="method-hero-grid">
                             <div class="method-card abordagem">
                                 <div class="graph-header">
-                                    <span class="title">Abordagem de pesquisa</span>
+                                    <h2 class="title">Abordagem de pesquisa</h2>
                                     <div class="tooltip">
                                         <img class="info-icon" alt="Ícone de informação"
                                              src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -175,7 +175,7 @@
                             </div>
                             <div class="method-card objetivo">
                                 <div class="graph-header">
-                                    <span class="title">Objetivo da pesquisa</span>
+                                    <h2 class="title">Objetivo da pesquisa</h2>
                                     <div class="tooltip">
                                         <img class="info-icon" alt="Ícone de informação"
                                              src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -192,7 +192,7 @@
                         <div class="method-cards-grid">
                             <div class="method-card procedimentos" data-tone="cyan">
                                 <div class="graph-header">
-                                    <span class="title">Procedimentos</span>
+                                    <h2 class="title">Procedimentos</h2>
                                     <div class="tooltip">
                                         <img class="info-icon" alt="Ícone de informação"
                                              src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -206,7 +206,7 @@
                             </div>
                             <div class="method-card coleta-de-dados" data-tone="green">
                                 <div class="graph-header">
-                                    <span class="title">Coleta de dados</span>
+                                    <h2 class="title">Coleta de dados</h2>
                                     <div class="tooltip">
                                         <img class="info-icon" alt="Ícone de informação"
                                              src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -220,7 +220,7 @@
                             </div>
                             <div class="method-card dados-quantitativos" data-tone="cyan">
                                 <div class="graph-header">
-                                    <span class="title">Análise quantitativa</span>
+                                    <h2 class="title">Análise quantitativa</h2>
                                     <div class="tooltip">
                                         <img class="info-icon" alt="Ícone de informação"
                                              src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -234,7 +234,7 @@
                             </div>
                             <div class="method-card dados-qualitativos" data-tone="green">
                                 <div class="graph-header">
-                                    <span class="title">Análise qualitativa</span>
+                                    <h2 class="title">Análise qualitativa</h2>
                                     <div class="tooltip">
                                         <img class="info-icon" alt="Ícone de informação"
                                              src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -254,7 +254,7 @@
                 <section id="panel-premiados" class="tab-panel" role="tabpanel" data-panel="premiados" aria-labelledby="tab-premiados" hidden>
                     <div class="artigos_premiados graph-card">
                         <div class="graph-header">
-                            <span class="title">Artigos Premiados por Edição</span>
+                            <h2 class="title">Artigos Premiados por Edição</h2>
                             <div class="tooltip">
                                 <img class="info-icon" alt="Ícone de informação"
                                      src="{{ url_for('static', filename='images/info-icon.png') }}">
@@ -372,9 +372,10 @@
         </div>
     </main>
 
-    <div id="papers-modal" class="papers-modal" onclick="if(event.target===this)closePapersModal()">
+    <div id="papers-modal" class="papers-modal" role="dialog" aria-modal="true"
+         aria-labelledby="papers-modal-title" onclick="if(event.target===this)closePapersModal()">
         <div class="papers-modal-content">
-            <button class="papers-modal-close" onclick="closePapersModal()">&times;</button>
+            <button class="papers-modal-close" onclick="closePapersModal()" aria-label="Fechar">&times;</button>
             <h3 id="papers-modal-title" class="papers-modal-title" tabindex="-1"></h3>
             <div id="papers-modal-body" class="papers-modal-body"></div>
         </div>

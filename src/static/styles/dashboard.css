@@ -7,6 +7,7 @@
     /* ── Marca oficial ── */
     --dw-magenta: #E72B78;
     --dw-magenta-hover: #EC4899;
+    --dw-magenta-deep: #C2185B; /* texto pequeno/botão ativo: contraste ≥ 4.5:1 sobre branco */
     --dw-cyan: #36BCEE;
     --dw-cyan-bright: #22D3EE;
     --dw-green: #66C75C;
@@ -203,11 +204,11 @@ button {
 }
 
 .year-pill.active {
-    background: var(--dw-magenta);
-    border-color: var(--dw-magenta);
+    background: var(--dw-magenta-deep);
+    border-color: var(--dw-magenta-deep);
     color: #FFFFFF;
     font-weight: 700;
-    box-shadow: 0 3px 10px rgba(231, 43, 120, 0.3);
+    box-shadow: 0 3px 10px rgba(194, 24, 91, 0.3);
 }
 
 .year-pill.pill-all {
@@ -354,8 +355,8 @@ button {
 }
 
 .filter-reset-btn:hover {
-    background: rgba(231, 43, 120, 0.07);
-    color: var(--dw-magenta);
+    background: rgba(194, 24, 91, 0.07);
+    color: var(--dw-magenta-deep);
 }
 
 .filters-advanced {
@@ -525,7 +526,7 @@ button {
 }
 
 .kpi-magenta .kpi-value { color: var(--dw-magenta); }
-.kpi-cyan .kpi-value { color: var(--dw-cyan); }
+.kpi-cyan .kpi-value { color: var(--dw-teal); }
 .kpi-navy .kpi-value { color: var(--dw-navy); }
 .kpi-green .kpi-value { color: var(--dw-green-deep); }
 
@@ -786,6 +787,21 @@ button {
     position: relative;
     display: inline-block;
     cursor: pointer;
+    border-radius: 6px;
+}
+
+.tooltip:focus-visible {
+    outline: 2px solid var(--dw-cyan);
+    outline-offset: 3px;
+}
+
+/* Abertura por hover (mouse), foco (teclado) e toque (.is-open). */
+.tooltip:hover .tooltip-text,
+.tooltip:focus-visible .tooltip-text,
+.tooltip:focus .tooltip-text,
+.tooltip .tooltip-text.is-open {
+    visibility: visible;
+    opacity: 1;
 }
 
 .tooltip .tooltip-text {
@@ -809,14 +825,50 @@ button {
     font-weight: 500;
 }
 
-.tooltip:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
+/* Sem espaço acima na tela: coloca o texto acima do rótulo. */
+.tooltip .tooltip-text.bottom {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 8px;
+}
+
+/* Telas pequenas (≤768px): coloca o texto ao lado, evitando estouro. */
+.tooltip .tooltip-text.mobile-left {
+    left: auto;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 10px;
+}
+
+.tooltip .tooltip-text.mobile-right {
+    right: auto;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 10px;
 }
 
 .tooltip .tooltip-text ul {
     margin: 4px 0 0;
     padding-left: 16px;
+}
+
+/* Aviso de indisponibilidade das bibliotecas de gráficos da CDN. */
+.chart-libs-error {
+    display: none;
+    margin: 0 0 14px;
+    padding: 10px 14px;
+    background: #FFF7E6;
+    color: #7A5B00;
+    border: 1px solid #E5C158;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.chart-libs-error.visible {
+    display: block;
 }
 
 /* Caixas dos gráficos (altura fixa para os canvas) */
@@ -867,8 +919,8 @@ canvas {
 }
 
 .compare-toggle.active {
-    background: var(--dw-magenta);
-    border-color: var(--dw-magenta);
+    background: var(--dw-magenta-deep);
+    border-color: var(--dw-magenta-deep);
     color: #FFFFFF;
 }
 
@@ -901,7 +953,7 @@ canvas {
     cursor: pointer;
 }
 
-.compare-year-a label { color: var(--dw-magenta); }
+.compare-year-a label { color: var(--dw-magenta-deep); }
 .compare-year-b label { color: var(--dw-teal); }
 
 /* ============================================================
@@ -1145,7 +1197,7 @@ canvas {
 
 /* Cross-filter: linha da dimensão procedimentos selecionada destaca em Magenta. */
 .rank-item.selected .rank-name {
-    color: var(--dw-magenta);
+    color: var(--dw-magenta-deep);
 }
 
 .rank-list .rank-item.selected .rank-bar-fill {
@@ -1208,15 +1260,16 @@ canvas {
 }
 
 .pag-year-button.active {
-    background-color: var(--dw-magenta);
+    background-color: var(--dw-magenta-deep);
     color: #FFFFFF;
     font-weight: 700;
-    border-color: var(--dw-magenta);
-    box-shadow: 0 3px 10px rgba(231, 43, 120, 0.3);
+    border-color: var(--dw-magenta-deep);
+    box-shadow: 0 3px 10px rgba(194, 24, 91, 0.3);
 }
 
 .pag-year-button.active:hover {
-    background-color: var(--dw-magenta-hover);
+    background-color: var(--dw-magenta-deep);
+    filter: brightness(0.92);
 }
 
 /* Toolbar */
@@ -1398,8 +1451,8 @@ canvas {
 }
 
 .paper-link:hover {
-    color: var(--dw-magenta);
-    border-color: rgba(231, 43, 120, 0.4);
+    color: var(--dw-magenta-deep);
+    border-color: rgba(194, 24, 91, 0.4);
 }
 
 /* Paginação */
@@ -1438,8 +1491,8 @@ canvas {
 }
 
 .table-page-btn.active {
-    background: var(--dw-magenta);
-    border-color: var(--dw-magenta);
+    background: var(--dw-magenta-deep);
+    border-color: var(--dw-magenta-deep);
     color: #FFFFFF;
 }
 
@@ -1597,7 +1650,7 @@ canvas {
 }
 
 .papers-modal-card-link:hover {
-    color: var(--dw-magenta);
+    color: var(--dw-magenta-deep);
     text-decoration: underline;
 }
 
@@ -1937,10 +1990,7 @@ canvas {
     }
 
     .tooltip .tooltip-text {
-        max-width: 200px;
-        left: 100% !important;
-        transform: none !important;
-        margin-left: 10px;
+        max-width: min(200px, calc(100vw - 40px));
         white-space: normal;
     }
 }

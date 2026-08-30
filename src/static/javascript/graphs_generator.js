@@ -1,18 +1,147 @@
-import {Chart, registerables} from 'https://esm.sh/chart.js';
-import {WordCloudController, WordElement} from 'https://esm.sh/chartjs-chart-wordcloud';
-import {
-    topojson,
-    ChoroplethController,
-    ChoroplethChart,
-    GeoFeature,
-    ProjectionScale,
-    ColorScale,
-} from 'https://esm.sh/chartjs-chart-geo';
-import ChartDataLabels from 'https://esm.sh/chartjs-plugin-datalabels';
+/* Dependências de gráficos carregadas via esm.sh com VERSÕES PINADAS e
+ * fallback resiliente: a carga é assíncrona (import() dinâmico) com retry e
+ * backoff, de modo que uma falha de rede NUNCA impede o carregamento dos
+ * módulos nativos do dashboard (KPIs, filtros, tabela e abas permanecem
+ * funcionando mesmo sem a biblioteca de gráficos). */
+const CHART_LIBS_URLS = {
+    chart: 'https://esm.sh/chart.js@4.4.7',
+    // IMPORTANTE: os plugins abaixo pinam via ?deps= o chart.js@4.4.7 E as
+    // suas próprias dependências. Sem isso o esm.sh entrega uma SEGUNDA
+    // instância do Chart.js (o caret range ^4.x dos plugins resolve para a
+    // versão mais recente), registrando os controllers da nuvem (wordcloud)
+    // num Chart e desenhando com outro — sintoma: a nuvem de tópicos ficava
+    // totalmente em branco enquanto os demais gráficos funcionavam.
+    wordcloud: 'https://esm.sh/chartjs-chart-wordcloud@4.4.4?deps=chart.js@4.4.7,d3-cloud@1.2.7',
+    geo: 'https://esm.sh/chartjs-chart-geo@4.3.4?deps=chart.js@4.4.7',
+    topojson: 'https://esm.sh/topojson-client@3.1.0',
+    datalabels: 'https://esm.sh/chartjs-plugin-datalabels@2.2.0?deps=chart.js@4.4.7',
+};
 
-Chart.register(ChartDataLabels, WordCloudController, WordElement, ChoroplethController, GeoFeature, ProjectionScale, ColorScale, ...registerables);
+/** Biblioteca de gráficos ativa (preenchida após loadChartLibs com sucesso). */
+let currentLibs = null;
 
-Chart.defaults.font.family = "'Sofia Sans', sans-serif";
+/** Promise única de carga das bibliotecas (evita requisições duplicadas). */
+let libsPromise = null;
+
+async function loadChartLibs() {
+    if (libsPromise) return libsPromise;
+    libsPromise = (async () => {
+        let lastError = null;
+        for (let attempt = 1; attempt <= 3; attempt += 1) {
+            try {
+                const [chart, wordcloud, geo, topojson, datalabels] = await Promise.all([
+                    import(CHART_LIBS_URLS.chart),
+                    import(CHART_LIBS_URLS.wordcloud),
+                    import(CHART_LIBS_URLS.geo),
+                    import(CHART_LIBS_URLS.topojson),
+                    import(CHART_LIBS_URLS.datalabels),
+                ]);
+                const { Chart, registerables } = chart;
+                const libs = {
+                    Chart,
+                    topojson,
+                    ChoroplethController: geo.ChoroplethController,
+                    ChoroplethChart: geo.ChoroplethChart,
+                    GeoFeature: geo.GeoFeature,
+                    ProjectionScale: geo.ProjectionScale,
+                    ColorScale: geo.ColorScale,
+                };
+                Chart.register(
+                    datalabels.default,
+                    wordcloud.WordCloudController,
+                    wordcloud.WordElement,
+                    libs.ChoroplethController,
+                    libs.GeoFeature,
+                    libs.ProjectionScale,
+                    libs.ColorScale,
+                    ...registerables,
+                );
+                Chart.defaults.font.family = "'Sofia Sans', sans-serif";
+                currentLibs = libs;
+                return libs;
+            } catch (err) {
+                lastError = err;
+                await new Promise((resolve) => setTimeout(resolve, 300 * attempt));
+            }
+        }
+        currentLibs = null;
+        console.warn('[dataWASHES] Bibliotecas de gráficos indisponíveis após 3 tentativas. Gráficos desativados, restante do dashboard operacional.', lastError);
+        return null;
+    })();
+    return libsPromise;
+}
+
+/**
+ * Garante (uma única vez) que as bibliotecas de gráficos estejam prontas.
+ * Todas as funções de gráfico aguardam esta promise antes de montar canvas.
+ * @returns {Promise<Object|null>}
+ */
+export function ensureChartLibs() {
+    return loadChartLibs();
+}
+
+/** Banner discreto (renderizado uma única vez) quando as libs não carregam. */
+function notifyChartLibsUnavailable() {
+    if (document.getElementById('chart-libs-error')) return;
+    const notice = document.createElement('div');
+    notice.id = 'chart-libs-error';
+    notice.className = 'chart-libs-error';
+    notice.textContent = 'Os gráficos estão temporariamente indisponíveis (falha ao carregar o módulo de visualização). O restante do dashboard permanece funcional.';
+    const host = document.querySelector('.dashboard');
+    if (host) host.prepend(notice);
+}
+
+/**
+ * Plugin local de rótulos de valor para gráficos de barras.
+ *
+ * Substitui o chartjs-plugin-datalabels para os gráficos de barras do
+ * dashboard (que, no Chart.js v4 via esm.sh, posicionava os números na base
+ * y=0 e com os índices deslocados). Aqui a posição é calculada de forma
+ * determinística a partir da GEOMETRIA do elemento da barra:
+ *   - barras verticais  (indexAxis 'x'): número centralizado ACIMA do topo;
+ *   - barras horizontais (indexAxis 'y'): número à DIREITA da extremidade.
+ * Elemento e valor compartilham o mesmo índice por construção — sem defasagem.
+ */
+export const dwValueLabelsPlugin = {
+    id: 'dwValueLabels',
+    afterDatasetsDraw(chart, args, opts) {
+        if (!opts || !opts.enabled) return;
+        const horizontal = (chart.options.indexAxis === 'y');
+        const font = opts.font || {};
+        const offset = opts.offset != null ? opts.offset : (horizontal ? 6 : 4);
+        const formatter = opts.formatter || ((value) => (value > 0 ? value : ''));
+        const { ctx } = chart;
+
+        ctx.save();
+        ctx.font = `${font.weight || 'bold'} ${font.size || 12}px ${font.family || "'Sofia Sans', sans-serif"}`;
+        ctx.fillStyle = opts.color || '#27272A';
+        ctx.textAlign = horizontal ? 'left' : 'center';
+        ctx.textBaseline = horizontal ? 'middle' : 'bottom';
+
+        chart.data.datasets.forEach((dataset, dsIndex) => {
+            const meta = chart.getDatasetMeta(dsIndex);
+            if (!meta || !meta.data) return;
+            meta.data.forEach((element, index) => {
+                if (!element || element.skip) return;
+                const text = formatter(dataset.data[index], index);
+                if (text === '' || text === null || text === undefined) return;
+                let x;
+                let y;
+                if (horizontal) {
+                    // Right end of the bar + offset; row center stays put.
+                    x = Math.max(element.x, element.base) + offset;
+                    y = element.y;
+                } else {
+                    // Top end of the bar - offset; column center stays put.
+                    x = element.x;
+                    y = Math.min(element.y, element.base) - offset;
+                }
+                ctx.fillText(String(text), x, y);
+            });
+        });
+        ctx.restore();
+    },
+};
 
 const PRIMARY_PALETTE = ['#E72B78', '#36BCEE', '#66C75C', '#003358', '#0D6080', '#EC4899', '#22D3EE'];
 
@@ -24,10 +153,10 @@ const _chartRegistry = new WeakMap();
  * safely reused on every dashboard re-render.
  * @param {HTMLCanvasElement} canvas - target canvas
  * @param {object} config - Chart.js (or Choropleth) configuration
- * @param {Function} [ChartCtor=Chart] - chart constructor to use
+ * @param {Function} [ChartCtor=null] - construtor alternativo (ex.: ChoroplethChart)
  * @returns {object} the created chart instance
  */
-function mountChart(canvas, config, ChartCtor = Chart) {
+function mountChart(canvas, config, ChartCtor = null) {
     // Verifica se o canvas existe e possui contexto 2D válido antes de instanciar.
     if (!canvas || typeof canvas.getContext !== 'function') {
         console.warn('mountChart ignorado: canvas inexistente no DOM.', canvas);
@@ -44,12 +173,18 @@ function mountChart(canvas, config, ChartCtor = Chart) {
         return null;
     }
 
+    const Lib = ChartCtor || (currentLibs && currentLibs.Chart);
+    if (!Lib) {
+        notifyChartLibsUnavailable();
+        return null;
+    }
+
     const previous = _chartRegistry.get(canvas);
     if (previous) {
         previous.destroy();
         _chartRegistry.delete(canvas);
     }
-    const chart = new ChartCtor(canvas, config);
+    const chart = new Lib(canvas, config);
     _chartRegistry.set(canvas, chart);
     return chart;
 }
@@ -157,9 +292,15 @@ async function loadGeoJSON() {
     }
 }
 
-export function insert_horizontal_bar_chart(element, infos) {
+export async function insert_horizontal_bar_chart(element, infos) {
     const labels = infos['labels'] || [];
     if (!element || !labels.length) {
+        destroyChart(element);
+        return;
+    }
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
         destroyChart(element);
         return;
     }
@@ -182,9 +323,9 @@ export function insert_horizontal_bar_chart(element, infos) {
             return `rgba(231, 43, 120, ${alpha.toFixed(2)})`;
         });
     }
-    const ticks_data = new Set(infos['data'])
     const onClick = infos['onClick'] || null;
     const onDblClick = infos['onDblClick'] || null;
+    const valuesMax = Math.max(...(infos['data'] || []), 0);
     const data = {
         labels: labels,
         datasets: [{
@@ -200,6 +341,7 @@ export function insert_horizontal_bar_chart(element, infos) {
     const config = {
         type: 'bar',
         data,
+        plugins: [dwValueLabelsPlugin],
         options: {
             indexAxis: 'y',
             responsive: true,
@@ -223,16 +365,26 @@ export function insert_horizontal_bar_chart(element, infos) {
                     display: false
                 },
                 datalabels: {
-                    anchor: "end",
-                    align: "right",
+                    // Plugin externo desativado: rótulos via dwValueLabels
+                    // (posicionamento geométrico exato, sem defasagem de índice).
+                    display: false
+                },
+                dwValueLabels: {
+                    enabled: true,
+                    offset: 6,
+                    color: "#27272A",
                     font: {
-                        size: 14
+                        family: 'Sofia Sans',
+                        weight: 'bold',
+                        size: 12,
                     },
-                    color: "#1E293B"
+                    formatter: (value) => (value > 0 ? value : ''),
                 }
             },
             scales: {
                 x: {
+                    // Dá folga à direita para o número caber sem cortar.
+                    suggestedMax: valuesMax * 1.15,
                     grid: {
                         display: false
                     },
@@ -259,9 +411,15 @@ export function insert_horizontal_bar_chart(element, infos) {
     attachDoubleClick(element, chart, onDblClick, (idx) => mapLabel(labels[idx]));
 }
 
-export function insert_vertical_bar_chart(element, infos) {
+export async function insert_vertical_bar_chart(element, infos) {
     const labels = infos['labels'] || [];
     if (!element || !labels.length) {
+        destroyChart(element);
+        return;
+    }
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
         destroyChart(element);
         return;
     }
@@ -272,12 +430,12 @@ export function insert_vertical_bar_chart(element, infos) {
     // (cross-filter com destaque visual).
     const highlight = infos['highlight'] || null;
     const selected = infos['selected'] || null;
+    const valuesMax = Math.max(...(infos['data'] || []), 0);
     const color = labels.map((label) => {
         if (selected && label === selected) return PRIMARY_PALETTE[0];
         if (highlight && highlight(label)) return PRIMARY_PALETTE[0];
         return selected ? 'rgba(54, 188, 238, 0.35)' : PRIMARY_PALETTE[1];
     });
-    const ticks_data = new Set(infos['data'])
     const onClick = infos['onClick'] || null;
     const richTooltip = infos['tooltip'] || null;
     const onDblClick = infos['onDblClick'] || null;
@@ -298,6 +456,7 @@ export function insert_vertical_bar_chart(element, infos) {
     const config = {
         type: 'bar',
         data,
+        plugins: [dwValueLabelsPlugin],
         options: {
             responsive: true,
             maintainAspectRatio: false,
@@ -333,16 +492,27 @@ export function insert_vertical_bar_chart(element, infos) {
                     },
                 },
                 datalabels: {
-                    anchor: "end",
-                    align: "top",
+                    // Plugin externo desativado: rótulos via dwValueLabels
+                    // (posicionamento geométrico exato, sem defasagem de índice).
+                    display: false
+                },
+                dwValueLabels: {
+                    enabled: true,
+                    offset: 4,
+                    color: "#27272A",
                     font: {
-                        size: 14
+                        family: 'Sofia Sans',
+                        weight: 'bold',
+                        size: 12,
                     },
-                    color: "#1E293B"
+                    formatter: (value) => (value > 0 ? value : ''),
                 }
             },
             scales: {
                 y: {
+                    // Dá 15% de folga no topo para o número não encostar nem
+                    // cortar na borda superior.
+                    suggestedMax: valuesMax * 1.15,
                     grid: {
                         display: false
                     },
@@ -376,10 +546,16 @@ export function insert_vertical_bar_chart(element, infos) {
  * nunca do índice numérico do array — assim um filtro que deixa apenas uma
  * série mantém a cor correta (ex.: Português=ciano, Inglês=magenta).
  */
-export function insert_line_chart(element, infos) {
+export async function insert_line_chart(element, infos) {
     const labels = infos['labels'] || [];
     const series = infos['series'] || [];
     if (!element || !labels.length || !series.length) {
+        destroyChart(element);
+        return;
+    }
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
         destroyChart(element);
         return;
     }
@@ -420,7 +596,9 @@ export function insert_line_chart(element, infos) {
                     display: true,
                     position: 'top'
                 },
-                datalabels: false
+                datalabels: {
+                    display: false
+                }
             },
             scales: {
                 x: {
@@ -455,10 +633,16 @@ export function insert_line_chart(element, infos) {
     mountChart(element, config)
 }
 
-export function insert_area_chart(element, infos) {
+export async function insert_area_chart(element, infos) {
     const labels = infos['labels'] || [];
     const values = infos['data'] || [];
     if (!element || !labels.length) {
+        destroyChart(element);
+        return;
+    }
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
         destroyChart(element);
         return;
     }
@@ -538,7 +722,14 @@ export function insert_area_chart(element, infos) {
     mountChart(element, config);
 }
 
-function insert_doughnut_chart(element, infos) {
+async function insert_doughnut_chart(element, infos) {
+    if (!element) return;
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
+        destroyChart(element);
+        return;
+    }
     const data = {
         labels: infos['labels'],
         datasets: [{
@@ -575,7 +766,14 @@ function insert_doughnut_chart(element, infos) {
     mountChart(element, config)
 }
 
-function insert_horizontal_bar_categories(element, infos) {
+async function insert_horizontal_bar_categories(element, infos) {
+    if (!element) return;
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
+        destroyChart(element);
+        return;
+    }
     const combined = infos['labels'].map((label, i) => ({label, value: infos['data'][i]}));
     combined.sort((a, b) => b.value - a.value);
 
@@ -632,7 +830,14 @@ function insert_horizontal_bar_categories(element, infos) {
     mountChart(element, config)
 }
 
-function insert_radar_chart(element, infos) {
+async function insert_radar_chart(element, infos) {
+    if (!element) return;
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
+        destroyChart(element);
+        return;
+    }
     const data = {
         labels: infos['labels'],
         datasets: [{
@@ -691,9 +896,15 @@ function insert_radar_chart(element, infos) {
  * Gráfico de barras agrupadas para comparação entre dois anos (duas séries).
  * Espera infos = {labels, series: [{label, data}], onClick}
  */
-export function insert_compare_bar_chart(element, infos) {
+export async function insert_compare_bar_chart(element, infos) {
     const labels = infos['labels'] || [];
     if (!element || !labels.length) {
+        destroyChart(element);
+        return;
+    }
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
         destroyChart(element);
         return;
     }
@@ -713,6 +924,7 @@ export function insert_compare_bar_chart(element, infos) {
                 maxBarThickness: 26,
             })),
         },
+        plugins: [dwValueLabelsPlugin],
         options: {
             responsive: true,
             maintainAspectRatio: false,
@@ -729,10 +941,19 @@ export function insert_compare_bar_chart(element, infos) {
                     labels: { usePointStyle: true, boxWidth: 8 }
                 },
                 datalabels: {
-                    anchor: "end",
-                    align: "top",
-                    font: { size: 12 },
-                    color: "#1E293B"
+                    // Plugin externo desativado: rótulos via dwValueLabels.
+                    display: false
+                },
+                dwValueLabels: {
+                    enabled: true,
+                    offset: 4,
+                    color: "#27272A",
+                    font: {
+                        family: 'Sofia Sans',
+                        weight: 'bold',
+                        size: 12,
+                    },
+                    formatter: (value) => (value > 0 ? value : ''),
                 },
             },
             scales: {
@@ -753,13 +974,19 @@ export function insert_compare_bar_chart(element, infos) {
     mountChart(element, config)
 }
 
-export function insert_cloud_word_chart(element, infos) {
+export async function insert_cloud_word_chart(element, infos) {
     const onClick = infos['onClick'] || null;
     const onDblClick = infos['onDblClick'] || null;
     const wordLabels = infos['labels'] || [];
     const wordItems = infos['wordItems'] || null;
     const realCounts = infos['counts'] || null;
     if (!element || !wordLabels.length) {
+        destroyChart(element);
+        return;
+    }
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
         destroyChart(element);
         return;
     }
@@ -900,8 +1127,15 @@ export function insert_cloud_word_chart(element, infos) {
     attachDoubleClick(element, chart, onDblClick, (idx) => (wordItems ? wordItems[idx] : { text: wordLabels[idx], paper_ids: [] }));
 }
 
-export function insert_brazil_map_chart(element, infos) {
+export async function insert_brazil_map_chart(element, infos) {
     if (!element) return;
+    const libs = await ensureChartLibs();
+    if (!libs) {
+        notifyChartLibsUnavailable();
+        destroyChart(element);
+        return;
+    }
+    const { topojson, ChoroplethController, ChoroplethChart } = libs;
     const onClick = infos['onClick'] || null;
     const onDblClick = infos['onDblClick'] || null;
     loadGeoJSON().then(geoJson => {
@@ -953,7 +1187,9 @@ export function insert_brazil_map_chart(element, infos) {
                     legend: {
                         display: false
                     },
-                    datalabels: false,
+                    datalabels: {
+                        display: false
+                    },
                     tooltip: {
                         callbacks: {
                             label: function (tooltipItem) {
@@ -1002,11 +1238,10 @@ export function insert_brazil_map_chart(element, infos) {
             if (el) el.textContent = text;
         };
         const stateCounts = states.map((f) => infos[f.properties.name] || 0);
-        const defined = stateCounts.length ? stateCounts : [0];
-        const minState = Math.min(...defined);
-        const maxState = Math.max(...defined);
-        setLegendText('map-legend-min', `Menos artigos (${Math.max(1, minState)})`);
-        setLegendText('map-legend-max', `Mais artigos (${Math.max(1, maxState)})`);
+        const minState = stateCounts.length ? Math.min(...stateCounts) : 0;
+        const maxState = stateCounts.length ? Math.max(...stateCounts) : 0;
+        setLegendText('map-legend-min', `Menos artigos (${minState})`);
+        setLegendText('map-legend-max', `Mais artigos (${maxState})`);
     })
 }
 
