@@ -1239,6 +1239,8 @@ canvas {
     flex-wrap: wrap;
     gap: 6px;
     margin-bottom: 16px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .pag-year-button {
@@ -1247,10 +1249,12 @@ canvas {
     font-family: var(--dw-font-heading);
     font-size: 0.82rem;
     font-weight: 600;
-    padding: 6px 16px;
+    padding: 6px 14px;
     border: 1px solid var(--dw-border);
     border-radius: var(--dw-radius-full);
     cursor: pointer;
+    flex-shrink: 0;
+    min-height: 36px;
     transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
@@ -1883,29 +1887,52 @@ canvas {
         flex-shrink: 0;
     }
 
-    .filters-card {
-        margin-top: 12px;
+    /* ── Filtros e Artigos Premiados: remove lacunas verticais (min-height/heights
+       fixos e justify-content: space-between) e empilha em fluxo natural compacto ── */
+    .filters-card,
+    #filters-bar,
+    .filters-bar,
+    .filters-inline,
+    .artigos_premiados,
+    .table-toolbar,
+    .pagination-section,
+    .pagination-wrapper {
+        min-height: auto !important;
+        height: auto !important;
+        justify-content: flex-start !important;
+        align-content: flex-start !important;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px !important;
+    }
+
+    .filters-card {
+        margin-top: 12px;
         width: 100%;
     }
 
+    /* Busca em largura total e linha única compacta (Idioma + Filtros avançados + Limpar) */
     .quick-filters-row {
-        flex-direction: column;
-        align-items: stretch;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
         gap: 8px;
         width: 100%;
     }
 
-    .quick-search-wrap,
-    .quick-selects,
-    .quick-actions {
+    .quick-search-wrap {
+        flex: 0 0 100%;
         width: 100%;
+        margin-top: 4px;
+    }
+
+    .quick-selects {
+        width: auto;
     }
 
     .quick-selects .filter-select {
-        width: 100%;
+        width: auto;
     }
 
     .quick-search {
@@ -1915,16 +1942,45 @@ canvas {
     .quick-actions {
         justify-content: flex-start;
         flex-wrap: wrap;
+        width: auto;
     }
 
-    .section-tabs {
+    .section-tabs,
+    #section-tabs {
         overflow-x: auto;
+        overflow-y: hidden;
         flex-wrap: nowrap;
+        white-space: nowrap;
         -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .section-tabs::-webkit-scrollbar,
+    #section-tabs::-webkit-scrollbar {
+        display: none;
     }
 
     .section-tabs .tab-btn {
         flex: 1 0 auto;
+        white-space: nowrap;
+    }
+
+    /* Artigos Premiados: busca em largura total e linha Exportar CSV + contador */
+    .table-toolbar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+
+    .table-search-wrap {
+        flex: 0 0 100%;
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .table-info {
+        margin-left: auto;
     }
 
     #table-scroll-wrapper {
@@ -1939,15 +1995,6 @@ canvas {
         font-size: 13px;
         padding: 9px 10px;
         white-space: nowrap;
-    }
-
-    .table-toolbar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .table-info {
-        margin-left: 0;
     }
 }
 
@@ -1979,14 +2026,19 @@ canvas {
     }
 
     .award-tabs {
-        flex-wrap: nowrap;
-        overflow-x: auto;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
+        align-items: center;
         padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
+        width: 100%;
     }
 
     .pag-year-button {
         flex-shrink: 0;
+        min-height: 36px;
+        padding: 6px 14px;
+        margin-bottom: 0;
     }
 
     .tooltip .tooltip-text {
@@ -2002,43 +2054,102 @@ canvas {
         gap: 8px;
     }
 
+    /* ── Remove lacunas verticais e empilha em fluxo natural compacto ── */
+    .filters-card,
+    #filters-bar,
+    .filters-bar,
+    .filters-inline,
+    .artigos_premiados,
+    .table-toolbar,
+    .pagination-section,
+    .pagination-wrapper {
+        min-height: auto !important;
+        height: auto !important;
+        justify-content: flex-start !important;
+        align-content: flex-start !important;
+        display: flex;
+        flex-direction: column;
+        gap: 12px !important;
+    }
+
     .filters-card {
         margin-top: 12px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
         width: 100%;
     }
 
+    /* Busca em largura total e linha única compacta (Idioma + Filtros avançados + Limpar) */
     .quick-filters-row {
         display: flex;
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
         gap: 8px;
         width: 100%;
     }
 
-    .quick-search-wrap,
-    .quick-selects,
-    .quick-actions {
+    .quick-search-wrap {
+        flex: 0 0 100%;
         width: 100%;
+        margin-top: 4px;
     }
 
-    .quick-search,
+    .quick-selects {
+        width: auto;
+    }
+
     .quick-selects .filter-select {
+        width: auto;
+    }
+
+    .quick-search {
         width: 100%;
     }
 
     .quick-actions {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
         gap: 8px;
+        width: auto;
     }
 
     .filters-advanced-toggle,
     .filter-reset-btn {
-        width: 100%;
+        width: auto;
         justify-content: center;
+    }
+
+    .award-tabs {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .pag-year-button {
+        flex-shrink: 0;
+        min-height: 36px;
+        padding: 6px 14px;
+    }
+
+    /* Artigos Premiados: busca em largura total e linha Exportar CSV + contador */
+    .table-toolbar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .table-search-wrap {
+        flex: 0 0 100%;
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .table-info {
+        margin-left: auto;
     }
 }
 
