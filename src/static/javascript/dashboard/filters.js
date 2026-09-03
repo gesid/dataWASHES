@@ -12,6 +12,7 @@ import { buildOptionLists, getYears, filterPapers, getAllPapers, isBrazilianStat
 import { getState, setFilter, resetFilters, onStateChange } from './state.js';
 import { openDrilldown } from './drilldown.js';
 import { languageLabel, debounce } from './utils.js';
+import { initExportDropdown } from './export.js';
 
 const AWARD_OPTIONS = [
     { value: 'awarded', label: 'premiados' },
@@ -141,7 +142,9 @@ export function initFilters() {
     const actions = document.createElement('div');
     actions.className = 'quick-actions';
     actions.append(toggle, reset);
+
     row.append(searchWrap, quickSelects, actions);
+    initExportDropdown(row);
 
     // ── Filtros avançados (sanfona) ──
     const advanced = document.createElement('div');
@@ -189,11 +192,11 @@ function renderActiveChips(container) {
     const active = Object.entries(state)
         .filter(([key]) => key !== 'search')
         .filter(([, v]) => v !== null && v !== '');
+    const hasSearch = Boolean(state.search && state.search.trim());
+
     const chips = document.createElement('div');
     chips.className = 'active-chips';
     chips.setAttribute('aria-live', 'polite');
-
-    if (!active.length) return;
 
     active.forEach(([key, value]) => {
         const chip = document.createElement('button');
@@ -206,16 +209,20 @@ function renderActiveChips(container) {
         chips.appendChild(chip);
     });
 
-    container.appendChild(chips);
+    // Chips aparecem apenas para filtros não-busca (a busca tem seu próprio campo).
+    if (active.length) container.appendChild(chips);
 
     // Ação rápida: ver os artigos correspondentes ao filtro corrente.
+    // Aparece sempre que houver busca OU filtros ativos.
     const filteredCount = filterPapers(getAllPapers(), getState()).length;
-    const dd = document.createElement('button');
-    dd.type = 'button';
-    dd.className = 'drilldown-btn';
-    dd.setAttribute('aria-haspopup', 'dialog');
-    dd.title = 'Listar os artigos correspondentes aos filtros ativos';
-    dd.textContent = `📄 Ver ${filteredCount} artigo${filteredCount === 1 ? '' : 's'} correspondentes ↗`;
-    dd.addEventListener('click', () => openDrilldown(filterPapers(getAllPapers(), getState())));
-    container.appendChild(dd);
+    if ((hasSearch || active.length) && filteredCount > 0) {
+        const dd = document.createElement('button');
+        dd.type = 'button';
+        dd.className = 'drilldown-btn';
+        dd.setAttribute('aria-haspopup', 'dialog');
+        dd.title = 'Listar os artigos correspondentes aos filtros ativos';
+        dd.textContent = `📄 Ver ${filteredCount} artigo${filteredCount === 1 ? '' : 's'} encontrados ↗`;
+        dd.addEventListener('click', () => openDrilldown(filterPapers(getAllPapers(), getState())));
+        container.appendChild(dd);
+    }
 }

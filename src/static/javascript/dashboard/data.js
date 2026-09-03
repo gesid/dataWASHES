@@ -86,6 +86,15 @@ export function awardOf(paperId) {
     return awardMap.get(paperId);
 }
 
+/**
+ * Retorna o texto bruto de premiação de um artigo (sem formatação).
+ * @param {number} paperId
+ * @returns {string} texto original do campo Award ou string vazia
+ */
+export function getAwardText(paperId) {
+    return awardMap.get(paperId) || '';
+}
+
 /** @returns {Object[]} registros de premiados (ano -> Papers) */
 export function getAwardData() {
     return awardData;

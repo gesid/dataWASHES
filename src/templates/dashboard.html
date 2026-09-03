@@ -266,6 +266,12 @@
                         </div>
 
                         <div class="award-tabs" role="tablist" aria-label="Edições dos artigos premiados">
+                            <button onclick="paginate_papers_table(this, 'all')"
+                                    class="pag-year-button"
+                                    id="button-all"
+                                    data-edition="all"
+                                    role="tab"
+                                    aria-pressed="true">Todos</button>
                             {% for edition in statistics.award_winning_papers %}
                                 <button onclick="paginate_papers_table(this, {{ edition['Year'] }})"
                                         class="pag-year-button"
@@ -361,9 +367,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="pagination-wrapper">
-                            <div id="table-pagination" class="table-pagination" aria-label="Paginação"></div>
                         </div>
                     </div>
                 </section>

@@ -3,14 +3,13 @@
  *
  * Reutiliza as linhas renderizadas pelo template (vinculadas por data-paper-id)
  * e adiciona: busca por título/autor/instituição, ordenação em todas as colunas,
- * paginação dinâmica, filtro integrado ao estado global e exportação CSV.
+ * filtro integrado ao estado global e exportação CSV. Todos os artigos
+ * correspondentes são exibidos de uma só vez (sem paginação numérica).
  */
 
 import { filterPapers, matchesSearch, getAwardData, getAllPapers } from './data.js';
 import { getState, onStateChange } from './state.js';
 import { classifyAward, debounce, esc } from './utils.js';
-
-const PAGE_SIZE = 5;
 
 const SORT_RANK = { none: 0, honorable: 1, '3rd': 2, '2nd': 3, '1st': 4 };
 
@@ -18,27 +17,25 @@ let state = {
     search: '',
     sortCol: null,
     sortDir: 1, // 1 asc, -1 desc
-    page: 1,
 };
 
 let awardPapers = [];
 let rows = new Map(); // Paper_id -> <tr>
 
-/** Edição exibida pela tabela (aba). Padrão: edição mais recente (2026). */
-let tableYear = null;
+/** Edição exibida pela tabela (aba). 'all' = todos os anos; senão um ano (ex.: 2026). */
+let tableYear = 'all';
 
 /** Inicializa a tabela. Deve ser chamado após o DOM estar pronto. */
 export function initTable() {
     awardPapers = flattenAward(getAwardData());
     collectRows();
     const editions = [...new Set(awardPapers.map((p) => p.Year))].sort((a, b) => b - a);
-    tableYear = editions[0] ?? null;
+    tableYear = 'all';
 
     const search = document.getElementById('table-search');
     if (search) {
         search.addEventListener('input', debounce((e) => {
             state.search = e.target.value;
-            state.page = 1;
             renderTable();
         }, 200));
     }
@@ -48,7 +45,6 @@ export function initTable() {
             const col = btn.dataset.col;
             if (state.sortCol === col) state.sortDir *= -1;
             else { state.sortCol = col; state.sortDir = 1; }
-            state.page = 1;
             renderTable();
         });
     });
@@ -57,7 +53,11 @@ export function initTable() {
     if (exportBtn) exportBtn.addEventListener('click', exportCsv);
 
     onStateChange(() => {
-        state.page = 1;
+        // Se houver uma busca global ativa, a tabela passa a exibir todos os
+        // anos para que os resultados correspondentes fiquem visíveis.
+        if (getState().search && getState().search.trim()) {
+            tableYear = 'all';
+        }
         renderTable();
         syncYearButtons();
     });
@@ -70,8 +70,10 @@ export function initTable() {
 function syncYearButtons() {
     const activeYear = tableYear;
     document.querySelectorAll('.pag-year-button').forEach((btn) => {
-        const edition = Number(btn.dataset.edition);
-        const isActive = activeYear !== null && edition === activeYear;
+        const edition = btn.dataset.edition;
+        const isActive = activeYear === 'all'
+            ? edition === 'all'
+            : (edition !== 'all' && Number(edition) === activeYear);
         btn.classList.toggle('active', isActive);
         btn.setAttribute('aria-pressed', String(isActive));
         btn.setAttribute('aria-selected', String(isActive));
@@ -96,12 +98,14 @@ function collectRows() {
 }
 
 /** Lista resultado filtrada + ordenada (pré-paginação, usada também no CSV).
- *  A edição exibida vem das pílulas locais da tabela (tableYear); os filtros
- *  de ano globais (year/yearFrom/yearTo) não governam esta tabela. */
+ *  A edição exibida vem das pílulas locais da tabela (tableYear); 'all' mostra
+ *  todos os anos e um ano específico filtra. Os filtros de ano globais
+ *  (year/yearFrom/yearTo) não governam esta tabela. */
 function visiblePapers() {
     const globalState = getState();
     const baseState = { ...globalState, year: null, yearFrom: null, yearTo: null };
-    const base = filterPapers(awardPapers, baseState).filter((p) => p.Year === tableYear);
+    let base = filterPapers(awardPapers, baseState);
+    if (tableYear !== 'all') base = base.filter((p) => p.Year === tableYear);
     const query = state.search.trim();
     const filtered = query ? base.filter((p) => matchesSearch(p, query)) : base;
 
@@ -126,108 +130,43 @@ function sortValue(paper, col) {
 
 function renderTable() {
     const list = visiblePapers();
-    const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-    if (state.page > totalPages) state.page = totalPages;
-
-    const pageItems = list.slice((state.page - 1) * PAGE_SIZE, state.page * PAGE_SIZE);
-    const pageIds = new Set(pageItems.map((p) => p.Paper_id));
+    const ids = new Set(list.map((p) => p.Paper_id));
 
     rows.forEach((tr) => {
-        const show = pageIds.has(Number(tr.dataset.paperId));
+        const show = ids.has(Number(tr.dataset.paperId));
         tr.style.display = show ? '' : 'none';
     });
 
-    renderInfo(list.length, totalPages);
-    renderPagination(list.length, totalPages);
+    hidePagination();
+    renderInfo(list.length);
     renderEmptyState(list.length);
     updateSortIndicators();
 }
 
-/** Paginação clássica: visível sempre que a lista couber em mais de 1 página. */
-function shouldShowPagination(total, totalPages) {
-    return totalPages > 1;
+/** Oculta o container de paginação numérica (a tabela exibe tudo de uma vez). */
+function hidePagination() {
+    const container = document.getElementById('table-pagination');
+    if (container) {
+        container.innerHTML = '';
+        container.hidden = true;
+    }
 }
 
-function renderInfo(total, totalPages) {
+function renderInfo(total) {
     const info = document.getElementById('table-info');
     if (!info) return;
     if (total === 0) {
         info.textContent = 'Nenhum artigo corresponde aos filtros.';
         return;
     }
-    if (!shouldShowPagination(total, totalPages)) {
-        info.textContent = `${total} artigo${total === 1 ? '' : 's'}`;
-        return;
+    const tableQuery = state.search.trim();
+    const globalQuery = (getState().search || '').trim();
+    const isSearching = Boolean(tableQuery || globalQuery);
+    if (isSearching) {
+        info.textContent = `${total} artigo${total === 1 ? '' : 's'} encontrado${total === 1 ? '' : 's'}`;
+    } else {
+        info.textContent = `${total} artigo${total === 1 ? '' : 's'} premiado${total === 1 ? '' : 's'}`;
     }
-    const range = (state.page - 1) * PAGE_SIZE + 1;
-    const rangeEnd = Math.min(state.page * PAGE_SIZE, total);
-    info.textContent = `${range}–${rangeEnd} de ${total} (página ${state.page}/${totalPages})`;
-}
-
-function renderPagination(total, totalPages) {
-    const container = document.getElementById('table-pagination');
-    if (!container) return;
-    container.innerHTML = '';
-
-    if (!shouldShowPagination(total, totalPages)) return;
-
-    const makeBtn = (label, page, opts = {}) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'table-page-btn';
-        b.textContent = label;
-        if (opts.title) b.title = opts.title;
-        if (opts.ariaLabel) b.setAttribute('aria-label', opts.ariaLabel);
-        if (opts.current) {
-            b.classList.add('active');
-            b.setAttribute('aria-current', 'page');
-            b.disabled = true;
-        }
-        if (opts.disabled) b.disabled = true;
-        b.addEventListener('click', () => { state.page = page; renderTable(); });
-        return b;
-    };
-
-    const prev = makeBtn('‹', Math.max(1, state.page - 1), {
-        ariaLabel: 'Página anterior', title: 'Página anterior',
-        disabled: state.page <= 1 || total === 0,
-    });
-    const next = makeBtn('›', Math.min(totalPages, state.page + 1), {
-        ariaLabel: 'Próxima página', title: 'Próxima página',
-        disabled: state.page >= totalPages || total === 0,
-    });
-
-    container.appendChild(prev);
-    pageWindow(state.page, totalPages).forEach((p) => {
-        if (p === '…') {
-            const span = document.createElement('span');
-            span.className = 'table-page-ellipsis';
-            span.textContent = '…';
-            container.appendChild(span);
-        } else {
-            container.appendChild(makeBtn(String(p), p, {
-                current: p === state.page,
-                disabled: total === 0,
-                title: `Página ${p}`,
-            }));
-        }
-    });
-    container.appendChild(next);
-}
-
-/** Janela de páginas numeradas com reticências (sempre 1 e última). */
-function pageWindow(current, total) {
-    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
-    const raw = new Set([1, total, current - 1, current, current + 1]);
-    const pages = [...raw].filter((p) => p >= 1 && p <= total).sort((a, b) => a - b);
-    const out = [];
-    let previous = 0;
-    for (const p of pages) {
-        if (p - previous > 1) out.push('…');
-        out.push(p);
-        previous = p;
-    }
-    return out;
 }
 
 function renderEmptyState(total) {
@@ -277,10 +216,14 @@ function exportCsv() {
 /**
  * Compatibilidade: abas de edição do template (seleção rápida de ano).
  * Apenas paginam/filtram a tabela; o estado global não é tocado (desacopladas).
+ * 'all' (ou null/vazio) exibe todos os anos; um valor numérico filtra por ano.
  */
 export function paginatePapersTable(_button, edition) {
-    tableYear = Number(edition);
-    state.page = 1;
+    if (edition === 'all' || edition === null || edition === undefined || edition === '') {
+        tableYear = 'all';
+    } else {
+        tableYear = Number(edition);
+    }
     renderTable();
     syncYearButtons();
 }
@@ -293,8 +236,11 @@ export function getPaperById(id) {
 
 // Compatibilidade com onclick inline de templates antigos.
 window.paginate_papers_table = (_button, edition) => {
-    tableYear = Number(edition);
-    state.page = 1;
+    if (edition === 'all' || edition === null || edition === undefined || edition === '') {
+        tableYear = 'all';
+    } else {
+        tableYear = Number(edition);
+    }
     renderTable();
     syncYearButtons();
 };

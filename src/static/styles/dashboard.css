@@ -1332,6 +1332,119 @@ canvas {
     color: var(--dw-navy);
 }
 
+/* ── Export dropdown ── */
+
+.export-dropdown {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.export-dropdown-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--dw-font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--dw-text);
+    background: var(--dw-card);
+    border: 1px solid var(--dw-border);
+    border-radius: var(--dw-radius-full);
+    padding: 8px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.export-dropdown-btn:hover,
+.export-dropdown-btn.open {
+    background: var(--dw-gray-100);
+    border-color: #CBD5E1;
+    color: var(--dw-navy);
+}
+
+.export-dropdown-btn.open {
+    background: var(--dw-gray-100);
+}
+
+.export-dropdown-chevron {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    font-size: 0.7rem;
+}
+
+.export-dropdown-btn.open .export-dropdown-chevron {
+    transform: rotate(180deg);
+}
+
+.export-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    min-width: 220px;
+    margin-top: 6px;
+    background: var(--dw-card);
+    border: 1px solid var(--dw-border);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 6px 0;
+    animation: export-menu-fade-in 0.15s ease;
+}
+
+@keyframes export-menu-fade-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.export-dropdown-menu[hidden] {
+    display: none;
+}
+
+.export-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 16px;
+    font-family: var(--dw-font-heading);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--dw-text);
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+}
+
+.export-menu-item:hover,
+.export-menu-item:focus-visible {
+    background: var(--dw-gray-100);
+    color: var(--dw-navy);
+    outline: none;
+}
+
+.export-menu-item:focus-visible {
+    box-shadow: inset 2px 0 0 var(--dw-teal);
+}
+
+.export-item-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    width: 22px;
+    text-align: center;
+}
+
+.export-item-text code {
+    font-size: 0.72rem;
+    color: var(--dw-text-secondary);
+    background: var(--dw-gray-100);
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 4px;
+}
+
 .table-info {
     font-family: var(--dw-font-heading);
     font-size: 0.76rem;
@@ -1347,14 +1460,34 @@ canvas {
     min-width: 760px;
 }
 
+/* Área de rolagem da tabela: altura limitada com cabeçalho fixo (sticky).
+   Exibe todos os artigos em lista contínua sem paginação numérica. */
+#table-scroll-wrapper {
+    width: 100%;
+    max-height: 560px;
+    overflow-y: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    border: 1px solid var(--dw-border);
+    border-radius: 10px;
+}
+
 .paper-table {
     border-collapse: collapse;
     width: 100%;
 }
 
 .paper-table thead {
-    background-color: var(--dw-gray-100);
     font-size: 0.88rem;
+}
+
+.paper-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--dw-gray-100);
+    box-shadow: 0 1px 0 0 var(--dw-border);
 }
 
 .paper-table th {
@@ -2044,6 +2177,27 @@ canvas {
     .tooltip .tooltip-text {
         max-width: min(200px, calc(100vw - 40px));
         white-space: normal;
+    }
+
+    /* Export dropdown responsivo */
+    .export-dropdown {
+        width: 100%;
+    }
+
+    .export-dropdown-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .export-dropdown-menu {
+        min-width: 0;
+        left: 0;
+        right: 0;
+        max-width: none;
+    }
+
+    .export-dropdown-menu .export-menu-item {
+        padding: 12px 14px;
     }
 }
 
