@@ -257,20 +257,15 @@ export function initExportDropdown(row) {
         if (!wrap.contains(e.target)) closeMenu();
     });
 
-    /* ── Posicionamento ── */
+    /* ── Posicionamento ──
+       O menu é ancorado via CSS (.export-dropdown-menu: position absolute,
+       top: calc(100% + 6px), right: 0) em relação ao container .export-dropdown.
+       Não definimos top/left/right inline aqui para não desconectar o menu do
+       botão nem conflitar com os estilos responsivos. */
     function positionMenu() {
-        const r = btn.getBoundingClientRect();
-        menu.style.top = `${r.bottom + 6}px`;
-        menu.style.left = 'auto';
-        menu.style.right = `${window.innerWidth - r.right}px`;
-        const mr = menu.getBoundingClientRect();
-        if (mr.bottom > window.innerHeight - 8) {
-            menu.style.top = `${r.top - mr.height - 6}px`;
-        }
-        if (mr.left < 8) {
-            menu.style.left = '8px';
-            menu.style.right = 'auto';
-        }
+        menu.style.left = '';
+        menu.style.right = '';
+        menu.style.top = '';
     }
 
     window.addEventListener('resize', () => {

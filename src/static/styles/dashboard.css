@@ -171,6 +171,7 @@ button {
     box-shadow: var(--dw-shadow);
     padding: 16px 18px;
     margin: 20px 0 18px;
+    overflow: visible; /* Permite o menu de exportação vazar sem cortes */
 }
 
 .year-pills-group {
@@ -235,6 +236,7 @@ button {
     margin-top: 12px;
     padding-top: 12px;
     border-top: 1px solid var(--dw-border);
+    overflow: visible; /* Permite o menu de exportação vazar sem cortes */
 }
 
 .quick-filters-row {
@@ -242,6 +244,7 @@ button {
     flex-wrap: wrap;
     align-items: center;
     gap: 10px;
+    overflow: visible; /* Permite o menu de exportação vazar sem cortes */
 }
 
 .quick-search-wrap {
@@ -1335,7 +1338,9 @@ canvas {
 /* ── Export dropdown ── */
 
 .export-dropdown {
-    position: relative;
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center;
     flex-shrink: 0;
 }
 
@@ -1378,16 +1383,18 @@ canvas {
 }
 
 .export-dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    z-index: 1000;
-    min-width: 220px;
-    margin-top: 6px;
+    position: absolute !important;
+    top: calc(100% + 6px) !important; /* Exatamente 6px abaixo do botão */
+    right: 0 !important;              /* Alinhado à borda direita do botão */
+    left: auto !important;
+    min-width: 230px !important;
+    z-index: 1050 !important;         /* Sobrepõe qualquer card ou gráfico */
+    margin-top: 0 !important;
+    transform: none !important;
     background: var(--dw-card);
     border: 1px solid var(--dw-border);
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
     padding: 6px 0;
     animation: export-menu-fade-in 0.15s ease;
 }
