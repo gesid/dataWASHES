@@ -50,12 +50,31 @@ LOGIN_URL = "https://www.pythonanywhere.com/login/"
 CONSOLES_URL = "https://www.pythonanywhere.com/user/{user}/consoles/"
 WEBAPPS_URL = "https://www.pythonanywhere.com/user/{user}/webapps/#tab_id_{user}_pythonanywhere_com"
 
-# Lê o buffer visível do terminal xterm.js usado pelo console do PythonAnywhere.
+# Leitura do buffer do terminal xterm.js.
+#
+# `innerText` respeita o rendering CSS, e o xterm.js posiciona cada linha com
+# `transform: translateY(...)` dentro de uma área de overflow. Quando isso
+# acontece `innerText` devolve string vazia -- foi exatamente o que aconteceu no
+# deploy que expirou em 420s com "(buffer do terminal vazio ou ilegível)".
+#
+# Por isso as estratégias são tentadas em ordem de robustez, e `textContent` vem
+# antes de `innerText` porque independe de estilo. O console do PythonAnywhere
+# expõe as linhas em `.xterm-rows > div`.
 READ_TERMINAL_JS = """
 () => {
-  const rows = document.querySelector('.xterm-rows')
-    || document.querySelector('.xterm-screen');
-  return rows ? rows.innerText : '';
+  const rows = document.querySelectorAll('.xterm-rows > div');
+  if (rows.length) {
+    const lines = Array.from(rows).map((el) => el.textContent || '');
+    if (lines.some((l) => l.trim())) return lines.join('\\n');
+  }
+  const screen = document.querySelector('.xterm-rows') || document.querySelector('.xterm-screen');
+  if (screen) {
+    const viaText = screen.textContent || '';
+    if (viaText.trim()) return viaText;
+    const viaInner = screen.innerText || '';
+    if (viaInner.trim()) return viaInner;
+  }
+  return '';
 }
 """
 
@@ -79,12 +98,16 @@ def build_deploy_command(app_dir: str, venv_dir: str) -> str:
     ``echo`` da sentinela vem após um ``;``, portanto ``$?`` carrega o código de
     saída da cadeia inteira. Não há ``\\n`` aqui: quem digita no terminal
     acrescenta a quebra de linha.
+
+    O ``echo "INICIANDO PIP"`` é um marco de progresso: se ele não aparecer no
+    console, sabemos que o comando morreu antes do pip (``cd``, ``git pull`` ou
+    ``source`` falhou) em vez de ficarmos sem saber em que ponto parou.
     """
     return (
         f"cd {app_dir} && "
         f"git pull origin main && "
         f"source {venv_dir}/bin/activate && "
-        f"pip install -r requirements.txt; "
+        f'echo "INICIANDO PIP" && pip install -r requirements.txt; '
         f"echo '__DATAWASHES_EXIT_'$?'__'"
     )
 
@@ -95,6 +118,71 @@ def read_console(page) -> str:
         return page.evaluate(READ_TERMINAL_JS) or ""
     except Exception:
         return ""
+
+
+# Seletores que indicam um xterm.js pronto para receber input. O
+# `.xterm-helper-textarea` é o <textarea> oculto onde o xterm.js realmente
+# digita; o cursor visível é a confirmação de que o terminal foi inicializado.
+READY_SELECTORS = (
+    ".xterm-helper-textarea",
+    ".xterm-cursor",
+    ".xterm-screen",
+    ".xterm-rows",
+)
+
+
+def wait_for_terminal_ready(page, timeout: int = 60) -> None:
+    """Aguarda o xterm.js montar e ficar interativo; foca o terminal.
+
+    Sem esta espera, o comando é digitado enquanto a página ainda exibe
+    "Loading console..." e a teclas vão para o vazio: o shell nunca recebe nada,
+    a sentinela nunca aparece e o deploy só pode expirar. Clicar no terminal
+    também é necessário -- o `keyboard.type` envia eventos para o elemento em
+    foco, que após um `page.goto` raramente é o terminal.
+    """
+    deadline = time.monotonic() + timeout
+    last = ""
+    while time.monotonic() < deadline:
+        for selector in READY_SELECTORS:
+            try:
+                if page.locator(selector).count() > 0:
+                    last = selector
+                    break
+            except Exception:
+                continue
+        if last:
+            break
+        page.wait_for_timeout(500)
+
+    if not last:
+        fail(
+            "console",
+            f"o terminal xterm.js não ficou pronto em {timeout}s "
+            f"(nenhum de {', '.join(READY_SELECTORS)} encontrado). "
+            f"O console do PythonAnywhere pode ter mudado de estrutura.",
+        )
+
+    print(f"   Terminal pronto ({last}).")
+    try:
+        page.locator(READY_SELECTORS[0]).first.click(timeout=5000)
+    except Exception:
+        for selector in READY_SELECTORS:
+            try:
+                page.locator(selector).first.click(timeout=2000)
+                break
+            except Exception:
+                continue
+    page.wait_for_timeout(500)
+
+
+def console_is_readable(page) -> bool:
+    """True se o buffer do terminal devolve algum texto.
+
+    Usado como diagnóstico: um buffer ilegível impede qualquer verificação da
+    sentinela, então é melhor detectá-lo logo e falhar com mensagem clara do que
+    esperar o timeout inteiro para descobrir que nada era observável.
+    """
+    return bool(read_console(page).strip())
 
 
 def console_tail(page, lines: int = 10) -> str:
@@ -183,9 +271,20 @@ def run_deploy_commands(page, app_dir: str, venv_dir: str, timeout: int) -> None
     page.wait_for_load_state("networkidle")
     page.wait_for_timeout(3000)
 
+    wait_for_terminal_ready(page)
+
+    if not console_is_readable(page):
+        fail(
+            "console",
+            "o buffer do terminal veio vazio logo após o carregamento. "
+            "Sem ele não é possível ler o código de saída nem depurar o deploy; "
+            "provável mudança no DOM do console do PythonAnywhere.",
+        )
+
     command = build_deploy_command(app_dir, venv_dir)
     print(f"   $ {command}")
-    page.keyboard.type(command + "\n", delay=20)
+    page.keyboard.type(command, delay=20)
+    page.keyboard.press("Enter")
 
     try:
         code = wait_for_exit_code(page, timeout=timeout)
