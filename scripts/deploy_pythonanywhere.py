@@ -62,56 +62,50 @@ WEBAPPS_URL = "https://www.pythonanywhere.com/user/{user}/webapps/#tab_id_{user}
 # expõe as linhas em `.xterm-rows > div`.
 READ_TERMINAL_JS = """
 () => {
-  const docs = [document];
-  for (const f of Array.from(document.querySelectorAll('iframe'))) {
-    try { if (f.contentDocument) docs.push(f.contentDocument); } catch (e) {}
-  }
-  for (const d of docs) {
-    const xtermRows = d.querySelectorAll('.xterm-rows > div');
-    if (xtermRows.length) {
-      const lines = Array.from(xtermRows).map((el) => el.textContent || '');
-      if (lines.some((l) => l.trim())) return lines.join('\\n');
-    }
-    const htermRows = d.querySelectorAll('.hterm-row');
-    if (htermRows.length) {
-      const lines = Array.from(htermRows).map((el) => el.textContent || '');
-      if (lines.some((l) => l.trim())) return lines.join('\\n');
-    }
-    const screen = d.querySelector('.hterm-screen, .xterm-rows, .xterm-screen');
-    if (screen) {
-      const viaText = screen.textContent || '';
-      if (viaText.trim()) return viaText;
+  const q = (s) => document.querySelectorAll(s);
+  const join = (nodes) => {
+    const lines = Array.from(nodes).map((el) => el.textContent || '');
+    return lines.some((l) => l.trim()) ? lines.join('\\n') : '';
+  };
+  const xterm = join(q('.xterm-rows > div'));
+  if (xterm) return xterm;
+  const hterm = join(q('.hterm-row'));
+  if (hterm) return hterm;
+  for (const s of ['.hterm-scrollable', '.hterm-screen', '.xterm-rows',
+                   '.xterm-screen', '.terminal']) {
+    const el = document.querySelector(s);
+    if (el) {
+      const t = el.textContent || '';
+      if (t.trim()) return t;
     }
   }
   return '';
 }
 """
 
-# Descreve o terreno real do console. Se o seletor estiver errado de novo, este
-# mapa diz o que existe de fato -- encerrando o ciclo de tentativa e erro às
-# custas de um deploy de ~7 minutos por tentativa.
-PROBE_JS = """
+# Último recurso, separado de propósito: o hterm renderiza texto real no DOM,
+# então o corpo do frame contém a saída do shell. Fica isolado porque o corpo da
+# página *principal* também tem texto (títulos, menus) e não serve de prova de
+# que o terminal foi lido.
+READ_BODY_JS = """
+() => (document.body ? (document.body.innerText || document.body.textContent || '') : '')
+"""
+
+# Descreve o terreno real do console, avaliado em cada frame. Usado em qualquer
+# falha para responder "o que existe de fato" em vez de fazer outro chute.
+FRAME_PROBE_JS = """
 () => {
-  const docs = [['main', document]];
-  for (const f of Array.from(document.querySelectorAll('iframe'))) {
-    try {
-      if (f.contentDocument) docs.push([f.id || f.name || '(sem id)', f.contentDocument]);
-    } catch (e) {}
-  }
-  const probes = ['.xterm-helper-textarea', '.xterm-rows', '.xterm-screen', '.hterm',
-                  '.hterm-screen', '.hterm-row', 'canvas', 'textarea'];
-  const out = [];
-  for (const [name, d] of docs) {
-    let anywhere = false;
-    try {
-      anywhere = !!(d.defaultView && d.defaultView.Anywhere && d.defaultView.Anywhere.terminal);
-    } catch (e) {}
-    const counts = probes.map((s) => {
-      try { return s + '=' + d.querySelectorAll(s).length; } catch (e) { return s + '=err'; }
-    });
-    out.push(name + ' | anywhere.terminal=' + anywhere + ' | ' + counts.join(' '));
-  }
-  return out.join('\\n      ');
+  let anywhere = false;
+  try { anywhere = !!(window.Anywhere && window.Anywhere.terminal); } catch (e) {}
+  const probes = ['.hterm', '.hterm-screen', '.hterm-row', '.hterm-scrollable',
+                  '.xterm-rows', '.xterm-screen', '.xterm-helper-textarea',
+                  'canvas', 'textarea'];
+  const counts = probes.map((s) => {
+    try { return s + '=' + document.querySelectorAll(s).length; } catch (e) { return s + '=err'; }
+  });
+  let body = '';
+  try { body = (document.body ? (document.body.innerText || '') : '').slice(0, 100).replace(/\\n/g, ' / '); } catch (e) {}
+  return 'anywhere.terminal=' + anywhere + ' | ' + counts.join(' ') + ' | body=' + body;
 }
 """
 
@@ -150,11 +144,37 @@ def build_deploy_command(app_dir: str, venv_dir: str) -> str:
 
 
 def read_console(page) -> str:
-    """Devolve o texto do buffer do terminal, ou string vazia se ilegível."""
+    """Texto do terminal, varrendo todos os frames via API do Playwright.
+
+    Avaliar em cada frame (e não via ``contentDocument``) funciona mesmo quando
+    o iframe é de outra origem, e cobre o console do PythonAnywhere, que é
+    quase sempre o hterm dentro de um iframe.
+    """
     try:
-        return page.evaluate(READ_TERMINAL_JS) or ""
+        frames = page.frames
     except Exception:
-        return ""
+        frames = []
+    # Primeiro, só seletores de terminal, em todos os frames. Só se nenhum
+    # responder é que se recorre ao texto do corpo.
+    strict = []
+    for frame in frames:
+        try:
+            text = frame.evaluate(READ_TERMINAL_JS) or ""
+        except Exception:
+            continue
+        if text.strip():
+            strict.append(text)
+    if strict:
+        return "\n".join(strict)
+    loose = []
+    for frame in frames:
+        try:
+            text = frame.evaluate(READ_BODY_JS) or ""
+        except Exception:
+            continue
+        if text.strip():
+            loose.append(text)
+    return "\n".join(loose)
 
 
 # O console do PythonAnywhere NÃO é xterm.js por padrão: a documentação oficial
@@ -240,16 +260,22 @@ def describe_page(page) -> str:
     except Exception:
         frames = -1
     try:
-        probe = page.evaluate(PROBE_JS)
+        probe = []
+        for frame in page.frames:
+            try:
+                probe.append(f"{frame.name or '(frame)'} :: {frame.evaluate(FRAME_PROBE_JS)}")
+            except Exception as exc:
+                probe.append(f"{frame.name or '(frame)'} :: (probe falhou: {exc})")
+        probe_text = "\n      ".join(probe)
     except Exception as exc:
-        probe = f"(probe falhou: {exc})"
+        probe_text = f"(probe falhou: {exc})"
     return (
         f"url={url}\n"
         f"      título={title}\n"
         f"      abas no contexto={len(page.context.pages)}\n"
         f"      frames={frames}\n"
         f"      links na página={links}\n"
-        f"      terminal por documento:\n      {probe}"
+        f"      terminal por frame:\n      {probe_text}"
     )
 
 
@@ -265,42 +291,45 @@ def find_terminal_frame(page):
     return None
 
 
+SEND_VIA_API_JS = """
+(cmd) => {
+  let term = null;
+  try { term = (window.Anywhere && window.Anywhere.terminal) || null; } catch (e) {}
+  if (!term) return false;
+  const io = term.io || term;
+  try {
+    if (typeof io.sendString === 'function') {
+      io.sendString(cmd);
+      if (typeof io.sendKey === 'function') io.sendKey(13);        // Enter
+      else if (typeof io.sendCR === 'function') io.sendCR();
+      else io.sendString('\\r');
+      return true;
+    }
+  } catch (e) {}
+  return false;
+}
+"""
+
+
 def send_command_via_api(page, command: str) -> bool:
     """Envia o comando pela API do hterm (Anywhere.terminal.io), se existir.
 
     Preferível a simular teclado: a API entrega a string ao shell sem depender
-    de foco, de coordenadas ou da posição do cursor -- as três coisas que
-    quebram com terminal embarcado em iframe. Devolve False se a API não
-    estiver disponível, para o chamador cair na digitação por teclado.
+    de foco, de coordenadas ou da posição do cursor -- as três coisas que quebram
+    com terminal embarcado em iframe. Devolve False se a API não estiver
+    disponível, para o chamador cair na digitação por teclado.
     """
-    sent = page.evaluate(
-        """
-        (cmd) => {
-          const docs = [document];
-          for (const f of Array.from(document.querySelectorAll('iframe'))) {
-            try { if (f.contentDocument) docs.push(f.contentDocument); } catch (e) {}
-          }
-          for (const d of docs) {
-            let term = null;
-            try { term = d.defaultView && d.defaultView.Anywhere && d.defaultView.Anywhere.terminal; } catch (e) {}
-            if (!term) continue;
-            const io = term.io || term;
-            try {
-              if (typeof io.sendString === 'function') {
-                io.sendString(cmd);
-                if (typeof io.sendKey === 'function') io.sendKey(13);       // Enter
-                else if (typeof io.sendCR === 'function') io.sendCR();
-                else io.sendString('\\r');
-                return true;
-              }
-            } catch (e) {}
-          }
-          return false;
-        }
-        """,
-        command,
-    )
-    return bool(sent)
+    try:
+        frames = page.frames
+    except Exception:
+        frames = []
+    for frame in frames:
+        try:
+            if frame.evaluate(SEND_VIA_API_JS, command):
+                return True
+        except Exception:
+            continue
+    return False
 
 
 def wait_for_terminal_ready(page, timeout: int = 60):
@@ -416,14 +445,20 @@ def wait_for_exit_code(page, timeout: int = DEFAULT_TIMEOUT) -> int:
     terminou.
     """
     deadline = time.monotonic() + timeout
+    last_buffer = ""
     while time.monotonic() < deadline:
-        match = SENTINEL_RE.search(read_console(page))
+        last_buffer = read_console(page)
+        match = SENTINEL_RE.search(last_buffer)
         if match:
             return int(match.group(1))
         time.sleep(1.0)
+    # Anexar o estado da página aqui é essencial: foi justamente neste caminho
+    # que a causa raiz (hterm em iframe) ficou invisível por vários deploys.
     raise TimeoutError(
         f"o console não devolveu o código de saída em {timeout}s. "
-        f"Últimas {TAIL_LINES} linhas do terminal:\n{console_tail(page, TAIL_LINES)}"
+        f"Buffer lido: {len(last_buffer)} chars.\n"
+        f"Últimas {TAIL_LINES} linhas do terminal:\n{console_tail(page, TAIL_LINES)}\n"
+        f"Estado da página:\n      {describe_page(page)}"
     )
 
 
