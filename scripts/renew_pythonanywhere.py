@@ -1,14 +1,23 @@
 import os
+import sys
 import time
 from playwright.sync_api import sync_playwright
 
 USERNAME = os.getenv("PYTHONANYWHERE_USERNAME", "datawashes")
 PASSWORD = os.getenv("PYTHONANYWHERE_PASSWORD", "")
 
+
+def fail(message):
+    """Encerra com código != 0 para que o step de alerta do CI seja disparado."""
+    print(f"\n❌ ERRO FATAL: {message}")
+    sys.exit(1)
+
 def renew_pythonanywhere():
     if not PASSWORD:
-        print("❌ Senha do PythonAnywhere não configurada nas Secrets.")
-        return
+        fail(
+            "a secret PYTHONANYWHERE_PASSWORD não está configurada. "
+            "Sem ela o robô não consegue renovar a hospedagem."
+        )
 
     print("🤖 Iniciando robô de renovação no PythonAnywhere...")
     
@@ -26,6 +35,15 @@ def renew_pythonanywhere():
         
         page.wait_for_load_state("networkidle")
 
+        # Login falhado deixa o formulário visível; nesse caso o painel nunca
+        # carrega e um seletor genérico poderia "encontrar" algo por engano.
+        if page.query_selector("input[name='auth-password']"):
+            browser.close()
+            fail(
+                "login no PythonAnywhere recusado (usuário/senha inválidos ou "
+                "CAPTCHA apresentado). A hospedagem não foi renovada."
+            )
+
         # 2. Vai para a página do Web App
         print("🌐 Navegando para a aba Web...")
         page.goto(f"https://www.pythonanywhere.com/user/{USERNAME}/webapps/#tab_id_{USERNAME}_pythonanywhere_com")
@@ -38,7 +56,11 @@ def renew_pythonanywhere():
             btn.click()
             print("🎉 SUCESSO: Botão de renovação estendido por mais 30 dias!")
         else:
-            print("ℹ️ O botão de renovação ainda não estava disponível ou já foi renovado.")
+            browser.close()
+            fail(
+                "o botão 'Run until 1 month from today' não foi encontrado no "
+                "painel. A renovação não foi feita e o site pode sair do ar."
+            )
 
         browser.close()
 

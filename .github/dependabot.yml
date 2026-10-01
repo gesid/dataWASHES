@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "vasconcel"
+      - "allyssonallex"
+    assignees:
+      - "vasconcel"
+      - "allyssonallex"
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"

@@ -10,6 +10,7 @@ import openpyxl
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from pr_report import record_citation_change, parse_citation_count
+from api_failures import ApiAuthError, ApiQuotaError, exit_with_error
 
 # --- 1. Carrega a chave do arquivo .env na raiz do projeto (se existir) ---
 ENV_PATH = ".env"
@@ -40,10 +41,12 @@ def get_apa_citation_from_scholar(title, retries=3):
         'render': 'true'  # 👈 ATIVA O NAVEGADOR PARA BURLAR O CAPTCHA DO GOOGLE SCHOLAR
     }
 
+    last_status = None
+
     for attempt in range(1, retries + 1):
         try:
             response = requests.get('https://api.scraperapi.com', params=payload, timeout=60)
-            
+
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, "html.parser")
                 first_result = soup.find("div", class_="gs_r")
@@ -55,15 +58,35 @@ def get_apa_citation_from_scholar(title, retries=3):
                     return "#"  # Encontrado, mas com 0 citações
 
                 return cited_by_link.text.strip()
-            
-            elif response.status_code in [401, 403]:
-                print("   ❌ Chave ScraperAPI inválida ou limite de créditos atingido.")
-                return None
 
+            elif response.status_code in [401, 403]:
+                raise ApiAuthError(
+                    f"ScraperAPI recusou a credencial (HTTP {response.status_code}). "
+                    "A chave é inválida, expirou ou os créditos acabaram."
+                )
+
+            elif response.status_code == 429:
+                last_status = 429
+                print(f"   ⏳ Rate limit da ScraperAPI. Aguardando 5s (tentativa {attempt}/{retries})...")
+                time.sleep(5)
+
+            else:
+                last_status = response.status_code
+                print(f"   ⚠️ Resposta inesperada da ScraperAPI: HTTP {response.status_code}.")
+
+        except (ApiAuthError, ApiQuotaError):
+            raise
         except requests.exceptions.RequestException as e:
+            last_status = None
             print(f"   ⚠️ Tentativa {attempt}/{retries} aguardando resposta da ScraperAPI... Retentando em 3s.")
             time.sleep(3)
 
+    # Só 429 persistente é falha fatal de cota. Um 500 ou erro de rede é
+    # transitório e preserva o comportamento de pular o artigo.
+    if last_status == 429:
+        raise ApiQuotaError(
+            f"ScraperAPI permaneceu em HTTP 429 após {retries} tentativas. Cota esgotada."
+        )
     return None
 
 def run_miner(target_year=None, force=False, limit=None, dry_run=False):
@@ -171,4 +194,7 @@ if __name__ == "__main__":
     parser.add_argument("--dry-run", action="store_true", help="Não grava na planilha: apenas reporta o que seria atualizado")
     args = parser.parse_args()
 
-    run_miner(target_year=args.year, force=args.force, limit=args.limit, dry_run=args.dry_run)
+    try:
+        run_miner(target_year=args.year, force=args.force, limit=args.limit, dry_run=args.dry_run)
+    except (ApiAuthError, ApiQuotaError) as exc:
+        exit_with_error(str(exc))

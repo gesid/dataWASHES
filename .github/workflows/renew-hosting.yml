@@ -9,6 +9,10 @@ on:
 jobs:
   renew:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -28,3 +32,27 @@ jobs:
           PYTHONANYWHERE_USERNAME: "datawashes"
           PYTHONANYWHERE_PASSWORD: ${{ secrets.PYTHONANYWHERE_PASSWORD }}
         run: python scripts/renew_pythonanywhere.py
+
+      - name: 🚨 Notificar Mantenedores em Caso de Falha
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const run = context.payload;
+            const body = [
+              'O robô Playwright de renovação mensal falhou. O site dataWASHES corre risco de sair do ar em até 30 dias.',
+              '',
+              '👉 **Ação necessária:** Acessem https://www.pythonanywhere.com e cliquem no botão de renovar hospedagem manualmente no painel web.',
+              '',
+              `**Run que falhou:** [${run.workflow} #${run.runNumber}](${run.serverUrl}/${run.repository}/actions/runs/${run.runId})`,
+              '',
+              'Notificando mantenedores: @vasconcel @allyssonallex'
+            ].join('\n');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 URGENTE: Falha na renovação da hospedagem (PythonAnywhere)',
+              body
+            });

@@ -15,6 +15,7 @@ import openpyxl
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from pr_report import record_new_paper, record_note
+from api_failures import ApiAuthError, ApiQuotaError, exit_with_error
 
 # --- 1. CARREGAR AMBIENTE (.env) ---
 ENV_PATH = ".env"
@@ -86,15 +87,24 @@ def classify_paper_with_groq(title, abstract_en, resumo_pt, keywords, retries=3)
             res = requests.post(url, json=payload, headers=headers, timeout=30)
             if res.status_code == 200:
                 return json.loads(res.json()["choices"][0]["message"]["content"])
+            elif res.status_code in (401, 403):
+                raise ApiAuthError(
+                    f"Groq recusou a credencial (HTTP {res.status_code}). "
+                    "Verifique a secret GROQ_API_KEY."
+                )
             elif res.status_code == 429:
                 print(f"   ⏳ Rate limit do Groq. Aguardando 5s (tentativa {attempt}/{retries})...")
                 time.sleep(5)
             else:
                 return None
+        except (ApiAuthError, ApiQuotaError):
+            raise
         except Exception:
             time.sleep(2)
 
-    return None
+    raise ApiQuotaError(
+        f"Groq permaneceu em HTTP 429 após {retries} tentativas. Cota esgotada."
+    )
 
 def get_citation_from_scholar(title, retries=2):
     if not SCRAPER_API_KEY:
@@ -116,17 +126,24 @@ def get_citation_from_scholar(title, retries=2):
                 cited_by = soup.find("a", string=lambda t: t and ("Citado por" in t or "Cited by" in t))
                 return cited_by.text.strip() if cited_by else "#"
             elif res.status_code in (401, 403):
-                print("   ❌ Chave ScraperAPI inválida ou limite de créditos atingido.")
-                return None
+                raise ApiAuthError(
+                    f"ScraperAPI recusou a credencial (HTTP {res.status_code}). "
+                    "A chave é inválida, expirou ou os créditos acabaram."
+                )
             elif res.status_code == 429:
                 print(f"   ⏳ Rate limit da ScraperAPI. Aguardando 5s (tentativa {attempt}/{retries})...")
                 time.sleep(5)
             else:
                 print(f"   ⚠️ Resposta inesperada da ScraperAPI: status {res.status_code}.")
+        except (ApiAuthError, ApiQuotaError):
+            raise
         except Exception as exc:
             print(f"   ⚠️ Erro de rede na ScraperAPI: {exc}. Retentando em 2s...")
             time.sleep(2)
-    return None
+
+    raise ApiQuotaError(
+        f"ScraperAPI permaneceu em HTTP 429 após {retries} tentativas. Cota esgotada."
+    )
 
 def get_existing_years():
     if not os.path.exists(EDITIONS_PATH):
@@ -344,4 +361,7 @@ def update_editions_json(year, proceedings_url):
         json.dump(editions, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
-    sync()
+    try:
+        sync()
+    except (ApiAuthError, ApiQuotaError) as exc:
+        exit_with_error(str(exc))
