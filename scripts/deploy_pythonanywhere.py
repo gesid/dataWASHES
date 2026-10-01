@@ -62,19 +62,56 @@ WEBAPPS_URL = "https://www.pythonanywhere.com/user/{user}/webapps/#tab_id_{user}
 # expõe as linhas em `.xterm-rows > div`.
 READ_TERMINAL_JS = """
 () => {
-  const rows = document.querySelectorAll('.xterm-rows > div');
-  if (rows.length) {
-    const lines = Array.from(rows).map((el) => el.textContent || '');
-    if (lines.some((l) => l.trim())) return lines.join('\\n');
+  const docs = [document];
+  for (const f of Array.from(document.querySelectorAll('iframe'))) {
+    try { if (f.contentDocument) docs.push(f.contentDocument); } catch (e) {}
   }
-  const screen = document.querySelector('.xterm-rows') || document.querySelector('.xterm-screen');
-  if (screen) {
-    const viaText = screen.textContent || '';
-    if (viaText.trim()) return viaText;
-    const viaInner = screen.innerText || '';
-    if (viaInner.trim()) return viaInner;
+  for (const d of docs) {
+    const xtermRows = d.querySelectorAll('.xterm-rows > div');
+    if (xtermRows.length) {
+      const lines = Array.from(xtermRows).map((el) => el.textContent || '');
+      if (lines.some((l) => l.trim())) return lines.join('\\n');
+    }
+    const htermRows = d.querySelectorAll('.hterm-row');
+    if (htermRows.length) {
+      const lines = Array.from(htermRows).map((el) => el.textContent || '');
+      if (lines.some((l) => l.trim())) return lines.join('\\n');
+    }
+    const screen = d.querySelector('.hterm-screen, .xterm-rows, .xterm-screen');
+    if (screen) {
+      const viaText = screen.textContent || '';
+      if (viaText.trim()) return viaText;
+    }
   }
   return '';
+}
+"""
+
+# Descreve o terreno real do console. Se o seletor estiver errado de novo, este
+# mapa diz o que existe de fato -- encerrando o ciclo de tentativa e erro às
+# custas de um deploy de ~7 minutos por tentativa.
+PROBE_JS = """
+() => {
+  const docs = [['main', document]];
+  for (const f of Array.from(document.querySelectorAll('iframe'))) {
+    try {
+      if (f.contentDocument) docs.push([f.id || f.name || '(sem id)', f.contentDocument]);
+    } catch (e) {}
+  }
+  const probes = ['.xterm-helper-textarea', '.xterm-rows', '.xterm-screen', '.hterm',
+                  '.hterm-screen', '.hterm-row', 'canvas', 'textarea'];
+  const out = [];
+  for (const [name, d] of docs) {
+    let anywhere = false;
+    try {
+      anywhere = !!(d.defaultView && d.defaultView.Anywhere && d.defaultView.Anywhere.terminal);
+    } catch (e) {}
+    const counts = probes.map((s) => {
+      try { return s + '=' + d.querySelectorAll(s).length; } catch (e) { return s + '=err'; }
+    });
+    out.push(name + ' | anywhere.terminal=' + anywhere + ' | ' + counts.join(' '));
+  }
+  return out.join('\\n      ');
 }
 """
 
@@ -120,14 +157,22 @@ def read_console(page) -> str:
         return ""
 
 
-# Seletores que indicam um xterm.js pronto para receber input. O
-# `.xterm-helper-textarea` é o <textarea> oculto onde o xterm.js realmente
-# digita; o cursor visível é a confirmação de que o terminal foi inicializado.
+# O console do PythonAnywhere NÃO é xterm.js por padrão: a documentação oficial
+# diz que usam hterm na maioria das contas (xterm.js só em algumas). O terminal
+# do hterm vive dentro de um <iframe id="id_console"> e é alcançado por
+# `iframe.contentWindow.Anywhere.terminal`. Por isso a lista cobre as duas
+# tecnologias, e a leitura percorre também os iframes.
 READY_SELECTORS = (
+    "iframe#id_console",
     ".xterm-helper-textarea",
     ".xterm-cursor",
-    ".xterm-screen",
     ".xterm-rows",
+    ".xterm-screen",
+    ".hterm-screen",
+    ".hterm-row",
+    ".hterm",
+    ".terminal",
+    ".CodeMirror",
 )
 
 
@@ -194,12 +239,17 @@ def describe_page(page) -> str:
         frames = len(page.frames)
     except Exception:
         frames = -1
+    try:
+        probe = page.evaluate(PROBE_JS)
+    except Exception as exc:
+        probe = f"(probe falhou: {exc})"
     return (
         f"url={url}\n"
         f"      título={title}\n"
         f"      abas no contexto={len(page.context.pages)}\n"
         f"      frames={frames}\n"
-        f"      links na página={links}"
+        f"      links na página={links}\n"
+        f"      terminal por documento:\n      {probe}"
     )
 
 
@@ -213,6 +263,44 @@ def find_terminal_frame(page):
             except Exception:
                 continue
     return None
+
+
+def send_command_via_api(page, command: str) -> bool:
+    """Envia o comando pela API do hterm (Anywhere.terminal.io), se existir.
+
+    Preferível a simular teclado: a API entrega a string ao shell sem depender
+    de foco, de coordenadas ou da posição do cursor -- as três coisas que
+    quebram com terminal embarcado em iframe. Devolve False se a API não
+    estiver disponível, para o chamador cair na digitação por teclado.
+    """
+    sent = page.evaluate(
+        """
+        (cmd) => {
+          const docs = [document];
+          for (const f of Array.from(document.querySelectorAll('iframe'))) {
+            try { if (f.contentDocument) docs.push(f.contentDocument); } catch (e) {}
+          }
+          for (const d of docs) {
+            let term = null;
+            try { term = d.defaultView && d.defaultView.Anywhere && d.defaultView.Anywhere.terminal; } catch (e) {}
+            if (!term) continue;
+            const io = term.io || term;
+            try {
+              if (typeof io.sendString === 'function') {
+                io.sendString(cmd);
+                if (typeof io.sendKey === 'function') io.sendKey(13);       // Enter
+                else if (typeof io.sendCR === 'function') io.sendCR();
+                else io.sendString('\\r');
+                return true;
+              }
+            } catch (e) {}
+          }
+          return false;
+        }
+        """,
+        command,
+    )
+    return bool(sent)
 
 
 def wait_for_terminal_ready(page, timeout: int = 60):
@@ -247,6 +335,17 @@ def wait_for_terminal_ready(page, timeout: int = 60):
             last, target = "iframe", frame
             break
         page.wait_for_timeout(500)
+
+    # Achar a tag <iframe id="id_console"> não prova que o terminal já
+    # renderizou: o iframe existe antes do conteúdo carregar. Por isso, quando
+    # o alvo é o próprio iframe, só consideramos pronto quando o buffer
+    # devolver texto de verdade.
+    if last and read_console(target).strip() == "":
+        probe_deadline = time.monotonic() + min(timeout, 30)
+        while time.monotonic() < probe_deadline:
+            if read_console(target).strip():
+                break
+            page.wait_for_timeout(500)
 
     if not last:
         fail(
@@ -399,8 +498,12 @@ def run_deploy_commands(page, app_dir: str, venv_dir: str, timeout: int) -> None
 
     command = build_deploy_command(app_dir, venv_dir)
     print(f"   $ {command}")
-    keyboard_page.keyboard.type(command, delay=20)
-    keyboard_page.keyboard.press("Enter")
+    if send_command_via_api(console_page, command):
+        print("   Comando enviado pela API do terminal (hterm).")
+    else:
+        print("   API do terminal indisponível; digitando pelo teclado.")
+        keyboard_page.keyboard.type(command, delay=20)
+        keyboard_page.keyboard.press("Enter")
 
     try:
         code = wait_for_exit_code(target, timeout=timeout)
