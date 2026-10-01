@@ -47,7 +47,11 @@ jobs:
               '',
               `**Run que falhou:** [${run.workflow} #${run.runNumber}](${run.serverUrl}/${run.repository}/actions/runs/${run.runId})`,
               '',
-              'Notificando mantenedores: @vasconcel @allyssonallex'
+              'Notificando mantenedor de infraestrutura: @vasconcel',
+              '',
+              'Escopo: alerta restrito a rotinas de infraestrutura/hospedagem.',
+              'Atualizações científicas (novos artigos e citações) são enviadas',
+              'mensalmente pelo workflow de sincronização do dataset.'
             ].join('\n');
 
             await github.rest.issues.create({

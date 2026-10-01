@@ -7,10 +7,8 @@ updates:
     open-pull-requests-limit: 3
     reviewers:
       - "vasconcel"
-      - "allyssonallex"
     assignees:
       - "vasconcel"
-      - "allyssonallex"
     groups:
       python-dependencies:
         patterns:
