@@ -1,7 +1,11 @@
 """Deploy automatizado do dataWASHES no PythonAnywhere via Playwright.
 
-Fluxo: login -> console Bash -> `git pull` + instalação das dependências no
-virtualenv -> reload da aplicação web.
+Fluxo: login -> console Bash -> `git pull` -> reload da aplicação web.
+
+Este é o mesmo fluxo do procedimento manual documentado em
+``docs/maintenance/deploy.md`` e da antiga automação por API oficial: buscar o
+código no repositório e recarregar a aplicação. O deploy não instala
+dependências; ver ``build_deploy_command`` para o porquê.
 
 Princípio de robustez: **nenhuma falha pode passar silenciosa**. Um deploy que
 printa "✅" e sai com código 0 depois de um `git pull` quebrado é pior que um
@@ -34,11 +38,9 @@ USERNAME = os.getenv("PYTHONANYWHERE_USERNAME", "datawashes")
 PASSWORD = os.getenv("PYTHONANYWHERE_PASSWORD", "")
 
 APP_DIR = os.getenv("PYTHONANYWHERE_APP_DIR", "~/mysite")
-VENV_DIR = os.getenv(
-    "PYTHONANYWHERE_VENV", "~/.virtualenvs/datawashes-virtualenv"
-)
-# 300s é apertado para `pip install` em máquina gratuita e foi a causa do
-# timeout do último deploy. 420s dá folga para o build completo.
+# O comando remoto passou a ser apenas `git pull` + sentinela, que resolve em
+# segundos. O limite é mantido generoso para não introduzir um segundo modo de
+# falha por timeout.
 DEFAULT_TIMEOUT = int(os.getenv("PYTHONANYWHERE_TIMEOUT", "420"))
 
 SENTINEL_RE = re.compile(r"__DATAWASHES_EXIT_(-?\d+)__")
@@ -117,29 +119,30 @@ def fail(step: str, detail: str = "") -> None:
     sys.exit(1)
 
 
-def build_deploy_command(app_dir: str, venv_dir: str) -> str:
+def build_deploy_command(app_dir: str) -> str:
     """Monta a linha de comando executada no console Bash.
 
-    Comando reto e determinístico: sem fallback, sem glob, sem subshell. A
-    versão anterior usava ``||`` com ``ls`` e ``$(...)`` para adivinhar o
-    virtualenv; no console do PythonAnywhere isso travou o runner e o deploy
-    died por timeout sem mensagem útil. Menos shell é mais shell confiável.
+    Comando reto e determinístico: ``git pull`` e nada mais. A versão anterior
+    ativava um virtualenv (``source .../datawashes-virtualenv/bin/activate``) e
+    rodava ``pip install -r requirements.txt``; esse caminho nunca foi confirmado
+    no ambiente real e fazia o deploy morrer com ``No such file or directory``
+    depois de o ``git pull`` já ter sucesso.
 
-    ``&&`` garante que ``pip install`` só roda se o ``git pull`` passou. O
-    ``echo`` da sentinela vem após um ``;``, portanto ``$?`` carrega o código de
-    saída da cadeia inteira. Não há ``\\n`` aqui: quem digita no terminal
-    acrescenta a quebra de linha.
+    Esse passo não é perdido, é removido por falta de evidência de que seja
+    necessário: ``pip install`` nunca fez parte do procedimento manual
+    documentado, nem da automação anterior por API oficial, e o app roda com
+    APIs estáveis de Flask/flask-restx, sem depender de recurso removido em
+    Flask 3. Instalação de dependências, se vier a ser necessária, deve ser um
+    passo explícito e com caminho verificado -- não um palpite dentro do deploy.
 
-    O ``echo "INICIANDO PIP"`` é um marco de progresso: se ele não aparecer no
-    console, sabemos que o comando morreu antes do pip (``cd``, ``git pull`` ou
-    ``source`` falhou) em vez de ficarmos sem saber em que ponto parou.
+    A sentinela vem após um ``;``, portanto ``$?`` carrega o código de saída da
+    cadeia. Não há ``\\n`` aqui: quem digita no terminal acrescenta a quebra de
+    linha.
     """
     return (
         f"cd {app_dir} && "
-        f"git pull origin main && "
-        f"source {venv_dir}/bin/activate && "
-        f'echo "INICIANDO PIP" && pip install -r requirements.txt; '
-        f"echo '__DATAWASHES_EXIT_'$?'__'"
+        "git pull origin main; "
+        "echo '__DATAWASHES_EXIT_'$?'__'"
     )
 
 
@@ -426,8 +429,7 @@ def console_tail(page, lines: int = 10) -> str:
     """Últimas ``lines`` linhas não vazias do console, para diagnóstico.
 
     Sem isso, um timeout de 300s chega ao log como "sentinela não apareceu" e
-    não há como saber se o `pip install` estava instalando, compilando ou já
-    tinha falhado.
+    não há como saber em que ponto o comando parou ou se já tinha falhado.
     """
     raw = read_console(page)
     rows = [line.rstrip() for line in raw.replace("\r", "\n").split("\n")]
@@ -498,8 +500,8 @@ def login(page) -> None:
     print("   ✅ Login confirmado.")
 
 
-def run_deploy_commands(page, app_dir: str, venv_dir: str, timeout: int) -> None:
-    """Executa git pull + pip install no console e valida o código de saída."""
+def run_deploy_commands(page, app_dir: str, timeout: int) -> None:
+    """Executa git pull no console e valida o código de saída."""
     print("💻 2. Abrindo console Bash...")
     page.wait_for_timeout(1000)
 
@@ -531,7 +533,7 @@ def run_deploy_commands(page, app_dir: str, venv_dir: str, timeout: int) -> None
             "Se o deploy expirar, o log terá o estado da página."
         )
 
-    command = build_deploy_command(app_dir, venv_dir)
+    command = build_deploy_command(app_dir)
     print(f"   $ {command}")
     if send_command_via_api(console_page, command):
         print("   Comando enviado pela API do terminal (hterm).")
@@ -548,10 +550,10 @@ def run_deploy_commands(page, app_dir: str, venv_dir: str, timeout: int) -> None
     if code != 0:
         fail(
             "deploy no console",
-            f"'git pull' ou 'pip install' retornou código {code}. "
+            f"'git pull' retornou código {code}. "
             f"Últimas {TAIL_LINES} linhas do terminal:\n{console_tail(target, TAIL_LINES)}",
         )
-    print("   ✅ git pull e instalação das dependências concluídos.")
+    print("   ✅ git pull concluído.")
 
 
 def reload_web_app(page) -> None:
@@ -607,7 +609,7 @@ def deploy() -> None:
             page = browser.new_page()
             try:
                 login(page)
-                run_deploy_commands(page, APP_DIR, VENV_DIR, timeout)
+                run_deploy_commands(page, APP_DIR, timeout)
                 reload_web_app(page)
             finally:
                 browser.close()
