@@ -131,7 +131,91 @@ READY_SELECTORS = (
 )
 
 
-def wait_for_terminal_ready(page, timeout: int = 60) -> None:
+def open_console_tab(page, link, timeout: int = 45):
+    """Clica no link do console e devolve a página onde o terminal realmente está.
+
+    O PythonAnywhere não navega a aba atual: ele abre o console em outra aba
+    (evento ``popup``) e, em algumas versões, dentro de um ``iframe``. Se
+    ignorado, o código continua inspecionando a listagem de consoles e conclui
+    que o xterm.js nunca apareceu.
+    """
+    context = page.context
+    before = set(context.pages)
+
+    try:
+        with context.expect_page(timeout=timeout) as popup_info:
+            link.click()
+    except Exception:
+        # Sem popup: talvez tenha navegado na própria aba.
+        pass
+
+    # Dá um instante para o Playwright registrar a nova aba.
+    deadline = time.monotonic() + timeout
+    new_pages = []
+    while time.monotonic() < deadline:
+        new_pages = [p for p in context.pages if p not in before and not p.is_closed()]
+        if new_pages:
+            break
+        page.wait_for_timeout(300)
+
+    console_page = new_pages[0] if new_pages else page
+    if new_pages:
+        print(f"   Console abriu em nova aba ({len(new_pages)}).")
+    else:
+        print("   Nenhuma aba nova; o console reutilizou a aba atual.")
+    try:
+        console_page.wait_for_load_state("networkidle")
+    except Exception:
+        pass
+    console_page.wait_for_timeout(2000)
+    return console_page
+
+
+def describe_page(page) -> str:
+    """Resumo do que existe na página, para diagnóstico de falha.
+
+    Sem isto, um "terminal não encontrado" não diz se faltou o popup, se o
+    link Levou à página errada ou se o seletor ficou obsoleto -- e cada tentativa
+    custa um deploy de 420s.
+    """
+    try:
+        url = page.url
+    except Exception:
+        url = "?"
+    try:
+        title = page.title()
+    except Exception:
+        title = "?"
+    try:
+        links = page.locator("a").count()
+    except Exception:
+        links = -1
+    try:
+        frames = len(page.frames)
+    except Exception:
+        frames = -1
+    return (
+        f"url={url}\n"
+        f"      título={title}\n"
+        f"      abas no contexto={len(page.context.pages)}\n"
+        f"      frames={frames}\n"
+        f"      links na página={links}"
+    )
+
+
+def find_terminal_frame(page):
+    """Se o terminal estiver em iframe, devolve o frame que contém o xterm."""
+    for frame in page.frames:
+        for selector in READY_SELECTORS:
+            try:
+                if frame.locator(selector).count() > 0:
+                    return frame
+            except Exception:
+                continue
+    return None
+
+
+def wait_for_terminal_ready(page, timeout: int = 60):
     """Aguarda o xterm.js montar e ficar interativo; foca o terminal.
 
     Sem esta espera, o comando é digitado enquanto a página ainda exibe
@@ -139,18 +223,28 @@ def wait_for_terminal_ready(page, timeout: int = 60) -> None:
     a sentinela nunca aparece e o deploy só pode expirar. Clicar no terminal
     também é necessário -- o `keyboard.type` envia eventos para o elemento em
     foco, que após um `page.goto` raramente é o terminal.
+
+    Devolve ``(alvo_de_leitura, page_de_digitacao)``: o alvo é a própria page
+    ou o frame que contém o terminal; a page de digitação é sempre um objeto
+    ``Page``, pois ``Frame`` não possui ``.keyboard``.
     """
     deadline = time.monotonic() + timeout
+    target = page
     last = ""
     while time.monotonic() < deadline:
         for selector in READY_SELECTORS:
             try:
                 if page.locator(selector).count() > 0:
-                    last = selector
+                    last, target = selector, page
                     break
             except Exception:
                 continue
         if last:
+            break
+        # O terminal pode estar dentro de um iframe do console.
+        frame = find_terminal_frame(page)
+        if frame is not None:
+            last, target = "iframe", frame
             break
         page.wait_for_timeout(500)
 
@@ -159,30 +253,45 @@ def wait_for_terminal_ready(page, timeout: int = 60) -> None:
             "console",
             f"o terminal xterm.js não ficou pronto em {timeout}s "
             f"(nenhum de {', '.join(READY_SELECTORS)} encontrado). "
-            f"O console do PythonAnywhere pode ter mudado de estrutura.",
+            f"Estado da página:\n      {describe_page(page)}",
         )
 
     print(f"   Terminal pronto ({last}).")
+    # `Frame` não expõe `.keyboard`; o foco e a digitação vão pela Page, enquanto
+    # a leitura do buffer usa o frame. Por isso devolvemos os dois.
+    keyboard_page = page
     try:
-        page.locator(READY_SELECTORS[0]).first.click(timeout=5000)
+        target.locator(READY_SELECTORS[0]).first.click(timeout=5000)
     except Exception:
         for selector in READY_SELECTORS:
             try:
-                page.locator(selector).first.click(timeout=2000)
+                target.locator(selector).first.click(timeout=2000)
                 break
             except Exception:
                 continue
     page.wait_for_timeout(500)
+    return target, keyboard_page
 
 
-def console_is_readable(page) -> bool:
-    """True se o buffer do terminal devolve algum texto.
+def console_is_readable(page, attempts: int = 10, delay: float = 1.0) -> bool:
+    """True se o buffer do terminal devolver algum texto.
 
     Usado como diagnóstico: um buffer ilegível impede qualquer verificação da
     sentinela, então é melhor detectá-lo logo e falhar com mensagem clara do que
     esperar o timeout inteiro para descobrir que nada era observável.
+
+    A checagem é repetida algumas vezes porque o xterm.js pode existir no DOM
+    antes de pintar o prompt: uma única leitura às cegas produziria falso
+    negativo e abortaria um deploy que estava prestes a funcionar.
     """
-    return bool(read_console(page).strip())
+    for attempt in range(attempts):
+        if read_console(page).strip():
+            if attempt:
+                print(f"   Buffer ficou legível após {attempt}s.")
+            return True
+        if attempt < attempts - 1:
+            time.sleep(delay)
+    return False
 
 
 def console_tail(page, lines: int = 10) -> str:
@@ -265,29 +374,36 @@ def run_deploy_commands(page, app_dir: str, venv_dir: str, timeout: int) -> None
         or page.query_selector("a[href*='/consoles/']")
     )
     if not bash_link:
-        fail("console", "nenhum link de console Bash encontrado na página de consoles")
-
-    bash_link.click()
-    page.wait_for_load_state("networkidle")
-    page.wait_for_timeout(3000)
-
-    wait_for_terminal_ready(page)
-
-    if not console_is_readable(page):
         fail(
             "console",
-            "o buffer do terminal veio vazio logo após o carregamento. "
-            "Sem ele não é possível ler o código de saída nem depurar o deploy; "
-            "provável mudança no DOM do console do PythonAnywhere.",
+            "nenhum link de console Bash encontrado na página de consoles. "
+            f"Estado da página:\n      {describe_page(page)}",
+        )
+
+# O PythonAnywhere abre o console em uma NOVA ABA (ou iframe). Sem tratar
+    # isso, `page` continua apontando para a listagem de consoles, onde não
+    # existe nenhum xterm.js -- foi exatamente o que produziu
+    # "o terminal xterm.js não ficou pronto em 60s".
+    console_page = open_console_tab(page, bash_link)
+    target, keyboard_page = wait_for_terminal_ready(console_page)
+
+    if not console_is_readable(target):
+        # Aviso, não falha: o xterm.js pode existir no DOM antes de pintar o
+        # prompt, e um falso negativo aqui abortaria um deploy que funcionaria.
+        # A verificação autoritativa é a sentinela; se o buffer estiver realmente
+        # ilegível, o fluxo falhará no timeout com `describe_page` anexado.
+        print(
+            "   ⚠️  Buffer do terminal ainda vazio; seguindo. "
+            "Se o deploy expirar, o log terá o estado da página."
         )
 
     command = build_deploy_command(app_dir, venv_dir)
     print(f"   $ {command}")
-    page.keyboard.type(command, delay=20)
-    page.keyboard.press("Enter")
+    keyboard_page.keyboard.type(command, delay=20)
+    keyboard_page.keyboard.press("Enter")
 
     try:
-        code = wait_for_exit_code(page, timeout=timeout)
+        code = wait_for_exit_code(target, timeout=timeout)
     except TimeoutError as exc:
         fail("deploy no console", str(exc))
 
@@ -295,7 +411,7 @@ def run_deploy_commands(page, app_dir: str, venv_dir: str, timeout: int) -> None
         fail(
             "deploy no console",
             f"'git pull' ou 'pip install' retornou código {code}. "
-            f"Últimas {TAIL_LINES} linhas do terminal:\n{console_tail(page, TAIL_LINES)}",
+            f"Últimas {TAIL_LINES} linhas do terminal:\n{console_tail(target, TAIL_LINES)}",
         )
     print("   ✅ git pull e instalação das dependências concluídos.")
 
