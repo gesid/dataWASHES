@@ -14,15 +14,18 @@ produção está servindo código velho. Por isso toda etapa tem verificação
 explícita e qualquer erro encerra o processo com ``sys.exit(1)``.
 
 A verificação dos comandos de console não se baseia em "pareceu que rodou": cada
-comando é encadeado com ``&&`` até um eco sentinela ``echo "__EXIT_<codigo>__"``
-que só é impresso se toda a cadeia tiver sucesso. O código lido da sentinela é
-o código de saída real da cadeia, lido do buffer do terminal (xterm.js).
+comando termina num ``echo`` de sentinela que carrega um **token sorteado por
+execução** e o código de saída real da cadeia (``$?``), lido do buffer do
+terminal. O token é obrigatório porque o console do PythonAnywhere é
+persistente: o scrollback guarda as sentinelas das execuções anteriores, e um
+marcador fixo faria o deploy aceitar o resultado velho como se fosse o atual.
 """
 
 import os
 import re
 import sys
 import time
+import uuid
 
 # O console do runner do GitHub Actions nem sempre é UTF-8 (cp1252 no Windows,
 # latin-1 em alguns runners Linux). Sem isto, o primeiro emoji do `print`
@@ -43,7 +46,26 @@ APP_DIR = os.getenv("PYTHONANYWHERE_APP_DIR", "~/mysite")
 # falha por timeout.
 DEFAULT_TIMEOUT = int(os.getenv("PYTHONANYWHERE_TIMEOUT", "420"))
 
-SENTINEL_RE = re.compile(r"__DATAWASHES_EXIT_(-?\d+)__")
+# Marcador da sentinela. O console do PythonAnywhere é **persistente** e
+# reutilizado entre execuções, então o scrollback já contém sentinelas de runs
+# anteriores. Com um padrão fixo, o deploy aceitava o resultado velho como se
+# fosse o atual -- foi o que fez o run #32 casar com o `__DATAWASHES_EXIT_1__`
+# do run #31 e reportar falha sem o comando novo sequer ter terminado.
+#
+# Cada execução sorteia seu próprio token, de modo que uma sentinela residual
+# é estruturalmente incapaz de casar com o regex desta execução.
+SENTINEL_PREFIX = "__DATAWASHES_"
+
+
+def new_run_token() -> str:
+    """Token aleatório que identifica esta execução dentro do console."""
+    return uuid.uuid4().hex[:12]
+
+
+def sentinel_re(token: str) -> "re.Pattern[str]":
+    """Regex da sentinela **desta** execução."""
+    return re.compile(rf"{SENTINEL_PREFIX}{token}_EXIT_(-?\d+)__")
+
 
 # Quantas linhas do terminal anexar ao log quando algo dá errado.
 TAIL_LINES = int(os.getenv("PYTHONANYWHERE_TAIL_LINES", "10"))
@@ -119,7 +141,7 @@ def fail(step: str, detail: str = "") -> None:
     sys.exit(1)
 
 
-def build_deploy_command(app_dir: str) -> str:
+def build_deploy_command(app_dir: str, token: str) -> str:
     """Monta a linha de comando executada no console Bash.
 
     Comando reto e determinístico: ``git pull`` e nada mais. A versão anterior
@@ -135,14 +157,14 @@ def build_deploy_command(app_dir: str) -> str:
     Flask 3. Instalação de dependências, se vier a ser necessária, deve ser um
     passo explícito e com caminho verificado -- não um palpite dentro do deploy.
 
-    A sentinela vem após um ``;``, portanto ``$?`` carrega o código de saída da
-    cadeia. Não há ``\\n`` aqui: quem digita no terminal acrescenta a quebra de
-    linha.
+    A sentinela carrega o ``token`` desta execução, e vem após um ``;``,
+    portanto ``$?`` carrega o código de saída da cadeia. Não há ``\\n`` aqui: quem
+    digita no terminal acrescenta a quebra de linha.
     """
     return (
         f"cd {app_dir} && "
         "git pull origin main; "
-        "echo '__DATAWASHES_EXIT_'$?'__'"
+        f"echo '{SENTINEL_PREFIX}{token}_EXIT_'$?'__'"
     )
 
 
@@ -439,18 +461,58 @@ def console_tail(page, lines: int = 10) -> str:
     return "\n".join(f"      | {line}" for line in tail)
 
 
-def wait_for_exit_code(page, timeout: int = DEFAULT_TIMEOUT) -> int:
-    """Aguarda a sentinela da cadeia de comandos e devolve o código de saída.
+def cut_point(buffer: str, baseline: str) -> int:
+    """Índice no ``buffer`` a partir do qual a saída pertence a esta execução.
+
+    O console é persistente, então o que já estava escrito antes do envio não
+    pode ser aceito como resultado. Se o buffer ainda contém o prefixo antigo
+    literalmente, o corte é exato (``len(baseline)``). Se o terminal rolou e
+    descartou linhas, o índice absoluto viraria inválido -- um sentinela novo
+    poderia ficar "antes" do corte e ser rejeitado. Por isso, nesse caso, caímos
+    no maior prefixo comum entre o que havia e o que há: um corte que degrada
+    com elegância em vez de produzir falso negativo.
+
+    Mesmo com o corte degradado, a garantia de não aceitar resíduo continua
+    vindo do token único, que só esta execução conhece.
+    """
+    if not baseline:
+        return 0
+    size = len(baseline)
+    if len(buffer) >= size and buffer.startswith(baseline):
+        return size
+    lo, hi = 0, min(len(buffer), size)
+    while lo < hi:
+        mid = (lo + hi + 1) // 2
+        if buffer[:mid] == baseline[:mid]:
+            lo = mid
+        else:
+            hi = mid - 1
+    return lo
+
+
+def wait_for_exit_code(
+    page,
+    token: str,
+    timeout: int = DEFAULT_TIMEOUT,
+    baseline: str = "",
+) -> int:
+    """Aguarda a sentinela **desta** execução e devolve o código de saída.
+
+    Só são aceitas sentinelas que casem com o ``token`` desta execução e que
+    estejam a partir do ponto de corte calculado sobre o ``baseline`` capturado
+    antes do envio. Sentinelas de execuções anteriores, por mais que ainda
+    estejam no scrollback, não podem ser confundidas com o resultado atual.
 
     Levanta ``TimeoutError`` se a sentinela não aparecer no tempo limite, o que
     na prática significa console travado, login perdido ou comando que nunca
     terminou.
     """
+    regex = sentinel_re(token)
     deadline = time.monotonic() + timeout
     last_buffer = ""
     while time.monotonic() < deadline:
         last_buffer = read_console(page)
-        match = SENTINEL_RE.search(last_buffer)
+        match = regex.search(last_buffer, cut_point(last_buffer, baseline))
         if match:
             return int(match.group(1))
         time.sleep(1.0)
@@ -458,7 +520,8 @@ def wait_for_exit_code(page, timeout: int = DEFAULT_TIMEOUT) -> int:
     # que a causa raiz (hterm em iframe) ficou invisível por vários deploys.
     raise TimeoutError(
         f"o console não devolveu o código de saída em {timeout}s. "
-        f"Buffer lido: {len(last_buffer)} chars.\n"
+        f"Buffer lido: {len(last_buffer)} chars. "
+        f"Token desta execução: {token}.\n"
         f"Últimas {TAIL_LINES} linhas do terminal:\n{console_tail(page, TAIL_LINES)}\n"
         f"Estado da página:\n      {describe_page(page)}"
     )
@@ -533,7 +596,12 @@ def run_deploy_commands(page, app_dir: str, timeout: int) -> None:
             "Se o deploy expirar, o log terá o estado da página."
         )
 
-    command = build_deploy_command(app_dir)
+    token = new_run_token()
+    # Snapshot do console **antes** do envio. Tudo o que já estava escrito -- o
+    # scrollback de execuções anteriores, incluindo suas sentinelas -- fica
+    # fora do ponto de corte em `wait_for_exit_code`.
+    baseline = read_console(target)
+    command = build_deploy_command(app_dir, token)
     print(f"   $ {command}")
     if send_command_via_api(console_page, command):
         print("   Comando enviado pela API do terminal (hterm).")
@@ -543,7 +611,7 @@ def run_deploy_commands(page, app_dir: str, timeout: int) -> None:
         keyboard_page.keyboard.press("Enter")
 
     try:
-        code = wait_for_exit_code(target, timeout=timeout)
+        code = wait_for_exit_code(target, token, timeout=timeout, baseline=baseline)
     except TimeoutError as exc:
         fail("deploy no console", str(exc))
 
