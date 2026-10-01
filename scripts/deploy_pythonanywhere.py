@@ -33,11 +33,18 @@ for _stream in (sys.stdout, sys.stderr):
 USERNAME = os.getenv("PYTHONANYWHERE_USERNAME", "datawashes")
 PASSWORD = os.getenv("PYTHONANYWHERE_PASSWORD", "")
 
-APP_DIR = os.getenv("PYTHONANYWHERE_APP_DIR", "/home/datawashes/mysite")
-VENV_DIR = os.getenv("PYTHONANYWHERE_VENV", "datawashes-virtualenv")
-DEFAULT_TIMEOUT = int(os.getenv("PYTHONANYWHERE_TIMEOUT", "300"))
+APP_DIR = os.getenv("PYTHONANYWHERE_APP_DIR", "~/mysite")
+VENV_DIR = os.getenv(
+    "PYTHONANYWHERE_VENV", "~/.virtualenvs/datawashes-virtualenv"
+)
+# 300s é apertado para `pip install` em máquina gratuita e foi a causa do
+# timeout do último deploy. 420s dá folga para o build completo.
+DEFAULT_TIMEOUT = int(os.getenv("PYTHONANYWHERE_TIMEOUT", "420"))
 
 SENTINEL_RE = re.compile(r"__DATAWASHES_EXIT_(-?\d+)__")
+
+# Quantas linhas do terminal anexar ao log quando algo dá errado.
+TAIL_LINES = int(os.getenv("PYTHONANYWHERE_TAIL_LINES", "10"))
 
 LOGIN_URL = "https://www.pythonanywhere.com/login/"
 CONSOLES_URL = "https://www.pythonanywhere.com/user/{user}/consoles/"
@@ -63,19 +70,22 @@ def fail(step: str, detail: str = "") -> None:
 def build_deploy_command(app_dir: str, venv_dir: str) -> str:
     """Monta a linha de comando executada no console Bash.
 
+    Comando reto e determinístico: sem fallback, sem glob, sem subshell. A
+    versão anterior usava ``||`` com ``ls`` e ``$(...)`` para adivinhar o
+    virtualenv; no console do PythonAnywhere isso travou o runner e o deploy
+    died por timeout sem mensagem útil. Menos shell é mais shell confiável.
+
     ``&&`` garante que ``pip install`` só roda se o ``git pull`` passou. O
-    ``echo`` da sentinela vem após um ``;``, então ``$?`` carrega o código de
-    saída da cadeia inteira. A ativação do virtualenv tem fallback: se o nome
-    configurado não existir, procura qualquer virtualenv do usuário.
+    ``echo`` da sentinela vem após um ``;``, portanto ``$?`` carrega o código de
+    saída da cadeia inteira. Não há ``\\n`` aqui: quem digita no terminal
+    acrescenta a quebra de linha.
     """
     return (
         f"cd {app_dir} && "
-        f'VENV_ACT="$HOME/.virtualenvs/{venv_dir}/bin/activate"; '
-        f'[ -f "$VENV_ACT" ] || '
-        f'VENV_ACT="$(ls -1 "$HOME"/.virtualenvs/*/bin/activate 2>/dev/null | head -n 1)"; '
         f"git pull origin main && "
-        f'[ -n "$VENV_ACT" ] && . "$VENV_ACT" && pip install -r requirements.txt; '
-        f'echo "__DATAWASHES_EXIT_$?__"'
+        f"source {venv_dir}/bin/activate && "
+        f"pip install -r requirements.txt; "
+        f"echo '__DATAWASHES_EXIT_'$?'__'"
     )
 
 
@@ -87,6 +97,21 @@ def read_console(page) -> str:
         return ""
 
 
+def console_tail(page, lines: int = 10) -> str:
+    """Últimas ``lines`` linhas não vazias do console, para diagnóstico.
+
+    Sem isso, um timeout de 300s chega ao log como "sentinela não apareceu" e
+    não há como saber se o `pip install` estava instalando, compilando ou já
+    tinha falhado.
+    """
+    raw = read_console(page)
+    rows = [line.rstrip() for line in raw.replace("\r", "\n").split("\n")]
+    tail = [line for line in rows if line.strip()][-lines:]
+    if not tail:
+        return "(buffer do terminal vazio ou ilegível)"
+    return "\n".join(f"      | {line}" for line in tail)
+
+
 def wait_for_exit_code(page, timeout: int = DEFAULT_TIMEOUT) -> int:
     """Aguarda a sentinela da cadeia de comandos e devolve o código de saída.
 
@@ -95,16 +120,14 @@ def wait_for_exit_code(page, timeout: int = DEFAULT_TIMEOUT) -> int:
     terminou.
     """
     deadline = time.monotonic() + timeout
-    tail = ""
     while time.monotonic() < deadline:
-        tail = read_console(page)
-        match = SENTINEL_RE.search(tail)
+        match = SENTINEL_RE.search(read_console(page))
         if match:
             return int(match.group(1))
         time.sleep(1.0)
     raise TimeoutError(
-        f"sentinela de saída não apareceu em {timeout}s; "
-        f"últimas linhas do console: {tail.strip()[-400:]!r}"
+        f"o console não devolveu o código de saída em {timeout}s. "
+        f"Últimas {TAIL_LINES} linhas do terminal:\n{console_tail(page, TAIL_LINES)}"
     )
 
 
@@ -173,7 +196,7 @@ def run_deploy_commands(page, app_dir: str, venv_dir: str, timeout: int) -> None
         fail(
             "deploy no console",
             f"'git pull' ou 'pip install' retornou código {code}. "
-            f"Verifique o log acima no console do PythonAnywhere.",
+            f"Últimas {TAIL_LINES} linhas do terminal:\n{console_tail(page, TAIL_LINES)}",
         )
     print("   ✅ git pull e instalação das dependências concluídos.")
 
