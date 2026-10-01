@@ -1,3 +1,6 @@
+import json
+import os
+
 import pytest
 
 def test_get_papers_without_year_parameter(client):
@@ -8,14 +11,17 @@ def test_get_papers_without_year_parameter(client):
     assert isinstance(data, list)
     assert len(data) > 0
 
-def test_get_papers_with_valid_year_parameter(client):
-    # Passa per_page=100 para trazer todos os 22 artigos de 2026 na mesma página
+def test_get_papers_with_valid_year_parameter(client, total_papers):
+    # Passa per_page=100 para trazer todos os artigos de 2026 na mesma página
     response = client.get("/papers/?year=2026&per_page=100")
     assert response.status_code == 200
     res = response.get_json()
     data = res["data"] if isinstance(res, dict) and "data" in res else res
     assert isinstance(data, list)
-    assert len(data) == 22  # 22 artigos do WASHES 2026
+    with open(os.path.join("data", "papers.json"), "r", encoding="utf-8") as f:
+        expected = len([p for p in json.load(f) if p["Year"] == 2026])
+    assert len(data) == expected  # artigos do WASHES 2026
+    assert len(data) < total_papers
 
 def test_get_papers_with_invalid_year_parameter(client):
     response = client.get("/papers/?year=invalido")
