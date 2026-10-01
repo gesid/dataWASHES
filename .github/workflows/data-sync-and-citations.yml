@@ -8,6 +8,10 @@ on:
 jobs:
   sync-and-mine:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
 
     steps:
       - name: Checkout Repository
@@ -44,3 +48,5 @@ jobs:
           branch: auto-data-sync
           base: main
           delete-branch: true
+          reviewers: vasconcel, allyssonallex
+          assignees: vasconcel, allyssonallex
