@@ -7,6 +7,10 @@ import requests
 from bs4 import BeautifulSoup
 import openpyxl
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from pr_report import record_citation_change, parse_citation_count
+
 # --- 1. Carrega a chave do arquivo .env na raiz do projeto (se existir) ---
 ENV_PATH = ".env"
 if os.path.exists(ENV_PATH):
@@ -85,6 +89,16 @@ def run_miner(target_year=None, force=False, limit=None, dry_run=False):
     updated_count = 0
     checked_count = 0
 
+    # O Paper_id só avança nas linhas que carregam título; as linhas de
+    # coautor repetem o artigo sem repetir o título. Portanto o índice da
+    # linha do Excel não é o Paper_id.
+    paper_id_by_row = {}
+    paper_id = -1
+    for row in range(2, ws.max_row + 1):
+        if ws.cell(row=row, column=col_title).value:
+            paper_id += 1
+        paper_id_by_row[row] = paper_id
+
     for row in range(2, ws.max_row + 1):
         if limit is not None and checked_count >= limit:
             print(f"⏹️ Limite de {limit} artigos analisados atingido. Encerrando.")
@@ -107,9 +121,15 @@ def run_miner(target_year=None, force=False, limit=None, dry_run=False):
 
             citation = get_apa_citation_from_scholar(title)
 
-            if citation is not None:
+            if citation is None:
+                print("   ⏩ Pulado devido a erro de resposta do proxy.")
+            else:
                 log_value = '0' if citation == '#' else citation
                 print(f"   [INFO] Artigo {checked_count}: {log_value} citações encontradas")
+
+                old_raw = '' if current_cite is None else str(current_cite).strip()
+                new_raw = str(citation).strip()
+
                 if citation != "#":
                     action = "[DRY-RUN] seria atualizado para:" if dry_run else "saved to:"
                     print(f"   ℹ️ Citações capturadas → {action} {citation}")
@@ -118,8 +138,15 @@ def run_miner(target_year=None, force=False, limit=None, dry_run=False):
                     updated_count += 1
                 else:
                     print("   ℹ️ Confirmado: 0 citações no Google Scholar.")
-            else:
-                print("   ⏩ Pulado devido a erro de resposta do proxy.")
+
+                # Só entra no relatório o que de fato muda o valor gravado.
+                if old_raw != new_raw:
+                    record_citation_change(
+                        paper_id=paper_id_by_row.get(row),
+                        title=title,
+                        old_value=old_raw,
+                        new_value=new_raw,
+                    )
 
             time.sleep(1)
 
@@ -134,6 +161,7 @@ def run_miner(target_year=None, force=False, limit=None, dry_run=False):
             print(f"\n🎉 Sucesso! {updated_count} citações foram salvas em '{EXCEL_PATH}'.")
     else:
         print(f"\n✨ Nenhuma citação nova ({checked_count} artigos analisados).")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Minera citações do Google Scholar")

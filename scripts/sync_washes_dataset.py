@@ -12,6 +12,10 @@ import requests
 from bs4 import BeautifulSoup
 import openpyxl
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from pr_report import record_new_paper, record_note
+
 # --- 1. CARREGAR AMBIENTE (.env) ---
 ENV_PATH = ".env"
 if os.path.exists(ENV_PATH):
@@ -225,6 +229,14 @@ def sync():
 
     if not missing_issues:
         print("🎉 Nenhuma nova edição encontrada no SOL SBC. Dataset 100% atualizado!")
+        record_note(
+            "Nenhuma edição nova publicada no SOL SBC; a sincronização de "
+            "artigos não teve o que ingerir."
+        )
+        # Ainda assim regenera os JSONs: um mantenedor pode ter removido linhas
+        # da planilha manualmente, e o relatório precisa enxergar essa diferença.
+        print("🔄 Regenerando 'papers.json' e 'authors.json' a partir da planilha...")
+        regenerate_dataset_files()
         return
 
     print(f"\n✨ Encontradas {len(missing_issues)} novas edições no SOL SBC!")
@@ -282,6 +294,13 @@ def sync():
                 row_1[15] = datetime.now()
                 ws.append(row_1)
 
+                record_new_paper(
+                    title=art_meta["title"],
+                    year=year,
+                    authors=[a["name"] for a in art_meta["authors"]],
+                    edition=year,
+                )
+
                 for co in art_meta["authors"][1:]:
                     ws.append([
                         None, None, None, None,
@@ -298,6 +317,7 @@ def sync():
     for issue in missing_issues:
         update_editions_json(issue["year"], issue["url"])
     print("\n🎉 Sincronização concluída com sucesso na planilha principal!")
+
 
 def update_editions_json(year, proceedings_url):
     with open(EDITIONS_PATH, "r", encoding="utf-8") as f:

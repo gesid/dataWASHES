@@ -173,6 +173,9 @@ ENV/
 env.bak/
 venv.bak/
 
+# Artefatos do relatório de auditoria dos PRs do bot de sync
+.pr_summary_state.json
+
 # Spyder project settings
 .spyderproject
 .spyproject

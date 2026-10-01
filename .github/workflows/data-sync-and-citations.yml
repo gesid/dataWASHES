@@ -27,6 +27,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install openpyxl requests beautifulsoup4 pandas
 
+      - name: 📸 Snapshot Dataset State
+        run: python scripts/pr_report.py --init
+
       - name: 🌐 Sync Dataset from SOL SBC with Groq & ScraperAPI
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -38,15 +41,51 @@ jobs:
           SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
         run: python scripts/miner_citations.py
 
+      - name: 🔄 Regenerate Production JSONs
+        run: |
+          python - <<'PY'
+          import os
+          import sys
+
+          sys.path.insert(0, "scripts")
+          from sync_washes_dataset import regenerate_dataset_files
+
+          regenerate_dataset_files()
+          print("papers.json, authors.json e editions.json regenerados.")
+          PY
+
+      - name: ✅ Validate Dataset Integrity
+        run: python scripts/validate_dataset.py
+
+      - name: 📝 Generate PR Audit Report
+        run: |
+          python scripts/pr_report.py --render
+          if [ ! -s pr_summary.md ]; then
+            echo "Nenhuma alteração de citações ou artigos nesta rodada" > pr_summary.md
+          fi
+          echo "--- pr_summary.md ---"
+          cat pr_summary.md
+
       - name: 🔀 Create Pull Request if Data Changed
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore(data): auto-sync dataset via Groq & ScraperAPI"
           title: "🤖 Auto-Sync: Atualização de Dados e Citações"
-          body: "Pull Request automático com novos anais ingeridos e citações atualizadas do Google Scholar."
           branch: auto-data-sync
           base: main
           delete-branch: true
           reviewers: vasconcel, allyssonallex
           assignees: vasconcel, allyssonallex
+          # Limita o PR aos artefatos de dados e ao relatório de auditoria.
+          add-paths: |
+            data/papers.json
+            data/authors.json
+            data/editions.json
+            pr_summary.md
+          # Sempre definido: o step de render escreve o arquivo mesmo em
+          # rodadas sem alterações, e seu fallback final cobre o caso de
+          # o render falhar, evitando corpo de PR vazio.
+          body-path: pr_summary.md
+          # `body` foi substituído por `body-path`: a action aborta se ambos
+          # forem informados. O corpo real vem do relatório de auditoria.
