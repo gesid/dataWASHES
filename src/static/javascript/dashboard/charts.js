@@ -554,12 +554,92 @@ function buildSegmented(containerId, field, items) {
     container.appendChild(badges);
 }
 
+/** Containers já acoplados à delegação de drill-down (evita bind duplicado). */
+const boundRankLists = new Set();
+
+/** Valores de um campo metodológico (aceita múltiplos separados por ", "). */
+function rankValues(raw) {
+    if (!raw || raw === '#') return [];
+    return String(raw).split(',').map((v) => v.trim()).filter(Boolean);
+}
+
+/**
+ * Acopla, uma única vez, clique/duplo clique ao CONTAINER da lista ranqueada.
+ *
+ * Os `.rank-item` são descartados e redesenhados a cada render, e o clique
+ * simples num item com chave de filtro (Procedimentos) dispara um cross-filter
+ * que reconstrói a própria lista. Com o listener preso no item, o acoplamento
+ * morre a cada render: o debounce do 1o clique fica órfão no botão descartado
+ * (e o 2o clique ainda armava outro toggle, filtrando duas vezes) e nada
+ * garante que o `dblclick` alcance um handler vivo. Delegando no container
+ * (estável entre renders) e lendo o item de `data-filter`/`data-value`, o
+ * drill-down é sempre resolvido — e o `deferClick` compartilhado cancela o
+ * clique pendente em vez de duplicá-lo.
+ * @param {string} containerId - id do container (#rank-procedimentos, ...)
+ */
+function bindRankList(containerId) {
+    if (boundRankLists.has(containerId)) return;
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    boundRankLists.add(containerId);
+
+    const itemFromEvent = (event) => {
+        const row = event.target instanceof Element ? event.target.closest('.rank-item') : null;
+        if (!row || !container.contains(row) || !row.dataset.value) return null;
+        return {
+            filter: row.dataset.filter || '',
+            field: row.dataset.field || '',
+            label: row.dataset.label || row.dataset.field || '',
+            value: row.dataset.value,
+        };
+    };
+
+    const rankClick = deferClick(
+        (item) => activateRankItem(item),
+        (item) => drilldownRankItem(item)
+    );
+    container.addEventListener('click', (event) => {
+        const item = itemFromEvent(event);
+        if (item) rankClick.single(item);
+    });
+    container.addEventListener('dblclick', (event) => {
+        const item = itemFromEvent(event);
+        if (item) rankClick.double(item);
+    });
+}
+
+/** Artigos do conjunto filtrado atual que possuem `item.value` em `item.field`. */
+function papersForRankItem(item) {
+    return filterPapers(getAllPapers(), getState())
+        .filter((p) => rankValues(p[item.field]).includes(item.value));
+}
+
+/** Clique simples: aplica o cross-filter (quando o item tem chave) e lista os artigos. */
+function activateRankItem(item) {
+    if (item.filter) toggleFilter(item.filter, item.value);
+    renderModalPapers(`${item.label}: ${item.value}`, papersForRankItem(item));
+}
+
+/** Duplo clique: drill-down de artigos do item, respeitando os demais filtros. */
+function drilldownRankItem(item) {
+    if (item.filter) {
+        openDrilldownWith({ [item.filter]: item.value });
+        return;
+    }
+    openDrilldown(papersForRankItem(item));
+}
+
 /**
  * Listas ranqueadas (Procedimentos/Coleta/Análises).
- * Procedimentos filtra por cross-filter; as demais abrem o modal de artigos.
- * A cor das barras de progresso vem do tom (data-tone) do card no CSS.
+ *
+ * Só desenha os itens: a interação fica delegada em bindRankList(), porque a
+ * lista é redesenhada a cada mudança de filtro (o cross-filter de um item
+ * descarta os botões). Procedimentos também vira filtro do estado; todas
+ * abrem a lista de artigos. A cor das barras de progresso vem do tom
+ * (data-tone) do card no CSS.
  */
-function buildRankedList(containerId, field, items, papers) {
+function buildRankedList(containerId, field, items) {
+    bindRankList(containerId);
     clear(containerId);
     const total = (items || []).reduce((s, i) => s + i.count, 0);
     if (!total) return;
@@ -567,6 +647,8 @@ function buildRankedList(containerId, field, items, papers) {
     if (!container) return;
     const list = document.createElement('div');
     list.className = 'rank-list';
+    const filterKey = fieldKey(field);
+    const label = METHOD_LABELS[field] || field;
 
     [...items].sort((a, b) => b.count - a.count).forEach((item) => {
         const pctValue = pct(item.count, total);
@@ -574,32 +656,16 @@ function buildRankedList(containerId, field, items, papers) {
         row.type = 'button';
         row.className = 'rank-item';
         row.style.cursor = 'pointer';
-        row.setAttribute('title', METHOD_LABELS[field] ? `Ver ${METHOD_LABELS[field]}: ${item.class}` : `Filtrar por ${field}: ${item.class}`);
-        const fieldKeyFor = fieldKey(field);
-        if (fieldKeyFor) {
-            const active = getState()[fieldKeyFor];
+        // Identidade do item para o handler delegado do container.
+        row.dataset.filter = filterKey || '';
+        row.dataset.field = field;
+        row.dataset.label = label;
+        row.dataset.value = item.class;
+        row.setAttribute('title', METHOD_LABELS[field] ? `Ver ${label}: ${item.class}` : `Filtrar por ${field}: ${item.class}`);
+        if (filterKey) {
+            const active = getState()[filterKey];
             row.classList.toggle('selected', active !== null && active === item.class);
         }
-        const rowClick = deferClick(
-            () => {
-                if (fieldKeyFor) {
-                    toggleFilter(fieldKeyFor, item.class);
-                    return;
-                }
-                const matched = (papers || []).filter((p) => (String(p[field] || '').split(',').map((v) => v.trim())).includes(item.class));
-                renderModalPapers(`${METHOD_LABELS[field] || field}: ${item.class}`, matched);
-            },
-            () => {
-                if (fieldKeyFor) {
-                    openDrilldownWith({ [fieldKeyFor]: item.class });
-                    return;
-                }
-                const matched = (papers || []).filter((p) => (String(p[field] || '').split(',').map((v) => v.trim())).includes(item.class));
-                openDrilldown(matched);
-            }
-        );
-        row.addEventListener('click', rowClick.single);
-        row.addEventListener('dblclick', rowClick.double);
         row.innerHTML =
             `<span class="rank-name">${item.class}</span>` +
             `<span class="rank-stats">${item.count} (${pctValue}%)</span>` +
@@ -691,10 +757,10 @@ export async function renderAll(ctx) {
     await renderActive('bar-abordagem', gas + JSON.stringify(approachDist), () => buildSegmented('bar-abordagem', 'Approach', approachDist), CARD_FOR['bar-abordagem']);
     await renderActive('bar-objetivo', gas + JSON.stringify(objectiveDist), () => buildSegmented('bar-objetivo', 'Objective', objectiveDist), CARD_FOR['bar-objetivo']);
     const pSig = proceduresSig(papers);
-    await renderActive('rank-procedimentos', gas + pSig, () => buildRankedList('rank-procedimentos', 'Procedures', classificationDist(papers, 'Procedures'), papers), CARD_FOR['rank-procedimentos']);
-    await renderActive('rank-coleta-de-dados', gas + pSig, () => buildRankedList('rank-coleta-de-dados', 'Data_collection', classificationDist(papers, 'Data_collection'), papers), CARD_FOR['rank-coleta-de-dados']);
-    await renderActive('rank-quantitativos', gas + pSig, () => buildRankedList('rank-quantitativos', 'Quantitative_Data_Analysis', classificationDist(papers, 'Quantitative_Data_Analysis'), papers), CARD_FOR['rank-quantitativos']);
-    await renderActive('rank-qualitativos', gas + pSig, () => buildRankedList('rank-qualitativos', 'Qualitative_Data_Analysis', classificationDist(papers, 'Qualitative_Data_Analysis'), papers), CARD_FOR['rank-qualitativos']);
+    await renderActive('rank-procedimentos', gas + pSig, () => buildRankedList('rank-procedimentos', 'Procedures', classificationDist(papers, 'Procedures')), CARD_FOR['rank-procedimentos']);
+    await renderActive('rank-coleta-de-dados', gas + pSig, () => buildRankedList('rank-coleta-de-dados', 'Data_collection', classificationDist(papers, 'Data_collection')), CARD_FOR['rank-coleta-de-dados']);
+    await renderActive('rank-quantitativos', gas + pSig, () => buildRankedList('rank-quantitativos', 'Quantitative_Data_Analysis', classificationDist(papers, 'Quantitative_Data_Analysis')), CARD_FOR['rank-quantitativos']);
+    await renderActive('rank-qualitativos', gas + pSig, () => buildRankedList('rank-qualitativos', 'Qualitative_Data_Analysis', classificationDist(papers, 'Qualitative_Data_Analysis')), CARD_FOR['rank-qualitativos']);
 
     await renderActive('nuvem-de-palavras', gas + `:${isCloudMode()}`, () => {
         if (isCloudMode()) return buildWordCloud(papers);
