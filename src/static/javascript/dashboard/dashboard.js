@@ -12,7 +12,7 @@ import { renderKpis } from './kpis.js';
 import { renderAll, clearAllCharts, initCompareControls, initRankingTabs, resizePanelCharts } from './charts.js';
 import { renderTimeline } from './timeline.js';
 import { initFilters } from './filters.js';
-import { initTable } from './table.js';
+import { initTable, renderTable } from './table.js';
 import { initWordCloudToggle, update as updateWordCloud } from './wordcloud.js';
 import { initModalKeyboard, closePapersModal } from './modal.js';
 import { initDrilldown } from './drilldown.js';
@@ -96,6 +96,13 @@ export function initDashboard(allPapers, awardData) {
             renderKpis(filtered, getAllPapers());
         } catch (err) {
             console.error('Falha ao renderizar os KPIs:', err);
+        }
+        try {
+            // A tabela de premiados revalida a interseção com os filtros globais
+            // no mesmo ciclo dos KPIs, evitando qualquer defasagem de estado.
+            renderTable();
+        } catch (err) {
+            console.error('Falha ao renderizar a tabela de premiados:', err);
         }
         try {
             renderTimeline(filtered);

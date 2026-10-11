@@ -21,6 +21,7 @@ let state = {
 
 let awardPapers = [];
 let rows = new Map(); // Paper_id -> <tr>
+let awardPaperById = new Map(); // "Paper_id" -> paper premiado (para busca por texto)
 
 /** Edição exibida pela tabela (aba). 'all' = todos os anos; senão um ano (ex.: 2026). */
 let tableYear = 'all';
@@ -28,8 +29,8 @@ let tableYear = 'all';
 /** Inicializa a tabela. Deve ser chamado após o DOM estar pronto. */
 export function initTable() {
     awardPapers = flattenAward(getAwardData());
+    awardPaperById = new Map(awardPapers.map((p) => [String(p.Paper_id), p]));
     collectRows();
-    const editions = [...new Set(awardPapers.map((p) => p.Year))].sort((a, b) => b - a);
     tableYear = 'all';
 
     const search = document.getElementById('table-search');
@@ -53,17 +54,12 @@ export function initTable() {
     if (exportBtn) exportBtn.addEventListener('click', exportCsv);
 
     onStateChange(() => {
-        // Se houver uma busca global ativa, a tabela passa a exibir todos os
-        // anos para que os resultados correspondentes fiquem visíveis.
-        if (getState().search && getState().search.trim()) {
-            tableYear = 'all';
-        }
+        // Recalcula a interseção a cada mudança de filtro global: a tabela usa
+        // o MESMO conjunto filtrado que alimenta os KPIs e nunca fica defasada.
         renderTable();
-        syncYearButtons();
     });
 
     renderTable();
-    syncYearButtons();
 }
 
 /** Sincroniza as abas de edição com a edição efetiva exibida (tableYear local). */
@@ -83,10 +79,15 @@ function syncYearButtons() {
 }
 
 function flattenAward(awardData) {
-    return awardData.flatMap((edition) => (edition.Papers || []).map((p) => {
-        const award = classifyAward(p.Award);
-        return { ...p, AwardCategory: award.cat, AwardLabel: award.label };
-    }));
+    // Descarta placeholders sem premiação real (Award "" ou "-"). É a mesma
+    // regra usada pelo KPI "Artigos premiados" (categoria 'none'), garantindo
+    // paridade de baseline entre o KPI e o total da tabela.
+    return awardData.flatMap((edition) => (edition.Papers || [])
+        .map((p) => {
+            const award = classifyAward(p.Award);
+            return { ...p, AwardCategory: award.cat, AwardLabel: award.label };
+        })
+        .filter((p) => p.AwardCategory !== 'none'));
 }
 
 function collectRows() {
@@ -97,17 +98,36 @@ function collectRows() {
     });
 }
 
+/** IDs válidos segundo os filtros globais ativos — o MESMO conjunto que
+ *  alimenta os KPIs (inclui metodologia, estado, premiação, ano global, etc.).
+ *  Os objetos de `award_papers.json` não carregam campos como `Procedures`,
+ *  por isso a tabela NÃO pode aplicar `filterPapers` sobre eles: precisa
+ *  cruzar os IDs com o conjunto completo de `papers.json`.
+ *  @returns {Set<string>} */
+function globalValidPaperIds() {
+    return new Set(
+        filterPapers(getAllPapers(), getState()).map((p) => p.Paper_id.toString()),
+    );
+}
+
 /** Lista resultado filtrada + ordenada (pré-paginação, usada também no CSV).
  *  A edição exibida vem das pílulas locais da tabela (tableYear); 'all' mostra
- *  todos os anos e um ano específico filtra. Os filtros de ano globais
- *  (year/yearFrom/yearTo) não governam esta tabela. */
+ *  todos os anos e um ano específico filtra.
+ *
+ *  Ordem estrita de interseção (para nunca divergir do KPI "Artigos premiados"):
+ *   1. IDs válidos do estado global (globalValidPaperIds);
+ *   2. ano da pílula local da tabela;
+ *   3. busca local (#table-search). */
 function visiblePapers() {
-    const globalState = getState();
-    const baseState = { ...globalState, year: null, yearFrom: null, yearTo: null };
-    let base = filterPapers(awardPapers, baseState);
-    if (tableYear !== 'all') base = base.filter((p) => p.Year === tableYear);
+    const globalValidIds = globalValidPaperIds();
     const query = state.search.trim();
-    const filtered = query ? base.filter((p) => matchesSearch(p, query)) : base;
+
+    const filtered = awardPapers.filter((paper) => {
+        const isGlobalMatch = globalValidIds.has(paper.Paper_id.toString());
+        const isYearMatch = (tableYear === 'all' || paper.Year === tableYear);
+        const isTextMatch = !query || matchesSearch(paper, query);
+        return isGlobalMatch && isYearMatch && isTextMatch;
+    });
 
     if (state.sortCol) {
         filtered.sort((a, b) => sortValue(a, state.sortCol) < sortValue(b, state.sortCol) ? -state.sortDir : state.sortDir);
@@ -128,19 +148,37 @@ function sortValue(paper, col) {
     }
 }
 
-function renderTable() {
-    const list = visiblePapers();
-    const ids = new Set(list.map((p) => p.Paper_id));
+/** Atualiza a visibilidade das linhas da tabela e os estados de vazio/info.
+ *  Exportada para o orquestrador (dashboard.js) garantir que a tabela seja
+ *  revalidada a cada mudança de filtro global, junto com os KPIs. */
+export function renderTable() {
+    // Busca global ativa reabre a tabela em "Todos" para que qualquer resultado
+    // correspondente fique visível, independentemente da pílula local.
+    if ((getState().search || '').trim()) tableYear = 'all';
 
-    rows.forEach((tr) => {
-        const show = ids.has(Number(tr.dataset.paperId));
-        tr.style.display = show ? '' : 'none';
+    const globalValidIds = globalValidPaperIds();
+    const query = state.search.trim();
+    let visibleCount = 0;
+
+    rows.forEach((row) => {
+        const paperId = row.dataset.paperId;
+        const paper = awardPaperById.get(paperId);
+        const rowYear = row.dataset.year || (paper ? String(paper.Year) : '');
+
+        const isGlobalMatch = globalValidIds.has(paperId);
+        const isYearMatch = (tableYear === 'all' || rowYear === String(tableYear));
+        const isTextMatch = !query || Boolean(paper && matchesSearch(paper, query));
+
+        const show = isGlobalMatch && isYearMatch && isTextMatch;
+        row.style.display = show ? '' : 'none';
+        if (show) visibleCount += 1;
     });
 
     hidePagination();
-    renderInfo(list.length);
-    renderEmptyState(list.length);
+    renderInfo(visibleCount);
+    renderEmptyState(visibleCount);
     updateSortIndicators();
+    syncYearButtons();
 }
 
 /** Oculta o container de paginação numérica (a tabela exibe tudo de uma vez). */

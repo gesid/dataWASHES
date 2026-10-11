@@ -315,7 +315,8 @@
                                     <tbody id="award-tbody">
                                     {% for edition_papers in statistics.award_winning_papers %}
                                         {% for paper in edition_papers['Papers'] %}
-                                            <tr class="paper-from-{{ edition_papers['Year'] }}" data-paper-id="{{ paper['Paper_id'] }}">
+                                            {% if paper['Award'] and paper['Award'] | trim != '-' %}
+                                            <tr class="paper-from-{{ edition_papers['Year'] }}" data-paper-id="{{ paper['Paper_id'] }}" data-year="{{ edition_papers['Year'] }}">
                                                 <td>{{ paper['Title'] }}</td>
                                                 {% if paper['Authors'] | length >= 2 %}
                                                     <td>{{ paper['Authors'][0]['Name'] }}
@@ -359,6 +360,7 @@
                                                     </a>
                                                 </td>
                                             </tr>
+                                            {% endif %}
                                         {% endfor %}
                                     {% endfor %}
                                     <tr id="table-empty" class="table-empty-row" hidden>
